@@ -291,7 +291,7 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
         if (buf[i] != ';') {
             if (SDL_sscanf(&buf[i], "%[^=\n]=%[^\n]", first, second) == 2) {
                 SDLU_SetIniProperty(&handler, current_section, first, second);
-            } else if (sscanf(&buf[i], "[%[^]\n]]", first) == 1) {
+            } else if (SDL_sscanf(&buf[i], "[%[^]\n]]", first) == 1) {
                 free(current_section);
                 current_section = SDL_strdup(first);
             }
