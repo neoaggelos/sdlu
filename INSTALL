@@ -1,0 +1,35 @@
+================================================================================
+Depencies
+================================================================================
+
+* SDL2      (http://libsdl.org)
+* SDL2_ttf  (http://libsdl.org/projects/SDL2_ttf)
+
+
+================================================================================
+Building the library
+================================================================================
+
+For more information, see 'README-cmake' and 'README-configure'. If you unsure
+which build system to use, prefer CMake.
+
+* Windows   :  Use CMake
+* Cygwin    :  Use CMake or configure
+* Linux     :  Use CMake or configure
+* Mac OS X  :  Use CMake or configure
+* Android   :  See README-android
+* iOS       :  See README-ios
+
+
+================================================================================
+Linking to SDLU
+================================================================================
+
+To compile an application that uses the SDL utility library, you can use
+'pkg-config', or sdlu-config:
+
+    $ gcc program.c -o program `pkg-config --libs --cflags sdlu` [flags]
+    $ gcc program.c -o program `sdlu-config --libs --cflags` [flags]
+
+
+-- Aggelos Kolaitis

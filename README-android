@@ -1,0 +1,60 @@
+================================================================================
+About the SDLU Android port
+================================================================================
+
+SDLU officially supports the Android platform. The port is built as part of the
+Android project, just like SDL2. This is a fully functional port.
+
+
+================================================================================
+Requirements
+================================================================================
+
+* Android SDK (version 12 or later)
+* Android NDK (r7 or later)
+* An SDL2 android-project
+* Good understanding of how the SDL2 android port works
+* A bash shell (Windows users can use one of the many bash shells for Windows)
+
+
+================================================================================
+Preparation
+================================================================================
+
+* Create a new SDL2 android-project (as explained in SDL2/README-android.txt)
+* Put SDL2_ttf at 'jni/SDL_ttf', and uncomment the following line from the SDL
+  activity class (src/org/libsdl/app/SDLActivity.java -- line 45)
+
+    System.loadLibrary("SDL2_ttf");
+
+
+================================================================================
+Patching the android-project
+================================================================================
+
+Open a terminal and type:
+
+    $ cd /path/to/SDLU
+    $ ./scripts/build-scripts/android.sh /path/to/android-project
+
+The script will do the following in the android-project:
+* Copy all source code files at 'jni/SDLU/src'
+* Copy all header files at 'jni/SDLU/include'
+* Edit 'src/org/libsdl/app/SDLActivity.java' to load SDLU at runtime
+* Edit 'jni/src/Android.mk' to include SDLU
+
+If SDLU is already installed in the android-project, and you just want to
+update to the latest version, append 'update':
+
+    $ ./scripts/build-scripts/android.sh /path/to/android-project update
+
+
+================================================================================
+Building the Android port
+================================================================================
+
+Assuming you have successfully patched the android-project as explained above,
+you can now run 'ndk-build' to build your application.
+
+
+-- Aggelos Kolaitis

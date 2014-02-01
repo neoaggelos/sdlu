@@ -1,0 +1,24 @@
+================================================================================
+Windows-specific notes
+================================================================================
+
+SDLU has been tested under these Windows configurations:
+
+Windows XP : Visual Studio 9-10, Cygwin
+Windows  7 : Visual Studio 9-10-11, Cygwin
+Windows  8 : Visual Studio 11
+
+For Windows systems, static linking with the library should be preferred over
+dynamic for a number of reasons, such as easier distribution of you programs
+(as well as avoiding an issue with the cxx interface, see below).
+
+
+================================================================================
+Known bugs
+================================================================================
+
+Using the cxx interface with the DLL version will generate linking errors. This
+does not happen with Cygwin, or with the static library.
+
+
+-- Aggelos Kolaitis

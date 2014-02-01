@@ -1,0 +1,24 @@
+SDLU is an open-source project, and the best way to contribute to it is
+by making a pull request. Here's a quick guide:
+
+    * Make sure you have a bitbucket [1] account.
+    * Fork the repository [2].
+    * Add and commit your changes, prefer 1 commit for 1 bugfix/feature.
+    * Make sure all the existing tests run successfully, so that your changes
+      do not break anything.
+    * Unless you make a change to the documentation, add a test, especially
+      when adding features or fixing bugs.
+    * Make sure the test actually works.
+    * Push to the forked repo and submit a pull request.
+
+Pull requests should meet the following criteria, but we won't shoot you
+between the eyes, if they don't:
+
+    * Four (4) spaces for indent, no tabs
+    * No trailing whitespace
+    * Changed code follows the conventions of the existing code
+    * Add a test that fails without the change but works with it
+    * Update the existing documentation as needed
+
+[1]: http://bitbucket.org/              "Bitbucket.org home page"
+[2]: http://bitbucket.org/sdlu/sdlu/    "Official git repository of SDLU"

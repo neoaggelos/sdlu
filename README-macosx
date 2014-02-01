@@ -1,0 +1,13 @@
+================================================================================
+MacOSX-specific notes
+================================================================================
+
+SDLU has not been tested under Mac OSX, but it should build (and work) without
+any problems, since OS X is a UNIX system in its core.
+
+If you encounter any issues, please report them in the issue tracker:
+
+    http://bitbucket.org/sdlu/sdlu/issues
+
+
+-- Aggelos Kolaitis

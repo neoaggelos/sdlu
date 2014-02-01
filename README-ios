@@ -1,0 +1,65 @@
+================================================================================
+SDLU iOS port
+================================================================================
+
+The library offers an expiremental iOS port. It has not been tested, yet it
+should work without any problems.
+
+
+================================================================================
+Requirements
+================================================================================
+
+* Mac OS X (10.5 or newer) with the iPhone SDK (3.0 or newer)
+* SDL2 and SDL2_ttf for iOS (static)
+
+
+================================================================================
+Building from command line
+================================================================================
+
+First, set the following variables:
+
+* SDL2_IOS_LIBRARY:     Full path to libSDL2.a
+* SDL2_TTF_IOS_LIBRARY: Full path to libSDL2_ttf.a
+* SDL2_INCLUDE_DIR:     Directory where SDL.h is located
+* SDL2_TTF_INCLUDE_DIR: Directory where SDL_ttf.h is located
+
+Then, open a shell and type:
+
+    $ ./scripts/build-scripts/iosbuild.sh [options]
+
+Available options ('./iosbuild.sh --help' for details):
+* --architecture: Choose the architecture to build
+* --sdk-version: iOS SDK version to use
+* --iphoneos-min-version: The minimum iOS version your application requires
+* --xcode-path: Directory where Xcode is installed
+
+
+================================================================================
+Building with Xcode
+================================================================================
+
+Run CMake Gui and set:
+* Generator name to Xcode
+* XCODE_IOS to ON
+* XCODE_IOS_SDK_VERSION to the SDK version you want to use
+* SDL2_LIBRARY and SDL2_INCLUDE_DIR to the appropriate values
+* SDL2_TTF_LIBRARY and SDL2_TTF_INCLUDE_DIR to the appropriate values
+* BUILD_STATIC_LIBS to ON and BUILD_SHARED_LIBS to OFF
+
+Hit configure and then generate. Then, use the Xcode project files to build
+the library.
+
+
+================================================================================
+Report issues
+================================================================================
+
+If you have any issues building the iOS port, please submit them in the bug
+tracker at bitbucket: 
+
+    http://bitbucket.org/sdlu/sdlu/issues
+
+
+-- Aggelos Kolaitis

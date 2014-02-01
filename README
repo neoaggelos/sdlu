@@ -1,0 +1,22 @@
+The SDL Utility Library
+Copyright (c) 2014 Aggelos Kolaitis <neoaggelos@gmail.com>
+
+http://sdlu.bitbucket.org
+
+The SDL Utility Library (SDLU) is a cross-platform library that provides APIs
+to make development of SDL2 applications faster and easier.
+
+SDLU supports Windows, Linux, Mac OS X, iOS, Android and the Raspberry Pi.
+
+SDLU is written in C, but can be natively used in C++.
+
+It is distributed under the terms of the zlib license (see COPYING). For the
+license of software and/or source code included in this distribution, see
+COPYING-extra.
+
+See INSTALL, README-cmake and README-configure for instructions on how to
+build the library. Then, check out the examples in "test" to get started.
+Documentation can be found in the header files in "include", and doxygen can
+be used to generate the docs in HTML format.
+
+For questions, suggestions or thoughts email me at "neoaggelos@gmail.com"

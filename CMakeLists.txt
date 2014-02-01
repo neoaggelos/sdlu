@@ -1,0 +1,164 @@
+# SDLU CMakeLists.txt
+cmake_minimum_required(VERSION 2.8)
+set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+
+# Define the project
+project(SDLU C)
+
+# Project version
+file(READ "${CMAKE_SOURCE_DIR}/include/SDLU.h" VERSION)
+string(REGEX REPLACE ".*SDLU_VERSION_MAJOR ([0-9]+).*" "\\1" major ${VERSION})
+string(REGEX REPLACE ".*SDLU_VERSION_MINOR ([0-9]+).*" "\\1" minor ${VERSION})
+unset(VERSION)
+
+# Options
+option(BUILD_CXX "Build the SDLU C++ interface" OFF)
+option(BUILD_STATIC_LIBS "Build the static library" ON)
+option(BUILD_SHARED_LIBS "Build the shared library" ON)
+
+# Also find a C++ compiler if needed
+if (BUILD_CXX)
+  enable_language(CXX)
+  include(TestForSTDNamespace)
+endif(BUILD_CXX)
+
+# Load required modules
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/ConfigureCPack.cmake")
+
+# Standard include directories
+include_directories("${CMAKE_SOURCE_DIR}/include")
+include_directories("${CMAKE_SOURCE_DIR}/src/common")
+include_directories("${CMAKE_BINARY_DIR}")
+
+# Debug builds
+if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+  add_definitions("-D_DEBUG")
+  set(CMAKE_VERBOSE_MAKEFILE ON)
+endif(${CMAKE_BUILD_TYPE} MATCHES "Debug")
+
+# iOS platform
+if (APPLE)
+  option(XCODE_IOS "Generate Xcode projects files for iOS" OFF)
+  set(XCODE_IOS_SDK_VERSION "5.1" CACHE "SDK version to use")
+
+  if (XCODE_IOS)
+    if (${CMAKE_GENERATOR} MATCHES "Xcode")
+      set(CMAKE_XCODE_EFFECTIVE_PLATFORMS "-iphoneos;-iphonesimulator")
+      set(CMAKE_OSX_SYSROOT iphoneos${XCODE_IOS_SDK_VERSION})
+      set(CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
+      set(BUILD_SHARED_LIBS OFF)
+      set(BUILD_STATIC_LIBS ON)
+    else (${CMAKE_GENERATOR} MATCHES "Xcode")
+      message("* Warning: XCODE_IOS is set, but the generator is not Xcode!!")
+    endif(${CMAKE_GENERATOR} MATCHES "Xcode")
+  endif(XCODE_IOS)
+endif (APPLE)
+
+# Find SDL2
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIR})
+set(LIBS ${LIBS} ${SDL2_LIBRARY})
+
+# Find SDL2_ttf
+find_package(SDL2_ttf REQUIRED)
+include_directories(${SDL2_TTF_INCLUDE_DIR})
+set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
+
+# Basic sources
+file(GLOB SOURCES
+  ${CMAKE_SOURCE_DIR}/src/button/*.c
+  ${CMAKE_SOURCE_DIR}/src/render/*.c
+  ${CMAKE_SOURCE_DIR}/src/common/*.c
+  ${CMAKE_SOURCE_DIR}/src/sprite/*.c
+  ${CMAKE_SOURCE_DIR}/src/turtle/*.c
+  ${CMAKE_SOURCE_DIR}/src/text/*.c
+  ${CMAKE_SOURCE_DIR}/src/ini/*.c
+  ${CMAKE_SOURCE_DIR}/src/gl/*.c
+  ${CMAKE_SOURCE_DIR}/src/*.c
+)
+
+# Add cxx sources if needed
+if (BUILD_CXX)
+  file(GLOB CXX_SOURCES ${CMAKE_SOURCE_DIR}/src/cxx/*.cxx)
+  set_source_files_properties(CXX_SOURCES PROPERTIES LANGUAGE CXX)
+  set(SOURCES ${SOURCES} ${CXX_SOURCES})
+  set(SDLU_CXX 1)
+
+  if (CMAKE_STD_NAMESPACE)
+    set(SDLU_STL 1)
+  endif(CMAKE_STD_NAMESPACE)
+endif(BUILD_CXX)
+
+# Installation paths for sdlu-config and sdlu.pc
+set(prefix ${CMAKE_INSTALL_PREFIX})
+set(exec_prefix "\${prefix}")
+set(includedir "\${prefix}/include/SDL2")
+set(libdir "\${exec_prefix}/lib${LIB_SUFFIX}")
+
+# Generate config file (SDLU_config.h)
+configure_file(
+  ${CMAKE_SOURCE_DIR}/include/SDLU_config_cmake.h.in
+  ${CMAKE_BINARY_DIR}/SDLU_config.h
+)
+
+# Generate pkg-config file
+configure_file(
+  ${CMAKE_SOURCE_DIR}/sdlu.pc.in
+  ${CMAKE_BINARY_DIR}/sdlu.pc
+)
+
+# Generate sdlu-config
+configure_file(
+  ${CMAKE_SOURCE_DIR}/sdlu-config.in
+  ${CMAKE_BINARY_DIR}/sdlu-config
+)
+
+# Fix installation paths
+set(prefix ${CMAKE_INSTALL_PREFIX})
+set(exec_prefix "${prefix}")
+set(includedir "${prefix}/include/SDL2")
+set(libdir "${exec_prefix}/lib${LIB_SUFFIX}")
+
+# Add shared library
+if (BUILD_SHARED_LIBS)
+  add_library(SDLU-shared SHARED ${SOURCES})
+  target_link_libraries(SDLU-shared ${LIBS})
+  set_target_properties(SDLU-shared PROPERTIES OUTPUT_NAME "SDLU")
+  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-shared)
+endif(BUILD_SHARED_LIBS)
+
+# Add static library
+if (BUILD_STATIC_LIBS)
+  add_library(SDLU-static STATIC ${SOURCES})
+  target_link_libraries(SDLU-static ${LIBS})
+  set_target_properties(SDLU-static PROPERTIES OUTPUT_NAME "SDLU")
+  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
+endif(BUILD_STATIC_LIBS)
+
+# Installation files files
+file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
+file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
+file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
+file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
+
+# Installation targets
+install(TARGETS ${INSTALL_LIBS} DESTINATION ${libdir})
+install(PROGRAMS ${SDLU_CONFIG} DESTINATION ${prefix}/bin)
+install(FILES ${HDRS} DESTINATION ${includedir})
+install(FILES ${SDLU_PC} DESTINATION ${libdir}/pkgconfig)
+install(FILES ${SDLU_M4} DESTINATION ${prefix}/share/aclocal)
+
+# Uninstall target (see http://www.cmake.org/Wiki/RecipeAddUninstallTarget)
+configure_file(
+  "${CMAKE_SOURCE_DIR}/scripts/cmake/cmake_uninstall.cmake.in"
+  "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake"
+  IMMEDIATE @ONLY
+)
+
+add_custom_target(
+  uninstall
+  "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake"
+)

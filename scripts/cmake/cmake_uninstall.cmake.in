@@ -1,0 +1,26 @@
+# cmake_uninstall.cmake.in
+# See http://www.cmake.org/Wiki/RecipeAddUninstallTarget
+
+set(MANIFEST "@CMAKE_BINARY_DIR@/install_manifest.txt")
+if (NOT EXISTS ${MANIFEST})
+    message(FATAL_ERROR "Could not find install manifest: ${MANIFEST}")
+endif(NOT EXISTS ${MANIFEST})
+
+file(READ ${MANIFEST} files)
+string(REGEX REPLACE "\n" ";" files "${files}")
+foreach(file ${files})
+    set(fname "$ENV{DESTDIR}${file}")
+    message(STATUS "Uninstalling: ${fname}")
+    if (EXISTS ${fname})
+        exec_program(
+            "@CMAKE_COMMAND@" ARGS "-E remove ${fname}"
+            OUTPUT_VARIABLE rm_out
+            RETURN_VALUE rm_retval
+        )
+        if(NOT "${rm_retval}" STREQUAL 0)
+            message(FATAL_ERROR "Could not remove ${fname}")
+        endif(NOT "${rm_retval}" STREQUAL 0)
+    else(EXISTS ${fname})
+        message(STATUS "File ${fname} does not exist.")
+    endif(EXISTS ${fname})
+endforeach(file)

@@ -1,0 +1,75 @@
+================================================================================
+CMake build system
+================================================================================
+
+This document explains how to build SDLU with the CMake build system.
+
+
+================================================================================
+Supported platforms
+================================================================================
+
+* Windows (Visual Studio, Cygwin, CodeBlocks)
+* Linux
+* Mac OS X
+* iOS (Xcode), see README-ios
+
+
+================================================================================
+Usage
+================================================================================
+
+To use the CMake build system, open a shell and type:
+
+    $ cd /path/to/SDLU          # go to the SDLU source code directory
+    $ mkdir build && cd build   # create an empty build directory
+    $ cmake ..                  # generate makefiles
+    $ make                      # build the library
+    $ make install              # install
+
+Or, if you prefer, you may use the CMake GUI:
+
+    > Open the CMake GUI
+    > Set the source code directory to '/path/to/SDLU'
+    > Set the build directory to '/path/to/SDLU/build'
+    > Click 'Configure' and choose generator
+    > Adjust options
+    > Click 'Generate'
+    > Use the generated files to build the library
+
+
+================================================================================
+Generating deb and rpm packages [Linux only]
+================================================================================
+
+The CMake build system can be used to generate deb and rpm packages for SDLU.
+To generate the packages for your architecture, open a shell and type:
+
+    $ cd <SDLU_SOURCE>
+    $ mkdir build && cd build
+    $ cmake ..
+    $ make package
+
+This will generate 'libsdlu-dev-$(version)-$(arch)' deb and rpm binary packages
+that are ready for installation.
+
+
+================================================================================
+Options
+================================================================================
+
+- BUILD_CXX             :  Set to ON if you want to build the cxx interface.
+- BUILD_SHARED_LIBS     :  Set to ON to build the shared library.
+- BUILD_STATIC_LIBS     :  Set to ON to build the static library.
+- CMAKE_BUILD_TYPE      :  Choose between release/debug builds.
+- CMAKE_INSTALL_PREFIX  :  Set the install location of the library.
+
+
+================================================================================
+Notes
+================================================================================
+
+For a FindSDLU module, see 'scripts/cmake/FindSDLU.cmake'.
+
+
+-- Aggelos Kolaitis

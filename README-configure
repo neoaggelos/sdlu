@@ -1,0 +1,75 @@
+================================================================================
+Autotools build system
+================================================================================
+
+This document explains how to build SDLU with configure
+
+
+================================================================================
+Supported platforms
+================================================================================
+
+* GNU/Linux (Tested: Ubuntu, Linux Mint)
+* Cygwin/MSYS (Tested)
+* Mac OS X (Not tested, but should work)
+* Raspberry Pi (Tested)
+* iOS -- makefiles (see README-ios)
+
+
+================================================================================
+Features
+================================================================================
+
++ Configure is a shell script -- no extra depencies to run it
++ Works better for UNIX platforms than CMake
++ Should be easy enough to port to other UNIX systems
++ Supports cygwin
+
+
+================================================================================
+Usage
+================================================================================
+
+Open a shell and type [assuming SDLU is at ~/sdlu]
+
+    $ cd ~/sdlu
+    $ ./configure; make; make install
+
+To update configure, use 'bootstrap':
+
+    $ cd ~/sdlu
+    $ ./scripts/bootstrap
+
+================================================================================
+Options
+================================================================================
+
+For the full list of available options, run './configure --help'. Here are
+described some of the most common options you will need:
+
+* --prefix: Choose the location where the library will be installed
+* --enable-cxx: Build the cxx interface
+* --enable-debug: Build with debugging information
+* --with-sdl-prefix: Prefix where SDL is installed
+
+
+================================================================================
+Notes for developers
+================================================================================
+
+If you already have an autotools build system for your project, and want to find
+SDLU, place 'scripts/autotools/m4/sdlu.m4' along with the other *.m4 files, and
+add the following in your configure.ac:
+
+    AM_PATH_SDLU([2.1], have_sdlu=yes, have_sdlu=no)
+    if test x$have_sdlu = xyes; then
+        CFLAGS="$CFLAGS $SDLU_CFLAGS"
+        LIBS="$CFLAGS $SDLU_LIBS"
+    else
+        ....
+    fi
+
+To complete the changes run aclocal and autoconf, or just 'autoreconf'
+
+
+-- Aggelos Kolaitis
