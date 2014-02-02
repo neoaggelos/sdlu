@@ -7,6 +7,9 @@ SDLU 2.1.1
 Additions:
 - Added SDLU_RenderTextToSurface()
 
+Changes:
+- Fixed wrong handling of SDLU_HINT_TEXT_DRAW_SCALED
+
 
 ================================================================================
 SDLU 2.1

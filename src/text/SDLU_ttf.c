@@ -51,6 +51,10 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
     int w, h;
     int text_w, text_h;
 
+    const char* hint_scaled;
+    float sx, sy;
+    int font_size;
+
     if (renderer == NULL)
         SDLU_ExitError("invalid parameter 'renderer'", -1);
 
@@ -60,6 +64,23 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
             SDLU_format("could not initialize SDL_ttf: %s",TTF_GetError()),
             -1
         );
+    }
+
+    font_size = SDLU_GetFontSize();
+    SDL_RenderGetScale(renderer, &sx, &sy);
+
+    /* see SDLU_HINT_TEXT_DRAW_SCALED */
+    hint_scaled = SDLU_GetHint(SDLU_HINT_TEXT_DRAW_SCALED);
+    if (SDL_strcmp(hint_scaled, "0") != 0) {
+        float max, min;
+        max = ( ( sx > sy ) ? sx : sy );
+        min = ( ( sx < sy ) ? sx : sy );
+
+        SDLU_SetFontSize(font_size * min);
+        SDL_RenderSetScale(renderer, 1, max/min);
+
+        x *= min;
+        y *= min;
     }
 
     /** we have a custom font **/
@@ -126,6 +147,13 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
 
     handle_error:
 
+        /* restore state if we changed it before */
+        if (SDL_strcmp(hint_scaled, "0") != 0) {
+            SDLU_SetFontSize(font_size);
+            SDL_RenderSetScale(renderer, sx, sy);
+        }
+
+        /* cleanup */
         if (font && !custom_font) TTF_CloseFont(font);
         if (file) SDL_RWclose( file );
         if (surface) SDL_FreeSurface( surface );
