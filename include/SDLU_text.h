@@ -104,6 +104,42 @@ extern DECLSPEC int SDLCALL SDLU_RenderTextVa(
 ) SDLU_TYPESAFETY(4,0);
 
 /**
+ *  \brief Similar to SDLU_RenderText(), but write on a surface
+ *
+ *  \param surface Surface to render on
+ *  \param x, y Text position
+ *  \param text_color Text color
+ *  \param format Text to render in printf-format.
+ *
+ *  \return 0 on success, -1 on error
+ *
+ *  \sa SDLU_RenderTextToSurfaceVa()
+ *  \sa SDLU_SetFontSize()
+ */
+extern DECLSPEC int SDLCALL SDLU_RenderTextToSurface(
+        SDL_Surface* surface,
+        int x, int y,
+        SDL_Color text_color,
+        const char* format, ...
+) SDLU_TYPESAFETY(5,6);
+
+/**
+ *  \brief Similar to SDLU_RenderTextToSurface(), but pass args as a va_list
+ *
+ *  \return 0 on success, -1 on error
+ *
+ *  \sa SDLU_RenderTextToSurface()
+ *  \sa SDLU_SetFontSize()
+ */
+extern DECLSPEC int SDLCALL SDLU_RenderTextToSurfaceVa(
+        SDL_Surface* surface,
+        int x, int y,
+        SDL_Color text_color,
+        const char* format,
+        va_list arg
+) SDLU_TYPESAFETY(5,0);
+
+/**
  *  \brief Get the output size of text (in pixels)
  *
  *  \param text Text to check output size for

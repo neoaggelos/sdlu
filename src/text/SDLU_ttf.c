@@ -87,7 +87,6 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
     }
 
     result |= SDL_GetRendererOutputSize(renderer, &w, &h);
-
     result |= TTF_SizeUTF8(font, text, &text_w, &text_h);
 
     switch(x) {
@@ -141,6 +140,99 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
 }
 
 int
+SDLU_RenderTextToSurfaceVa(SDL_Surface* surface, int x, int y, SDL_Color text_color, const char* format, va_list arg)
+{
+    int result = 0;
+    TTF_Font* font = NULL;
+    SDL_Surface* text_surf = NULL;
+    SDL_RWops *file = NULL;
+    SDL_Rect dstrect;
+    char* text = NULL;
+    char* err = NULL;
+
+    int w, h;
+    int text_w, text_h;
+
+    if (surface == NULL)
+        SDLU_ExitError("invalid parameter 'surface'", -1);
+
+    /* Initialize SDL2_ttf */
+    if ( TTF_Init() == -1 ) {
+        SDLU_ExitError(
+            SDLU_format("could not initialize SDL_ttf: %s",TTF_GetError()),
+            -1
+        );
+    }
+
+    /** we have a custom font **/
+    if (custom_font) {
+        font = custom_font;
+    } else {
+        /** use the builtin font **/
+        file = SDL_RWFromMem( (void*) font_data, font_len );
+        if (file == NULL) {
+            err = "could not load TTF font";
+            goto handle_error;
+        }
+
+        font = TTF_OpenFontRW( file, 0, font_size );
+        if (font == NULL) {
+            err = "could not open TTF font";
+            goto handle_error;
+        }
+    }
+
+    SDLU_vasprintf(&text, format, arg);
+    if (text == NULL) {
+        err = "could not generate text";
+        goto handle_error;
+    }
+
+    w = surface->w;
+    h = surface->h;
+
+    result |= TTF_SizeUTF8(font, text, &text_w, &text_h);
+
+    switch(x) {
+        case SDLU_ALIGN_LEFT:     x = 0;                  break;
+        case SDLU_ALIGN_CENTER:   x = (w - text_w)/2;     break;
+        case SDLU_ALIGN_RIGHT:    x = w - text_w;         break;
+    }
+
+    switch(y) {
+        case SDLU_ALIGN_TOP:      y = 0;                  break;
+        case SDLU_ALIGN_CENTER:   y = (h - text_h) / 2;   break;
+        case SDLU_ALIGN_BOTTOM:   y = h - text_h;         break;
+    }
+
+    text_surf = TTF_RenderUTF8_Blended(font, text, text_color);
+    if (text_surf == NULL) {
+        err = "could not render text";
+        goto handle_error;
+    }
+
+    dstrect.x = x;
+    dstrect.y = y;
+    dstrect.w = text_surf->w;
+    dstrect.h = text_surf->h;
+
+    result |= SDL_BlitSurface(text_surf, NULL, surface, &dstrect);
+
+    handle_error:
+
+        if (font && !custom_font) TTF_CloseFont(font);
+        if (file) SDL_RWclose( file );
+        if (text_surf) SDL_FreeSurface( text_surf );
+        if (text) SDL_free( text );
+        TTF_Quit();
+
+    if (err)
+        SDLU_ExitError( err, -1 );
+
+    return result;
+}
+
+int
 SDLU_RenderText(SDL_Renderer* renderer, int x, int y, const char* format, ...)
 {
     int ret;
@@ -148,6 +240,19 @@ SDLU_RenderText(SDL_Renderer* renderer, int x, int y, const char* format, ...)
 
     va_start(arg, format);
     ret = SDLU_RenderTextVa(renderer,x,y,format,arg);
+    va_end(arg);
+
+    return ret;
+}
+
+int
+SDLU_RenderTextToSurface(SDL_Surface* surface, int x, int y, SDL_Color text_color, const char* format, ...)
+{
+    int ret;
+    va_list arg;
+
+    va_start(arg, format);
+    ret = SDLU_RenderTextToSurfaceVa(surface, x, y, text_color, format, arg);
     va_end(arg);
 
     return ret;
