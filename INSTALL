@@ -3,7 +3,7 @@ Depencies
 ================================================================================
 
 * SDL2      (http://libsdl.org)
-* SDL2_ttf  (http://libsdl.org/projects/SDL2_ttf)
+* SDL2_ttf  (http://libsdl.org/projects/SDL_ttf)
 
 
 ================================================================================
