@@ -46,7 +46,7 @@ static int rwprintf(SDL_RWops* rwops, const char* fmt, ...)
     SDLU_vasprintf(&str, fmt, args);
     va_end(args);
 
-    return rwops->write(rwops, str, sizeof(char), strlen(str));
+    return rwops->write(rwops, str, sizeof(char), SDL_strlen(str));
 }
 
 static int
@@ -120,7 +120,7 @@ del_property_from_section(SDLU_IniSection **s, const char* property)
     LL_FOREACH((*s)->properties, p) {
         if (SDL_strcmp(p->key, property) == 0) {
             LL_DELETE((*s)->properties, p);
-            free(p);
+            SDLU_free(p);
             (*s)->num_properties --;
             return 0;
         }
@@ -292,7 +292,7 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
             if (SDL_sscanf(&buf[i], "%[^=\n]=%[^\n]", first, second) == 2) {
                 SDLU_SetIniProperty(&handler, current_section, first, second);
             } else if (SDL_sscanf(&buf[i], "[%[^]\n]]", first) == 1) {
-                free(current_section);
+                SDLU_free(current_section);
                 current_section = SDL_strdup(first);
             }
         }
