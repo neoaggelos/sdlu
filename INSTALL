@@ -11,7 +11,7 @@ Building the library
 ================================================================================
 
 You can build SDLU with configure, CMake or premake. See README-configure,
-README-cmake or README-premake for more information on using each build system
+README-cmake or README-premake for more information on using each build system.
 
 * Windows   :  CMake, premake
 * Cygwin    :  CMake, configure
