@@ -44,7 +44,7 @@
  *  
  *  It is distributed under the terms of the zlib license, see COPYING.
  *  For other software and/or source code included in this distribution,
- *  see COPYING-extra.
+ *  see "extras/COPYING.name".
  *  
  *  For questions, suggestions or thoughts email me at "neoaggelos@gmail.com"
  */

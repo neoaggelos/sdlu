@@ -12,7 +12,7 @@ SDLU is written in C, but can be natively used in C++.
 
 It is distributed under the terms of the zlib license (see COPYING). For the
 license of software and/or source code included in this distribution, see
-COPYING-extra.
+"extras/COPYING.name".
 
 See INSTALL, README-cmake and README-configure for instructions on how to
 build the library. Then, check out the examples in "test" to get started.

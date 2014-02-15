@@ -59,7 +59,7 @@ aclocal_DATA = scripts/autotools/m4/sdlu.m4
 
 ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
 
-EXTRA_DIST = scripts/ test/ Android.mk BUGS ChangeLog CMakeLists.txt \
-			 CONTRIBUTING COPYING COPYING-extra Doxyfile README-android \
-			 README-cmake README-configure README-cxx README-git README-ios \
-			 README-macosx README-raspberrypi README-windows
+EXTRA_DIST = scripts/ test/ extras/ Android.mk BUGS ChangeLog CMakeLists.txt \
+			 CONTRIBUTING COPYING Doxyfile README-android README-cmake \
+			 README-configure README-cxx README-git README-ios README-macosx \
+			 README-premake README-raspberrypi README-windows
