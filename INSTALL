@@ -10,13 +10,13 @@ Depencies
 Building the library
 ================================================================================
 
-For more information, see 'README-cmake' and 'README-configure'. If you unsure
-which build system to use, prefer CMake.
+You can build SDLU with configure, CMake or premake. See README-configure,
+README-cmake or README-premake for more information on using each build system
 
-* Windows   :  Use CMake
-* Cygwin    :  Use CMake or configure
-* Linux     :  Use CMake or configure
-* Mac OS X  :  Use CMake or configure
+* Windows   :  CMake, premake
+* Cygwin    :  CMake, configure
+* Linux     :  CMake, premake, configure
+* Mac OS X  :  CMake, premake, configure
 * Android   :  See README-android
 * iOS       :  See README-ios
 

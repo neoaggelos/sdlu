@@ -1,0 +1,46 @@
+================================================================================
+Premake build system
+================================================================================
+
+This document explains how to build SDLU with the premake build system
+
+
+================================================================================
+Supported platforms
+================================================================================
+
+* Windows (Visual Studio, CodeBlocks)
+* Linux
+* Mac OS X
+* Raspberry Pi
+
+
+================================================================================
+Usage
+================================================================================
+
+To use the premake build system, open a shell and type:
+
+    $ cd /path/to/SDLU              # go to the SDLU source code directory
+    $ premake4 [options] [action]   # generate project files
+
+Project files will be generated in the newly created "build" directory. The
+built library can be found under "build/lib".
+
+Run 'premake4 --help' to see what actions are available.
+
+
+================================================================================
+Options
+================================================================================
+
+* --enable-cxx:                 Build the cxx interface
+* --with-sdl2-library:          Specify the full path to the SDL2 library
+* --with-sdl2-ttf-library:      Specify the full path to the SDL2_ttf library
+* --with-sdl2-include-dir:      Specify the directory of the SDL2 headers
+* --with-sdl2-ttf-include-dir:  Specify the directory of the SDL2_ttf headers
+
+For a list of all available options, run 'premake4 --help'.
+
+
+-- Aggelos Kolaitis

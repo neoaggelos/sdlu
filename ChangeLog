@@ -1,7 +1,7 @@
 This is a list of major changes in the SDLU version history
 
 ================================================================================
-SDLU 2.1.1
+SDLU 2.2
 ================================================================================
 
 Additions:
@@ -10,13 +10,16 @@ Additions:
 Changes:
 - Fixed wrong handling of SDLU_HINT_TEXT_DRAW_SCALED
 
+Build System:
+- Added premake build system
+
 
 ================================================================================
 SDLU 2.1
 ================================================================================
 
 Build System:
-- Switched to CMake and autotools build system -- ditched premake
+- Switched to CMake and autotools build system
 - Added Raspberry Pi support
 - Added sdlu-config script
 - Added support for Xcode-iOS project files generation [cmake]
