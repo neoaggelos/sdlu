@@ -9,6 +9,7 @@ Additions:
 
 Changes:
 - Fixed wrong handling of SDLU_HINT_TEXT_DRAW_SCALED
+- Fixed Visual Studio compilation errors
 
 Build System:
 - Added premake build system

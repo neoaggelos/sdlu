@@ -284,8 +284,10 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
     i = 0;
     while(i < size) {
         /* char* buffers */
-        char *first = SDLU_malloc2(char, 200);
-        char *second = SDLU_malloc2(char, 200);
+        char *first, *second;
+
+        first = SDLU_malloc2(char, 200);
+        second = SDLU_malloc2(char, 200);
 
         /* parse line */
         if (buf[i] != ';') {
