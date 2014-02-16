@@ -37,6 +37,11 @@ newoption{
 }
 
 newoption{
+    trigger = "enable-static",
+    description = "Build the static library"
+}
+
+newoption{
     trigger = "extra-include-dirs",
     value = "DIR1;DIR2;DIR3",
     description = "A ';' separated list of directories to search for headers"
@@ -51,6 +56,7 @@ newoption{
 --------------------------------------------------------------------------------
 
 enable_cxx            =  _OPTIONS["enable-cxx"]                 or  false
+enable_static         =  _OPTIONS["enable-static"]              or  false
 sdl2_include_dir      =  _OPTIONS["with-sdl2-include-dir"]      or  false
 sdl2_library          =  _OPTIONS["with-sdl2-library"]          or  false
 sdl2_ttf_include_dir  =  _OPTIONS["with-sdl2-ttf-include-dir"]  or  false
@@ -104,7 +110,7 @@ for dir in lib_dirs:gmatch("%;([^;]+)") do
 end
 
 -- Static or shared
-library_kind = os.is("windows") and "StaticLib" or "SharedLib"
+library_kind = (os.is "windows" or enable_static) and "StaticLib" or "SharedLib"
 
 -- Prepare build dir
 local includes = os.matchfiles(srcdir .. "/include/*.h")
