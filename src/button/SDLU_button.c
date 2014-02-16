@@ -83,7 +83,6 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
         SDLU_ExitError("invalid parameter 'button'", -1);
 
     if (button->flags & SDLU_BUTTON_HIDDEN) {
-        SDLU_Log("the button is hidden");
         return SDLU_IDLE;
     }
 
@@ -101,11 +100,10 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
             if (button->state != SDLU_IDLE) {
                 if ((button->state==SDLU_HOVERED)&&(hover & SDLU_HOVER_CURSOR))
                 {
-                    old_cursor = (void*) SDLU_GetButtonData(button,"_SDLU_old_cursor");
+                    old_cursor = SDLU_GetButtonData(button,"_SDLU_old_cursor");
                     SDLU_AddButtonData(button, "_SDLU_old_cursor", NULL);
                     SDL_SetCursor(old_cursor);
                 }
-                SDLU_Log("Button lost focus");
                 SDLU_PushButtonEvent(SDLU_BUTTON_LOSTFOCUS, button);
                 button->state = SDLU_IDLE;
             }
@@ -120,13 +118,10 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
 
         if ( SDLU_CollideRects(button_rect, mouse_rect ) ) {
             if (button->state != SDLU_PRESSED) {
-                SDLU_Log("Button is pressed");
                 if (button->callback[SDLU_PRESS_CALLBACK]) {
-                    SDLU_Log("Executing press callback");
                     button->callback[SDLU_PRESS_CALLBACK] (
                             button, button->arg[0]
                     );
-                    SDLU_Log("Returned from callback");
                 }
                 SDLU_PushButtonEvent(SDLU_BUTTON_PRESS, button);
             }
@@ -137,7 +132,6 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
 
     if (event.type == SDL_MOUSEBUTTONUP) {
         if (button->state == SDLU_PRESSED) {
-            SDLU_Log("Button is released");
             SDLU_PushButtonEvent(SDLU_BUTTON_RELEASE, button);
             button->state = SDLU_HOVERED;
         }
@@ -157,14 +151,11 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
                             SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND)
                     );
                 }
-                SDLU_Log("Button is hovered");
                 button->state = SDLU_HOVERED;
                 if (button->callback[SDLU_HOVER_CALLBACK]) {
-                    SDLU_Log("Executing hover callback");
                     button->callback[SDLU_HOVER_CALLBACK](
                             button, button->arg[SDLU_HOVER_CALLBACK]
                     );
-                    SDLU_Log("Returned from callback");
                 }
                 SDLU_PushButtonEvent(SDLU_BUTTON_HOVER, button);
             }
@@ -172,11 +163,10 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
         } else {
             if (button->state == SDLU_HOVERED) {
                 if (hover & SDLU_HOVER_CURSOR) {
-                    old_cursor = (void*) SDLU_GetButtonData(button,"_SDLU_old_cursor");
+                    old_cursor = SDLU_GetButtonData(button,"_SDLU_old_cursor");
                     SDLU_AddButtonData(button, "_SDLU_old_cursor", NULL);
                     SDL_SetCursor(old_cursor);
                 }
-                SDLU_Log("Button lost focus");
                 SDLU_PushButtonEvent(SDLU_BUTTON_LOSTFOCUS, button);
             }
             button->state = SDLU_IDLE;
@@ -312,7 +302,6 @@ SDLU_PushButtonEvent(Uint32 type, SDLU_Button* button)
     /* If SDLU_HINT_BUTTON_PUSH_EVENTS is 0, then pushing events is disabled */
     hint = SDLU_GetHint(SDLU_HINT_BUTTON_PUSH_EVENTS);
     if (!SDL_strcmp("0", hint)) {
-        SDLU_Log("pushing button events is disabled");
         return;
     }
 
@@ -375,7 +364,6 @@ SDLU_CreateGenericButton(SDL_Window* window, Uint32 flags)
 
     /* Add a new button event watch */
     SDL_AddEventWatch(SDLU_EventWatch, ret);
-    SDLU_Log("added event watch");
 
     /* Register button events if needed */
     if (button_events_status == 0) {
@@ -780,7 +768,6 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
         SDLU_ExitError("invalid parameter 'button'", -1);
 
     if (button->flags & SDLU_BUTTON_HIDDEN) {
-        SDLU_Log("the button is hidden");
         return -1;
     }
 
