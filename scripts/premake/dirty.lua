@@ -119,6 +119,6 @@ for _, j in pairs(includes) do
 end
 
 -- Better clean action
-if _ACTION == "clean" then
+if _ACTION == "clean" or _OPTIONS["help"] or not _ACTION then
     os.rmdir(builddir)
 end
