@@ -23,8 +23,6 @@
  *  \file SDLU_text.h
  *
  *  \brief The Text Rendering API
- *
- *  \sa SDLU_HINT_TEXT_DRAW_SCALED
  */
 
 /**

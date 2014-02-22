@@ -33,22 +33,6 @@
 
 #ifndef SDLU_HINTS_H
 #define SDLU_HINTS_H
-
-/**
- *  \brief Controls how the Text Rendering API handles cases when a renderer
- *  draws on a scaled surface
- *
- *  For example, if a renderer has a scaleX=2 and scaleY=3, then the output text
- *  will be greately distorted, rendering the ttf font useless. If this hint is
- *  set to "1" then the API will generate text for that bigger scale, correctly
- *  handling the positioning of the text on screen.
- *
- *  Possible values:
- *  "0": Do not scale text
- *  "1": Scale text as needed for better quality. This is the default option.
- */
-#define SDLU_HINT_TEXT_DRAW_SCALED "SDLU_TEXT_DRAW_SCALED"
-
 /**
  *  \brief Controls whether button events are sent to the event queue or not.
  *
