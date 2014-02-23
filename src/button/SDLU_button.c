@@ -78,6 +78,7 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
     SDL_Cursor* old_cursor;
     Uint32 hover;
     SDL_Rect button_rect;
+    int sdl_revision = SDL_GetRevisionNumber();
 
     if (button == NULL)
         SDLU_ExitError("invalid parameter 'button'", -1);
@@ -86,7 +87,15 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
         return SDLU_IDLE;
     }
 
-    if (button->flags & SDLU_BUTTON_FOREIGN) {
+    /*
+     * Revision 8234 in hg.libsdl.org/SDL fixed a bug where the event watchers
+     * are run in the order that they are set.
+     *
+     * That means that we no longer need SDLU_GetRealPosition(), because the
+     * mouse coordinates have been already fixed. The check is needed to not
+     * break the behaviour with older SDL versions.
+     */
+    if ((button->flags & SDLU_BUTTON_FOREIGN) || (sdl_revision >= 8234)) {
         button_rect = button->rect;
     } else {
         button_rect = SDLU_GetRealPosition(button);
