@@ -16,6 +16,7 @@ Changes:
 
 Build System:
 - Added premake build system
+- Added script to create SDLU.framework
 
 
 ================================================================================

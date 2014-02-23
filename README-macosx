@@ -10,4 +10,16 @@ If you encounter any issues, please report them in the issue tracker:
     http://bitbucket.org/sdlu/sdlu/issues
 
 
+================================================================================
+Building SDLU.framework
+================================================================================
+
+To build SDLU as a framework, use frameworkbuild.sh:
+
+    $ cd <SDLU>
+    $ ./scripts/build-scripts/frameworkbuild.sh
+
+This will create "SDLU.framework".
+
+
 -- Aggelos Kolaitis
