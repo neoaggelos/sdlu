@@ -11,6 +11,7 @@ enable_language(CXX OPTIONAL)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../scripts/cmake")
 include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindSDL2_tests.cmake")
 include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindSDLU.cmake")
+include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindSDL2_ttf.cmake")
 include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindGLES2.cmake")
 
 # Find SDL2
@@ -19,6 +20,13 @@ if (SDL2_FOUND)
     include_directories(${SDL2_INCLUDE_DIR})
     set(LIBS ${LIBS} ${SDL2_LIBRARY})
 endif(SDL2_FOUND)
+
+# Find SDL2_ttf
+find_package(SDL2_ttf REQUIRED)
+if (SDL2_TTF_FOUND)
+    include_directories(${SDL2_TTF_INCLUDE_DIR})
+    set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
+endif(SDL2_TTF_FOUND)
 
 # Find SDLU
 find_package(SDLU REQUIRED)
