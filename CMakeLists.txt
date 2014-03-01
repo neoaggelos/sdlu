@@ -39,24 +39,6 @@ if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
   set(CMAKE_VERBOSE_MAKEFILE ON)
 endif(${CMAKE_BUILD_TYPE} MATCHES "Debug")
 
-# iOS platform
-if (APPLE)
-  option(XCODE_IOS "Generate Xcode projects files for iOS" OFF)
-  set(XCODE_IOS_SDK_VERSION "5.1" CACHE "SDK version to use")
-
-  if (XCODE_IOS)
-    if (${CMAKE_GENERATOR} MATCHES "Xcode")
-      set(CMAKE_XCODE_EFFECTIVE_PLATFORMS "-iphoneos;-iphonesimulator")
-      set(CMAKE_OSX_SYSROOT iphoneos${XCODE_IOS_SDK_VERSION})
-      set(CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
-      set(BUILD_SHARED_LIBS OFF)
-      set(BUILD_STATIC_LIBS ON)
-    else (${CMAKE_GENERATOR} MATCHES "Xcode")
-      message("* Warning: XCODE_IOS is set, but the generator is not Xcode!!")
-    endif(${CMAKE_GENERATOR} MATCHES "Xcode")
-  endif(XCODE_IOS)
-endif (APPLE)
-
 # Find SDL2
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})

@@ -15,6 +15,19 @@ Requirements
 
 
 ================================================================================
+Building with Xcode
+================================================================================
+
+Run CMake Gui and set:
+* Generator name to Xcode
+* IOS_PLATFORM to either OS or SIMULATOR
+* Use the toolchain file 'scripts/cmake/toolchains/ios_toolchain.cmake'
+
+Hit configure and then generate. Then, use the Xcode project files to build
+the library.
+
+
+================================================================================
 Building from command line
 ================================================================================
 
@@ -34,22 +47,6 @@ Available options ('./iosbuild.sh --help' for details):
 * --sdk-version: iOS SDK version to use
 * --iphoneos-min-version: The minimum iOS version your application requires
 * --xcode-path: Directory where Xcode is installed
-
-
-================================================================================
-Building with Xcode
-================================================================================
-
-Run CMake Gui and set:
-* Generator name to Xcode
-* XCODE_IOS to ON
-* XCODE_IOS_SDK_VERSION to the SDK version you want to use
-* SDL2_LIBRARY and SDL2_INCLUDE_DIR to the appropriate values
-* SDL2_TTF_LIBRARY and SDL2_TTF_INCLUDE_DIR to the appropriate values
-* BUILD_STATIC_LIBS to ON and BUILD_SHARED_LIBS to OFF
-
-Hit configure and then generate. Then, use the Xcode project files to build
-the library.
 
 
 ================================================================================
