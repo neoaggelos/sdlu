@@ -29,18 +29,7 @@
 #define SDLU_OPENGL_H
 
 #include "SDLU_config.h"
-
 #include "begin_code.h"
-
-/**
- * check if gl headers are included. if they are not,
- * we have to define GLuint and GLfloat
- */
-#if !( defined( __gl_h ) || defined( __gl2_h ) || defined( __gl3_h) )
-#define SDLU_NO_GL_TYPES
-#define GLuint unsigned long
-#define GLfloat float
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,9 +51,9 @@ extern "C" {
  *  \sa SDLU_GL_LoadTextureFromFile()
  *  \sa SDLU_HINT_GL_TEXTURE_ADD_PADDING
  */
-extern DECLSPEC GLuint SDLCALL SDLU_GL_LoadTexture(
+extern DECLSPEC unsigned long SDLCALL SDLU_GL_LoadTexture(
         SDL_Surface* surface,
-        GLfloat* texw, GLfloat* texh
+        float* texw, float* texh
 );
 
 /**
@@ -75,9 +64,9 @@ extern DECLSPEC GLuint SDLCALL SDLU_GL_LoadTexture(
  *
  *  \sa SDLU_GL_LoadTexture()
  */
-extern DECLSPEC GLuint SDLCALL SDLU_GL_LoadTextureFromFile(
+extern DECLSPEC unsigned long SDLCALL SDLU_GL_LoadTextureFromFile(
         const char* filename,
-        GLfloat* texw, GLfloat* texh
+        float* texw, float* texh
 );
 
 /**
@@ -128,11 +117,5 @@ extern DECLSPEC int SDLCALL SDLU_GL_RenderRestoreState(SDL_Renderer* renderer);
 #endif
 
 #include "close_code.h"
-
-/** undefine the types now **/
-#ifdef SDLU_NO_GL_TYPES
-#undef GLfloat
-#undef GLuint
-#endif
 
 #endif /* SDLU_OPENGL_H */

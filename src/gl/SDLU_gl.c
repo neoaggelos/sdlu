@@ -44,10 +44,10 @@ static int add_padding( int i )
     return result;
 }
 
-GLuint
-SDLU_GL_LoadTexture(SDL_Surface* surface, GLfloat *texw, GLfloat *texh)
+unsigned long
+SDLU_GL_LoadTexture(SDL_Surface* surface, float *texw, float *texh)
 {
-    GLuint texture;
+    unsigned long texture;
     int result;
     SDL_Surface* temp;
     SDL_BlendMode blendmode;
@@ -117,8 +117,8 @@ SDLU_GL_LoadTexture(SDL_Surface* surface, GLfloat *texw, GLfloat *texh)
     }
 
     /* fill pointers with the texture width and height */
-    if (texw) *texw = (GLfloat) surface->w / width;
-    if (texh) *texh = (GLfloat) surface->h / height;
+    if (texw) *texw = (float) surface->w / width;
+    if (texh) *texh = (float) surface->h / height;
 
     /** create a temporary surface **/
     temp = SDL_CreateRGBSurface(0, width, height, 32,
@@ -173,11 +173,11 @@ SDLU_GL_LoadTexture(SDL_Surface* surface, GLfloat *texw, GLfloat *texh)
     return texture;
 }
 
-GLuint
-SDLU_GL_LoadTextureFromFile(const char* filename, GLfloat* texw, GLfloat* texh)
+unsigned long
+SDLU_GL_LoadTextureFromFile(const char* filename, float* texw, float* texh)
 {
     SDL_Surface* tmp;
-    GLuint texture;
+    unsigned long texture;
 
     tmp = SDL_LoadBMP(filename);
     if (tmp == NULL) {
@@ -232,6 +232,7 @@ SDLU_GL_RenderCacheState(SDL_Renderer *renderer)
 
     return 0;
 }
+
 int
 SDLU_GL_RenderRestoreState(SDL_Renderer *renderer)
 {
