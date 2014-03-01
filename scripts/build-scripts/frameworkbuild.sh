@@ -1,14 +1,22 @@
 ### This script will create SDLU.framework
-#
+
 wd=`dirname $0`
 wd=`cd $wd && echo $PWD`
 wd=`cd $wd/../.. && echo $PWD`
 
-# Configure and build
 BUILDDIR="$wd/build"
-mkdir -p $BUILDDIR && cd $BUILDDIR
-../configure $configure_flags --disable-static --enable-shared
-make V=0
+
+# Configure and build
+if [ "x$1" == "x" ]; then
+    mkdir -p $BUILDDIR && cd $BUILDDIR
+    ../configure $configure_flags --disable-static --enable-shared
+    make V=0
+    library="$wd/build/.libs/libSDLU.dylib.0.0.0"
+    config_h="$wd/build/include/SDLU_config.h"
+else
+    library="$1"
+    config_h="$2"
+fi
 
 ## Create framework
 FRAMEWORK="$wd/SDLU.framework"
@@ -20,9 +28,8 @@ mkdir -p $FRAMEWORK/Versions/A/Headers
 mkdir -p $FRAMEWORK/Versions/A/Resources
 
 # Copy files
-library="$wd/build/.libs/libSDLU.dylib.0.0.0"
 headers=`find $wd/include -name '*.h'`
-headers=`echo $headers $wd/build/include/SDLU_config.h`
+headers=`echo $headers $config_h`
 plist="$wd/scripts/framework/Info.plist"
 cp $library "$FRAMEWORK/Versions/A/SDLU" -r
 cp $headers "$FRAMEWORK/Versions/A/Headers/" -r
