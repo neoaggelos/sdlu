@@ -14,12 +14,19 @@ If you encounter any issues, please report them in the issue tracker:
 Building SDLU.framework
 ================================================================================
 
-To build SDLU as a framework, use frameworkbuild.sh:
+To build "SDLU.framework", use frameworkbuild.sh:
 
-    $ cd <SDLU>
-    $ ./scripts/build-scripts/frameworkbuild.sh
+    $ cd <SDLU>/scripts/build-scripts
+    $ ./frameworkbuild.sh
 
-This will create "SDLU.framework".
+This will first build the library using configure. If you have already built the
+library, you can pass it as an argument to avoid building it again:
+
+    $ cd <SDLU>/scripts/build-scripts
+    $ ./frameworkbuild.sh /path/to/libSDLU.dylib /path/to/SDLU_config.h
+
+NOTE: The paths to libSDLU.dylib and SDLU_config.h should be absolute and not
+relative to the current directory.
 
 
 -- Aggelos Kolaitis
