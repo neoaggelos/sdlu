@@ -17,7 +17,7 @@ Changes:
 Build System:
 - Added premake build system
 - Added script to create SDLU.framework
-- Fixed CMake-iOS build system
+- Fixed Mac OS X bugs
 
 
 ================================================================================

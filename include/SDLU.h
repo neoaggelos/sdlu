@@ -55,7 +55,7 @@
 /** SDLU Version **/
 #define SDLU_VERSION_MAJOR 2
 #define SDLU_VERSION_MINOR 1
-#define SDLU_VERSION_PATCHLEVEL 0
+#define SDLU_VERSION_PATCHLEVEL 1
 
 #define SDLU_VERSION_ATLEAST(major,minor,patchlevel)                        \
     (SDLU_VERSION_MAJOR > major) ||                                         \
