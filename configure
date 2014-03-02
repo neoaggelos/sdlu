@@ -16021,7 +16021,7 @@ $as_echo "$build_cxx" >&6; }
 includedir="$includedir/SDL2"
 
 # make sure sdlu-config can be executed
-ac_config_commands="$ac_config_commands prepare-sdlu-config"
+ac_config_commands="$ac_config_commands sdlu_config"
 
 
 # substitutions for the config header
@@ -17167,7 +17167,7 @@ do
     "include/SDLU_config.h") CONFIG_FILES="$CONFIG_FILES include/SDLU_config.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
-    "prepare-sdlu-config") CONFIG_COMMANDS="$CONFIG_COMMANDS prepare-sdlu-config" ;;
+    "sdlu_config") CONFIG_COMMANDS="$CONFIG_COMMANDS sdlu_config" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -18487,7 +18487,7 @@ compiler_lib_search_path=$lt_compiler_lib_search_path_CXX
 _LT_EOF
 
  ;;
-    "prepare-sdlu-config":C) chmod a+x sdlu-config ;;
+    "sdlu_config":C) chmod a+x sdlu-config ;;
 
   esac
 done # for ac_tag

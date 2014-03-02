@@ -38,9 +38,10 @@ esac
 # Debug
 AC_MSG_CHECKING(whether to build with debugging information)
 debug=no
-AC_ARG_ENABLE([debug],
-              AS_HELP_STRING([--enable-debug],[Build library with debug info]),
-              [debug=${enableval}]
+AC_ARG_ENABLE(
+    [debug],
+    AS_HELP_STRING([--enable-debug],[Build library with debug info]),
+    [debug=${enableval}]
 )
 if test x$debug = xyes; then
     CFLAGS="$CFLAGS -D_DEBUG -g"
@@ -111,7 +112,7 @@ AC_MSG_RESULT($build_cxx)
 includedir="$includedir/SDL2"
 
 # make sure sdlu-config can be executed
-AC_CONFIG_COMMANDS([prepare-sdlu-config], [chmod a+x sdlu-config])
+AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
 
 # substitutions for the config header
 AC_SUBST([DEFINE_SDLU_CXX])
