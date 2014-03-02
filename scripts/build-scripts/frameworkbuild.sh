@@ -31,9 +31,9 @@ mkdir -p $FRAMEWORK/Versions/A/Resources
 headers=`find $wd/include -name '*.h'`
 headers=`echo $headers $config_h`
 plist="$wd/scripts/framework/Info.plist"
-cp $library "$FRAMEWORK/Versions/A/SDLU" -r
-cp $headers "$FRAMEWORK/Versions/A/Headers/" -r
-cp $plist   "$FRAMEWORK/Versions/A/Resources/Info.plist" -r
+cp -R $library "$FRAMEWORK/Versions/A/SDLU"
+cp -R $headers "$FRAMEWORK/Versions/A/Headers/"
+cp -R $plist   "$FRAMEWORK/Versions/A/Resources/Info.plist"
 
 # Create links
 cd $FRAMEWORK && ln -s Versions/A/SDLU SDLU
