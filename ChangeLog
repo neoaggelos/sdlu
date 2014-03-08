@@ -8,6 +8,7 @@ NOTE: Update to this version if you use SDL2 revision 8234 or higher.
 
 Additions:
 - Added SDLU_RenderTextToSurface()
+- Added SDLU_CreateSpriteFromRW()
 
 Changes:
 - Fixed wrong handling of SDLU_HINT_TEXT_DRAW_SCALED
@@ -16,8 +17,8 @@ Changes:
 
 Build System:
 - Added premake build system
-- Added script to create SDLU.framework
-- Fixed Mac OS X bugs
+- Added script to build SDLU.framework
+- Fixed Mac OS X and iOS support
 
 
 ================================================================================

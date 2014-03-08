@@ -68,22 +68,36 @@ extern DECLSPEC SDLU_Sprite* SDLCALL SDLU_CreateSprite(
 );
 
 /**
- *  \brief Create a sprite from a BMP file
+ *  \brief Create a sprite from a BMP file loaded as an SDL_RWops
  *
  *  This function is just an alias for SDLU_CreateSprite(), that will load the
- *  image data from a file [BMP]
+ *  image data from an rwops [image must be in BMP format].
  *
  *  \param renderer The associated renderer
- *  \param file The filename of the BMP file to load
+ *  \param rwops The rwops where the image has been loaded
+ *  \param freesrc Whether to close the rwops after reading
  *  \param frames The number of the frames of the sprite
  *
  *  \return The new sprite on success, NULL on error
  */
-extern DECLSPEC SDLU_Sprite* SDLCALL SDLU_CreateSpriteFromFile(
+extern DECLSPEC SDLU_Sprite* SDLCALL SDLU_CreateSpriteFromRW(
         SDL_Renderer* renderer,
-        const char* file,
+        SDL_RWops* rwops,
+        int freesrc,
         int frames
 );
+
+/**
+ *  \brief Create a sprite from a BMP file
+ *
+ *  \param renderer The associated renderer
+ *  \param file File name to load (must be a BMP file)
+ *  \param frames The number of the frames of the sprite
+ *
+ *  \return The new sprite on success, NULL on error
+ */
+#define SDLU_CreateSpriteFromFile(renderer, file, frames) \
+    SDLU_CreateSpriteFromRW(renderer, SDL_RWFromFile(file, "r"), 1, frames)
 
 /**
  *  \brief Get a sprite with the given id

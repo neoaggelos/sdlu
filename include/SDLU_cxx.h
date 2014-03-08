@@ -392,6 +392,12 @@ namespace SDLU {
             Sprite( SDL_Renderer*  , SDLU::Texture*, int );
             Sprite( SDLU::Renderer*, SDLU::Texture*, int );
 
+            /** SDLU_CreateSpriteFromRW() **/
+            Sprite( SDL_Renderer*  , SDL_RWops*  , int, int);
+            Sprite( SDLU::Renderer*, SDL_RWops*  , int, int);
+            Sprite( SDL_Renderer*  , SDLU::RWops*, int, int);
+            Sprite( SDLU::Renderer*, SDLU::RWops*, int, int);
+
             /** SDLU_CreateSpriteFromFile() **/
             Sprite( SDL_Renderer*  , const char* , int );
             Sprite( SDLU::Renderer*, const char* , int );

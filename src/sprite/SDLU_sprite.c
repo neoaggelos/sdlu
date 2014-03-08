@@ -103,13 +103,16 @@ SDLU_CreateSprite( SDL_Renderer *renderer, SDL_Texture *texture, int frames)
 }
 
 SDLU_Sprite*
-SDLU_CreateSpriteFromFile(SDL_Renderer* renderer, const char* file, int frames)
+SDLU_CreateSpriteFromRW(SDL_Renderer* renderer, SDL_RWops* rwops, int freesrc, int frames)
 {
-    return SDLU_CreateSprite(
-            renderer,
-            SDLU_LoadTexture(renderer, file),
-            frames
-    );
+    SDL_Surface* temp_surface;
+    SDL_Texture* texture;
+
+    temp_surface = SDL_LoadBMP_RW(rwops, freesrc);
+    texture = SDL_CreateTextureFromSurface(renderer, temp_surface);
+    SDL_FreeSurface(temp_surface);
+
+    return SDLU_CreateSprite(renderer, texture, frames);
 }
 
 int

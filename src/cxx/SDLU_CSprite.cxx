@@ -46,6 +46,26 @@ SDLU::Sprite::Sprite(SDLU::Renderer* renderer, SDLU::Texture* data, int num)
     this->sprite = SDLU_CreateSprite(renderer->GetRenderer(), data->GetTexture(), num);
 }
 
+SDLU::Sprite::Sprite(SDL_Renderer* renderer, SDL_RWops* rwops, int freesrc, int frames)
+{
+    this->sprite = SDLU_CreateSpriteFromRW(renderer, rwops, freesrc, frames);
+}
+
+SDLU::Sprite::Sprite(SDLU::Renderer* renderer, SDL_RWops* rwops, int freesrc, int frames)
+{
+    this->sprite = SDLU_CreateSpriteFromRW(renderer->GetRenderer(), rwops, freesrc, frames);
+}
+
+SDLU::Sprite::Sprite(SDL_Renderer* renderer, SDLU::RWops* rwops, int freesrc, int frames)
+{
+    this->sprite = SDLU_CreateSpriteFromRW(renderer, rwops->GetRWops(), freesrc, frames);
+}
+
+SDLU::Sprite::Sprite(SDLU::Renderer* renderer, SDLU::RWops* rwops, int freesrc, int frames)
+{
+    this->sprite = SDLU_CreateSpriteFromRW(renderer->GetRenderer(), rwops->GetRWops(), freesrc, frames);
+}
+
 SDLU::Sprite::Sprite(SDL_Renderer* renderer, const char* file, int num)
 {
     this->sprite = SDLU_CreateSpriteFromFile( renderer, file, num);
