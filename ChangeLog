@@ -17,8 +17,7 @@ Changes:
 
 Build System:
 - Added premake build system
-- Added script to build SDLU.framework
-- Fixed Mac OS X and iOS support
+- Official support for Mac OS X and iOS
 
 
 ================================================================================

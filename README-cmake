@@ -61,6 +61,7 @@ Options
 - BUILD_CXX             :  Set to ON if you want to build the cxx interface.
 - BUILD_SHARED_LIBS     :  Set to ON to build the shared library.
 - BUILD_STATIC_LIBS     :  Set to ON to build the static library.
+- BUILD_FRAMEWORK       :  Set to ON to build the Mac OS X framework.
 - CMAKE_BUILD_TYPE      :  Choose between release/debug builds.
 - CMAKE_INSTALL_PREFIX  :  Set the install location of the library.
 

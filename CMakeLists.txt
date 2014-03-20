@@ -15,6 +15,7 @@ unset(VERSION)
 option(BUILD_CXX "Build the SDLU C++ interface" OFF)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_SHARED_LIBS "Build the shared library" ON)
+option(BUILD_FRAMEWORK "Build as a framework (Mac OS X)" OFF)
 
 # Also find a C++ compiler if needed
 if (BUILD_CXX)
@@ -22,8 +23,14 @@ if (BUILD_CXX)
   include(TestForSTDNamespace)
 endif(BUILD_CXX)
 
+# The framework version requires the shared library
+if (BUILD_FRAMEWORK)
+  set(BUILD_SHARED_LIBS ON FORCE)
+endif(BUILD_FRAMEWORK)
+
 # Load required modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/Macros.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/ConfigureCPack.cmake")
@@ -120,7 +127,7 @@ if (BUILD_STATIC_LIBS)
   set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
 endif(BUILD_STATIC_LIBS)
 
-# Installation files files
+# Installation files
 file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
 file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
 file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
@@ -132,6 +139,15 @@ install(PROGRAMS ${SDLU_CONFIG} DESTINATION ${prefix}/bin)
 install(FILES ${HDRS} DESTINATION ${includedir})
 install(FILES ${SDLU_PC} DESTINATION ${libdir}/pkgconfig)
 install(FILES ${SDLU_M4} DESTINATION ${prefix}/share/aclocal)
+
+# Mac OS X framework
+if (BUILD_FRAMEWORK)
+  join_files("${HDRS}" ";" FRWK_HDRS)
+  file(GLOB INFO_PLIST ${CMAKE_SOURCE_DIR}/scripts/framework/Info.plist)
+  set_target_properties(SDLU-shared PROPERTIES FRAMEWORK TRUE)
+  set_target_properties(SDLU-shared PROPERTIES PUBLIC_HEADER "${FRWK_HDRS}")
+  set_target_properties(SDLU-shared PROPERTIES RESOURCE "${INFO_PLIST}")
+endif(BUILD_FRAMEWORK)
 
 # Uninstall target (see http://www.cmake.org/Wiki/RecipeAddUninstallTarget)
 configure_file(
