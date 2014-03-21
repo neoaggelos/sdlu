@@ -25,7 +25,9 @@ endif(BUILD_CXX)
 
 # The framework version requires the shared library
 if (BUILD_FRAMEWORK)
-  set(BUILD_SHARED_LIBS ON FORCE)
+  if (NOT BUILD_SHARED_LIBS)
+    message(FATAL_ERROR "BUILD_FRAMEWORK requires BUILD_SHARED_LIBS")
+  endif(NOT BUILD_SHARED_LIBS)
 endif(BUILD_FRAMEWORK)
 
 # Load required modules
