@@ -9,13 +9,13 @@ project(SDLU C)
 file(READ "${CMAKE_SOURCE_DIR}/include/SDLU.h" VERSION)
 string(REGEX REPLACE ".*SDLU_VERSION_MAJOR ([0-9]+).*" "\\1" major ${VERSION})
 string(REGEX REPLACE ".*SDLU_VERSION_MINOR ([0-9]+).*" "\\1" minor ${VERSION})
-unset(VERSION)
+set(VERSION "${major}.${minor}")
 
 # Options
 option(BUILD_CXX "Build the SDLU C++ interface" OFF)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_SHARED_LIBS "Build the shared library" ON)
-option(BUILD_FRAMEWORK "Build as a framework (Mac OS X)" OFF)
+option(BUILD_FRAMEWORK "Build framework (Mac OS X)" OFF)
 
 # Also find a C++ compiler if needed
 if (BUILD_CXX)
@@ -23,19 +23,10 @@ if (BUILD_CXX)
   include(TestForSTDNamespace)
 endif(BUILD_CXX)
 
-# The framework version requires the shared library
-if (BUILD_FRAMEWORK)
-  if (NOT BUILD_SHARED_LIBS)
-    message(FATAL_ERROR "BUILD_FRAMEWORK requires BUILD_SHARED_LIBS")
-  endif(NOT BUILD_SHARED_LIBS)
-endif(BUILD_FRAMEWORK)
-
 # Load required modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
-include("${CMAKE_SOURCE_DIR}/scripts/cmake/Macros.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
-include("${CMAKE_SOURCE_DIR}/scripts/cmake/ConfigureCPack.cmake")
 
 # Standard include directories
 include_directories("${CMAKE_SOURCE_DIR}/include")
@@ -113,27 +104,41 @@ set(exec_prefix "${prefix}")
 set(includedir "${prefix}/include/SDL2")
 set(libdir "${exec_prefix}/lib${LIB_SUFFIX}")
 
-# Add shared library
-if (BUILD_SHARED_LIBS)
-  add_library(SDLU-shared SHARED ${SOURCES})
-  target_link_libraries(SDLU-shared ${LIBS})
-  set_target_properties(SDLU-shared PROPERTIES OUTPUT_NAME "SDLU")
-  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-shared)
-endif(BUILD_SHARED_LIBS)
-
-# Add static library
-if (BUILD_STATIC_LIBS)
-  add_library(SDLU-static STATIC ${SOURCES})
-  target_link_libraries(SDLU-static ${LIBS})
-  set_target_properties(SDLU-static PROPERTIES OUTPUT_NAME "SDLU")
-  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
-endif(BUILD_STATIC_LIBS)
-
 # Installation files
 file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
 file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
 file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
 file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
+
+# Add shared library
+if (BUILD_SHARED_LIBS)
+  add_library(SDLU-shared SHARED ${SOURCES} ${HDRS})
+  target_link_libraries(SDLU-shared ${LIBS})
+  set_target_properties(SDLU-shared PROPERTIES OUTPUT_NAME "SDLU")
+  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-shared)
+endif(BUILD_SHARED_LIBS)
+
+# Static library
+if (BUILD_STATIC_LIBS)
+  add_library(SDLU-static STATIC ${SOURCES} ${HDRS})
+  target_link_libraries(SDLU-static ${LIBS})
+  set_target_properties(SDLU-static PROPERTIES OUTPUT_NAME "SDLU")
+  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
+endif(BUILD_STATIC_LIBS)
+
+# Framework
+if (BUILD_FRAMEWORK)
+  set(INST_DIR "@executable_path/../../../Library/Frameworks")
+  set(INFO_PLIST "${CMAKE_SOURCE_DIR}/scripts/framework/Info.plist")
+
+  add_library(SDLU-frwk SHARED ${SOURCES} ${HDRS} ${INFO_PLIST})
+  target_link_libraries(SDLU-frwk ${LIBS})
+  set_target_properties(SDLU-frwk PROPERTIES FRAMEWORK TRUE)
+  set_target_properties(SDLU-frwk PROPERTIES OUTPUT_NAME "SDLU")
+  set_target_properties(SDLU-frwk PROPERTIES PUBLIC_HEADER "${HDRS}")
+  set_target_properties(SDLU-frwk PROPERTIES RESOURCE "${INFO_PLIST}")
+  set_target_properties(SDLU-frwk PROPERTIES INSTALL_NAME_DIR "${INST_DIR}")
+endif(BUILD_FRAMEWORK)
 
 # Installation targets
 install(TARGETS ${INSTALL_LIBS} DESTINATION ${libdir})
@@ -142,14 +147,8 @@ install(FILES ${HDRS} DESTINATION ${includedir})
 install(FILES ${SDLU_PC} DESTINATION ${libdir}/pkgconfig)
 install(FILES ${SDLU_M4} DESTINATION ${prefix}/share/aclocal)
 
-# Mac OS X framework
-if (BUILD_FRAMEWORK)
-  join_files("${HDRS}" ";" FRWK_HDRS)
-  file(GLOB INFO_PLIST ${CMAKE_SOURCE_DIR}/scripts/framework/Info.plist)
-  set_target_properties(SDLU-shared PROPERTIES FRAMEWORK TRUE)
-  set_target_properties(SDLU-shared PROPERTIES PUBLIC_HEADER "${FRWK_HDRS}")
-  set_target_properties(SDLU-shared PROPERTIES RESOURCE "${INFO_PLIST}")
-endif(BUILD_FRAMEWORK)
+# CPack Configuration
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/ConfigureCPack.cmake")
 
 # Uninstall target (see http://www.cmake.org/Wiki/RecipeAddUninstallTarget)
 configure_file(
