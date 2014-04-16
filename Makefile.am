@@ -3,6 +3,7 @@ bin_SCRIPTS = sdlu-config
 
 if CXX
 cxx_sources =	src/cxx/SDLU_CButton.cxx		\
+				src/cxx/SDLU_CComboBox.cxx		\
 				src/cxx/SDLU_CIniHandler.cxx	\
 				src/cxx/SDLU_CRenderer.cxx		\
 				src/cxx/SDLU_CRWops.cxx         \
@@ -19,6 +20,7 @@ endif
 
 libSDLU_la_SOURCES = ${cxx_sources}             \
 					 src/button/SDLU_button.c	\
+					 src/combo/SDLU_combobox.c	\
 					 src/common/SDLU_common.c	\
 					 src/common/SDLU_userdata.c	\
 					 src/gl/SDLU_gl.c			\
@@ -36,6 +38,7 @@ libSDLU_la_SOURCES = ${cxx_sources}             \
 include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\
 				  include/SDLU_collide.h		\
+				  include/SDLU_combobox.h		\
 				  include/SDLU_config.h			\
 				  include/SDLU_create.h			\
 				  include/SDLU_cxx.h			\

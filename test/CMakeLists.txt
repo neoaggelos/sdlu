@@ -52,7 +52,7 @@ add_definitions("-DDATA_DIR=\"${CMAKE_SOURCE_DIR}/data\"")
 
 # Add executables
 set(TARGETS 
-    "testbutton;testcollision;testcolorkey;testini;testmath;testmulticopy;testrender;testsprite;testtext;testturtle"
+    "testbutton;testcollision;testcolorkey;testcombo;testini;testmath;testmulticopy;testrender;testsprite;testtext;testturtle"
 )
 set(COMMON ${CMAKE_SOURCE_DIR}/common.c)
 

@@ -67,10 +67,12 @@
 #define SDLU_SetError SDL_SetError
 #define SDLU_GetError SDL_GetError
 
+#include "SDLU_config.h"
+
 /* Basic SDLU library */
 #include "SDLU_button.h"
 #include "SDLU_collide.h"
-#include "SDLU_config.h"
+#include "SDLU_combobox.h"
 #include "SDLU_create.h"
 #include "SDLU_defs.h"
 #include "SDLU_fps.h"

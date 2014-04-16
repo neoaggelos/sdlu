@@ -1,17 +1,17 @@
 This is a list of major changes in the SDLU version history
 
 ================================================================================
-SDLU 2.2
+Current
 ================================================================================
 
 NOTE: Update to this version if you use SDL2 revision 8234 or higher.
 
 Additions:
+- Added ComboBox API
 - Added SDLU_RenderTextToSurface()
 - Added SDLU_CreateSpriteFromRW()
 
 Changes:
-- Fixed wrong handling of SDLU_HINT_TEXT_DRAW_SCALED
 - Fixed Visual Studio compilation errors
 - Removed SDLU_HINT_TEXT_DRAW_SCALED
 

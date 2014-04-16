@@ -84,15 +84,15 @@ typedef struct SDLU_Sprite SDLU_Sprite;
 /*@}*/
 
 /**
- *  \brief Button callback prototype
+ *  \brief callback prototype
  *
- *  It returns nothing (void), and takes two arguments. The first is
- *  a button structure (SDLU_Button*), the 'button-caller' and the other is a
- *  (void*) pointer, which can hold userdata.
+ *  \param _this The object that calls the callback (button or a combobox)
+ *  \param userdata void* pointer for user data
  *
  *  \sa SDLU_SetButtonCallback()
+ *  \sa SDLU_SetComboBoxCallback()
  */
-typedef void (SDLCALL * SDLU_Callback) (struct SDLU_Button*, void*);
+typedef void (SDLCALL * SDLU_Callback) (void* _this, void* userdata);
 
 /**
  * \brief text button data structure

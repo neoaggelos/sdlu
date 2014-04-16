@@ -629,6 +629,33 @@ namespace SDLU {
             int SetDirection(double);
     };
 
+    class ComboBox {
+        private:
+            SDLU_ComboBox* combobox;
+
+        public:
+            ComboBox();
+            ComboBox(SDL_Window*);
+            ComboBox(SDLU::Window*);
+            ComboBox(SDLU_ComboBox*);
+
+            ~ComboBox();
+
+            SDLU_ComboBox* GetComboBox();
+
+            int SetGeometry(int x, int y, int w, int h);
+            int SetCallback(SDLU_Callback callback, void* arg);
+            int Render();
+
+            int AddItem(const char* item);
+            int DelItem(const char* item);
+#ifdef SDLU_STL
+            int AddItem(std::string item);
+            int DelItem(std::string item);
+#endif
+    };
+
+
 } /* namespace SDLU */
 
 #endif /* SDLU_CXX */

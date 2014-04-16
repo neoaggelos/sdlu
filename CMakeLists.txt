@@ -56,6 +56,7 @@ file(GLOB SOURCES
   ${CMAKE_SOURCE_DIR}/src/common/*.c
   ${CMAKE_SOURCE_DIR}/src/sprite/*.c
   ${CMAKE_SOURCE_DIR}/src/turtle/*.c
+  ${CMAKE_SOURCE_DIR}/src/combo/*.c
   ${CMAKE_SOURCE_DIR}/src/text/*.c
   ${CMAKE_SOURCE_DIR}/src/ini/*.c
   ${CMAKE_SOURCE_DIR}/src/gl/*.c
