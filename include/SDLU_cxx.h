@@ -620,6 +620,8 @@ namespace SDLU {
 
             ~Turtle(void);
 
+            SDLU_Turtle* GetTurtle();
+
             int SetDrawColor(Uint8, Uint8, Uint8, Uint8);
             int SetDrawBlendMode(SDL_BlendMode);
             int Move(int);

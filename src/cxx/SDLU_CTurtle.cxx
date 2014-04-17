@@ -46,6 +46,11 @@ SDLU::Turtle::~Turtle(void)
     SDLU_DestroyTurtle(this->turtle);
 }
 
+SDLU_Turtle* SDLU::Turtle::GetTurtle()
+{
+    return this->turtle;
+}
+
 int SDLU::Turtle::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
     return SDLU_SetTurtleDrawColor(this->turtle, r, g, b, a);
