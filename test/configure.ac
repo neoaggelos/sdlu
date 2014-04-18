@@ -26,6 +26,10 @@ AC_LANG_POP
 AC_MSG_RESULT($cxx_compiler_works)
 
 # Find SDL2
+if test x$SDLU_USE_SDL2_FRAMEWORK = xyes; then
+    SDL_CFLAGS="-framework SDL2"
+    SDL_LIBS="-framework SDL2"
+fi
 AM_PATH_SDL2([2.0.0], :, AC_MSG_ERROR([*** Error: Could not find SDL2]))
 CFLAGS="$CFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
