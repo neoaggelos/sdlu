@@ -50,6 +50,10 @@ AC_MSG_RESULT($debug)
 
 # Function to check for SDL2
 CheckSDL2() {
+    if test x$SDLU_USE_SDL2_FRAMEWORK = xyes; then
+        SDL_CFLAGS="-framework SDL2"
+        SDL_LIBS="-framework SDL2"
+    fi
     AM_PATH_SDL2(2.0.0, :, AC_MSG_ERROR([*** Error: Could not find SDL2]))
     CFLAGS="$CFLAGS $SDL_CFLAGS"
     LIBS="$LIBS $SDL_LIBS"
@@ -58,6 +62,10 @@ CheckSDL2() {
 # Function to check for SDL2_ttf
 CheckSDL2_ttf() {
     AC_MSG_CHECKING(for SDL2_ttf)
+    if test x$SDLU_USE_SDL2_FRAMEWORK = xyes; then
+        TTF_CFLAGS="-framework SDL2_ttf"
+        TTF_LIBS="-framework SDL2_ttf"
+    fi
     AC_CHECK_SDL2_TTF(:, AC_MSG_ERROR([*** Error: Could not find SDL2_ttf]))
     CFLAGS="$CFLAGS $TTF_CFLAGS"
     LIBS="$LIBS $TTF_LIBS"

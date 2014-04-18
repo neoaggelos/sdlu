@@ -15401,6 +15401,10 @@ $as_echo "$debug" >&6; }
 
 # Function to check for SDL2
 CheckSDL2() {
+    if test x$SDLU_LINK_FRAMEWORKS = xyes; then
+        SDL_CFLAGS="-framework SDL2"
+        SDL_LIBS="-framework SDL2"
+    fi
 
 
 
@@ -15869,6 +15873,10 @@ rm -f core conftest.err conftest.$ac_objext \
 CheckSDL2_ttf() {
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for SDL2_ttf" >&5
 $as_echo_n "checking for SDL2_ttf... " >&6; }
+    if test x$SDLU_LINK_FRAMEWORKS = xyes; then
+        TTF_CFLAGS="-framework SDL2_ttf"
+        TTF_LIBS="-framework SDL2_ttf"
+    fi
 
 
 # Check whether --with-sdl-ttf-pc was given.
@@ -15916,12 +15924,11 @@ if ac_fn_c_try_compile "$LINENO"; then :
   have_ttf=yes
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+        LIBS="$ac_save_LIBS"
         if test x$have_ttf = xyes; then
             TTF_LIBS="-lSDL2_ttf"
             TTF_CFLAGS=""
             :
-        else
-            LIBS="$ac_save_LIBS"
         fi
 
         if test x$have_ttf = xno; then
@@ -15929,7 +15936,33 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
         fi
     fi
 else
-    :
+            ac_save_CFLAGS="$CFLAGS"
+    ac_save_LIBS="$LIBS"
+    CFLAGS="$CFLAGS $TTF_CFLAGS"
+    LIBS="$LIBS $TTF_LIBS"
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include "SDL_ttf.h"
+int
+main ()
+{
+TTF_Init()
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  have_ttf=yes
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+    CFLAGS="$ac_save_CFLAGS"
+    LIBS="$ac_save_LIBS"
+
+    if test x$have_ttf = xyes; then
+        :
+    else
+        as_fn_error $? "*** Error: Could not find SDL2_ttf" "$LINENO" 5
+    fi
 fi
 
 

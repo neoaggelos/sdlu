@@ -54,6 +54,17 @@ described some of the most common options you will need:
 
 
 ================================================================================
+Finding frameworks (Mac OS X)
+================================================================================
+
+configure is currently unable to detect SDL2.framework and SDL2_ttf.framework
+under Mac OS X. As a result, unless you link to the dylibs directly, you should
+set SDLU_USE_SDL2_FRAMEWORK to 'yes'
+
+    $ ./configure SDLU_USE_SDL2_FRAMEWORK=yes; make; make install
+
+
+================================================================================
 Notes for developers
 ================================================================================
 
