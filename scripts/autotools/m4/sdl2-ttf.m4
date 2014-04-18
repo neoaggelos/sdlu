@@ -2,7 +2,7 @@
 
 # serial 1
 
-dnl AC_CHECK_SDL2_TTF([ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]
+dnl AC_CHECK_SDL2_TTF([ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]])
 dnl Check the system for SDL2_ttf and define TTF_CFLAGS and TTF_LIBS
 dnl
 AC_DEFUN([AC_CHECK_SDL2_TTF],
@@ -27,12 +27,11 @@ if test "x$TTF_CFLAGS$TTF_LIBS" = x; then
         ac_save_LIBS="$LIBS"
         LIBS="$LIBS -lSDL2_ttf"
         AC_TRY_COMPILE([#include "SDL_ttf.h"],[TTF_Init()],have_ttf=yes)
+        LIBS="$ac_save_LIBS"
         if test x$have_ttf = xyes; then
             TTF_LIBS="-lSDL2_ttf"
             TTF_CFLAGS=""
             ifelse([$1], , :, [$1])
-        else
-            LIBS="$ac_save_LIBS"
         fi
 
         if test x$have_ttf = xno; then
@@ -40,7 +39,21 @@ if test "x$TTF_CFLAGS$TTF_LIBS" = x; then
         fi
     fi
 else
-    ifelse([$1], , :, [$1])
+    dnl Custom TTF_CFLAGS and TTF_LIBS were given. Check their validity by
+    dnl compiling a test program.
+    ac_save_CFLAGS="$CFLAGS"
+    ac_save_LIBS="$LIBS"
+    CFLAGS="$CFLAGS $TTF_CFLAGS"
+    LIBS="$LIBS $TTF_LIBS"
+    AC_TRY_COMPILE([#include "SDL_ttf.h"],[TTF_Init()],have_ttf=yes)
+    CFLAGS="$ac_save_CFLAGS"
+    LIBS="$ac_save_LIBS"
+
+    if test x$have_ttf = xyes; then
+        ifelse([$1], , :, [$1])
+    else
+        ifelse([$2], , :, [$2])
+    fi
 fi
 
 ])
