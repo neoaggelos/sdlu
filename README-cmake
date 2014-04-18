@@ -16,6 +16,14 @@ Supported platforms
 
 
 ================================================================================
+Features
+================================================================================
+
++ Full Visual Studio support
++ Support for iOS Xcode project generation
+
+
+================================================================================
 Usage
 ================================================================================
 
@@ -36,6 +44,30 @@ Or, if you prefer, you may use the CMake GUI:
     > Adjust options
     > Click 'Generate'
     > Use the generated files to build the library
+
+
+================================================================================
+Troubleshooting Xcode linking errors
+================================================================================
+
+If you are using the Xcode generator and you get build errors when linking to
+the SDL2 framework, change the CMake cache from this:
+
+SDL2_LIBRARY        /Library/Frameworks/SDL2.framework
+SDL2_TTF_LIBRARY    /Library/Frameworks/SDL2_ttf.framework
+
+To this:
+
+SDL2_LIBRARY        /Library/Frameworks/SDL2.framework/SDL2
+SDL2_TTF_LIBRARY    /Library/Frameworks/SDL2_ttf.framework/SDL2_ttf
+
+This is actually a bug in CMake (version 2.8.12.2), which fails to correctly set
+the linking flags for frameworks in Xcode. To avoid this, we link directly to
+the SDL2 and SDL2_ttf libraries without depending on the framework.
+
+Otherwise, you could fix the error from inside Xcode after generating the
+project files for SDLU, with adding SDL2.framework and SDL2_ttf.framework by
+hand.
 
 
 ================================================================================
