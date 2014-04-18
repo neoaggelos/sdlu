@@ -4,7 +4,7 @@ This is a list of major changes in the SDLU version history
 SDLU 2.2
 ================================================================================
 
-NOTE: Update to this version if you use SDL2 revision 8234 or higher.
+NOTE: Update to this version if you use SDL2 2.0.2 or newer.
 
 Additions:
 - Added SDLU_RenderTextToSurface()
