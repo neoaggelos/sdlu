@@ -45,8 +45,10 @@
 /**
  *  callback function for the help button
  */
-void help_dialog(SDLU_Button* this, void* unused)
+void help_dialog(void* _this, void* unused)
 {
+    SDLU_Button* this = (SDLU_Button*) _this;
+
     SDL_ShowSimpleMessageBox(
             0,
             "Help",
@@ -64,8 +66,10 @@ void help_dialog(SDLU_Button* this, void* unused)
  *  been pressed. if it is 'add', then we add 1 to the sum, and if it is 'minus'
  *  we substract 1
  */
-void button_callback(SDLU_Button* this, void* _arg)
+void button_callback(void* _this, void* _arg)
 {
+    SDLU_Button* this = (SDLU_Button*) _this;
+
     if (strcmp(this->name, "add") == 0) {
         /** '+' button **/
         int *sum = (int*)_arg;

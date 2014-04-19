@@ -34,7 +34,7 @@
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 #endif
 
-void buttonf(SDLU_Button* b, void *_done)
+void buttonf(void* _this, void *_done)
 {
     int* done = (int*)_done;
     std::cout << "Output from the callback" << std::endl;

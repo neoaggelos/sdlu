@@ -482,6 +482,20 @@ extern DECLSPEC int SDLCALL SDLU_SetButtonRenderFunc(
  *  \param callback The callback function
  *  \param arg      The argument that will be given to the callback function.
  *
+ *  The callback function takes two 'void*' arguments, see the documentation for
+ *  SDLU_Callback. The first argument is a pointer to the pressed or hovered
+ *  button, and the second is userdata. So, normally you should do something
+ *  like this in your callback function:
+ *
+ *  \code
+ *  void callback_function(void* _this, void* userdata)
+ *  {
+ *      SDLU_Button* this = (SDLU_Button*) _this;
+ *
+ *      // Do something
+ *  }
+ *  \endcode
+ *
  *  \return 0 on success, -1 on error.
  *
  *  \sa SDLU_Callback
