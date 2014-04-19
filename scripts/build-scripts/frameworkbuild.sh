@@ -11,7 +11,7 @@ if [ "x$1" == "x" ]; then
     mkdir -p $BUILDDIR && cd $BUILDDIR
     ../configure $configure_flags --disable-static --enable-shared
     make V=0
-    library="$wd/build/.libs/libSDLU.dylib.0.0.0"
+    library="$wd/build/.libs/libSDLU.0.dylib"
     config_h="$wd/build/include/SDLU_config.h"
 else
     library="$1"
