@@ -4948,8 +4948,8 @@ case "$host" in
         sys_opengles="GLESv2"
         ;;
     *-*-darwin*)
-        sys_opengl="-Wl,framework,OpenGL"
-        sys_opengles="-Wl,framework,OpenGLES"
+        sys_opengl="-Wl,-framework,OpenGL"
+        sys_opengles="-Wl,-framework,OpenGLES"
         ;;
     *)
         sys_opengl="GL"
