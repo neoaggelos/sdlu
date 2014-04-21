@@ -57,11 +57,14 @@ described some of the most common options you will need:
 Finding frameworks (Mac OS X)
 ================================================================================
 
-configure is currently unable to detect SDL2.framework and SDL2_ttf.framework
-under Mac OS X. As a result, unless you link to the dylibs directly, you should
-set SDLU_USE_SDL2_FRAMEWORK to 'yes'
+configure is unable to properly locate the SDL2 and SDL2_ttf frameworks under
+Mac OS X. This means that if you use these frameworks and do not link to the
+libraries directly, you should set the following environment variables:
+(assuming the frameworks are installed in /Library/Frameworks)
 
-    $ ./configure SDLU_USE_SDL2_FRAMEWORK=yes; make; make install
+    $ export SDL2_FRAMEWORK=/Library/Frameworks/SDL2.framework
+    $ export SDL2_TTF_FRAMEWORK=/Library/Frameworks/SDL2_ttf.framework
+    $ ./configure; make; make install
 
 
 ================================================================================

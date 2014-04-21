@@ -5,10 +5,14 @@ Building the tests using configure
 Assuming the tests are in ~/sdlu/test:
 
     $ cd ~/sdlu/test
-    $ mkdir build && cd buil
-    $ ../configure
-    $ make V=0
+    $ ./configure; make
 
+For configure to be able to find the SDLU framework under Mac OS X:
+(assuming the framework is in /Library/Frameworks)
+
+    $ cd ~/sdlu/test
+    $ export SDLU_FRAMEWORK=/Library/Frameworks/SDLU.framework
+    $ ./configure; make
 
 ================================================================================
 Building the tests using CMake
@@ -31,6 +35,7 @@ Description of the tests
 testbutton    : Simple example with buttons
 testcollision : Collision detection between two rects
 testcolorkey  : Simple example of loading textures with(out) a color-key
+testcombo     : Simple combo box example
 testcxx       : Simple example of the SDL2 C++ interface
 testgl        : Loads an OpenGL texture and blits it on the screen
 testgles2     : Simple SDL2 + OpenGLES2 example
