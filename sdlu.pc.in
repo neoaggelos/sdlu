@@ -8,8 +8,8 @@ libdir=@libdir@
 Name: The SDL Utility Library
 Description: A companion library for SDL2
 Version: @major@.@minor@
-Requires: sdl2 SDL2_ttf
+Requires:
 Conflicts:
 Libs: -L@libdir@ -Wl,-rpath,@libdir@ -lSDLU
-Libs.private: -lm
+Libs.private: @SDL_LIBS@ @TTF_LIBS@
 Cflags: -I@includedir@

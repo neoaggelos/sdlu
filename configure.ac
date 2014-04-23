@@ -35,6 +35,14 @@ case "$host" in
     *) ;;
 esac
 
+# Check if we are building the static library
+# This is required for 'sdlu-config --static-libs'
+if test x$enable_static = xyes; then
+    STATIC=''
+else
+    STATIC='#'
+fi
+
 # Debug
 AC_MSG_CHECKING(whether to build with debugging information)
 debug=no
@@ -126,7 +134,10 @@ AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
 AC_SUBST([DEFINE_SDLU_CXX])
 AC_SUBST([DEFINE_SDLU_STL])
 
-# substitution for sdlu.pc
+# substitutions for sdlu.pc and sdlu-config
+AC_SUBST([SDL_LIBS])
+AC_SUBST([TTF_LIBS])
+AC_SUBST([STATIC])
 AC_SUBST([major])
 AC_SUBST([minor])
 

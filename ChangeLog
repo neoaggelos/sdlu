@@ -18,6 +18,7 @@ Changes:
 Build System:
 - Added premake build system
 - Official support for Mac OS X and iOS
+- Fixed sdlu-config and sdlu.pc static linking flags
 
 
 ================================================================================

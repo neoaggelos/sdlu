@@ -49,6 +49,10 @@ find_package(SDL2_ttf REQUIRED)
 include_directories(${SDL2_TTF_INCLUDE_DIR})
 set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
 
+# These are for sdlu-config and sdlu.pc
+set(SDL_LIBS ${SDL2_LIBRARY})
+set(TTF_LIBS ${SDL2_TTF_LIBRARY})
+
 # Basic sources
 file(GLOB SOURCES
   ${CMAKE_SOURCE_DIR}/src/button/*.c
@@ -74,6 +78,40 @@ if (BUILD_CXX)
     set(SDLU_STL 1)
   endif(CMAKE_STD_NAMESPACE)
 endif(BUILD_CXX)
+
+# Shared library
+if (BUILD_SHARED_LIBS)
+  add_library(SDLU-shared SHARED ${SOURCES} ${HDRS})
+  target_link_libraries(SDLU-shared ${LIBS})
+  set_target_properties(SDLU-shared PROPERTIES OUTPUT_NAME "SDLU")
+  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-shared)
+endif(BUILD_SHARED_LIBS)
+
+# Static library
+set(STATIC "#")
+if (BUILD_STATIC_LIBS)
+  add_library(SDLU-static STATIC ${SOURCES} ${HDRS})
+  target_link_libraries(SDLU-static ${LIBS})
+  set_target_properties(SDLU-static PROPERTIES OUTPUT_NAME "SDLU")
+  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
+
+  # these are for 'sdlu-config --static-libs'
+  set(STATIC "")
+endif(BUILD_STATIC_LIBS)
+
+# Framework
+if (BUILD_FRAMEWORK)
+  set(INST_DIR "@executable_path/../../../Library/Frameworks")
+  set(INFO_PLIST "${CMAKE_SOURCE_DIR}/scripts/framework/Info.plist")
+
+  add_library(SDLU-frwk SHARED ${SOURCES} ${HDRS} ${INFO_PLIST})
+  target_link_libraries(SDLU-frwk ${LIBS})
+  set_target_properties(SDLU-frwk PROPERTIES FRAMEWORK TRUE)
+  set_target_properties(SDLU-frwk PROPERTIES OUTPUT_NAME "SDLU")
+  set_target_properties(SDLU-frwk PROPERTIES PUBLIC_HEADER "${HDRS}")
+  set_target_properties(SDLU-frwk PROPERTIES RESOURCE "${INFO_PLIST}")
+  set_target_properties(SDLU-frwk PROPERTIES INSTALL_NAME_DIR "${INST_DIR}")
+endif(BUILD_FRAMEWORK)
 
 # Installation paths for sdlu-config and sdlu.pc
 set(prefix ${CMAKE_INSTALL_PREFIX})
@@ -110,36 +148,6 @@ file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
 file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
 file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
 file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
-
-# Add shared library
-if (BUILD_SHARED_LIBS)
-  add_library(SDLU-shared SHARED ${SOURCES} ${HDRS})
-  target_link_libraries(SDLU-shared ${LIBS})
-  set_target_properties(SDLU-shared PROPERTIES OUTPUT_NAME "SDLU")
-  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-shared)
-endif(BUILD_SHARED_LIBS)
-
-# Static library
-if (BUILD_STATIC_LIBS)
-  add_library(SDLU-static STATIC ${SOURCES} ${HDRS})
-  target_link_libraries(SDLU-static ${LIBS})
-  set_target_properties(SDLU-static PROPERTIES OUTPUT_NAME "SDLU")
-  set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
-endif(BUILD_STATIC_LIBS)
-
-# Framework
-if (BUILD_FRAMEWORK)
-  set(INST_DIR "@executable_path/../../../Library/Frameworks")
-  set(INFO_PLIST "${CMAKE_SOURCE_DIR}/scripts/framework/Info.plist")
-
-  add_library(SDLU-frwk SHARED ${SOURCES} ${HDRS} ${INFO_PLIST})
-  target_link_libraries(SDLU-frwk ${LIBS})
-  set_target_properties(SDLU-frwk PROPERTIES FRAMEWORK TRUE)
-  set_target_properties(SDLU-frwk PROPERTIES OUTPUT_NAME "SDLU")
-  set_target_properties(SDLU-frwk PROPERTIES PUBLIC_HEADER "${HDRS}")
-  set_target_properties(SDLU-frwk PROPERTIES RESOURCE "${INFO_PLIST}")
-  set_target_properties(SDLU-frwk PROPERTIES INSTALL_NAME_DIR "${INST_DIR}")
-endif(BUILD_FRAMEWORK)
 
 # Installation targets
 install(TARGETS ${INSTALL_LIBS} DESTINATION ${libdir})

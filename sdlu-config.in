@@ -8,7 +8,7 @@ includedir=@includedir@
 
 version=@major@.@minor@
 
-usage="Usage: $0 [--prefix[=DIR]] [--exec-prefix[=DIR]] [--version] [--cflags] [--libs]"
+usage="Usage: $0 [--prefix[=DIR]] [--exec-prefix[=DIR]] [--version] [--cflags] [--libs] [--static-libs]"
 
 if test $# -eq 0; then
       echo $usage 1>&2
@@ -47,6 +47,9 @@ while test $# -gt 0; do
     --libs)
       echo -n "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
       ;;
+@STATIC@    --static-libs)
+@STATIC@      echo -n "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU @SDL_LIBS@ @TTF_LIBS@ "
+@STATIC@      ;;
     *)
       echo $usage 1>&2
       exit 1
