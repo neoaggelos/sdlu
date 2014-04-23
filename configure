@@ -637,6 +637,7 @@ LTLIBOBJS
 LIBOBJS
 minor
 major
+STATIC
 DEFINE_SDLU_STL
 DEFINE_SDLU_CXX
 CXX_FALSE
@@ -15383,6 +15384,14 @@ case "$host" in
     *) ;;
 esac
 
+# Check if we are building the static library
+# This is required for 'sdlu-config --static-libs'
+if test x$enable_static = xyes; then
+    STATIC=''
+else
+    STATIC='#'
+fi
+
 # Debug
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build with debugging information" >&5
 $as_echo_n "checking whether to build with debugging information... " >&6; }
@@ -16061,7 +16070,10 @@ ac_config_commands="$ac_config_commands sdlu_config"
 
 
 
-# substitution for sdlu.pc
+# substitutions for sdlu.pc and sdlu-config
+
+
+
 
 
 
