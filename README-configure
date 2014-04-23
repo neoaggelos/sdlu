@@ -11,7 +11,7 @@ Supported platforms
 
 * GNU/Linux (Tested: Ubuntu, Linux Mint)
 * Cygwin/MSYS (Tested)
-* Mac OS X (Not tested, but should work)
+* Mac OS X (Tested, mostly works)
 * Raspberry Pi (Tested)
 * iOS -- makefiles (see README-ios)
 
@@ -51,6 +51,7 @@ described some of the most common options you will need:
 * --enable-cxx: Build the cxx interface
 * --enable-debug: Build with debugging information
 * --with-sdl-prefix: Prefix where SDL is installed
+* --with-sdl-ttf-pc: Full path to SDL2_ttf.pc
 
 
 ================================================================================
