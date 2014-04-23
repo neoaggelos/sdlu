@@ -22,7 +22,6 @@
 #include "SDLU.h"
 #include "SDLU_common.h"
 #include "SDLU_userdata.h"
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -151,8 +150,8 @@ SDLU_SetSpriteDirection(SDLU_Sprite* sprite, double velocity, double angle)
     /* cos() and sin() want rad */
     angle *= (SDLU_PI / 180.0);
 
-    sprite->xvel = cos(angle) * velocity;
-    sprite->yvel = sin(angle) * velocity;
+    sprite->xvel = SDL_cos(angle) * velocity;
+    sprite->yvel = SDL_sin(angle) * velocity;
 
     return 0;
 }

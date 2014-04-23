@@ -21,7 +21,6 @@
 
 #include "SDLU.h"
 #include "SDL.h"
-#include <math.h>
 
 /**
  *  \brief Returns the double inequality a <= b <= c
@@ -36,7 +35,7 @@
  *  \param x2,y2 The coordinates of the 2nd point
  */
 #define distance(x1,y1,x2,y2) \
-    sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) )
+    SDL_sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) )
 
 int SDLU_CollidePointCircle(SDL_Point p, SDLU_Circle c)
 {
