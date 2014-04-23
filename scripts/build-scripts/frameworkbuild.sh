@@ -36,9 +36,10 @@ cp -R $headers "$FRAMEWORK/Versions/A/Headers/"
 cp -R $plist   "$FRAMEWORK/Versions/A/Resources/Info.plist"
 
 # Create links
-cd $FRAMEWORK && ln -s Versions/A/SDLU SDLU
-cd $FRAMEWORK && ln -s Versions/A/Resources Resources 
-cd $FRAMEWORK && ln -s Versions/A/Headers Headers 
+cd $FRAMEWORK && ln -s A                            Versions/Current
+cd $FRAMEWORK && ln -s Versions/Current/SDLU        SDLU
+cd $FRAMEWORK && ln -s Versions/Current/Resources   Resources
+cd $FRAMEWORK && ln -s Versions/Current/Headers     Headers
 
 # Finish
 echo "Finished building -- framework name is SDLU.framework"
