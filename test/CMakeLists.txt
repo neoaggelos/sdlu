@@ -16,24 +16,18 @@ include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindGLES2.cmake")
 
 # Find SDL2
 find_package(SDL2 REQUIRED)
-if (SDL2_FOUND)
-    include_directories(${SDL2_INCLUDE_DIR})
-    set(LIBS ${LIBS} ${SDL2_LIBRARY})
-endif(SDL2_FOUND)
+include_directories(${SDL2_INCLUDE_DIR})
+set(LIBS ${LIBS} ${SDL2_LIBRARY})
 
 # Find SDL2_ttf
 find_package(SDL2_ttf REQUIRED)
-if (SDL2_TTF_FOUND)
-    include_directories(${SDL2_TTF_INCLUDE_DIR})
-    set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
-endif(SDL2_TTF_FOUND)
+include_directories(${SDL2_TTF_INCLUDE_DIR})
+set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
 
 # Find SDLU
 find_package(SDLU REQUIRED)
-if (SDLU_FOUND)
-    include_directories(${SDLU_INCLUDE_DIR})
-    set(LIBS ${LIBS} ${SDLU_LIBRARY})
-endif(SDLU_FOUND)
+include_directories(${SDLU_INCLUDE_DIR})
+set(LIBS ${LIBS} ${SDLU_LIBRARY})
 
 # Find OpenGL ES 2
 find_package(GLES2)
