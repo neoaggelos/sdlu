@@ -50,7 +50,9 @@ include_directories(${SDL2_TTF_INCLUDE_DIR})
 set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
 
 # These are for sdlu-config and sdlu.pc
+set(SDL_CFLAGS "-I${SDL2_INCLUDE_DIR}")
 set(SDL_LIBS ${SDL2_LIBRARY})
+set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
 set(TTF_LIBS ${SDL2_TTF_LIBRARY})
 
 # Basic sources

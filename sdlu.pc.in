@@ -12,4 +12,4 @@ Requires:
 Conflicts:
 Libs: -L@libdir@ -Wl,-rpath,@libdir@ -lSDLU
 Libs.private: @SDL_LIBS@ @TTF_LIBS@
-Cflags: -I@includedir@
+Cflags: -I@includedir@ @SDL_CFLAGS@ @TTF_CFLAGS@
