@@ -51,6 +51,13 @@ ComboBoxEventWatch(void *_this, SDL_Event* event)
     SDL_Renderer* renderer;
     SDL_Rect R;
 
+    if (combobox->num_items == 0) {
+        combobox->current_item = NULL;
+        combobox->current_index = 0;
+        combobox->current = "";
+        combobox->open = 0;
+    }
+
     /**
      *  Since SDL2 revision 8234, we no longer have to calculate the scaled
      *  rect. This is due to the change in the order the event watchers are
@@ -290,6 +297,8 @@ SDLU_RenderComboBox(SDLU_ComboBox* combobox)
         SDL_RenderFillRect(renderer, &(combobox->rect));
         SDL_SetRenderDrawColor(renderer, SDLU_WHITE);
         SDL_RenderDrawRect(renderer, &(combobox->rect));
+
+        return 0;
     }
 
     if (combobox->open) {
