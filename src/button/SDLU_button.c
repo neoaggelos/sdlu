@@ -919,8 +919,7 @@ SDLU_DestroyButton( SDLU_Button* button )
         SDLU_ExitError("invalid parameter 'button'", -1);
 
     /** remove from internal button list **/
-    LL_DELETE(buttons, button);
-    SDLU_Log("successfully deleted button");
+    if (buttons) LL_DELETE(buttons, button);
 
     /** delete event watch **/
     SDL_DelEventWatch(SDLU_EventWatch, button);

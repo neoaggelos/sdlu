@@ -310,7 +310,8 @@ int
 SDLU_DestroySprite(SDLU_Sprite *sprite)
 {
     if (sprite) {
-        LL_DELETE(sprites, sprite);
+        if (sprites) LL_DELETE(sprites, sprite);
+        SDL_DestroyTexture(sprite->data);
         SDL_free(sprite);
         return 0;
     } else {
