@@ -307,8 +307,7 @@ SDLU_RenderComboBox(SDLU_ComboBox* combobox)
             y += combobox->rect.h;
         }
     } else {
-        SDLU_ComboBoxItem* current_item = combobox->current_item;
-        SDLU_CopyTexture(renderer, current_item->texture, x, y);
+        SDLU_CopyTexture(renderer, combobox->current_item->texture, x, y);
     }
 
     return 0;
