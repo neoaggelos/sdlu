@@ -90,12 +90,21 @@ fout:write(buf)
 fout:close()
 
 -- Include directories
-sdl2_include_dir = sdl2_include_dir or os.getenv("SDL2_INCLUDE_DIR")
-sdl2_ttf_include_dir = sdl2_ttf_include_dir or os.getenv("SDL2_TTF_INCLUDE_DIR")
+sdl2_include_dir = sdl2_include_dir or os.getenv("SDL2_INCLUDE_DIR") or ""
+sdl2_ttf_include_dir = sdl2_ttf_include_dir or os.getenv("SDL2_TTF_INCLUDE_DIR") or ""
 
 -- Libraries
 sdl2_library = sdl2_library or os.getenv("SDL2_LIBRARY") or "SDL2"
 sdl2_ttf_library = sdl2_ttf_library or os.getenv("SDL2_TTF_LIBRARY") or "SDL2_ttf"
+
+-- Warn if SDL.h or SDL_ttf.h aren't found
+if not os.isfile(sdl2_include_dir .. "/SDL.h") then
+  print"* Warning: SDL.h was not found. Proceeding with compiler's result."
+end
+
+if not os.isfile(sdl2_ttf_include_dir .. "/SDL_ttf.h") then
+  print"* Warning: SDL_ttf.h was not found. Proceeding with compiler's result."
+end
 
 -- Extra include directories
 include_dirs = ";" .. include_dirs
