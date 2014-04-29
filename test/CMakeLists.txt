@@ -48,7 +48,8 @@ add_definitions("-DDATA_DIR=\"${CMAKE_SOURCE_DIR}/data\"")
 set(TARGETS 
     "testbutton;testcollision;testcolorkey;testcombo;testini;testmath;testmulticopy;testrender;testsprite;testtext;testturtle"
 )
-set(COMMON ${CMAKE_SOURCE_DIR}/common.c)
+add_library(common OBJECT ${CMAKE_SOURCE_DIR}/common.c)
+set(COMMON $<TARGET_OBJECTS:common>)
 
 foreach(target ${TARGETS})
     add_executable(${target} "${CMAKE_SOURCE_DIR}/${target}.c" ${COMMON})
