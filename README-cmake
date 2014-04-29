@@ -12,6 +12,7 @@ Supported platforms
 * Windows (Visual Studio, Cygwin, CodeBlocks)
 * Linux
 * Mac OS X
+* Android using Android-CMake, see README-android
 * iOS, see README-ios
 
 

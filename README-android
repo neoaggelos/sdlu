@@ -5,32 +5,27 @@ About the SDLU Android port
 SDLU officially supports the Android platform. The port is built as part of the
 Android project, just like SDL2. This is a fully functional port.
 
+Alternatively, Android-CMake can be used to build the library. If you want to
+use Android-CMake, skip to the last section of this document.
+
 
 ================================================================================
-Requirements
+Patching the android-project
 ================================================================================
 
+Requirements:
 * Android SDK (version 12 or later)
 * Android NDK (r7 or later)
 * An SDL2 android-project
 * Good understanding of how the SDL2 android port works
 * A bash shell (Windows users can use one of the many bash shells for Windows)
 
+Create a new SDL2 android-project (as explained in SDL2/README-android.txt).
 
-================================================================================
-Preparation
-================================================================================
-
-* Create a new SDL2 android-project (as explained in SDL2/README-android.txt)
-* Put SDL2_ttf at 'jni/SDL_ttf', and uncomment the following line from the SDL
-  activity class (src/org/libsdl/app/SDLActivity.java -- line 45)
+Put SDL2_ttf at 'jni/SDL_ttf', and uncomment the following line from the SDL
+activity class (src/org/libsdl/app/SDLActivity.java -- line 45)
 
     System.loadLibrary("SDL2_ttf");
-
-
-================================================================================
-Patching the android-project
-================================================================================
 
 Open a terminal and type:
 
@@ -48,13 +43,37 @@ update to the latest version, append 'update':
 
     $ ./scripts/build-scripts/android.sh /path/to/android-project update
 
-
-================================================================================
-Building the Android port
-================================================================================
-
 Assuming you have successfully patched the android-project as explained above,
 you can now run 'ndk-build' to build your application.
+
+
+================================================================================
+Building with Android-CMake
+================================================================================
+
+Requirements:
+* libSDL2.so and libSDL2_ttf.so for Android
+* Proper Android-CMake installation
+* SDL2 and SDL2_ttf header files
+
+Using android-cmake from terminal:
+
+    $ cd /path/to/SDLU
+    $ mkdir build && cd build
+    $ cmake -DCMAKE_TOOLCHAIN_FILE=../scripts/cmake/toolchains/android_toolchain.cmake ..
+
+Using CMake GUI:
+
+    > Open the CMake GUI
+    > Set the source code directory to '/path/to/SDLU'
+    > Set the build directory to '/path/to/SDLU/build'
+    > Click 'Configure' and choose 'Specify toolchain for cross-compiling'
+    > Select 'scripts/cmake/toolchains/android_toolchain.cmake' as the toolchain
+    > Set correct paths for SDL2 and SDL2_ttf
+    > Set desired values for ANDROID_ABI, ANDROID_NATIVE_API_LEVEL
+    > Click 'Configure', then 'Generate'
+
+Then, use the generated makefiles to build the library.
 
 
 -- Aggelos Kolaitis
