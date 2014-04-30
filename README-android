@@ -60,7 +60,7 @@ Using android-cmake from terminal:
 
     $ cd /path/to/SDLU
     $ mkdir build && cd build
-    $ cmake -DCMAKE_TOOLCHAIN_FILE=../scripts/cmake/toolchains/android_toolchain.cmake ..
+    $ cmake -DCMAKE_TOOLCHAIN_FILE=../scripts/cmake/toolchains/android.cmake ..
 
 Using CMake GUI:
 
@@ -68,7 +68,7 @@ Using CMake GUI:
     > Set the source code directory to '/path/to/SDLU'
     > Set the build directory to '/path/to/SDLU/build'
     > Click 'Configure' and choose 'Specify toolchain for cross-compiling'
-    > Select 'scripts/cmake/toolchains/android_toolchain.cmake' as the toolchain
+    > Select 'scripts/cmake/toolchains/android.cmake' as the toolchain
     > Set correct paths for SDL2 and SDL2_ttf
     > Set desired values for ANDROID_ABI, ANDROID_NATIVE_API_LEVEL
     > Click 'Configure', then 'Generate'

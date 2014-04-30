@@ -24,7 +24,7 @@ Run CMake Gui and set:
 * SDL2/SDL2_TTF_LIBRARY and SDL2/SDL2_TTF_INCLUDE_DIR
 * BUILD_SHARED_LIBS to OFF
 * BUILD_STATIC_LIBS to ON
-* Use the toolchain file '<SDLU>/scripts/cmake/toolchains/ios_toolchain.cmake'
+* Use the toolchain file '<SDLU>/scripts/cmake/toolchains/ios.cmake'
 
 Hit configure and then generate. Then, use the Xcode project files to build
 the library.
