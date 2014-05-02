@@ -53,7 +53,7 @@ Building with Android-CMake
 
 Requirements:
 * libSDL2.so and libSDL2_ttf.so for Android
-* Proper Android-CMake installation
+* Android SDK and Android NDK
 * SDL2 and SDL2_ttf header files
 
 Using android-cmake from terminal:
