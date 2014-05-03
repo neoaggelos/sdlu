@@ -20,11 +20,11 @@ Building with Xcode (Recommended)
 
 Run CMake Gui and set:
 * Generator name to Xcode
+* Use the toolchain file '<SDLU>/scripts/cmake/toolchains/ios.cmake'
 * IOS_PLATFORM to either OS or SIMULATOR
 * SDL2/SDL2_TTF_LIBRARY and SDL2/SDL2_TTF_INCLUDE_DIR
 * BUILD_SHARED_LIBS to OFF
 * BUILD_STATIC_LIBS to ON
-* Use the toolchain file '<SDLU>/scripts/cmake/toolchains/ios.cmake'
 
 Hit configure and then generate. Then, use the Xcode project files to build
 the library.
