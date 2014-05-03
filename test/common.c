@@ -16,7 +16,7 @@ char* GetImagePath(const char* fname)
     append = "/";
 #endif
     sz = SDL_strlen(basePath) + SDL_strlen(append) + SDL_strlen(fname);
-    path = (char*)malloc(sizeof(char) * (sz+2));
+    path = (char*)SDL_malloc(sizeof(char) * (sz+2));
     SDL_snprintf(path, sz+1, "%s%s%s", basePath, append, fname);
 
     return path;
@@ -51,7 +51,7 @@ char* GetImagePath(const char* fname)
     append = "../data/";
 #endif
     sz = SDL_strlen(basePath) + SDL_strlen(append) + SDL_strlen(fname);
-    path = (char*)malloc(sizeof(char) * (sz+2));
+    path = (char*)SDL_malloc(sizeof(char) * (sz+2));
     SDL_snprintf(path,sz+1, "%s%s%s", basePath, append, fname);
 
     return path;
@@ -73,7 +73,7 @@ SDLU_test_vasprintf(char** s, const char* format, va_list arg)
     SDL_vsnprintf(tmp, SDLU_MAXLEN-1, format, arg);
     len = SDL_strlen(tmp) + 1;
 
-    *s = (char*)malloc(len * sizeof(char));
+    *s = (char*)SDL_malloc(len * sizeof(char));
 
     SDL_memcpy(*s, tmp, len);
     return len;
