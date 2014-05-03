@@ -1,5 +1,7 @@
 # SDLU CMakeLists.txt
 cmake_minimum_required(VERSION 2.8)
+set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+set(CMAKE_WIN32_EXECUTABLE TRUE)
 
 # Define the project
 project(SDLU_Tests C)
