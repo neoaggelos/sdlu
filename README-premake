@@ -33,6 +33,12 @@ To use the premake build system, open a shell and type:
     $ cd /path/to/SDLU              # go to the SDLU source code directory
     $ premake4 [options] [action]   # generate project files
 
+If SDL2 and SDL2_ttf are not installed in the default paths, or if you are using
+Windows, then it's better to run premake in 'interactive' mode:
+
+    $ cd /path/to/SDLU
+    $ premake4 [options] [action] --interactive
+
 Project files will be generated in the newly created "build" directory. The
 built library can be found under "build/lib".
 
@@ -43,6 +49,7 @@ Run 'premake4 --help' to see what actions are available.
 Options
 ================================================================================
 
+* --interactive:                Run in interactive mode
 * --enable-cxx:                 Build the cxx interface
 * --with-sdl2-library:          Specify the full path to the SDL2 library
 * --with-sdl2-ttf-library:      Specify the full path to the SDL2_ttf library

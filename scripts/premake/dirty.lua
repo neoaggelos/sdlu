@@ -31,6 +31,11 @@ end
 --------------------------------------------------------------------------------
 
 newoption{
+    trigger = "interactive",
+    description = "Run in interactive mode"
+}
+
+newoption{
     trigger = "with-sdl2-ttf-library",
     value = "FILE",
     description = "Full path to the SDL2_ttf library (SDL2_TTF_LIBRARY)"
@@ -86,6 +91,7 @@ sdl2_ttf_include_dir  =  _OPTIONS["with-sdl2-ttf-include-dir"]  or  false
 sdl2_ttf_library      =  _OPTIONS["with-sdl2-ttf-library"]      or  false
 include_dirs          =  _OPTIONS["extra-include-dirs"]         or  ""
 lib_dirs              =  _OPTIONS["extra-lib-dirs"]             or  ""
+interactive           =  _OPTIONS["interactive"]                or  false
 
 extra_include_dirs = { }
 extra_lib_dirs = { }
@@ -113,8 +119,18 @@ fout:write(buf)
 fout:close()
 
 -- Include directories
-sdl2_include_dir = sdl2_include_dir or os.getenv("SDL2_INCLUDE_DIR") or ""
-sdl2_ttf_include_dir = sdl2_ttf_include_dir or os.getenv("SDL2_TTF_INCLUDE_DIR") or ""
+sdl2_include_dir = sdl2_include_dir or os.getenv("SDL2_INCLUDE_DIR") or false
+sdl2_ttf_include_dir = sdl2_ttf_include_dir or os.getenv("SDL2_TTF_INCLUDE_DIR") or false
+
+if not sdl2_include_dir and interactive then
+    io.write "Enter location of the SDL2 headers: "
+    sdl2_include_dir = io.read('*l')
+end
+
+if not sdl2_ttf_include_dir and interactive then
+    io.write "Enter location of the SDL2_ttf headers: "
+    sdl2_ttf_include_dir = io.read('*l')
+end
 
 -- Libraries
 sdl2_library = sdl2_library or os.getenv("SDL2_LIBRARY") or "SDL2"
