@@ -282,12 +282,13 @@ SDLU_RenderComboBox(SDLU_ComboBox* combobox)
 {
     SDL_Renderer* renderer;
     SDLU_ComboBoxItem* items, *item;
-
-    int x = combobox->rect.x;
-    int y = combobox->rect.y;
+    int x, y;
 
     if (combobox == NULL)
         SDLU_ExitError("invalid combo box", -1);
+
+    x = combobox->rect.x;
+    y = combobox->rect.y;
 
     renderer = SDL_GetRenderer(combobox->window);
     items = (SDLU_ComboBoxItem*) combobox->data;

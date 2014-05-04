@@ -153,6 +153,9 @@ SDLU_SetIniProperty(SDLU_IniHandler** handler, const char* _section, const char*
     SDLU_IniSection *s;
     const char* section = _section ? _section : "__global";
 
+    if (*handler == NULL)
+        SDLU_ExitError("invalid ini handler", -1);
+
     LL_FOREACH((*handler)->sections, s) {
         if (SDL_strcmp(s->name, section) == 0) {
             return add_property_to_section(&s, property, value);
@@ -175,6 +178,9 @@ SDLU_GetIniProperty(SDLU_IniHandler* handler, const char* _section, const char* 
     SDLU_IniSection *s;
     const char* section = _section ? _section : "__global";
 
+    if (handler == NULL)
+        SDLU_ExitError("invalid ini handler", -1);
+
     LL_FOREACH(handler->sections, s) {
         if (SDL_strcmp(s->name, section) == 0) {
             return get_property_from_section(s, property);
@@ -189,6 +195,9 @@ SDLU_SaveIniRW(SDLU_IniHandler* handler, SDL_RWops* rwops, int freesrc)
 {
     SDLU_IniSection *s;
     SDLU_IniProperty *p;
+
+    if (handler == NULL)
+        SDLU_ExitError("invalid ini handler", -1);
 
     LL_FOREACH(handler->sections, s) {
         if (s->num_properties == 0) continue;
@@ -212,6 +221,9 @@ SDLU_DelIniProperty(SDLU_IniHandler** handler, const char* _section, const char*
     SDLU_IniSection* s;
     const char* section = _section ? _section : "__global";
 
+    if (*handler == NULL)
+        SDLU_ExitError("invalid ini handler", -1);
+
     s = get_section_from_handler(*handler, section);
     if (s != NULL)
         return del_property_from_section(&s, property);
@@ -226,6 +238,9 @@ SDLU_DelIniSection(SDLU_IniHandler** handler, const char* _section)
     SDLU_IniProperty *p;
     int result;
     const char* section = _section ? _section : "__global";
+
+    if (*handler == NULL)
+        SDLU_ExitError("invalid ini handler", -1);
 
     result = 0;
     s = get_section_from_handler(*handler, section);
@@ -251,6 +266,8 @@ SDLU_DestroyIni(SDLU_IniHandler* handler)
 {
     SDLU_IniSection* s;
     int result = 0;
+
+    if (handler == NULL) return 0;
 
     LL_FOREACH(handler->sections, s) {
         result |= SDLU_DelIniSection(&handler, s->name);
