@@ -7,6 +7,29 @@ builddir = srcdir .. "/build"
 
 --------------------------------------------------------------------------------
 
+-- parse all _ARGS that are _OPTIONS
+for _, arg in pairs(_ARGS) do
+    local is_option = false
+    if arg:startswith '/' then
+        arg = arg:sub(2)
+        is_option = true
+    elseif arg:startswith '--' then
+        arg = arg:sub(3)
+        is_option = true
+    end
+
+    if is_option then
+        local first, last = arg:find('=')
+        if first and last then
+            _OPTIONS[arg:sub(1,first-1)] = arg:sub(last+1)
+        else
+            _OPTIONS[arg] = ""
+        end
+    end
+end
+
+--------------------------------------------------------------------------------
+
 newoption{
     trigger = "with-sdl2-ttf-library",
     value = "FILE",
