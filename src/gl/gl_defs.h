@@ -12,10 +12,10 @@
 #define GL_BLEND 0x0BE2
 
 #define GLubyte unsigned char
-#define GLenum unsigned long
-#define GLuint unsigned long
-#define GLsizei long
-#define GLint long
+#define GLenum unsigned int
+#define GLuint unsigned int
+#define GLsizei int
+#define GLint int
 #define GLvoid void
 #define GLfloat float
 
