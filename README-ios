@@ -11,7 +11,7 @@ Requirements
 ================================================================================
 
 * Mac OS X (10.5 or newer) with the iPhone SDK (3.0 or newer)
-* SDL2 and SDL2_ttf for iOS (static)
+* SDL2 and SDL2_ttf headers
 
 
 ================================================================================
@@ -36,8 +36,6 @@ Building from command line
 
 First, set the following variables:
 
-* SDL2_IOS_LIBRARY:     Full path to libSDL2.a
-* SDL2_TTF_IOS_LIBRARY: Full path to libSDL2_ttf.a
 * SDL2_INCLUDE_DIR:     Directory where SDL.h is located
 * SDL2_TTF_INCLUDE_DIR: Directory where SDL_ttf.h is located
 

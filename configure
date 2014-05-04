@@ -15984,7 +15984,6 @@ $as_echo "$have_ttf" >&6; }
 # Find libraries
 case "$host" in
     custom-apple-darwin) # this is iosbuild.sh
-        LIBS="$LIBS $SDL2_IOS_LIBRARY $SDL2_TTF_IOS_LIBRARY"
         CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
         ;;
     arm-raspberry-linux-gnueabihf) # this is rpibuild.sh

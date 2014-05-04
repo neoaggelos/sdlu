@@ -5,16 +5,8 @@ die() {
     exit 1
 }
 
-if [ "x$SDL2_IOS_LIBRARY" == "x" ]; then
-    die "\$SDL2_IOS_LIBRARY is not set, see README-ios"
-fi
-
 if [ "x$SDL2_INCLUDE_DIR" == "x" ]; then
     die "\$SDL2_INCLUDE_DIR is not set, see README-ios"
-fi
-
-if [ "x$SDL2_TTF_IOS_LIBRARY" == "x" ]; then
-    die "\$SDL2_TTF_IOS_LIBRARY is not set, see README-ios"
 fi
 
 if [ "x$SDL2_TTF_INCLUDE_DIR" == "x" ]; then
