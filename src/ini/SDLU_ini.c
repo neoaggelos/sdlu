@@ -179,7 +179,7 @@ SDLU_GetIniProperty(SDLU_IniHandler* handler, const char* _section, const char* 
     const char* section = _section ? _section : "__global";
 
     if (handler == NULL)
-        SDLU_ExitError("invalid ini handler", -1);
+        SDLU_ExitError("invalid ini handler", NULL);
 
     LL_FOREACH(handler->sections, s) {
         if (SDL_strcmp(s->name, section) == 0) {
