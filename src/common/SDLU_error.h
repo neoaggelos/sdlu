@@ -22,9 +22,11 @@
 #ifndef SDLU_ERROR_H
 #define SDLU_ERROR_H
 
+#include "SDL.h"
+
 #ifdef _DEBUG
 #define SDLU_Log( str ) \
-    SDL_Log("[%s:%d](%s): %s\n",__FILE__,__LINE__,__FUNCTION__,str)
+    SDL_Log("[%s:%d](%s): %s\n",SDL_strrchr(__FILE__, '/')+1,__LINE__,__FUNCTION__,str)
 #else
 #define SDLU_Log(str)
 #endif
