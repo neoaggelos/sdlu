@@ -71,7 +71,7 @@ int SDLU::Turtle::SetPosition(int x, int y)
     return SDLU_SetTurtlePosition(this->turtle, x, y);
 }
 
-int SDLU::Turtle::Rotate(double angle)
+int SDLU::Turtle::Rotate(int angle)
 {
     return SDLU_RotateTurtle(this->turtle, angle);
 }
@@ -81,7 +81,7 @@ int SDLU::Turtle::Reset(void)
     return SDLU_ResetTurtle(this->turtle);
 }
 
-int SDLU::Turtle::SetDirection(double angle)
+int SDLU::Turtle::SetDirection(int angle)
 {
     return SDLU_SetTurtleDirection(this->turtle, angle);
 }

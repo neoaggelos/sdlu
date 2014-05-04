@@ -626,9 +626,9 @@ namespace SDLU {
             int SetDrawBlendMode(SDL_BlendMode);
             int Move(int);
             int SetPosition(int,int);
-            int Rotate(double);
+            int Rotate(int);
             int Reset(void);
-            int SetDirection(double);
+            int SetDirection(int);
     };
 
     class ComboBox {
