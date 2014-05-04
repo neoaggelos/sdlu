@@ -51,7 +51,7 @@ extern "C" {
  *  \sa SDLU_GL_LoadTextureFromFile()
  *  \sa SDLU_HINT_GL_TEXTURE_ADD_PADDING
  */
-extern DECLSPEC unsigned long SDLCALL SDLU_GL_LoadTexture(
+extern DECLSPEC unsigned int SDLCALL SDLU_GL_LoadTexture(
         SDL_Surface* surface,
         float* texw, float* texh
 );
@@ -64,7 +64,7 @@ extern DECLSPEC unsigned long SDLCALL SDLU_GL_LoadTexture(
  *
  *  \sa SDLU_GL_LoadTexture()
  */
-extern DECLSPEC unsigned long SDLCALL SDLU_GL_LoadTextureFromFile(
+extern DECLSPEC unsigned int SDLCALL SDLU_GL_LoadTextureFromFile(
         const char* filename,
         float* texw, float* texh
 );

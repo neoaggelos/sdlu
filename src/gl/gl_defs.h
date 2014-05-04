@@ -11,18 +11,18 @@
 #define GL_EXTENSIONS 0x1F03
 #define GL_BLEND 0x0BE2
 
-#define GLubyte unsigned char
-#define GLenum unsigned int
-#define GLuint unsigned int
-#define GLsizei int
-#define GLint int
-#define GLvoid void
-#define GLfloat float
+typedef unsigned char GLubyte;
+typedef unsigned int GLenum;
+typedef unsigned int GLuint;
+typedef int GLsizei;
+typedef int GLint;
+typedef void GLvoid;
+typedef float GLfloat;
 
 #ifdef __APPLE__
-#define GLhandleARB void*
+typedef void* GLhandleARB;
 #else
-#define GLhandleARB unsigned int
+typedef unsigned int GLhandleARB;
 #endif
 
 typedef GLubyte* (*GL_GETSTRING)(GLenum);
