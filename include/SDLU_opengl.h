@@ -75,6 +75,10 @@ extern DECLSPEC unsigned long SDLCALL SDLU_GL_LoadTextureFromFile(
  *  Using SDLU_GL_RenderCacheState() with SDLU_GL_RenderRestoreState() enables
  *  you to mix pure OpenGL calls with the SDL2 Render API.
  *
+ *  FIXME: This function may or may not work under different operating systems,
+ *  depending on the system configuration and the OpenGL drivers. This has been
+ *  tested, and works as expected, on Linux and Mac OS X.
+ *
  *  \param renderer Renderer whose state to cache
  *
  *  \return 0 on success, -1 on error
