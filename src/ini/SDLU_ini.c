@@ -247,8 +247,8 @@ SDLU_DelIniSection(SDLU_IniHandler** handler, const char* _section)
     if (s == NULL)
         return -1;
 
-    LL_FOREACH(s->properties, p) {
-        result |= SDLU_DelIniProperty(handler, s->name, p->key);
+    while(s->properties) {
+        result |= SDLU_DelIniProperty(handler, s->name, s->properties->key);
     }
 
     if (SDL_strcmp(section, "__global") != 0) {
@@ -269,8 +269,8 @@ SDLU_DestroyIni(SDLU_IniHandler* handler)
 
     if (handler == NULL) return 0;
 
-    LL_FOREACH(handler->sections, s) {
-        result |= SDLU_DelIniSection(&handler, s->name);
+    while(handler->num_sections >= 0) {
+        result |= SDLU_DelIniSection(&handler, handler->sections->name);
     }
 
     /* free memory */
