@@ -76,15 +76,9 @@ If you already have an autotools build system for your project, and want to find
 SDLU, place 'scripts/autotools/m4/sdlu.m4' along with the other *.m4 files, and
 add the following in your configure.ac:
 
-    AM_PATH_SDLU([2.1], have_sdlu=yes, have_sdlu=no)
-    if test x$have_sdlu = xyes; then
-        CFLAGS="$CFLAGS $SDLU_CFLAGS"
-        LIBS="$CFLAGS $SDLU_LIBS"
-    else
-        ....
-    fi
-
-To complete the changes run aclocal and autoconf, or just 'autoreconf'
+    AM_PATH_SDLU( VERSION, [ACTION_IF_FOUND[, ACTION_IF_NOT_FOUND]] )
+    CFLAGS="$CFLAGS $SDLU_CFLAGS"
+    LIBS="$LIBS $SDLU_LIBS"
 
 
 -- Aggelos Kolaitis
