@@ -7,11 +7,6 @@ solution "SDLU"
 
   configurations { "Release", "Debug" }
 
-  language(lang)
-
-  files { sources }
-  includedirs { "src/common", "build/include" }
-
   includedirs { sdl2_include_dir, sdl2_ttf_include_dir }
   links { sdl2_library, sdl2_ttf_library }
 
@@ -19,8 +14,13 @@ solution "SDLU"
   includedirs { extra_include_dirs }
 
   location "build"
-  targetdir "build/lib"
   objdir "build/obj"
 
   project "SDLU"
     kind(library_kind)
+    language(lang)
+    files { sources }
+    includedirs { "src/common", "build/include" }
+    targetdir "build/lib"
+
+  add_tests()

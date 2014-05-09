@@ -55,6 +55,7 @@ Options
 * --with-sdl2-ttf-library:      Specify the full path to the SDL2_ttf library
 * --with-sdl2-include-dir:      Specify the directory of the SDL2 headers
 * --with-sdl2-ttf-include-dir:  Specify the directory of the SDL2_ttf headers
+* --with-tests                  Also build the SDLU test programs
 
 For a list of all available options, run 'premake4 --help'.
 

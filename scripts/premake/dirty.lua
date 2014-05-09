@@ -4,6 +4,7 @@ srcdir_rel = path.getdirectory(_SCRIPT)
 srcdir_rel = path.join(srcdir_rel, "../..")
 srcdir = path.getabsolute(srcdir_rel)
 builddir = srcdir .. "/build"
+auxdir = srcdir .. "/scripts/premake"
 
 --------------------------------------------------------------------------------
 
@@ -11,8 +12,7 @@ builddir = srcdir .. "/build"
 for _, arg in pairs(_ARGS) do
     local is_option = false
     if arg:startswith '/' then
-        arg = arg:sub(2)
-        is_option = true
+        arg = arg:sub(2) is_option = true
     elseif arg:startswith '--' then
         arg = arg:sub(3)
         is_option = true
@@ -60,6 +60,11 @@ newoption{
 }
 
 newoption{
+    trigger = "with-tests",
+    description = "Also build the test programs"
+}
+
+newoption{
     trigger = "enable-cxx",
     description = "Enable the cxx interface"
 }
@@ -92,6 +97,7 @@ sdl2_ttf_library      =  _OPTIONS["with-sdl2-ttf-library"]      or  false
 include_dirs          =  _OPTIONS["extra-include-dirs"]         or  ""
 lib_dirs              =  _OPTIONS["extra-lib-dirs"]             or  ""
 interactive           =  _OPTIONS["interactive"]                or  false
+build_tests           =  _OPTIONS["with-tests"]                 or  false
 
 extra_include_dirs = { }
 extra_lib_dirs = { }
@@ -123,27 +129,28 @@ sdl2_include_dir = sdl2_include_dir or os.getenv("SDL2_INCLUDE_DIR") or false
 sdl2_ttf_include_dir = sdl2_ttf_include_dir or os.getenv("SDL2_TTF_INCLUDE_DIR") or false
 
 if not sdl2_include_dir and interactive then
-    io.write "Enter location of the SDL2 headers: "
-    sdl2_include_dir = io.read('*l')
+  io.write "Enter location of the SDL2 headers: "
+  sdl2_include_dir = io.read('*l')
+else
+  if type(sdl2_include_dir) == "boolean" then sdl2_include_dir = "" end
+  if not os.isfile(sdl2_include_dir .. "/SDL.h") then
+    print"* Warning: SDL.h was not found. Proceeding with compiler's result"
+  end
 end
 
 if not sdl2_ttf_include_dir and interactive then
-    io.write "Enter location of the SDL2_ttf headers: "
-    sdl2_ttf_include_dir = io.read('*l')
+  io.write "Enter location of the SDL2_ttf headers: "
+  sdl2_ttf_include_dir = io.read('*l')
+else
+  if type(sdl2_ttf_include_dir) == "boolean" then sdl2_ttf_include_dir = "" end
+  if not os.isfile(sdl2_ttf_include_dir .. "/SDL_ttf.h") then
+    print"* Warning: SDL_ttf.h was not found. Proceeding with compiler's result"
+  end
 end
 
 -- Libraries
 sdl2_library = sdl2_library or os.getenv("SDL2_LIBRARY") or "SDL2"
 sdl2_ttf_library = sdl2_ttf_library or os.getenv("SDL2_TTF_LIBRARY") or "SDL2_ttf"
-
--- Warn if SDL.h or SDL_ttf.h aren't found
-if not os.isfile(sdl2_include_dir .. "/SDL.h") then
-  print"* Warning: SDL.h was not found. Proceeding with compiler's result."
-end
-
-if not os.isfile(sdl2_ttf_include_dir .. "/SDL_ttf.h") then
-  print"* Warning: SDL_ttf.h was not found. Proceeding with compiler's result."
-end
 
 -- Extra include directories
 include_dirs = ";" .. include_dirs
@@ -170,3 +177,7 @@ end
 if _ACTION == "clean" or _OPTIONS["help"] or not _ACTION then
     os.rmdir(builddir)
 end
+
+-- Tests
+dofile(auxdir .. "/tests.lua")
+
