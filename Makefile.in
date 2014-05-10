@@ -152,9 +152,9 @@ am__libSDLU_la_SOURCES_DIST = src/cxx/SDLU_CButton.cxx \
 	src/cxx/SDLU_CRenderer.cxx src/cxx/SDLU_CRWops.cxx \
 	src/cxx/SDLU_CSprite.cxx src/cxx/SDLU_CTexture.cxx \
 	src/cxx/SDLU_CTurtle.cxx src/cxx/SDLU_CWindow.cxx \
-	src/button/SDLU_button.c src/combo/SDLU_combobox.c \
 	src/common/SDLU_common.c src/common/SDLU_userdata.c \
-	src/gl/SDLU_gl.c src/ini/SDLU_ini.c src/render/SDLU_pixels.c \
+	src/gl/SDLU_gl.c src/gui/SDLU_button.c src/gui/SDLU_combobox.c \
+	src/ini/SDLU_ini.c src/render/SDLU_pixels.c \
 	src/render/SDLU_render.c src/SDLU_collide.c src/SDLU_create.c \
 	src/SDLU_framerate.c src/SDLU_math.c src/sprite/SDLU_sprite.c \
 	src/text/SDLU_ttf.c src/turtle/SDLU_turtle.c
@@ -165,9 +165,9 @@ am__dirstamp = $(am__leading_dot)dirstamp
 @CXX_TRUE@	src/cxx/SDLU_CRenderer.lo src/cxx/SDLU_CRWops.lo \
 @CXX_TRUE@	src/cxx/SDLU_CSprite.lo src/cxx/SDLU_CTexture.lo \
 @CXX_TRUE@	src/cxx/SDLU_CTurtle.lo src/cxx/SDLU_CWindow.lo
-am_libSDLU_la_OBJECTS = $(am__objects_1) src/button/SDLU_button.lo \
-	src/combo/SDLU_combobox.lo src/common/SDLU_common.lo \
+am_libSDLU_la_OBJECTS = $(am__objects_1) src/common/SDLU_common.lo \
 	src/common/SDLU_userdata.lo src/gl/SDLU_gl.lo \
+	src/gui/SDLU_button.lo src/gui/SDLU_combobox.lo \
 	src/ini/SDLU_ini.lo src/render/SDLU_pixels.lo \
 	src/render/SDLU_render.lo src/SDLU_collide.lo \
 	src/SDLU_create.lo src/SDLU_framerate.lo src/SDLU_math.lo \
@@ -427,11 +427,11 @@ bin_SCRIPTS = sdlu-config
 @CXX_FALSE@libSDLU_la_LINK = $(LINK)
 @CXX_TRUE@libSDLU_la_LINK = $(CXXLINK)
 libSDLU_la_SOURCES = ${cxx_sources}             \
-					 src/button/SDLU_button.c	\
-					 src/combo/SDLU_combobox.c	\
 					 src/common/SDLU_common.c	\
 					 src/common/SDLU_userdata.c	\
 					 src/gl/SDLU_gl.c			\
+					 src/gui/SDLU_button.c		\
+					 src/gui/SDLU_combobox.c	\
 					 src/ini/SDLU_ini.c			\
 					 src/render/SDLU_pixels.c	\
 					 src/render/SDLU_render.c	\
@@ -575,22 +575,6 @@ src/cxx/SDLU_CTurtle.lo: src/cxx/$(am__dirstamp) \
 	src/cxx/$(DEPDIR)/$(am__dirstamp)
 src/cxx/SDLU_CWindow.lo: src/cxx/$(am__dirstamp) \
 	src/cxx/$(DEPDIR)/$(am__dirstamp)
-src/button/$(am__dirstamp):
-	@$(MKDIR_P) src/button
-	@: > src/button/$(am__dirstamp)
-src/button/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/button/$(DEPDIR)
-	@: > src/button/$(DEPDIR)/$(am__dirstamp)
-src/button/SDLU_button.lo: src/button/$(am__dirstamp) \
-	src/button/$(DEPDIR)/$(am__dirstamp)
-src/combo/$(am__dirstamp):
-	@$(MKDIR_P) src/combo
-	@: > src/combo/$(am__dirstamp)
-src/combo/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/combo/$(DEPDIR)
-	@: > src/combo/$(DEPDIR)/$(am__dirstamp)
-src/combo/SDLU_combobox.lo: src/combo/$(am__dirstamp) \
-	src/combo/$(DEPDIR)/$(am__dirstamp)
 src/common/$(am__dirstamp):
 	@$(MKDIR_P) src/common
 	@: > src/common/$(am__dirstamp)
@@ -609,6 +593,16 @@ src/gl/$(DEPDIR)/$(am__dirstamp):
 	@: > src/gl/$(DEPDIR)/$(am__dirstamp)
 src/gl/SDLU_gl.lo: src/gl/$(am__dirstamp) \
 	src/gl/$(DEPDIR)/$(am__dirstamp)
+src/gui/$(am__dirstamp):
+	@$(MKDIR_P) src/gui
+	@: > src/gui/$(am__dirstamp)
+src/gui/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/gui/$(DEPDIR)
+	@: > src/gui/$(DEPDIR)/$(am__dirstamp)
+src/gui/SDLU_button.lo: src/gui/$(am__dirstamp) \
+	src/gui/$(DEPDIR)/$(am__dirstamp)
+src/gui/SDLU_combobox.lo: src/gui/$(am__dirstamp) \
+	src/gui/$(DEPDIR)/$(am__dirstamp)
 src/ini/$(am__dirstamp):
 	@$(MKDIR_P) src/ini
 	@: > src/ini/$(am__dirstamp)
@@ -705,16 +699,14 @@ mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f src/*.$(OBJEXT)
 	-rm -f src/*.lo
-	-rm -f src/button/*.$(OBJEXT)
-	-rm -f src/button/*.lo
-	-rm -f src/combo/*.$(OBJEXT)
-	-rm -f src/combo/*.lo
 	-rm -f src/common/*.$(OBJEXT)
 	-rm -f src/common/*.lo
 	-rm -f src/cxx/*.$(OBJEXT)
 	-rm -f src/cxx/*.lo
 	-rm -f src/gl/*.$(OBJEXT)
 	-rm -f src/gl/*.lo
+	-rm -f src/gui/*.$(OBJEXT)
+	-rm -f src/gui/*.lo
 	-rm -f src/ini/*.$(OBJEXT)
 	-rm -f src/ini/*.lo
 	-rm -f src/render/*.$(OBJEXT)
@@ -733,8 +725,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_create.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_framerate.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_math.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/button/$(DEPDIR)/SDLU_button.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/combo/$(DEPDIR)/SDLU_combobox.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/common/$(DEPDIR)/SDLU_common.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/common/$(DEPDIR)/SDLU_userdata.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CButton.Plo@am__quote@
@@ -747,6 +737,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CTurtle.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CWindow.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/gl/$(DEPDIR)/SDLU_gl.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/gui/$(DEPDIR)/SDLU_button.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/gui/$(DEPDIR)/SDLU_combobox.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/ini/$(DEPDIR)/SDLU_ini.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/render/$(DEPDIR)/SDLU_pixels.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/render/$(DEPDIR)/SDLU_render.Plo@am__quote@
@@ -808,11 +800,10 @@ mostlyclean-libtool:
 clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf src/.libs src/_libs
-	-rm -rf src/button/.libs src/button/_libs
-	-rm -rf src/combo/.libs src/combo/_libs
 	-rm -rf src/common/.libs src/common/_libs
 	-rm -rf src/cxx/.libs src/cxx/_libs
 	-rm -rf src/gl/.libs src/gl/_libs
+	-rm -rf src/gui/.libs src/gui/_libs
 	-rm -rf src/ini/.libs src/ini/_libs
 	-rm -rf src/render/.libs src/render/_libs
 	-rm -rf src/sprite/.libs src/sprite/_libs
@@ -1142,16 +1133,14 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/$(am__dirstamp)
-	-rm -f src/button/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/button/$(am__dirstamp)
-	-rm -f src/combo/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/combo/$(am__dirstamp)
 	-rm -f src/common/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/common/$(am__dirstamp)
 	-rm -f src/cxx/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/cxx/$(am__dirstamp)
 	-rm -f src/gl/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/gl/$(am__dirstamp)
+	-rm -f src/gui/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/gui/$(am__dirstamp)
 	-rm -f src/ini/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/ini/$(am__dirstamp)
 	-rm -f src/render/$(DEPDIR)/$(am__dirstamp)
@@ -1173,7 +1162,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/button/$(DEPDIR) src/combo/$(DEPDIR) src/common/$(DEPDIR) src/cxx/$(DEPDIR) src/gl/$(DEPDIR) src/ini/$(DEPDIR) src/render/$(DEPDIR) src/sprite/$(DEPDIR) src/text/$(DEPDIR) src/turtle/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/common/$(DEPDIR) src/cxx/$(DEPDIR) src/gl/$(DEPDIR) src/gui/$(DEPDIR) src/ini/$(DEPDIR) src/render/$(DEPDIR) src/sprite/$(DEPDIR) src/text/$(DEPDIR) src/turtle/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-libtool distclean-tags
@@ -1222,7 +1211,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/button/$(DEPDIR) src/combo/$(DEPDIR) src/common/$(DEPDIR) src/cxx/$(DEPDIR) src/gl/$(DEPDIR) src/ini/$(DEPDIR) src/render/$(DEPDIR) src/sprite/$(DEPDIR) src/text/$(DEPDIR) src/turtle/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/common/$(DEPDIR) src/cxx/$(DEPDIR) src/gl/$(DEPDIR) src/gui/$(DEPDIR) src/ini/$(DEPDIR) src/render/$(DEPDIR) src/sprite/$(DEPDIR) src/text/$(DEPDIR) src/turtle/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

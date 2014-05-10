@@ -19,11 +19,11 @@ libSDLU_la_LINK = $(LINK)
 endif
 
 libSDLU_la_SOURCES = ${cxx_sources}             \
-					 src/button/SDLU_button.c	\
-					 src/combo/SDLU_combobox.c	\
 					 src/common/SDLU_common.c	\
 					 src/common/SDLU_userdata.c	\
 					 src/gl/SDLU_gl.c			\
+					 src/gui/SDLU_button.c		\
+					 src/gui/SDLU_combobox.c	\
 					 src/ini/SDLU_ini.c			\
 					 src/render/SDLU_pixels.c	\
 					 src/render/SDLU_render.c	\
