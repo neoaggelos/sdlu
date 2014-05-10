@@ -33,6 +33,7 @@ function add_test(test)
       links { "SDLU", "test_common" }
       defines("DATA_DIR=" .. testdir .. "/data")
       targetdir "build/tests"
+      includedirs { builddir .. "/include" }
 end
 
 function add_cxx_test(test)
@@ -43,6 +44,7 @@ function add_cxx_test(test)
       links { "SDLU", "test_common" }
       defines("DATA_DIR=" .. testdir .. "/data")
       targetdir "build/tests"
+      includedirs { builddir .. "/include" }
 end
 
 function add_gl_tests()
@@ -78,5 +80,5 @@ function add_tests()
     end
     add_gl_tests()
     add_gles2_tests()
-    add_cxx_tests()
+    if enable_cxx then add_cxx_tests() end
 end
