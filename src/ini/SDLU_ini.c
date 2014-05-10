@@ -235,7 +235,6 @@ int
 SDLU_DelIniSection(SDLU_IniHandler** handler, const char* _section)
 {
     SDLU_IniSection *s;
-    SDLU_IniProperty *p;
     int result;
     const char* section = _section ? _section : "__global";
 
@@ -264,7 +263,6 @@ SDLU_DelIniSection(SDLU_IniHandler** handler, const char* _section)
 int
 SDLU_DestroyIni(SDLU_IniHandler* handler)
 {
-    SDLU_IniSection* s;
     int result = 0;
 
     if (handler == NULL) return 0;
