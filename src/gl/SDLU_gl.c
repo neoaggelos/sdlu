@@ -44,10 +44,10 @@ static int add_padding( int i )
     return result;
 }
 
-unsigned long
+GLuint
 SDLU_GL_LoadTexture(SDL_Surface* surface, float *texw, float *texh)
 {
-    unsigned long texture;
+    GLuint texture;
     int result;
     SDL_Surface* temp;
     SDL_BlendMode blendmode;
@@ -173,11 +173,11 @@ SDLU_GL_LoadTexture(SDL_Surface* surface, float *texw, float *texh)
     return texture;
 }
 
-unsigned long
+GLuint
 SDLU_GL_LoadTextureFromFile(const char* filename, float* texw, float* texh)
 {
     SDL_Surface* tmp;
-    unsigned long texture;
+    GLuint texture;
 
     tmp = SDL_LoadBMP(filename);
     if (tmp == NULL) {
