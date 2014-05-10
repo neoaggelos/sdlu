@@ -31,12 +31,10 @@ SDLU::RWops::RWops(const char* file, const char* mode)
     this->rwops = SDL_RWFromFile(file, mode);
 }
 
-#if defined(SDLU_STL)
 SDLU::RWops::RWops(std::string file, std::string mode)
 {
     this->rwops = SDL_RWFromFile(file.c_str(), mode.c_str());
 }
-#endif
 
 SDLU::RWops::RWops(FILE* fp, SDL_bool autoclose)
 {

@@ -20,7 +20,6 @@ option(BUILD_FRAMEWORK "Build framework (Mac OS X)" OFF)
 # Also find a C++ compiler if needed
 if (BUILD_CXX)
   enable_language(CXX)
-  include(TestForSTDNamespace)
 endif(BUILD_CXX)
 
 # Load required modules
@@ -74,10 +73,6 @@ if (BUILD_CXX)
   set_source_files_properties(CXX_SOURCES PROPERTIES LANGUAGE CXX)
   set(SOURCES ${SOURCES} ${CXX_SOURCES})
   set(SDLU_CXX 1)
-
-  if (CMAKE_STD_NAMESPACE)
-    set(SDLU_STL 1)
-  endif(CMAKE_STD_NAMESPACE)
 endif(BUILD_CXX)
 
 # Shared library

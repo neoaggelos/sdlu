@@ -76,8 +76,6 @@ SDLU::Sprite::Sprite(SDLU::Renderer* renderer, const char* file, int num)
     this->sprite = SDLU_CreateSpriteFromFile( renderer->GetRenderer(), file, num );
 }
 
-#ifdef SDLU_STL
-
 SDLU::Sprite::Sprite(SDL_Renderer* renderer, std::string file, int num)
 {
     this->sprite = SDLU_CreateSpriteFromFile( renderer, file.c_str(), num);
@@ -87,8 +85,6 @@ SDLU::Sprite::Sprite(SDLU::Renderer* renderer, std::string file, int num)
 {
     this->sprite = SDLU_CreateSpriteFromFile( renderer->GetRenderer(), file.c_str(), num );
 }
-
-#endif
 
 SDLU::Sprite::Sprite(SDLU_Sprite* sprite)
 {
@@ -195,8 +191,6 @@ int SDLU::Sprite::DelData(const char* key)
     return SDLU_DelSpriteData(this->sprite, key);
 }
 
-#ifdef SDLU_STL
-
 int SDLU::Sprite::AddData(std::string* key, void* value)
 {
     return SDLU_AddSpriteData(this->sprite, key->c_str(), value);
@@ -211,8 +205,6 @@ int SDLU::Sprite::DelData(std::string* key)
 {
     return SDLU_DelSpriteData(this->sprite, key->c_str());
 }
-
-#endif
 
 int SDLU::Sprite::SetFrameMode( int mode )
 {

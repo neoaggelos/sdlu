@@ -34,9 +34,7 @@
 
 #if defined( SDLU_CXX ) && defined( __cplusplus )
 
-#if defined( SDLU_STL )
 #include <iostream>
-#endif
 
 #include "SDL_ttf.h"
 
@@ -68,9 +66,7 @@ namespace SDLU {
 
             /** SDL_CreateWindow(). **/
             Window( const char* title, int x, int y, int w, int h, Uint32 flags);
-#ifdef SDLU_STL
             Window( std::string title, int x, int y, int w, int h, Uint32 flags);
-#endif
 
             /** SDL_CreateWindowFrom(). **/
             Window( const void *data );
@@ -101,16 +97,12 @@ namespace SDLU {
             Uint32 GetFlags( );
             void SetTitle( const char* title );
             const char* GetTitle( );
-#ifdef SDLU_STL
             void SetTitle( std::string title );
-#endif
             void SetIcon( SDL_Surface* icon );
             void SetData( const char* name, void* userdata );
             void* GetData( const char* name );
-#ifdef SDLU_STL
             void SetData( std::string name, void* userdata );
             void* GetData( std::string name );
-#endif
             void SetPosition( int x, int y );
             void GetPosition( int *x, int *y );
             void SetSize( int w, int h );
@@ -248,27 +240,21 @@ namespace SDLU {
             /* The text rendering API */
             int RenderText( int x, int y, const char* format, ... );
             int RenderTextVa( int x, int y, const char* format, va_list arg );
-#ifdef SDLU_STL
             int RenderText( int x, int y, std::string format, ... );
             int RenderTextVa( int x, int y, std::string format, va_list arg );
-#endif
             void SetFontSize( Uint32 size );
             int GetFontSize( );
 
             int SetTruetypeFont( TTF_Font* font );
             int SetTruetypeFontFile( const char* font, int size );
             TTF_Font* GetTruetypeFont( );
-#ifdef SDLU_STL
             int SetTruetypeFontFile( std::string font, int size );
-#endif
 
             /* SDLU_LoadTexture */
             SDL_Texture* LoadTextureWithColorkey( const char* fname, SDL_Color colorkey );
             SDL_Texture* LoadTexture( const char* fname );
-#ifdef SDLU_STL
             SDL_Texture* LoadTextureWithColorkey( std::string fname, SDL_Color colorkey );
             SDL_Texture* LoadTexture( std::string fname );
-#endif
             /* Rendering commands */
             int CopyTexture( SDL_Texture* texture, int x, int y );
             int CopyTexture( SDLU::Texture* texture, int x, int y );
@@ -282,10 +268,8 @@ namespace SDLU {
             int DrawPolygon( SDL_Point* points, int n );
             int MultiCopy( SDL_Texture*, SDL_Rect*, SDL_Rect*, int, const char* );
             int MultiCopy( SDLU::Texture*, SDL_Rect*, SDL_Rect*, int, const char* );
-#ifdef SDLU_STL
             int MultiCopy( SDL_Texture*, SDL_Rect*, SDL_Rect*, int, std::string );
             int MultiCopy( SDLU::Texture*, SDL_Rect*, SDL_Rect*, int, std::string );
-#endif
 
             int GL_CacheState( void );
             int GL_RestoreState( void );
@@ -308,10 +292,8 @@ namespace SDLU {
             /* SDLU_CreateButton(sdl_window, text, SDLU_BUTTON_TEXT | flags) */
             Button( SDL_Window* window, const char* text, Uint32 flags );
             Button( SDLU::Window* window, const char* text, Uint32 flags );
-#if defined( SDLU_STL )
             Button( SDL_Window* window, std::string text, Uint32 flags );
             Button( SDLU::Window* window, std::string text, Uint32 flags );
-#endif
 
             /* SDLU_CreateButton(sdl_window, sdl_texture, SDLU_BUTTON_IMAGE|flags */
             Button( SDL_Window* window, SDL_Texture* image, Uint32 flags );
@@ -360,15 +342,11 @@ namespace SDLU {
             void* GetData(const char* key);
             int DelData(const char* key);
 
-#if defined( SDLU_STL )
-
             int AddData(std::string* key, void* value);
             void* GetData(std::string* key);
             int DelData(std::string* key);
 
             int SetText( std::string text );
-#endif
-
     };
 
     /**
@@ -401,10 +379,8 @@ namespace SDLU {
             /** SDLU_CreateSpriteFromFile() **/
             Sprite( SDL_Renderer*  , const char* , int );
             Sprite( SDLU::Renderer*, const char* , int );
-#ifdef SDLU_STL
             Sprite( SDL_Renderer*  , std::string , int );
             Sprite( SDLU::Renderer*, std::string , int );
-#endif
 
             /** Create from SDLU_Sprite structure **/
             Sprite( SDLU_Sprite * );
@@ -451,15 +427,9 @@ namespace SDLU {
             void* GetData(const char* key);
             int DelData(const char* key);
 
-#if defined( SDLU_STL )
-
             int AddData(std::string* key, void* value);
             void* GetData(std::string* key);
             int DelData(std::string* key);
-
-#endif
-
-
     };
 
     /**
@@ -484,20 +454,14 @@ namespace SDLU {
             /** SDLU_LoadTexture() **/
             Texture( SDL_Renderer*, const char* );
             Texture( SDLU::Renderer*, const char* );
-
-#ifdef SDLU_STL
             Texture( SDL_Renderer*, std::string );
             Texture( SDLU::Renderer*, std::string );
-#endif
 
             /** SDLU_LoadTextureWithColorkey() **/
             Texture( SDL_Renderer*, const char*, SDL_Color );
             Texture( SDLU::Renderer*, const char*, SDL_Color );
-
-#ifdef SDLU_STL
             Texture( SDL_Renderer*, std::string, SDL_Color );
             Texture( SDLU::Renderer*, std::string, SDL_Color );
-#endif
 
             /** From existing SDL_Texture* **/
             Texture( SDL_Texture* );
@@ -548,9 +512,7 @@ namespace SDLU {
             IniHandler(SDL_RWops*, int freesrc);
             IniHandler(SDLU::RWops*, int freesrc);
             IniHandler(const char*);
-#if defined( SDLU_STL )
             IniHandler(std::string);
-#endif
 
             /* from existing handler */
             IniHandler(SDLU_IniHandler* handler);
@@ -566,20 +528,16 @@ namespace SDLU {
             int DelProperty(const char*, const char*);
             int DelSection(const char*);
 
-#if defined(SDLU_STL)
             int SetProperty(std::string, std::string, std::string);
             std::string GetProperty(std::string, std::string);
             int DelProperty(std::string, std::string);
             int DelSection(std::string);
-#endif
 
             /* save ini */
             int Save(SDL_RWops *file, int freesrc);
             int Save(SDLU::RWops *file, int freesrc);
             int Save(const char* file);
-#if defined(SDLU_STL)
             int Save(std::string file);
-#endif
     };
 
     class RWops {
@@ -589,9 +547,7 @@ namespace SDLU {
         public:
             RWops(void);
             RWops(const char* file, const char* mode);
-#if defined(SDLU_STL)
             RWops(std::string file, std::string mode);
-#endif
             RWops(FILE* fp, SDL_bool autoclose);
             RWops(void* mem, int size);
             RWops(const void* mem, int size);
@@ -651,10 +607,8 @@ namespace SDLU {
 
             int AddItem(const char* item);
             int DelItem(const char* item);
-#ifdef SDLU_STL
             int AddItem(std::string item);
             int DelItem(std::string item);
-#endif
     };
 
 

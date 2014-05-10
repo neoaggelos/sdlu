@@ -32,28 +32,20 @@ SDLU::Button::Button( SDL_Window * window, const char* text, Uint32 flags)
     this->button = SDLU_CreateButton( window, text, flags );
 }
 
-#if defined( SDLU_STL )
-
 SDLU::Button::Button( SDL_Window * window, std::string text, Uint32 flags)
 {
     this->button = SDLU_CreateButton( window, text.c_str(), flags );
 }
-
-#endif
 
 SDLU::Button::Button( SDLU::Window * window, const char* text, Uint32 flags )
 {
     this->button = SDLU_CreateButton( window->GetWindow(), text, flags );
 }
 
-#if defined( SDLU_STL )
-
 SDLU::Button::Button( SDLU::Window* window, std::string text, Uint32 flags )
 {
     this->button = SDLU_CreateButton( window->GetWindow(), text.c_str(), flags );
 }
-
-#endif
 
 SDLU::Button::Button( SDL_Window* window, SDL_Texture* image, Uint32 flags )
 {
@@ -105,14 +97,10 @@ int SDLU::Button::SetText( const char* text )
     return SDLU_SetButtonText( this->button, text );
 }
 
-#if defined( SDLU_STL )
-
 int SDLU::Button::SetText( std::string text )
 {
     return SDLU_SetButtonText( this->button, text.c_str() );
 }
-
-#endif
 
 int SDLU::Button::SetTextSize( int size )
 {
@@ -201,8 +189,6 @@ int SDLU::Button::DelData(const char* key)
     return SDLU_DelButtonData(this->button, key);
 }
 
-#ifdef SDLU_STL
-
 int SDLU::Button::AddData(std::string* key, void* value)
 {
     return SDLU_AddButtonData(this->button, key->c_str(), value);
@@ -217,8 +203,6 @@ int SDLU::Button::DelData(std::string* key)
 {
     return SDLU_DelButtonData(this->button, key->c_str());
 }
-
-#endif
 
 int SDLU::Button::GetGeometry(int *x, int *y, int *w, int *h)
 {

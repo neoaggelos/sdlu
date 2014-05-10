@@ -32,14 +32,10 @@ SDLU::Window::Window( const char* title, int x, int y, int w, int h, Uint32 flag
     this->window = SDL_CreateWindow( title, x, y, w, h, flags );
 }
 
-#ifdef SDLU_STL
-
 SDLU::Window::Window( std::string title, int x, int y, int w, int h, Uint32 flags )
 {
     this->window = SDL_CreateWindow( title.c_str(), x, y, w, h, flags );
 }
-
-#endif
 
 SDLU::Window::Window( const void* data )
 {
@@ -101,14 +97,10 @@ const char* SDLU::Window::GetTitle( )
     return SDL_GetWindowTitle( this->window );
 }
 
-#ifdef SDLU_STL
-
 void SDLU::Window::SetTitle( std::string title )
 {
     SDL_SetWindowTitle( this->window, title.c_str() );
 }
-
-#endif
 
 void SDLU::Window::SetIcon( SDL_Surface *icon )
 {
@@ -125,8 +117,6 @@ void* SDLU::Window::GetData( const char* name )
     return SDL_GetWindowData( this->window, name );
 }
 
-#ifdef SDLU_STL
-
 void SDLU::Window::SetData( std::string name, void* userdata )
 {
     SDL_SetWindowData( this->window, name.c_str(), userdata );
@@ -136,8 +126,6 @@ void* SDLU::Window::GetData( std::string name )
 {
     return SDL_GetWindowData( this->window, name.c_str() );
 }
-
-#endif
 
 void SDLU::Window::SetPosition( int x, int y )
 {

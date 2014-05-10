@@ -57,8 +57,6 @@ SDLU::Texture::Texture(SDLU::Renderer* renderer, const char* file)
     this->texture = SDLU_LoadTexture(renderer->GetRenderer(), file);
 }
 
-#ifdef SDLU_STL
-
 SDLU::Texture::Texture(SDL_Renderer* renderer, std::string file)
 {
     this->texture = SDLU_LoadTexture(renderer, file.c_str());
@@ -68,8 +66,6 @@ SDLU::Texture::Texture(SDLU::Renderer* renderer, std::string file)
 {
     this->texture = SDLU_LoadTexture(renderer->GetRenderer(), file.c_str());
 }
-
-#endif
 
 SDLU::Texture::Texture(SDL_Renderer* renderer, const char* file, SDL_Color color)
 {
@@ -81,8 +77,6 @@ SDLU::Texture::Texture(SDLU::Renderer* renderer, const char* file, SDL_Color col
     this->texture = SDLU_LoadTextureWithColorkey(renderer->GetRenderer(), file, color);
 }
 
-#ifdef SDLU_STL
-
 SDLU::Texture::Texture(SDL_Renderer* renderer, std::string file, SDL_Color color)
 {
     this->texture = SDLU_LoadTextureWithColorkey(renderer, file.c_str(), color);
@@ -92,8 +86,6 @@ SDLU::Texture::Texture(SDLU::Renderer* renderer, std::string file, SDL_Color col
 {
     this->texture = SDLU_LoadTextureWithColorkey(renderer->GetRenderer(), file.c_str(), color);
 }
-
-#endif
 
 SDLU::Texture::Texture(SDL_Texture* texture)
 {

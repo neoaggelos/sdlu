@@ -638,7 +638,6 @@ LIBOBJS
 minor
 major
 STATIC
-DEFINE_SDLU_STL
 DEFINE_SDLU_CXX
 CXX_FALSE
 CXX_TRUE
@@ -16010,42 +16009,8 @@ fi
 if test x${build_cxx} = xyes; then
     CXXFLAGS="$CXXFLAGS $CFLAGS"
     DEFINE_SDLU_CXX="#define SDLU_CXX 1"
-
-    ac_ext=cpp
-ac_cpp='$CXXCPP $CPPFLAGS'
-ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
-
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include <iostream>
-int
-main ()
-{
-std::string s
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_compile "$LINENO"; then :
-  have_stl=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-    ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-    if test "x$have_stl" = xyes; then
-        DEFINE_SDLU_STL="#define SDLU_STL 1"
-    else
-        DEFINE_SDLU_STL="/* #undef SDLU_STL */"
-    fi
 else
     DEFINE_SDLU_CXX="/* #undef SDLU_CXX */"
-    DEFINE_SDLU_STL="/* #undef SDLU_STL */"
 fi
  if test x${build_cxx} = xyes; then
   CXX_TRUE=
@@ -16066,7 +16031,6 @@ ac_config_commands="$ac_config_commands sdlu_config"
 
 
 # substitutions for the config header
-
 
 
 # substitutions for sdlu.pc and sdlu-config

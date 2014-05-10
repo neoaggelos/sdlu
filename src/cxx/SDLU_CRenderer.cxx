@@ -276,8 +276,6 @@ int SDLU::Renderer::RenderTextVa( int x, int y, const char* format, va_list arg 
     return SDLU_RenderTextVa( this->renderer, x, y, format, arg );
 }
 
-#ifdef SDLU_STL
-
 int SDLU::Renderer::RenderText( int x, int y, std::string format, ... )
 {
     va_list arg;
@@ -291,8 +289,6 @@ int SDLU::Renderer::RenderTextVa( int x, int y, std::string format, va_list arg 
 {
     return SDLU_RenderTextVa( this->renderer, x, y, format.c_str(), arg );
 }
-
-#endif
 
 void SDLU::Renderer::SetFontSize( Uint32 size )
 {
@@ -314,12 +310,10 @@ int SDLU::Renderer::SetTruetypeFontFile(const char* font, int size)
     return SDLU_SetTruetypeFontFile(font, size);
 }
 
-#ifdef SDLU_STL
 int SDLU::Renderer::SetTruetypeFontFile(std::string font, int size)
 {
     return SDLU_SetTruetypeFontFile(font.c_str(), size);
 }
-#endif
 
 TTF_Font* SDLU::Renderer::GetTruetypeFont()
 {
@@ -336,8 +330,6 @@ SDL_Texture* SDLU::Renderer::LoadTextureWithColorkey( const char* fname, SDL_Col
     return SDLU_LoadTextureWithColorkey( this->renderer, fname, colorkey );
 }
 
-#ifdef SDLU_STL
-
 SDL_Texture* SDLU::Renderer::LoadTexture( std::string fname )
 {
     return SDLU_LoadTexture( this->renderer, fname.c_str() );
@@ -347,8 +339,6 @@ SDL_Texture* SDLU::Renderer::LoadTextureWithColorkey( std::string fname, SDL_Col
 {
     return SDLU_LoadTextureWithColorkey( this->renderer, fname.c_str(), colorkey );
 }
-
-#endif
 
 int SDLU::Renderer::CopyTexture( SDL_Texture* texture, int x, int y )
 {
@@ -411,8 +401,6 @@ int SDLU::Renderer::MultiCopy( SDLU::Texture* texture, SDL_Rect* src, SDL_Rect* 
     return SDLU_RenderMultiCopy( this->renderer, texture->GetTexture(), src, dest, n, format );
 }
 
-#ifdef SDLU_STL
-
 int SDLU::Renderer::MultiCopy( SDL_Texture* texture, SDL_Rect* src, SDL_Rect* dest, int n, std::string format )
 {
     return SDLU_RenderMultiCopy( this->renderer, texture, src, dest, n, format.c_str() );
@@ -422,8 +410,6 @@ int SDLU::Renderer::MultiCopy( SDLU::Texture* texture, SDL_Rect* src, SDL_Rect* 
 {
     return SDLU_RenderMultiCopy( this->renderer, texture->GetTexture(), src, dest, n, format.c_str() );
 }
-
-#endif
 
 int SDLU::Renderer::GL_CacheState( void )
 {

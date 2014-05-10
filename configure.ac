@@ -107,18 +107,8 @@ AC_ARG_ENABLE(
 if test x${build_cxx} = xyes; then
     CXXFLAGS="$CXXFLAGS $CFLAGS"
     DEFINE_SDLU_CXX="#define SDLU_CXX 1"
-
-    AC_LANG_PUSH(C++)
-    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <iostream>]], [[std::string s]])],[have_stl=yes],[])
-    AC_LANG_POP
-    if test "x$have_stl" = xyes; then
-        DEFINE_SDLU_STL="#define SDLU_STL 1"
-    else
-        DEFINE_SDLU_STL="/* #undef SDLU_STL */"
-    fi
 else
     DEFINE_SDLU_CXX="/* #undef SDLU_CXX */"
-    DEFINE_SDLU_STL="/* #undef SDLU_STL */"
 fi
 AM_CONDITIONAL([CXX], [test x${build_cxx} = xyes])
 AC_MSG_RESULT($build_cxx)
@@ -131,7 +121,6 @@ AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
 
 # substitutions for the config header
 AC_SUBST([DEFINE_SDLU_CXX])
-AC_SUBST([DEFINE_SDLU_STL])
 
 # substitutions for sdlu.pc and sdlu-config
 AC_SUBST([SDL_LIBS])

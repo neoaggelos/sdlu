@@ -41,12 +41,10 @@ SDLU::IniHandler::IniHandler(const char* file)
     this->handler = SDLU_LoadIni(file);
 }
 
-#if defined(SDLU_STL)
 SDLU::IniHandler::IniHandler(std::string file)
 {
     this->handler = SDLU_LoadIni(file.c_str());
 }
-#endif
 
 SDLU::IniHandler::IniHandler(SDLU_IniHandler *handler)
 {
@@ -83,7 +81,6 @@ int SDLU::IniHandler::DelSection(const char* s)
     return SDLU_DelIniSection(&(this->handler), s);
 }
 
-#if defined(SDLU_STL)
 int SDLU::IniHandler::SetProperty(std::string s, std::string p, std::string v)
 {
     return SDLU_SetIniProperty(&(this->handler), s.c_str(), p.c_str(), v.c_str());
@@ -104,8 +101,6 @@ int SDLU::IniHandler::DelSection(std::string s)
     return SDLU_DelIniSection(&(this->handler), s.c_str());
 }
 
-#endif
-
 int SDLU::IniHandler::Save(SDL_RWops* rwops, int freesrc)
 {
     return SDLU_SaveIniRW(this->handler, rwops, freesrc);
@@ -121,10 +116,7 @@ int SDLU::IniHandler::Save(const char* file)
     return SDLU_SaveIni(this->handler, file);
 }
 
-#if defined (SDLU_STL)
 int SDLU::IniHandler::Save(std::string file)
 {
     return SDLU_SaveIni(this->handler, file.c_str());
 }
-#endif
-

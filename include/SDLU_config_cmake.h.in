@@ -1,5 +1,2 @@
 /* Define to 1 if we build the cxx interface */
 #cmakedefine SDLU_CXX
-
-/* Define to 1 if we have std::string */
-#cmakedefine SDLU_STL

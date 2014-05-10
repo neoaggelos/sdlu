@@ -117,7 +117,6 @@ else
   sources = { "src/**.c", "src/**.cxx" }
 
   buf = buf:gsub("#undef SDLU_CXX", "#define SDLU_CXX 1")
-  buf = buf:gsub("#undef SDLU_STL", "#define SDLU_STL 1")
 end
 
 local fout = assert(io.open(config_h, "w"))

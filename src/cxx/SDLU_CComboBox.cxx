@@ -77,7 +77,6 @@ int SDLU::ComboBox::DelItem(const char* item)
     return SDLU_DelComboBoxItem(&(this->combobox), item);
 }
 
-#if defined(SDLU_STL)
 int SDLU::ComboBox::AddItem(std::string item)
 {
     return SDLU_AddComboBoxItem(&(this->combobox), item.c_str());
@@ -87,6 +86,4 @@ int SDLU::ComboBox::DelItem(std::string item)
 {
     return SDLU_DelComboBoxItem(&(this->combobox), item.c_str());
 }
-#endif
-
 
