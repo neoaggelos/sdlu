@@ -47,6 +47,15 @@
 #define SDLU_HINT_BUTTON_PUSH_EVENTS "SDLU_BUTTON_PUSH_EVENTS"
 
 /**
+ *  \brief Controls whether warnings are printed when a library call fails
+ *
+ *  Possible values:
+ *  "0": Do not print warnings. This is the default
+ *  "1": Print warnings. Can be used for debug purposes
+ */
+#define SDLU_HINT_LOG_WARNINGS "SDLU_LOG_WARNINGS"
+
+/**
  *  \brief Controls if SDLU_GL_LoadTexture() adds padding to NPOT textures
  *
  *  Possible values:

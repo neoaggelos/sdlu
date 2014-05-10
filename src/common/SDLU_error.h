@@ -24,11 +24,16 @@
 
 #include "SDL.h"
 
-#ifdef _DEBUG
-#define SDLU_Log( str ) \
+#define SDLU_Log_internal( str ) \
     SDL_Log("[%s:%d](%s): %s\n",SDL_strrchr(__FILE__, '/')+1,__LINE__,__FUNCTION__,str)
+
+#define HINT_LOG_WARNINGS \
+    (SDL_strcmp(SDLU_GetHint(SDLU_HINT_LOG_WARNINGS), "1") == 0)
+
+#ifdef _DEBUG
+#define SDLU_Log SDLU_Log_internal
 #else
-#define SDLU_Log(str)
+#define SDLU_Log(str) if (HINT_LOG_WARNINGS) SDLU_Log_internal(str)
 #endif
 
 #define SDLU_ExitError( err, ret ) {                                        \
