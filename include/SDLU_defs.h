@@ -128,6 +128,8 @@ struct SDLU_Button {
     void* arg[2];                   /**< arguments for callbacks        **/
     int action[2];                  /**< press and hover actions        **/
 
+    SDL_Scancode hotkey;            /**< button hotkey                  **/
+
     SDLU_Button* next;              /**< DO NOT TOUCH                   **/
 };
 

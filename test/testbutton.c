@@ -129,6 +129,7 @@ int main(int argc, char** argv)
     plus = SDLU_CreateRoundButton(window, "+", SDLU_BUTTON_TEXT);
     SDL_CHECK(plus);
     plus->name = "add";                     /** store the button identifier **/
+    SDLU_SetButtonHotkey(plus, SDL_SCANCODE_A);
     SDLU_SetButtonGeometry(plus, 50, 40, 100, 30);
     SDLU_SetButtonAction(plus, SDLU_PRESS_ACTION, press_action);
     SDLU_SetButtonAction(plus, SDLU_HOVER_ACTION, hover_action);
@@ -138,6 +139,7 @@ int main(int argc, char** argv)
     minus = SDLU_CreateRoundButton(window, "-", SDLU_BUTTON_TEXT);
     SDL_CHECK(minus);
     minus->name = "sub";                    /** store the button identifier **/
+    SDLU_SetButtonHotkey(minus, SDL_SCANCODE_S);
     SDLU_SetButtonGeometry(minus, 50, 110, 100, 30);
     SDLU_SetButtonAction(minus, SDLU_PRESS_ACTION, press_action);
     SDLU_SetButtonAction(minus, SDLU_HOVER_ACTION, hover_action);
@@ -147,6 +149,7 @@ int main(int argc, char** argv)
     reset = SDLU_CreateRoundButton(window, "Reset", SDLU_BUTTON_TEXT);
     SDL_CHECK(reset);
     reset->name = "reset";                  /** store the button identifier **/
+    SDLU_SetButtonHotkey(reset, SDL_SCANCODE_R);
     SDLU_SetButtonGeometry(reset, 10, 190, 120, 30);
     SDLU_SetButtonAction(reset, SDLU_PRESS_ACTION, press_action);
     SDLU_SetButtonAction(reset, SDLU_HOVER_ACTION, hover_action);
@@ -156,6 +159,7 @@ int main(int argc, char** argv)
     quit = SDLU_CreateRoundButton(window, "Exit", SDLU_BUTTON_TEXT);
     SDL_CHECK(quit);
     quit->name = "exit";                    /** store the button identifier **/
+    SDLU_SetButtonHotkey(quit, SDL_SCANCODE_E);
     SDLU_SetButtonGeometry(quit, 190, 190, 120, 30);
     SDLU_SetButtonAction(quit, SDLU_PRESS_ACTION, press_action);
     SDLU_SetButtonAction(quit, SDLU_HOVER_ACTION, hover_action);
@@ -168,6 +172,7 @@ int main(int argc, char** argv)
     help = SDLU_CreateButton(window, help_tex, SDLU_BUTTON_IMAGE);
     SDL_CHECK(help);
     help->name = "help";
+    SDLU_SetButtonHotkey(help, SDL_SCANCODE_H);
     SDLU_SetButtonGeometry(help, 144, 187, 32, 32);
     SDLU_SetButtonAction(help, SDLU_HOVER_ACTION, hover_action);
     SDLU_SetButtonCallback(help, SDLU_PRESS_CALLBACK, help_dialog, NULL);

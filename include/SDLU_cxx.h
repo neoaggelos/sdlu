@@ -319,6 +319,8 @@ namespace SDLU {
             int SetGeometry( int x, int y, int w, int h );
             int GetGeometry(int *x, int *y, int *w, int *h);
 
+            int SetHotkey(SDL_Scancode hotkey);
+
             int SetText( const char* text );
             int SetTextSize( int size );
             int SetColor( SDL_Color, SDL_Color, SDL_Color );

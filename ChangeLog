@@ -8,6 +8,7 @@ NOTE: Update to this version if you use SDL2 2.0.2 or newer.
 
 Additions:
 - Added ComboBox API
+- Added SDLU_SetButtonHotkey()
 - Added SDLU_RenderTextToSurface()
 - Added SDLU_CreateSpriteFromRW()
 

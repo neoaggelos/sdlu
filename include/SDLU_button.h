@@ -467,6 +467,23 @@ extern DECLSPEC int SDLCALL SDLU_SetButtonRenderFunc(
 );
 
 /**
+ *  \brief Set button hotkey
+ *
+ *  Buttons can have hotkeys. Hotkeys are practically 'shortcuts', which in turn
+ *  are an SDL_Scancode. When this scancode is read, the press callback of the
+ *  button is executed.
+ *
+ *  \param button to set the hotkey for
+ *  \param hotkey the button hotkey
+ *
+ *  \return 0 on success, -1 on error
+ */
+extern DECLSPEC int SDLCALL SDLU_SetButtonHotkey(
+        SDLU_Button* button,
+        SDL_Scancode hotkey
+);
+
+/**
  *  \name Callback types
  */
 /*@{*/

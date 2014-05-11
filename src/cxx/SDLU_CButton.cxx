@@ -153,6 +153,11 @@ int SDLU::Button::DelCallback( int type )
     return SDLU_DelButtonCallback( this->button, type );
 }
 
+int SDLU::Button::SetHotkey( SDL_Scancode hotkey )
+{
+    return SDLU_SetButtonHotkey( this->button, hotkey );
+}
+
 int SDLU::Button::GetTextData( SDLU_TextButtonData* data )
 {
     return SDLU_GetTextButtonData( this->button, data );

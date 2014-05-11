@@ -87,6 +87,12 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
         return SDLU_IDLE;
     }
 
+    if (event.type == SDL_KEYDOWN) {
+        if (event.key.keysym.scancode == button->hotkey) {
+            button->callback[0](button, button->arg[0]);
+        }
+    }
+
     /*
      * Revision 8234 in hg.libsdl.org/SDL fixed a bug where the event watchers
      * are run in the order that they are set.
@@ -290,6 +296,7 @@ SDLU_EventWatch(void *_button, SDL_Event* event)
                 return 1;
             }
         case SDL_MOUSEMOTION:
+        case SDL_KEYDOWN:
             break;
         default:
             return 1;
@@ -925,6 +932,17 @@ SDLU_DestroyButton( SDLU_Button* button )
     SDL_DelEventWatch(SDLU_EventWatch, button);
 
     if (button) SDL_free(button);
+    return 0;
+}
+
+int
+SDLU_SetButtonHotkey( SDLU_Button * button, SDL_Scancode hotkey )
+{
+    if (button == NULL)
+        SDLU_ExitError("invalid parameter 'button'", -1);
+
+    button->hotkey = hotkey;
+
     return 0;
 }
 
