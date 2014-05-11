@@ -37,8 +37,8 @@ typedef void (*GL_TEXPARAMETERI)(GLenum, GLenum, GLint);
 typedef void (*GL_USEPROGRAM)(GLuint);
 typedef void (*GL_USEPROGRAMOBJECTARB)(GLhandleARB);
 
-#define load_gl_func(func)                              \
-    func = SDL_GL_GetProcAddress(#func);                \
+#define load_gl_func(func, type)                        \
+    func = (type) SDL_GL_GetProcAddress(#func);         \
     if (!func) {                                        \
         SDLU_ExitError("could not load " #func, 0);     \
     }

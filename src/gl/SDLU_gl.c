@@ -64,11 +64,11 @@ SDLU_GL_LoadTexture(SDL_Surface* surface, float *texw, float *texh)
     GL_TEXIMAGE2D glTexImage2D;
     GL_TEXPARAMETERI glTexParameteri;
 
-    load_gl_func(glGetString);
-    load_gl_func(glGenTextures);
-    load_gl_func(glBindTexture);
-    load_gl_func(glTexImage2D);
-    load_gl_func(glTexParameteri);
+    load_gl_func(glGetString, GL_GETSTRING);
+    load_gl_func(glGenTextures, GL_GENTEXTURES);
+    load_gl_func(glBindTexture, GL_BINDTEXTURE);
+    load_gl_func(glTexImage2D, GL_TEXIMAGE2D);
+    load_gl_func(glTexParameteri, GL_TEXPARAMETERI);
 
     if (surface == NULL)
         SDLU_ExitError("invalid parameter 'surface'", 0);
@@ -213,19 +213,19 @@ SDLU_GL_RenderCacheState(SDL_Renderer *renderer)
     if (SDL_strcmp(library, "opengl") == 0) {
         GL_PUSHMATRIX glPushMatrix;
         GL_USEPROGRAMOBJECTARB glUseProgramObjectARB;
-        load_gl_func(glPushMatrix);
-        load_gl_func(glUseProgramObjectARB);
+        load_gl_func(glPushMatrix, GL_PUSHMATRIX);
+        load_gl_func(glUseProgramObjectARB, GL_USEPROGRAMOBJECTARB);
 
         glUseProgramObjectARB(0);
         glPushMatrix();
     } else if (SDL_strcmp(library, "opengles") == 0) {
         GL_PUSHMATRIX glPushMatrix;
-        load_gl_func(glPushMatrix);
+        load_gl_func(glPushMatrix, GL_PUSHMATRIX);
 
         glPushMatrix();
     } else if (SDL_strcmp(library, "opengles2") == 0) {
         GL_USEPROGRAM glUseProgram;
-        load_gl_func(glUseProgram);
+        load_gl_func(glUseProgram, GL_USEPROGRAM);
 
         glUseProgram(0);
     }
@@ -243,9 +243,9 @@ SDLU_GL_RenderRestoreState(SDL_Renderer *renderer)
         GL_DISABLE glDisable;
         GL_COLOR4F glColor4f;
 
-        load_gl_func(glPopMatrix);
-        load_gl_func(glDisable);
-        load_gl_func(glColor4f);
+        load_gl_func(glPopMatrix, GL_POPMATRIX);
+        load_gl_func(glDisable, GL_DISABLE);
+        load_gl_func(glColor4f, GL_COLOR4F);
 
         glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         glPopMatrix();
@@ -255,9 +255,9 @@ SDLU_GL_RenderRestoreState(SDL_Renderer *renderer)
         GL_DISABLE glDisable;
         GL_COLOR4F glColor4f;
 
-        load_gl_func(glPopMatrix);
-        load_gl_func(glDisable);
-        load_gl_func(glColor4f);
+        load_gl_func(glPopMatrix, GL_POPMATRIX);
+        load_gl_func(glDisable, GL_DISABLE);
+        load_gl_func(glColor4f, GL_COLOR4F);
 
         glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         glPopMatrix();
@@ -265,7 +265,7 @@ SDLU_GL_RenderRestoreState(SDL_Renderer *renderer)
     } else if (SDL_strcmp(library, "opengles2") == 0) {
         GL_DISABLE glDisable;
 
-        load_gl_func(glDisable);
+        load_gl_func(glDisable, GL_DISABLE);
 
         glDisable(GL_BLEND);
     }
