@@ -24,8 +24,15 @@
 
 #include "SDL.h"
 
-#define SDLU_Log_internal( str ) \
-    SDL_Log("[%s:%d](%s): %s\n",SDL_strrchr(__FILE__, '/')+1,__LINE__,__FUNCTION__,str)
+/*
+ * When warnings are logged under Windows, do not include source, line etc
+ * For some reason, Visual Studio crashes because of this
+ */
+#ifdef __WINDOWS__
+#   define SDLU_Log_internal( str ) SDL_Log("%s\n", str)
+#else
+#   define SDLU_Log_internal( str ) SDL_Log("[%s:%d](%s): %s\n",SDL_strrchr(__FILE__, '/')+1,__LINE__,__FUNCTION__,str)
+#endif
 
 #define HINT_LOG_WARNINGS \
     (SDL_strcmp(SDLU_GetHint(SDLU_HINT_LOG_WARNINGS), "1") == 0)
