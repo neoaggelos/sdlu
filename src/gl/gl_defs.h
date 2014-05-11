@@ -2,6 +2,7 @@
  * OpenGL symbols - the values are the same for all implementations and the
  * OpenGL headers are not included, so we have to define them here
  */
+
 #define GL_UNSIGNED_BYTE 0x1401
 #define GL_RGBA 0x1908
 #define GL_NEAREST 0x2600
@@ -25,17 +26,23 @@ typedef void* GLhandleARB;
 typedef unsigned int GLhandleARB;
 #endif
 
-typedef GLubyte* (*GL_GETSTRING)(GLenum);
-typedef void (*GL_BINDTEXTURE)(GLenum, GLuint);
-typedef void (*GL_COLOR4F)(GLfloat, GLfloat, GLfloat, GLfloat);
-typedef void (*GL_DISABLE)(GLenum);
-typedef void (*GL_GENTEXTURES)(GLsizei, GLuint*);
-typedef void (*GL_POPMATRIX)(void);
-typedef void (*GL_PUSHMATRIX)(void);
-typedef void (*GL_TEXIMAGE2D)(GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid*);
-typedef void (*GL_TEXPARAMETERI)(GLenum, GLenum, GLint);
-typedef void (*GL_USEPROGRAM)(GLuint);
-typedef void (*GL_USEPROGRAMOBJECTARB)(GLhandleARB);
+#if defined(_MSC_VER) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
+# define APIENTRY   __stdcall
+#else
+# define APIENTRY
+#endif
+
+typedef GLubyte* (APIENTRY *GL_GETSTRING)(GLenum);
+typedef void (APIENTRY *GL_BINDTEXTURE)(GLenum, GLuint);
+typedef void (APIENTRY *GL_COLOR4F)(GLfloat, GLfloat, GLfloat, GLfloat);
+typedef void (APIENTRY *GL_DISABLE)(GLenum);
+typedef void (APIENTRY *GL_GENTEXTURES)(GLsizei, GLuint*);
+typedef void (APIENTRY *GL_POPMATRIX)(void);
+typedef void (APIENTRY *GL_PUSHMATRIX)(void);
+typedef void (APIENTRY *GL_TEXIMAGE2D)(GLenum, GLint, GLint, GLsizei, GLsizei, GLint, GLenum, GLenum, const GLvoid*);
+typedef void (APIENTRY *GL_TEXPARAMETERI)(GLenum, GLenum, GLint);
+typedef void (APIENTRY *GL_USEPROGRAM)(GLuint);
+typedef void (APIENTRY *GL_USEPROGRAMOBJECTARB)(GLhandleARB);
 
 #define load_gl_func(func, type)                        \
     func = (type) SDL_GL_GetProcAddress(#func);         \
