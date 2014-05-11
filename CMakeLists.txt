@@ -75,6 +75,13 @@ if (BUILD_CXX)
   set(SDLU_CXX 1)
 endif(BUILD_CXX)
 
+## For some reason, the shared library under windows fails to link correctly
+## when we also build the cxx interface. This does not happen with the static
+## library, or with Cygwin
+if (WIN32 AND BUILD_SHARED_LIBS AND BUILD_CXX)
+  message(WARNING "*** Warning: The cxx interface causes linking errors with the shared library. If you want to use the cxx interface, you must statically link to SDLU.")
+endif(WIN32 AND BUILD_SHARED_LIBS AND BUILD_CXX)
+
 # Shared library
 if (BUILD_SHARED_LIBS)
   add_library(SDLU-shared SHARED ${SOURCES} ${HDRS})
