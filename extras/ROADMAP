@@ -11,14 +11,20 @@ API Additions:
 + Add new textrenderer API (supplement, extend or replace the existing?)
     - cached textures for each letter, one big texture-atlas?
 
+
+
+
 Changes:
 + Make button rendering faster by caching textures for them
     - drop SDLU_BUTTON_ROUND and SDLU_BUTTON_FOREIGN flags?
 + Organize SDLU_cxx.h, to make it readable
 
+
+
 Bugs:
-+ windows -- SDLU_GL_RenderCacheState() does not work
-+ windows -- glGetString() call in SDLU_GL_LoadTexture() crashes
+ none
+
+
 
 Build system:
 + Move cxx interface into a separate library
