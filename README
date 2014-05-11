@@ -20,4 +20,6 @@ build the library. Then, check out the examples in "test" to get started.
 Documentation can be found in the header files in "include", and doxygen can
 be used to generate the docs in HTML format.
 
+See extras/ROADMAP for stuff that still has to be done.
+
 For questions, suggestions or thoughts email me at "neoaggelos@gmail.com"
