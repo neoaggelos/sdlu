@@ -1,13 +1,14 @@
 This is a list of major changes in the SDLU version history
 
 ================================================================================
-Current
+Current (2.1.1 -- will be released as 2.2)
 ================================================================================
 
 NOTE: Update to this version if you use SDL2 2.0.2 or newer.
 
 Additions:
 - Added ComboBox API
+- Added SDLU_SetButtonStyles()
 - Added SDLU_SetButtonHotkey()
 - Added SDLU_RenderTextToSurface()
 - Added SDLU_CreateSpriteFromRW()

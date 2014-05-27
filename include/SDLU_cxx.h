@@ -321,11 +321,8 @@ namespace SDLU {
 
             int SetHotkey(SDL_Scancode hotkey);
 
-            int SetText( const char* text );
-            int SetTextSize( int size );
-            int SetColor( SDL_Color, SDL_Color, SDL_Color );
-            int SetBlendMode( SDL_BlendMode blendmode );
-            int GetTextData( SDLU_TextButtonData* );
+            int SetStyles( SDLU_Styles* );
+            int GetStyles( SDLU_Styles* );
 
             int SetImage( SDL_Texture* image );
             int SetImage( SDLU::Texture* image );

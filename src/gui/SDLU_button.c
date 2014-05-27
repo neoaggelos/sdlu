@@ -401,7 +401,7 @@ SDLU_CreateGenericButton(SDL_Window* window, Uint32 flags)
 static SDLU_Button*
 SDLU_CreateTextButton(SDLU_Button* ret, const char* text)
 {
-    SDLU_TextButtonData* data;
+    SDLU_Styles* styles;
 
     SDLU_GetTextOutputSize(
             ((text) ? text : "Button"), &(ret->rect.w), &(ret->rect.h)
@@ -410,21 +410,15 @@ SDLU_CreateTextButton(SDLU_Button* ret, const char* text)
     ret->rect.w         += 25;
     ret->rect.h         += 20;
 
-    data = SDLU_malloc(SDLU_TextButtonData);
-    if (data == NULL) {
+    styles = SDLU_GetDefaultStyles();
+    if (styles == NULL) {
         SDL_free(ret);
         SDL_DelEventWatch(SDLU_EventWatch, ret);
         SDLU_ExitError("could not allocate memory", NULL);
     }
 
-    data->title       = ((text) ? text : "Button");
-    data->font_size   = SDLU_TEXT_SIZE_MEDIUM;
-    data->text_color  = SDLU_CreateRGB(255,255,255);
-    data->fill_color  = SDLU_CreateRGB(100,100,100);
-    data->box_color   = SDLU_CreateRGB(255,255,255);
-    data->blendmode   = SDL_BLENDMODE_BLEND;
-
-    ret->content      = data;
+    styles->title = ((text) ? text : "Button");
+    ret->content      = (void*)styles;
 
     return ret;
 }
@@ -556,79 +550,28 @@ SDLU_GetButtonGeometry(SDLU_Button* button, int* x, int* y, int* w, int* h)
 }
 
 int
-SDLU_SetButtonText(SDLU_Button* button, const char* text)
+SDLU_SetButtonStyles(SDLU_Button* button, SDLU_Styles *styles)
 {
-    SDLU_TextButtonData* data;
     if (button == NULL)
         SDLU_ExitError("invalid parameter 'button'", -1);
 
-    if (text == NULL)
-        SDLU_ExitError("invalid parameter 'text'", -1);
-
-    if (!(button->flags & SDLU_BUTTON_TEXT))
-        SDLU_ExitError("not a text button", -1);
-
-    data = (SDLU_TextButtonData*)button->content;
-
-    data->title = text;
-    return 0;
-}
-
-int
-SDLU_SetButtonTextSize(SDLU_Button* button, Uint32 size )
-{
-    SDLU_TextButtonData* data;
-    if (button == NULL)
-        SDLU_ExitError("invalid parameter 'button'", -1);
-
-    if (!(button->flags & SDLU_BUTTON_TEXT))
-        SDLU_ExitError("not a text button", -1);
-
-    data = (SDLU_TextButtonData*) button->content;
-
-    data->font_size = size;
-    return 0;
-}
-
-int
-SDLU_SetButtonColor(SDLU_Button* button, SDL_Color text_color,
-                    SDL_Color fill_color, SDL_Color box_color)
-{
-    int result = 0;
-
-    if (button == NULL)
-        SDLU_ExitError("invalid parameter 'button'", -1);
-
-    if (button->flags & SDLU_BUTTON_TEXT) {
-        SDLU_TextButtonData* data = (SDLU_TextButtonData*) button->content;
-        data->text_color = text_color;
-        data->fill_color = fill_color;
-        data->box_color  = box_color;
+    if (styles) {
+        button->content = styles;
+        return 0;
     } else {
-        SDL_Texture* texture = (SDL_Texture*) button->content;
-        result |= SDL_SetTextureColorMod(texture, UNPACK_RGB(fill_color));
-        result |= SDL_SetTextureAlphaMod(texture, fill_color.a);
+        return -1;
     }
-
-    return result;
 }
 
 int
-SDLU_SetButtonBlendMode(SDLU_Button* button, SDL_BlendMode blendmode)
+SDLU_GetButtonStyles(SDLU_Button* button, SDLU_Styles *styles)
 {
-    int result = 0;
-
     if (button == NULL)
-        SDLU_ExitError("invalid parameter 'button'", -1);
+        SDLU_ExitError("invliad parameter 'button'", -1);
 
-    if (button->flags & SDLU_BUTTON_TEXT) {
-        SDLU_TextButtonData* data = (SDLU_TextButtonData*) button->content;
-        data->blendmode = blendmode;
-    } else {
-        SDL_Texture* texture = (SDL_Texture*) button->content;
-        result |= SDL_SetTextureBlendMode( texture, blendmode );
-    }
-    return result;
+    styles = (SDLU_Styles*) button->content;
+
+    return 0;
 }
 
 int
@@ -684,19 +627,6 @@ SDLU_GetButtonFromID( Uint32 id )
 
     /* No button was found if we are here */
     SDLU_ExitError("parameter 'id' is out of range", NULL);
-}
-
-int
-SDLU_GetTextButtonData( SDLU_Button* button, SDLU_TextButtonData* data )
-{
-    if (button == NULL)
-        SDLU_ExitError("invalid parameter 'button'", -1);
-
-    if (!(button->flags & SDLU_BUTTON_TEXT))
-        SDLU_ExitError("not a text button", -1);
-
-    if (data) *data = *((SDLU_TextButtonData*)button->content);
-    return 0;
 }
 
 int
@@ -825,7 +755,7 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
         Uint32 font_size;
         SDL_BlendMode blendmode;
         SDL_Color fill, text;
-        SDLU_TextButtonData* data = (SDLU_TextButtonData*) button->content;
+        SDLU_Styles* styles = (SDLU_Styles*) button->content;
         int press = button->action[SDLU_PRESS_ACTION];
         int hover = button->action[SDLU_HOVER_ACTION];
 
@@ -835,27 +765,27 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
         font_size = SDLU_GetFontSize();
 
         /* set button properties as the current ones */
-        SDLU_SetFontSize(data->font_size);
-        result |= SDL_SetRenderDrawBlendMode(renderer, data->blendmode );
+        SDLU_SetFontSize(styles->font_size);
+        result |= SDL_SetRenderDrawBlendMode(renderer, styles->blendmode );
 
         /* calculate fill color */
         if ((hover & SDLU_HOVER_BG) && button->state == SDLU_HOVERED ) {
-            fill.r = calculate(data->fill_color.r);
-            fill.g = calculate(data->fill_color.g);
-            fill.b = calculate(data->fill_color.b);
-            fill.a = data->fill_color.a;
+            fill.r = calculate(styles->fill_color.r);
+            fill.g = calculate(styles->fill_color.g);
+            fill.b = calculate(styles->fill_color.b);
+            fill.a = styles->fill_color.a;
         } else {
-            fill = data->fill_color;
+            fill = styles->fill_color;
         }
 
         /* calculate text color */
         if ((hover & SDLU_HOVER_FG) && button->state == SDLU_HOVERED) {
-            text.r = calculate( data->text_color.r );
-            text.g = calculate( data->text_color.g );
-            text.b = calculate( data->text_color.b );
-            text.a = data->text_color.a;
+            text.r = calculate( styles->text_color.r );
+            text.g = calculate( styles->text_color.g );
+            text.b = calculate( styles->text_color.b );
+            text.a = styles->text_color.a;
         } else {
-            text = data->text_color;
+            text = styles->text_color;
         }
 
         /* draw the box */
@@ -869,23 +799,23 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
                 SDL_SetRenderDrawColor(renderer, UNPACK(fill));
             }
             result |= SDLU_RenderFillPolygon(renderer, points, num_points);
-            SDL_SetRenderDrawColor(renderer, UNPACK(data->box_color));
+            SDL_SetRenderDrawColor(renderer, UNPACK(styles->box_color));
             result |= SDLU_RenderDrawPolygon(renderer, points, num_points);
             SDL_free(points);
         } else {
             if ((press & SDLU_PRESS_INVERT) && button->state == SDLU_PRESSED) {
                 result |= SDLU_RenderDrawOutlineRect(
-                        renderer, button->rect, data->box_color, text
+                        renderer, button->rect, styles->box_color, text
                 );
             } else {
                 result |= SDLU_RenderDrawOutlineRect(
-                        renderer, button->rect, data->box_color, fill
+                        renderer, button->rect, styles->box_color, fill
                 );
             }
         }
 
         /* calculate position of the text */
-        SDLU_GetTextOutputSize( data->title, &text_w, &text_h );
+        SDLU_GetTextOutputSize( styles->title, &text_w, &text_h );
         x_offset = button->rect.x + (button->rect.w - text_w) / 2;
         y_offset = button->rect.y + (button->rect.h - text_h) / 2;
 
@@ -900,7 +830,7 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
         } else {
             result |= SDL_SetRenderDrawColor(renderer, UNPACK(text));
         }
-        result |= SDLU_RenderText(renderer, x_offset, y_offset, "%s", data->title);
+        result |= SDLU_RenderText(renderer, x_offset, y_offset, "%s", styles->title);
 
         /* for SDLU_HOVER_UL, we underline the text */
         if ((hover & SDLU_HOVER_UL) && button->state == SDLU_HOVERED) {

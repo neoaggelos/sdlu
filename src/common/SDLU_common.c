@@ -123,3 +123,21 @@ SDLU_ReadFile(SDL_RWops* rwops)
     rwops->read(rwops, buffer, sizeof(char), size);
     return buffer;
 }
+
+SDLU_Styles*
+SDLU_GetDefaultStyles()
+{
+    SDLU_Styles* styles = SDLU_malloc(SDLU_Styles);
+
+    if (styles == NULL)
+        SDLU_ExitError("could not allocate memory", NULL);
+
+    styles->title = "text";
+    styles->font_size = SDLU_TEXT_SIZE_MEDIUM;
+    styles->text_color = SDLU_CreateRGBA( 255, 255, 255, 255 );
+    styles->fill_color = SDLU_CreateRGBA(  50,  50,  50,  50 );
+    styles->box_color  = SDLU_CreateRGBA( 255, 255, 255, 255 );
+    styles->blendmode  = SDL_BLENDMODE_NONE;
+
+    return styles;
+}

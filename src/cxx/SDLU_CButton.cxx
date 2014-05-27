@@ -92,30 +92,14 @@ int SDLU::Button::SetGeometry( int x, int y, int w, int h )
     return SDLU_SetButtonGeometry( this->button, x, y, w, h );
 }
 
-int SDLU::Button::SetText( const char* text )
+int SDLU::Button::SetStyles( SDLU_Styles* styles )
 {
-    return SDLU_SetButtonText( this->button, text );
+    return SDLU_SetButtonStyles( this->button, styles );
 }
 
-int SDLU::Button::SetText( std::string text )
+int SDLU::Button::GetStyles( SDLU_Styles* styles )
 {
-    return SDLU_SetButtonText( this->button, text.c_str() );
-}
-
-int SDLU::Button::SetTextSize( int size )
-{
-    return SDLU_SetButtonTextSize( this->button, size );
-}
-
-int SDLU::Button::SetColor( SDL_Color text_color, SDL_Color fill_color,
-                            SDL_Color box_color )
-{
-   return SDLU_SetButtonColor( this->button, text_color, fill_color, box_color);
-}
-
-int SDLU::Button::SetBlendMode( SDL_BlendMode blendmode )
-{
-    return SDLU_SetButtonBlendMode( this->button, blendmode );
+    return SDLU_GetButtonStyles( this->button, styles );
 }
 
 int SDLU::Button::SetImage( SDL_Texture* image )
@@ -156,11 +140,6 @@ int SDLU::Button::DelCallback( int type )
 int SDLU::Button::SetHotkey( SDL_Scancode hotkey )
 {
     return SDLU_SetButtonHotkey( this->button, hotkey );
-}
-
-int SDLU::Button::GetTextData( SDLU_TextButtonData* data )
-{
-    return SDLU_GetTextButtonData( this->button, data );
 }
 
 int SDLU::Button::GetImage( SDL_Texture** image )

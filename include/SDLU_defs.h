@@ -95,18 +95,24 @@ typedef struct SDLU_Sprite SDLU_Sprite;
 typedef void (SDLCALL * SDLU_Callback) (void* _this, void* userdata);
 
 /**
- * \brief text button data structure
+ * \brief styles for gui components (e.g. SDLU_Button or SDLU_ComboBox)
  *
- * \sa SDLU_GetTextButtonData()
+ * \sa SDLU_GetButtonStyles()
+ * \sa SDLU_GetDefaultStyles()
  */
 typedef struct {
-    const char*     title;          /**< button text            **/
+    const char*     title;          /**< label                  **/
     Uint32          font_size;      /**< font size of the text  **/
     SDL_Color       text_color;     /**< text color             **/
     SDL_Color       fill_color;     /**< fill color             **/
-    SDL_Color       box_color;      /**< button box color       **/
+    SDL_Color       box_color;      /**< box color              **/
     SDL_BlendMode   blendmode;      /**< blendmode              **/
-} SDLU_TextButtonData;
+} SDLU_Styles;
+
+/**
+ *  \brief Get default styles for gui components
+ */
+extern DECLSPEC SDLU_Styles* SDLCALL SDLU_GetDefaultStyles();
 
 /**
  *  \brief The button structure

@@ -53,4 +53,7 @@
 /* #define SDLU_API_PROGRESSBAR        1*/
 /* #define SDLU_API_TEXTRENDERER       1*/
 
+/* Functions */
+#define SDLU_SET_BUTTON_STYLES  1
+
 #endif /* SDLU_FEATURES_H */

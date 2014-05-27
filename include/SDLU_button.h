@@ -265,91 +265,46 @@ extern DECLSPEC int SDLCALL SDLU_HideButton(
 );
 
 /**
- *  \brief Set the title of a button
+ *  \brief Set styles for a text button
  *
- *  \note Only applicable to text buttons
+ *  \param button Button to change styles
+ *  \param styles New button styles
  *
- *  \return 0 on success, -1 on error
+ *  'styles' is an SDLU_Styles* structure, which contains the following fields:
+ *  * *title*: this is the label of the button
+ *  * *font_size*: this is the font size of the button
+ *  * *text_color*: this is the text color of the button
+ *  * *fill_color*: this is the fill color of the button
+ *  * *box_color*: this is the box color of the button
+ *  * *blendmode*: this is the blendmode of the button
  *
- *  \sa SDLU_GetTextButtonData()
- */
-extern DECLSPEC int SDLCALL SDLU_SetButtonText(
-        SDLU_Button* button,
-        const char* text
-);
-
-/**
- *  \brief Set the size of a text button's title
+ *  \code
+ *  // Example
+ *  SDLU_Styles* styles = SDLU_GetDefaultStyles();
+ *  styles->title = "My new title";
+ *  styles->text_color = SDLU_CreateRGB( 0, 0, 255 );
  *
- *  \param button Button to update.
- *  \param size The new text size (in pixels).
- *
- *  \return 0 on success, -1 on error
- *
- *  \sa SDLU_GetTextButtonData()
- */
-extern DECLSPEC int SDLCALL SDLU_SetButtonTextSize(
-        SDLU_Button* button,
-        Uint32 size
-);
-
-/**
- *  \brief Set custom colors for a button
- *
- *  If the button is an image button, text_color is ignored, fill_color is set
- *  as the color mod of the texture, and box_color is the color of the border of
- *  the button.
- *
- *  \param button Button to update
- *  \param text_color New text color
- *  \param fill_color New fill color [ or color mod ]
- *  \param box_color New box color
- *
- *  \return 0 on success or -1 on error.
- *
- *  \sa SDLU_GetTextButtonData()
- */
-extern DECLSPEC int SDLCALL SDLU_SetButtonColor(
-        SDLU_Button* button,
-        SDL_Color text_color,
-        SDL_Color fill_color,
-        SDL_Color box_color
-);
-
-/**
- *  \brief Set the blendmode of the button
- *
- *  \param button Button to update
- *  \param blendmode The new blendmode, see SDL_blendmode.h for possible values
+ *  SDLU_SetButtonStyles(button, styles);
+ *  \endcode
  *
  *  \return 0 on success, -1 on error
- *
- *  \sa SDLU_GetTextButtonData()
  */
-extern DECLSPEC int SDLCALL SDLU_SetButtonBlendMode(
-        SDLU_Button* button,
-        SDL_BlendMode blendmode
+extern DECLSPEC int SDLCALL SDLU_SetButtonStyles(
+        SDLU_Button *button,
+        SDLU_Styles *styles
 );
 
 /**
- *  \brief Get the text data of a button.
- *
- *  This function will fill an SDLU_TextButtonData structure with the text data
- *  of the button, which includes its font size, title, colors and blendmode
+ *  \brief Get text button styles
  *
  *  \param button Button to query
- *  \param data A pointer that will be filled with the button's text data
+ *  \param styles Will be filled with the button styles
  *
- *  \return 0 on success or -1 on error.
- *
- *  \sa SDLU_SetButtonText()
- *  \sa SDLU_SetButtonTextSize()
- *  \sa SDLU_SetButtonColor()
- *  \sa SDLU_SetButtonBlendMode()
+ *  \return 0 on success, -1 on error
  */
-extern DECLSPEC int SDLCALL SDLU_GetTextButtonData(
+extern DECLSPEC int SDLCALL SDLU_GetButtonStyles(
         SDLU_Button* button,
-        SDLU_TextButtonData* data
+        SDLU_Styles *styles
 );
 
 /**
