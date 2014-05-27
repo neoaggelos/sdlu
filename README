@@ -1,7 +1,8 @@
 The SDL Utility Library
 Copyright (c) 2014 Aggelos Kolaitis <neoaggelos@gmail.com>
 
-http://sdlu.bitbucket.org
+Repository: http://bitbucket.org/sdlu/sdlu
+Blog:       http://libsdlu.blogspot.com
 
 The SDL Utility Library (SDLU) is a cross-platform library that provides APIs
 to make development of SDL2 applications faster and easier.
@@ -10,16 +11,16 @@ SDLU supports Windows, Linux, Mac OS X, iOS, Android and the Raspberry Pi.
 
 SDLU is written in C, but can be natively used in C++.
 
-It is distributed under the terms of the zlib license (see COPYING). For the
-license of software and/or source code included in this distribution, see
-"extras/COPYING.name". The zlib license also allows you to freely use parts of
-the source code in your own project.
+It is distributed under the terms of the zlib license (see COPYING). The zlib
+license allows static linking, as well as using independent parts of the library
+in your source code freely, as long as you don't take credit for writing it.
 
-See INSTALL, README-cmake and README-configure for instructions on how to
-build the library. Then, check out the examples in "test" to get started.
-Documentation can be found in the header files in "include", and doxygen can
-be used to generate the docs in HTML format.
+See INSTALL for instructions on building the library. Check out the examples in
+"test" to get started. Documentation can be found in the header files, and in
+the bitbucket download page.
 
-See extras/ROADMAP for stuff that still has to be done.
-
-For questions, suggestions or thoughts email me at "neoaggelos@gmail.com"
+Main features:
+* Fully featured button API with SDL2 event queue integration
+* API to mix pure OpenGL rendering calls with the SDL Render API
+* Hardware-accelerated extensible 2D-Sprite API
+* Powerful text rendering API with truetype font support
