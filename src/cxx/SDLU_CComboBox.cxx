@@ -62,6 +62,16 @@ int SDLU::ComboBox::SetCallback(SDLU_Callback callback, void* arg)
     return SDLU_SetComboBoxCallback(this->combobox, callback, arg);
 }
 
+int SDLU::ComboBox::SetStyles(SDLU_Styles* styles)
+{
+    return SDLU_SetComboBoxStyles(this->combobox, styles);
+}
+
+int SDLU::ComboBox::GetStyles(SDLU_Styles* styles)
+{
+    return SDLU_GetComboBoxStyles(this->combobox, styles);
+}
+
 int SDLU::ComboBox::Render()
 {
     return SDLU_RenderComboBox(this->combobox);

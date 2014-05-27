@@ -29,6 +29,7 @@
 #define SDLU_COMBOBOX_H
 
 #include "SDL.h"
+#include "SDLU_defs.h"
 #include "begin_code.h"
 
 #ifdef __cplusplus
@@ -45,6 +46,8 @@ typedef struct {
     SDL_Window* window;     /**< parent window **/
     SDL_Rect rect;          /**< position **/
     int open;               /**< whether the combobox is open **/
+
+    SDLU_Styles* styles;    /**< appearence properties **/
 
     int num_items;          /**< counter of items **/
     void *data;             /**< combo box items data **/
@@ -75,6 +78,52 @@ extern DECLSPEC int SDLCALL SDLU_SetComboBoxGeometry(
         SDLU_ComboBox* combobox,
         int x, int y,
         int w, int h
+);
+
+/**
+ *  \brief Set combo box styles
+ *
+ *  \note First set combo box styles, add the combo box items afterwards
+ *
+ *  \param combobox ComboBox to change
+ *  \param styles New styles
+ *
+ *  'styles' is an SDLU_Styles* structure with the following fields:
+ *  * *title*: this has no meaning for a combo box
+ *  * *font_size*: font size of the text
+ *  * *box_color*: this is the box (outline) color
+ *  * *fill_color*: this is the fill color
+ *  * *text_color*: this is the text color
+ *  * *blendmode*: this is the blendmode
+ *
+ *  \code
+ *  // Example
+ *  SDLU_Styles* styles = SDLU_GetDefaultStyles();
+ *  styles->box_color = SDLU_CreateRGB( 255, 0, 0 );
+ *  styles->text_color = SDLU_CreateRGB( 255, 255, 0 );
+ *  styles->font_size = 25;
+ *
+ *  SDLU_SetComboBoxStyles(combobox, styles);
+ *  \endcode
+ *
+ *  \return 0 on success, -1 on error
+ */
+extern DECLSPEC int SDLCALL SDLU_SetComboBoxStyles(
+        SDLU_ComboBox* combobox,
+        SDLU_Styles* styles
+);
+
+/**
+ *  \brief Get combo box styles
+ *
+ *  \param combobox Combo box to query
+ *  \param styles Will be filled with the combo box styles
+ *
+ *  \return 0 on success, -1 on error
+ */
+extern DECLSPEC int SDLCALL SDLU_GetComboBoxStyles(
+        SDLU_ComboBox* combobox,
+        SDLU_Styles *styles
 );
 
 /**

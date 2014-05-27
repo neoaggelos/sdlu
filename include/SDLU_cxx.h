@@ -602,6 +602,10 @@ namespace SDLU {
 
             int SetGeometry(int x, int y, int w, int h);
             int SetCallback(SDLU_Callback callback, void* arg);
+
+            int SetStyles( SDLU_Styles* styles );
+            int GetStyles( SDLU_Styles* styles );
+
             int Render();
 
             int AddItem(const char* item);
@@ -609,7 +613,6 @@ namespace SDLU {
             int AddItem(std::string item);
             int DelItem(std::string item);
     };
-
 
 } /* namespace SDLU */
 

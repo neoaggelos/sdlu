@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 
     /** initialize combobox **/
     SDLU_SetComboBoxCallback(combobox, callback, NULL);
-    SDLU_SetComboBoxGeometry(combobox, 110, 30, -1, -1);
+    SDLU_SetComboBoxGeometry(combobox, 85, 30, 150, 35);
 
     SDLU_AddComboBoxItem(&combobox, "Greece");
     SDLU_AddComboBoxItem(&combobox, "USA");

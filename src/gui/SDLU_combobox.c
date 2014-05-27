@@ -125,6 +125,7 @@ SDLU_CreateComboBox(SDL_Window* window)
 
     combobox->id = ++next_id;
     combobox->name = NULL;
+    combobox->styles = SDLU_GetDefaultStyles();
 
     combobox->window = window;
     combobox->rect = SDLU_CreateRect(0, 0, 100, 30);
@@ -143,6 +144,31 @@ SDLU_CreateComboBox(SDL_Window* window)
     SDL_AddEventWatch(ComboBoxEventWatch, combobox);
 
     return combobox;
+}
+
+int
+SDLU_SetComboBoxStyles(SDLU_ComboBox* combobox, SDLU_Styles* styles)
+{
+    if (combobox == NULL)
+        SDLU_ExitError("invalid 'combobox'", -1);
+
+    if (styles) {
+        combobox->styles = styles;
+        return 0;
+    } else {
+        return -1;
+    }
+}
+
+int
+SDLU_GetComboBoxStyles(SDLU_ComboBox* combobox, SDLU_Styles* styles)
+{
+    if (combobox == NULL)
+        SDLU_ExitError("invalid 'combobox'", -1);
+
+    styles = combobox->styles;
+
+    return 0;
 }
 
 int
@@ -173,7 +199,6 @@ static SDL_Texture* CreateItemTexture(SDLU_ComboBox* combobox, const char* t)
     Uint32 font_size;
     int text_w, text_h;
     int x, y;
-    SDL_Color white = SDLU_CreateRGBA(SDLU_WHITE);
     SDL_Rect rect = SDLU_CreateRect(1, 1, R.w-2, R.h-2);
 
     surface = SDL_CreateRGBSurface(0, R.w, R.h, 32,
@@ -184,17 +209,19 @@ static SDL_Texture* CreateItemTexture(SDLU_ComboBox* combobox, const char* t)
 #endif
     );
 
-    SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, SDLU_WHITE));
-    SDL_FillRect(surface, &rect, SDL_MapRGBA(surface->format, SDLU_GRAY));
+#define UNPACK(color) color.r, color.g, color.b, color.a
+
+    SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, UNPACK(combobox->styles->box_color)));
+    SDL_FillRect(surface, &rect, SDL_MapRGBA(surface->format, UNPACK(combobox->styles->fill_color)));
 
     font_size = SDLU_GetFontSize();
-    SDLU_SetFontSize(15);
+    SDLU_SetFontSize(combobox->styles->font_size);
     SDLU_GetTextOutputSize(t, &text_w, &text_h);
 
     x = (R.w - text_w) / 2;
     y = (R.h - text_h) / 2;
 
-    SDLU_RenderTextToSurface(surface, x, y, white, "%s", t);
+    SDLU_RenderTextToSurface(surface, x, y, combobox->styles->text_color, "%s", t);
     SDLU_SetFontSize(font_size);
 
     texture = SDL_CreateTextureFromSurface(renderer, surface);
