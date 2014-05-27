@@ -555,6 +555,9 @@ SDLU_SetButtonStyles(SDLU_Button* button, SDLU_Styles *styles)
     if (button == NULL)
         SDLU_ExitError("invalid parameter 'button'", -1);
 
+    if (!(button->flags & SDLU_BUTTON_TEXT))
+        SDLU_ExitError("not a text button", -1);
+
     if (styles) {
         button->content = styles;
         return 0;
@@ -568,6 +571,9 @@ SDLU_GetButtonStyles(SDLU_Button* button, SDLU_Styles *styles)
 {
     if (button == NULL)
         SDLU_ExitError("invliad parameter 'button'", -1);
+
+    if (!(button->flags & SDLU_BUTTON_TEXT))
+        SDLU_ExitError("not a text button", -1);
 
     styles = (SDLU_Styles*) button->content;
 
