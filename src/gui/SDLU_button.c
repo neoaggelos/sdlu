@@ -368,6 +368,7 @@ SDLU_CreateGenericButton(SDL_Window* window, Uint32 flags)
     ret->window = window;
     ret->rect.x = ret->rect.y = 0;
     ret->state = SDLU_IDLE;
+    ret->hotkey = 0;
 
     /* Default render function */
     if (!(flags & SDLU_BUTTON_FOREIGN)) {
