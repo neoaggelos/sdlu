@@ -6,84 +6,86 @@ srcdir = path.getabsolute(srcdir_rel)
 builddir = srcdir .. "/build"
 auxdir = srcdir .. "/scripts/premake"
 
+dofile(auxdir .. "/functions.lua")
+
 --------------------------------------------------------------------------------
 
 -- parse all _ARGS that are _OPTIONS
 for _, arg in pairs(_ARGS) do
-    local is_option = false
-    if arg:startswith '/' then
-        arg = arg:sub(2) is_option = true
-    elseif arg:startswith '--' then
-        arg = arg:sub(3)
-        is_option = true
-    end
+  local is_option = false
+  if arg:startswith '/' then
+    arg = arg:sub(2) is_option = true
+  elseif arg:startswith '--' then
+    arg = arg:sub(3)
+    is_option = true
+  end
 
-    if is_option then
-        local first, last = arg:find('=')
-        if first and last then
-            _OPTIONS[arg:sub(1,first-1)] = arg:sub(last+1)
-        else
-            _OPTIONS[arg] = ""
-        end
+  if is_option then
+    local first, last = arg:find('=')
+    if first and last then
+      _OPTIONS[arg:sub(1,first-1)] = arg:sub(last+1)
+    else
+      _OPTIONS[arg] = ""
     end
+  end
 end
 
 --------------------------------------------------------------------------------
 
 newoption{
-    trigger = "interactive",
-    description = "Run in interactive mode"
+  trigger = "interactive",
+  description = "Run in interactive mode"
 }
 
 newoption{
-    trigger = "with-sdl2-ttf-library",
-    value = "FILE",
-    description = "Full path to the SDL2_ttf library (SDL2_TTF_LIBRARY)"
+  trigger = "with-sdl2-ttf-library",
+  value = "FILE",
+  description = "Full path to the SDL2_ttf library (SDL2_TTF_LIBRARY)"
 }
 
 newoption{
-    trigger = "with-sdl2-ttf-include-dir",
-    value = "DIR",
-    description = "Directory of SDL_ttf.h (SDL2_TTF_INCLUDE_DIR)"
+  trigger = "with-sdl2-ttf-include-dir",
+  value = "DIR",
+  description = "Directory of SDL_ttf.h (SDL2_TTF_INCLUDE_DIR)"
 }
 
 newoption{
-    trigger = "with-sdl2-library",
-    value = "FILE",
-    description = "Full path to the SDL2 library (SDL2_LIBRARY)"
+  trigger = "with-sdl2-library",
+  value = "FILE",
+  description = "Full path to the SDL2 library (SDL2_LIBRARY)"
 }
 
 newoption{
-    trigger = "with-sdl2-include-dir",
-    value = "DIR",
-    description = "Directory of SDL.h (SDL2_INCLUDE_DIR)"
+  trigger = "with-sdl2-include-dir",
+  value = "DIR",
+  description = "Directory of SDL.h (SDL2_INCLUDE_DIR)"
 }
 
 newoption{
-    trigger = "with-tests",
-    description = "Also build the test programs"
+  trigger = "with-tests",
+  description = "Also build the test programs"
 }
 
 newoption{
-    trigger = "enable-cxx",
-    description = "Enable the cxx interface"
+  trigger = "enable-cxx",
+  description = "Enable the cxx interface"
 }
 
 newoption{
-    trigger = "enable-static",
-    description = "Build the static library"
+  trigger = "enable-static",
+  description = "Build the static library"
 }
 
 newoption{
-    trigger = "extra-include-dirs",
-    value = "DIR1;DIR2;DIR3",
-    description = "A ';' separated list of directories to search for headers"
+  trigger = "extra-include-dirs",
+  value = "DIR1;DIR2;DIR3",
+  description = "A ';' separated list of directories to search for headers"
 }
 
 newoption{
-    trigger = "extra-lib-dirs",
-    value = "DIR1;DIR2;DIR3",
-    description = "A ';' separated list of directories to search for libraries"
+  trigger = "extra-lib-dirs",
+  value = "DIR1;DIR2;DIR3",
+  description = "A ';' separated list of directories to search for libraries"
 }
 
 --------------------------------------------------------------------------------
@@ -154,13 +156,29 @@ sdl2_ttf_library = sdl2_ttf_library or os.getenv("SDL2_TTF_LIBRARY") or "SDL2_tt
 -- Extra include directories
 include_dirs = ";" .. include_dirs
 for dir in include_dirs:gmatch("%;([^;]+)") do
-    table.insert(extra_include_dirs, dir)
+  table.insert(extra_include_dirs, dir)
 end
 
 -- Extra lib directories
 lib_dirs = ";" .. lib_dirs
 for dir in lib_dirs:gmatch("%;([^;]+)") do
-    table.insert(extra_lib_dirs, dir)
+  table.insert(extra_lib_dirs, dir)
+end
+
+-- File dialog backend
+local have_gtk = pc_module_exists("gtk+-3.0")
+if have_gtk then
+  setup_gui_backend = function()
+    defines("FILEDIALOG_GTK")
+    excludes("src/filedialog/SDLU_filedialog_dummy.c")
+    linkoptions(pc_libs("gtk+-3.0"))
+    buildoptions(pc_cflags("gtk+-3.0"))
+  end
+else
+  setup_gui_backend = function()
+    defines( "FILEDIALOG_DUMMY" )
+    excludes("src/filedialog/SDLU_filedialog_gtk.c")
+  end
 end
 
 -- Static or shared
@@ -169,12 +187,12 @@ library_kind = (os.is "windows" or enable_static) and "StaticLib" or "SharedLib"
 -- Prepare build dir
 local includes = os.matchfiles(srcdir .. "/include/*.h")
 for _, j in pairs(includes) do
-    os.copyfile(j, builddir .. "/include/" .. path.getname(j))
+  os.copyfile(j, builddir .. "/include/" .. path.getname(j))
 end
 
 -- Better clean action
 if _ACTION == "clean" or _OPTIONS["help"] or not _ACTION then
-    os.rmdir(builddir)
+  os.rmdir(builddir)
 end
 
 -- Tests

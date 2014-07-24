@@ -76,6 +76,7 @@
 #include "SDLU_create.h"
 #include "SDLU_defs.h"
 #include "SDLU_features.h"
+#include "SDLU_filedialog.h"
 #include "SDLU_fps.h"
 #include "SDLU_hints.h"
 #include "SDLU_ini.h"

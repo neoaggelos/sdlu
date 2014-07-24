@@ -39,6 +39,7 @@
 #define SDLU_API_COLLISIONDETECTION 1
 #define SDLU_API_COMBOBOX           1
 #define SDLU_API_FRAMERATE          1
+#define SDLU_API_FILEDIALOG         1
 #define SDLU_API_INIHANDLER         1
 #define SDLU_API_MATH               1
 #define SDLU_API_OPENGL             1
@@ -47,7 +48,6 @@
 #define SDLU_API_TURTLE             1
 
 /* APIs that will be added in the future */
-/* #define SDLU_API_FILECHOOSER        1 */
 /* #define SDLU_API_LABEL              1*/
 /* #define SDLU_API_MENUBAR            1*/
 /* #define SDLU_API_PROGRESSBAR        1*/

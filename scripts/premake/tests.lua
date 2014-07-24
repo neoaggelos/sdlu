@@ -1,9 +1,9 @@
 testdir = srcdir .. "/test"
 
 local std_tests = {
-    "testbutton", "testcollision", "testcolorkey", "testcombo", "testini",
-    "testmath", "testmulticopy", "testrender", "testsprite", "testtext",
-    "testturtle"
+    "testbutton", "testcollision", "testcolorkey", "testcombo",
+    "testfiledialog", "testini", "testmath", "testmulticopy", "testrender",
+    "testsprite", "testtext", "testturtle"
 }
 local gl_tests = {
     "testgl", "testrender2"

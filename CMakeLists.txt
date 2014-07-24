@@ -48,6 +48,24 @@ find_package(SDL2_ttf REQUIRED)
 include_directories(${SDL2_TTF_INCLUDE_DIR})
 set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
 
+# Find a backend for the file dialog API
+find_package(PkgConfig)
+if (PKG_CONFIG_FOUND)
+  pkg_check_modules(GTK gtk+-3.0)
+  if (GTK_FOUND)
+    set(LIBS ${LIBS} ${GTK_LIBRARIES})
+    include_directories(${GTK_INCLUDE_DIRS})
+    add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
+    add_definitions("-DFILEDIALOG_GTK")
+    set(SOURCES "${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog_gtk.c")
+  endif (GTK_FOUND)
+endif(PKG_CONFIG_FOUND)
+
+if (NOT GTK_FOUND)
+  set(SOURCES "${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog_dummy.c")
+  add_definitions("-DFILEDIALOG_DUMMY")
+endif(NOT FOUND_BACKEND)
+
 # These are for sdlu-config and sdlu.pc
 set(SDL_CFLAGS "-I${SDL2_INCLUDE_DIR}")
 set(SDL_LIBS ${SDL2_LIBRARY})
@@ -55,7 +73,7 @@ set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
 set(TTF_LIBS ${SDL2_TTF_LIBRARY})
 
 # Basic sources
-file(GLOB SOURCES
+file(GLOB SOURCES ${SOURCES}
   ${CMAKE_SOURCE_DIR}/src/render/*.c
   ${CMAKE_SOURCE_DIR}/src/common/*.c
   ${CMAKE_SOURCE_DIR}/src/sprite/*.c

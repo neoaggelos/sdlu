@@ -639,6 +639,8 @@ minor
 major
 STATIC
 DEFINE_SDLU_CXX
+FILEDIALOG_GTK_FALSE
+FILEDIALOG_GTK_TRUE
 CXX_FALSE
 CXX_TRUE
 TTF_LIBS
@@ -15980,18 +15982,59 @@ fi
 $as_echo "$have_ttf" >&6; }
 }
 
+# Function to check for a file dialog backend
+CheckFileDialogBackends() {
+    case "$host" in
+                                    *)
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gtk+" >&5
+$as_echo_n "checking for gtk+... " >&6; }
+
+have_gtk=no
+if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-3.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-3.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  have_gtk=yes
+fi
+if test x$have_gtk = xyes; then
+    GTK_CFLAGS=`pkg-config --cflags gtk+-3.0`
+    GTK_LIBS=`pkg-config --libs gtk+-3.0`
+    have_gtk=yes
+else
+    have_gtk=no
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_gtk" >&5
+$as_echo "$have_gtk" >&6; }
+
+            if test x$have_gtk = xyes; then
+                CFLAGS="$CFLAGS $GTK_CFLAGS -DFILEDIALOG_GTK"
+                LIBS="$LIBS $GTK_LIBS"
+            else
+                CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
+            fi
+        ;;
+    esac
+}
+
 # Find libraries
 case "$host" in
     custom-apple-darwin) # this is iosbuild.sh
         CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
+        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
         ;;
     arm-raspberry-linux-gnueabihf) # this is rpibuild.sh
         LIBS="$LIBS $SDL2_PI_LIBRARY $SDL2_TTF_PI_LIBRARY"
         CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
+        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
         ;;
     *)
         CheckSDL2
         CheckSDL2_ttf
+        CheckFileDialogBackends
         ;;
 esac
 
@@ -16007,7 +16050,6 @@ fi
 
 
 if test x${build_cxx} = xyes; then
-    CXXFLAGS="$CXXFLAGS $CFLAGS"
     DEFINE_SDLU_CXX="#define SDLU_CXX 1"
 else
     DEFINE_SDLU_CXX="/* #undef SDLU_CXX */"
@@ -16028,6 +16070,19 @@ includedir="$includedir/SDL2"
 
 # make sure sdlu-config can be executed
 ac_config_commands="$ac_config_commands sdlu_config"
+
+
+# also set CXXFLAGS
+CXXFLAGS="$CXXFLAGS $CFLAGS"
+
+# set gtk sources
+ if test x$have_gtk = xyes; then
+  FILEDIALOG_GTK_TRUE=
+  FILEDIALOG_GTK_FALSE='#'
+else
+  FILEDIALOG_GTK_TRUE='#'
+  FILEDIALOG_GTK_FALSE=
+fi
 
 
 # substitutions for the config header
@@ -16220,6 +16275,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${CXX_TRUE}" && test -z "${CXX_FALSE}"; then
   as_fn_error $? "conditional \"CXX\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${FILEDIALOG_GTK_TRUE}" && test -z "${FILEDIALOG_GTK_FALSE}"; then
+  as_fn_error $? "conditional \"FILEDIALOG_GTK\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

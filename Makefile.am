@@ -18,22 +18,28 @@ cxx_sources =
 libSDLU_la_LINK = $(LINK)
 endif
 
-libSDLU_la_SOURCES = ${cxx_sources}             \
-					 src/common/SDLU_common.c	\
-					 src/common/SDLU_userdata.c	\
-					 src/gl/SDLU_gl.c			\
-					 src/gui/SDLU_button.c		\
-					 src/gui/SDLU_combobox.c	\
-					 src/ini/SDLU_ini.c			\
-					 src/render/SDLU_pixels.c	\
-					 src/render/SDLU_render.c	\
-					 src/SDLU_collide.c			\
-					 src/SDLU_create.c			\
-					 src/SDLU_framerate.c		\
-					 src/SDLU_math.c			\
-					 src/sprite/SDLU_sprite.c	\
-					 src/text/SDLU_ttf.c		\
+libSDLU_la_SOURCES = ${cxx_sources}             					\
+					 src/common/SDLU_common.c						\
+					 src/common/SDLU_userdata.c						\
+					 src/gl/SDLU_gl.c								\
+					 src/gui/SDLU_button.c							\
+					 src/gui/SDLU_combobox.c						\
+					 src/ini/SDLU_ini.c								\
+					 src/render/SDLU_pixels.c						\
+					 src/render/SDLU_render.c						\
+					 src/SDLU_collide.c								\
+					 src/SDLU_create.c								\
+					 src/SDLU_framerate.c							\
+					 src/SDLU_math.c								\
+					 src/sprite/SDLU_sprite.c						\
+					 src/text/SDLU_ttf.c							\
 					 src/turtle/SDLU_turtle.c
+
+if FILEDIALOG_GTK
+libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_gtk.c
+else
+libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_dummy.c
+endif
 
 include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\
@@ -44,6 +50,7 @@ include_HEADERS = include/SDLU.h				\
 				  include/SDLU_cxx.h			\
 				  include/SDLU_defs.h			\
 				  include/SDLU_features.h		\
+				  include/SDLU_filedialog.h		\
 				  include/SDLU_fps.h			\
 				  include/SDLU_hints.h			\
 				  include/SDLU_ini.h			\

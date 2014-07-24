@@ -71,12 +71,13 @@ LIBS     += -miphoneos-min-version=$(MIN_VERSION) --static-libgcc
 # Flags for SDLU
 CFLAGS   += -I$(SDL2_INCLUDE_DIR) -I$(SDL2_TTF_INCLUDE_DIR)
 CFLAGS   += -Isrc/common -Iinclude
+CFLAGS   += -DFILEDIALOG_DUMMY
 
 TARGET = libSDLU.a
 FRAMEWORK = SDLU.framework
 
 HDRS = include/*.h
-SOURCES = src/common/*.c src/gl/*.c src/gui/*.c src/ini/*.c src/render/*.c src/sprite/*.c src/text/*.c src/turtle/*.c src/*.c
+SOURCES = src/common/*.c src/gl/*.c src/gui/*.c src/ini/*.c src/render/*.c src/sprite/*.c src/text/*.c src/turtle/*.c src/*.c src/filedialog/SDLU_filedialog_dummy.c
 
 OBJECTS = $(shell echo $(SOURCES) | sed -e "s,\.c,\.o,g")
 

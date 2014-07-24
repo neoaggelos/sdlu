@@ -13,6 +13,8 @@ solution "SDLU"
   libdirs { extra_lib_dirs }
   includedirs { extra_include_dirs }
 
+  setup_gui_backend()
+
   location "build"
   objdir "build/obj"
 

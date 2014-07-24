@@ -80,18 +80,39 @@ CheckSDL2_ttf() {
     AC_MSG_RESULT($have_ttf)
 }
 
+# Function to check for a file dialog backend
+CheckFileDialogBackends() {
+    case "$host" in
+        dnl*windows* | *win32* | *mingw* | *msys*)
+            dnl TODO: add here flags for the Win32 API, when added
+        dnl;;
+        *)
+            AC_CHECK_GTK(have_gtk=yes, have_gtk=no)
+            if test x$have_gtk = xyes; then
+                CFLAGS="$CFLAGS $GTK_CFLAGS -DFILEDIALOG_GTK"
+                LIBS="$LIBS $GTK_LIBS"
+            else
+                CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
+            fi
+        ;;
+    esac
+}
+
 # Find libraries
 case "$host" in
     custom-apple-darwin) # this is iosbuild.sh
         CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
+        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
         ;;
     arm-raspberry-linux-gnueabihf) # this is rpibuild.sh
         LIBS="$LIBS $SDL2_PI_LIBRARY $SDL2_TTF_PI_LIBRARY"
         CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
+        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
         ;;
     *)
         CheckSDL2
         CheckSDL2_ttf
+        CheckFileDialogBackends
         ;;
 esac
 
@@ -105,7 +126,6 @@ AC_ARG_ENABLE(
 )
 
 if test x${build_cxx} = xyes; then
-    CXXFLAGS="$CXXFLAGS $CFLAGS"
     DEFINE_SDLU_CXX="#define SDLU_CXX 1"
 else
     DEFINE_SDLU_CXX="/* #undef SDLU_CXX */"
@@ -118,6 +138,12 @@ includedir="$includedir/SDL2"
 
 # make sure sdlu-config can be executed
 AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
+
+# also set CXXFLAGS
+CXXFLAGS="$CXXFLAGS $CFLAGS"
+
+# set gtk sources
+AM_CONDITIONAL([FILEDIALOG_GTK], [test x$have_gtk = xyes])
 
 # substitutions for the config header
 AC_SUBST([DEFINE_SDLU_CXX])

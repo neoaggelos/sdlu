@@ -77,10 +77,11 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 noinst_PROGRAMS = testbutton$(EXEEXT) testcollision$(EXEEXT) \
-	testcolorkey$(EXEEXT) testcombo$(EXEEXT) testini$(EXEEXT) \
-	testmath$(EXEEXT) testmulticopy$(EXEEXT) testrender$(EXEEXT) \
-	testsprite$(EXEEXT) testtext$(EXEEXT) testturtle$(EXEEXT) \
-	$(am__EXEEXT_1) $(am__EXEEXT_2) $(am__EXEEXT_3)
+	testcolorkey$(EXEEXT) testcombo$(EXEEXT) \
+	testfiledialog$(EXEEXT) testini$(EXEEXT) testmath$(EXEEXT) \
+	testmulticopy$(EXEEXT) testrender$(EXEEXT) testsprite$(EXEEXT) \
+	testtext$(EXEEXT) testturtle$(EXEEXT) $(am__EXEEXT_1) \
+	$(am__EXEEXT_2) $(am__EXEEXT_3)
 subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
@@ -126,6 +127,9 @@ am__testcxx_SOURCES_DIST = common.c testcxx.cxx
 @HAVE_CXX_TRUE@am_testcxx_OBJECTS = common.$(OBJEXT) testcxx.$(OBJEXT)
 testcxx_OBJECTS = $(am_testcxx_OBJECTS)
 testcxx_LDADD = $(LDADD)
+am_testfiledialog_OBJECTS = common.$(OBJEXT) testfiledialog.$(OBJEXT)
+testfiledialog_OBJECTS = $(am_testfiledialog_OBJECTS)
+testfiledialog_LDADD = $(LDADD)
 am__testgl_SOURCES_DIST = common.c testgl.c
 @HAVE_OPENGL_TRUE@am_testgl_OBJECTS = common.$(OBJEXT) \
 @HAVE_OPENGL_TRUE@	testgl.$(OBJEXT)
@@ -205,19 +209,19 @@ am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
 SOURCES = $(testbutton_SOURCES) $(testcollision_SOURCES) \
 	$(testcolorkey_SOURCES) $(testcombo_SOURCES) \
-	$(testcxx_SOURCES) $(testgl_SOURCES) $(testgles2_SOURCES) \
-	$(testini_SOURCES) $(testmath_SOURCES) \
+	$(testcxx_SOURCES) $(testfiledialog_SOURCES) $(testgl_SOURCES) \
+	$(testgles2_SOURCES) $(testini_SOURCES) $(testmath_SOURCES) \
 	$(testmulticopy_SOURCES) $(testrender_SOURCES) \
 	$(testrender2_SOURCES) $(testsprite_SOURCES) \
 	$(testtext_SOURCES) $(testturtle_SOURCES)
 DIST_SOURCES = $(testbutton_SOURCES) $(testcollision_SOURCES) \
 	$(testcolorkey_SOURCES) $(testcombo_SOURCES) \
-	$(am__testcxx_SOURCES_DIST) $(am__testgl_SOURCES_DIST) \
-	$(am__testgles2_SOURCES_DIST) $(testini_SOURCES) \
-	$(testmath_SOURCES) $(testmulticopy_SOURCES) \
-	$(testrender_SOURCES) $(am__testrender2_SOURCES_DIST) \
-	$(testsprite_SOURCES) $(testtext_SOURCES) \
-	$(testturtle_SOURCES)
+	$(am__testcxx_SOURCES_DIST) $(testfiledialog_SOURCES) \
+	$(am__testgl_SOURCES_DIST) $(am__testgles2_SOURCES_DIST) \
+	$(testini_SOURCES) $(testmath_SOURCES) \
+	$(testmulticopy_SOURCES) $(testrender_SOURCES) \
+	$(am__testrender2_SOURCES_DIST) $(testsprite_SOURCES) \
+	$(testtext_SOURCES) $(testturtle_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -369,6 +373,7 @@ testbutton_SOURCES = common.c testbutton.c
 testcollision_SOURCES = common.c testcollision.c 
 testcolorkey_SOURCES = common.c testcolorkey.c
 testcombo_SOURCES = common.c testcombo.c
+testfiledialog_SOURCES = common.c testfiledialog.c
 testini_SOURCES = common.c testini.c
 testmath_SOURCES = common.c testmath.c
 testmulticopy_SOURCES = common.c testmulticopy.c
@@ -443,6 +448,10 @@ testcxx$(EXEEXT): $(testcxx_OBJECTS) $(testcxx_DEPENDENCIES) $(EXTRA_testcxx_DEP
 	@rm -f testcxx$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(testcxx_OBJECTS) $(testcxx_LDADD) $(LIBS)
 
+testfiledialog$(EXEEXT): $(testfiledialog_OBJECTS) $(testfiledialog_DEPENDENCIES) $(EXTRA_testfiledialog_DEPENDENCIES) 
+	@rm -f testfiledialog$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(testfiledialog_OBJECTS) $(testfiledialog_LDADD) $(LIBS)
+
 testgl$(EXEEXT): $(testgl_OBJECTS) $(testgl_DEPENDENCIES) $(EXTRA_testgl_DEPENDENCIES) 
 	@rm -f testgl$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testgl_OBJECTS) $(testgl_LDADD) $(LIBS)
@@ -495,6 +504,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcolorkey.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcombo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcxx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testfiledialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testgl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testgles2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testini.Po@am__quote@

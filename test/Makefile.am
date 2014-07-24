@@ -10,7 +10,7 @@ if HAVE_CXX
 CXX_TESTS = testcxx
 endif
 
-noinst_PROGRAMS = testbutton testcollision testcolorkey testcombo testini testmath testmulticopy testrender testsprite testtext testturtle ${GLES2_TESTS} ${GL_TESTS} ${CXX_TESTS}
+noinst_PROGRAMS = testbutton testcollision testcolorkey testcombo testfiledialog testini testmath testmulticopy testrender testsprite testtext testturtle ${GLES2_TESTS} ${GL_TESTS} ${CXX_TESTS}
 
 AM_CFLAGS = -DDATA_DIR=\"$(abs_srcdir)/data\"
 
@@ -18,6 +18,7 @@ testbutton_SOURCES      = common.c testbutton.c
 testcollision_SOURCES   = common.c testcollision.c 
 testcolorkey_SOURCES    = common.c testcolorkey.c
 testcombo_SOURCES		= common.c testcombo.c
+testfiledialog_SOURCES  = common.c testfiledialog.c
 testini_SOURCES         = common.c testini.c
 testmath_SOURCES        = common.c testmath.c
 testmulticopy_SOURCES   = common.c testmulticopy.c
