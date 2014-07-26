@@ -20,7 +20,7 @@ Features
 ================================================================================
 
 + Supports Visual Studio, CodeBlocks, XCode, GNU make
-+ Very fast and lightweigth
++ Very fast and lightweight
 - Assumes all depencies can be found in the default paths
 
 
