@@ -166,18 +166,25 @@ for dir in lib_dirs:gmatch("%;([^;]+)") do
 end
 
 -- File dialog backend
-local have_gtk = pc_module_exists("gtk+-3.0")
-if have_gtk then
+if os.is "windows" then
   setup_gui_backend = function()
-    defines("FILEDIALOG_GTK")
-    excludes("src/filedialog/SDLU_filedialog_dummy.c")
-    linkoptions(pc_libs("gtk+-3.0"))
-    buildoptions(pc_cflags("gtk+-3.0"))
+    defines("FILEDIALOG_WIN32")
+    linkoptions("-mwindows")
   end
 else
-  setup_gui_backend = function()
-    defines( "FILEDIALOG_DUMMY" )
-    excludes("src/filedialog/SDLU_filedialog_gtk.c")
+  local have_gtk = pc_module_exists("gtk+-3.0")
+  if have_gtk then
+    setup_gui_backend = function()
+      defines("FILEDIALOG_GTK")
+      excludes("src/filedialog/SDLU_filedialog_dummy.c")
+      linkoptions(pc_libs("gtk+-3.0"))
+      buildoptions(pc_cflags("gtk+-3.0"))
+    end
+  else
+    setup_gui_backend = function()
+      defines( "FILEDIALOG_DUMMY" )
+      excludes("src/filedialog/SDLU_filedialog_gtk.c")
+    end
   end
 end
 

@@ -37,7 +37,13 @@ libSDLU_la_SOURCES = ${cxx_sources}             					\
 
 if FILEDIALOG_GTK
 libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_gtk.c
-else
+endif
+
+if FILEDIALOG_WIN32
+libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_win32.c
+endif
+
+if FILEDIALOG_DUMMY
 libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_dummy.c
 endif
 

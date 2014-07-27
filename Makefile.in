@@ -82,7 +82,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @FILEDIALOG_GTK_TRUE@am__append_1 = src/filedialog/SDLU_filedialog_gtk.c
-@FILEDIALOG_GTK_FALSE@am__append_2 = src/filedialog/SDLU_filedialog_dummy.c
+@FILEDIALOG_WIN32_TRUE@am__append_2 = src/filedialog/SDLU_filedialog_win32.c
+@FILEDIALOG_DUMMY_TRUE@am__append_3 = src/filedialog/SDLU_filedialog_dummy.c
 subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
@@ -162,6 +163,7 @@ am__libSDLU_la_SOURCES_DIST = src/cxx/SDLU_CButton.cxx \
 	src/SDLU_framerate.c src/SDLU_math.c src/sprite/SDLU_sprite.c \
 	src/text/SDLU_ttf.c src/turtle/SDLU_turtle.c \
 	src/filedialog/SDLU_filedialog_gtk.c \
+	src/filedialog/SDLU_filedialog_win32.c \
 	src/filedialog/SDLU_filedialog_dummy.c
 am__dirstamp = $(am__leading_dot)dirstamp
 @CXX_TRUE@am__objects_1 = src/cxx/SDLU_CButton.lo \
@@ -172,8 +174,8 @@ am__dirstamp = $(am__leading_dot)dirstamp
 @CXX_TRUE@	src/cxx/SDLU_CTurtle.lo src/cxx/SDLU_CWindow.lo
 @FILEDIALOG_GTK_TRUE@am__objects_2 =  \
 @FILEDIALOG_GTK_TRUE@	src/filedialog/SDLU_filedialog_gtk.lo
-@FILEDIALOG_GTK_FALSE@am__objects_3 =  \
-@FILEDIALOG_GTK_FALSE@	src/filedialog/SDLU_filedialog_dummy.lo
+@FILEDIALOG_WIN32_TRUE@am__objects_3 = src/filedialog/SDLU_filedialog_win32.lo
+@FILEDIALOG_DUMMY_TRUE@am__objects_4 = src/filedialog/SDLU_filedialog_dummy.lo
 am_libSDLU_la_OBJECTS = $(am__objects_1) src/common/SDLU_common.lo \
 	src/common/SDLU_userdata.lo src/gl/SDLU_gl.lo \
 	src/gui/SDLU_button.lo src/gui/SDLU_combobox.lo \
@@ -181,7 +183,8 @@ am_libSDLU_la_OBJECTS = $(am__objects_1) src/common/SDLU_common.lo \
 	src/render/SDLU_render.lo src/SDLU_collide.lo \
 	src/SDLU_create.lo src/SDLU_framerate.lo src/SDLU_math.lo \
 	src/sprite/SDLU_sprite.lo src/text/SDLU_ttf.lo \
-	src/turtle/SDLU_turtle.lo $(am__objects_2) $(am__objects_3)
+	src/turtle/SDLU_turtle.lo $(am__objects_2) $(am__objects_3) \
+	$(am__objects_4)
 libSDLU_la_OBJECTS = $(am_libSDLU_la_OBJECTS)
 SCRIPTS = $(bin_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -441,7 +444,7 @@ libSDLU_la_SOURCES = ${cxx_sources} src/common/SDLU_common.c \
 	src/render/SDLU_render.c src/SDLU_collide.c src/SDLU_create.c \
 	src/SDLU_framerate.c src/SDLU_math.c src/sprite/SDLU_sprite.c \
 	src/text/SDLU_ttf.c src/turtle/SDLU_turtle.c $(am__append_1) \
-	$(am__append_2)
+	$(am__append_2) $(am__append_3)
 include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\
 				  include/SDLU_collide.h		\
@@ -665,6 +668,9 @@ src/filedialog/$(DEPDIR)/$(am__dirstamp):
 	@: > src/filedialog/$(DEPDIR)/$(am__dirstamp)
 src/filedialog/SDLU_filedialog_gtk.lo: src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
+src/filedialog/SDLU_filedialog_win32.lo:  \
+	src/filedialog/$(am__dirstamp) \
+	src/filedialog/$(DEPDIR)/$(am__dirstamp)
 src/filedialog/SDLU_filedialog_dummy.lo:  \
 	src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
@@ -752,6 +758,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CWindow.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_dummy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_gtk.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_win32.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/gl/$(DEPDIR)/SDLU_gl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/gui/$(DEPDIR)/SDLU_button.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/gui/$(DEPDIR)/SDLU_combobox.Plo@am__quote@
