@@ -21,6 +21,9 @@ endif
 libSDLU_la_SOURCES = ${cxx_sources}             					\
 					 src/common/SDLU_common.c						\
 					 src/common/SDLU_userdata.c						\
+					 src/filedialog/SDLU_filedialog_dummy.c			\
+					 src/filedialog/SDLU_filedialog_gtk.c			\
+					 src/filedialog/SDLU_filedialog_win32.c			\
 					 src/gl/SDLU_gl.c								\
 					 src/gui/SDLU_button.c							\
 					 src/gui/SDLU_combobox.c						\
@@ -34,18 +37,6 @@ libSDLU_la_SOURCES = ${cxx_sources}             					\
 					 src/sprite/SDLU_sprite.c						\
 					 src/text/SDLU_ttf.c							\
 					 src/turtle/SDLU_turtle.c
-
-if FILEDIALOG_GTK
-libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_gtk.c
-endif
-
-if FILEDIALOG_WIN32
-libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_win32.c
-endif
-
-if FILEDIALOG_DUMMY
-libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_dummy.c
-endif
 
 include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\

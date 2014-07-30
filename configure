@@ -639,12 +639,6 @@ minor
 major
 STATIC
 DEFINE_SDLU_CXX
-FILEDIALOG_DUMMY_FALSE
-FILEDIALOG_DUMMY_TRUE
-FILEDIALOG_WIN32_FALSE
-FILEDIALOG_WIN32_TRUE
-FILEDIALOG_GTK_FALSE
-FILEDIALOG_GTK_TRUE
 CXX_FALSE
 CXX_TRUE
 TTF_LIBS
@@ -15990,7 +15984,6 @@ $as_echo "$have_ttf" >&6; }
 CheckFileDialogBackends() {
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
-            have_win32=yes
             LIBS="$LIBS -mwindows"
             CFLAGS="$CFLAGS -DFILEDIALOG_WIN32"
         ;;
@@ -16024,7 +16017,6 @@ $as_echo "$have_gtk" >&6; }
                 LIBS="$LIBS $GTK_LIBS"
             else
                 CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
-                use_dummy=yes
             fi
         ;;
     esac
@@ -16084,33 +16076,6 @@ ac_config_commands="$ac_config_commands sdlu_config"
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"
-
-# conditionals for the including the correct sources for the file dialog API
-# note for the future: make sure that only one of the backends is used
- if test x$have_gtk = xyes; then
-  FILEDIALOG_GTK_TRUE=
-  FILEDIALOG_GTK_FALSE='#'
-else
-  FILEDIALOG_GTK_TRUE='#'
-  FILEDIALOG_GTK_FALSE=
-fi
-
- if test x$have_win32 = xyes; then
-  FILEDIALOG_WIN32_TRUE=
-  FILEDIALOG_WIN32_FALSE='#'
-else
-  FILEDIALOG_WIN32_TRUE='#'
-  FILEDIALOG_WIN32_FALSE=
-fi
-
- if test x$use_dummy = xyes; then
-  FILEDIALOG_DUMMY_TRUE=
-  FILEDIALOG_DUMMY_FALSE='#'
-else
-  FILEDIALOG_DUMMY_TRUE='#'
-  FILEDIALOG_DUMMY_FALSE=
-fi
-
 
 # substitutions for the config header
 
@@ -16302,18 +16267,6 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${CXX_TRUE}" && test -z "${CXX_FALSE}"; then
   as_fn_error $? "conditional \"CXX\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${FILEDIALOG_GTK_TRUE}" && test -z "${FILEDIALOG_GTK_FALSE}"; then
-  as_fn_error $? "conditional \"FILEDIALOG_GTK\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${FILEDIALOG_WIN32_TRUE}" && test -z "${FILEDIALOG_WIN32_FALSE}"; then
-  as_fn_error $? "conditional \"FILEDIALOG_WIN32\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${FILEDIALOG_DUMMY_TRUE}" && test -z "${FILEDIALOG_DUMMY_FALSE}"; then
-  as_fn_error $? "conditional \"FILEDIALOG_DUMMY\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

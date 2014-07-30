@@ -84,7 +84,6 @@ CheckSDL2_ttf() {
 CheckFileDialogBackends() {
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
-            have_win32=yes
             LIBS="$LIBS -mwindows"
             CFLAGS="$CFLAGS -DFILEDIALOG_WIN32"
         ;;
@@ -95,7 +94,6 @@ CheckFileDialogBackends() {
                 LIBS="$LIBS $GTK_LIBS"
             else
                 CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
-                use_dummy=yes
             fi
         ;;
     esac
@@ -144,12 +142,6 @@ AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"
-
-# conditionals for the including the correct sources for the file dialog API
-# note for the future: make sure that only one of the backends is used
-AM_CONDITIONAL([FILEDIALOG_GTK], [test x$have_gtk = xyes])
-AM_CONDITIONAL([FILEDIALOG_WIN32], [test x$have_win32 = xyes])
-AM_CONDITIONAL([FILEDIALOG_DUMMY], [test x$use_dummy = xyes])
 
 # substitutions for the config header
 AC_SUBST([DEFINE_SDLU_CXX])

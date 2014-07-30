@@ -13,9 +13,9 @@ function pc_module_exists(module)
 end
 
 function pc_libs(module)
-    return outputof("pkg-config --libs " .. module)
+    return outputof("pkg-config --libs " .. module):gsub("\n", " ")
 end
 
 function pc_cflags(module)
-    return outputof("pkg-config --cflags " .. module)
+    return outputof("pkg-config --cflags " .. module):gsub("\n", " ")
 end

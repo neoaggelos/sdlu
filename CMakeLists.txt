@@ -52,7 +52,6 @@ set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
 if (WIN32 OR WINDOWS OR CYGWIN)
   set(LIBS ${LIBS} -mwindows)
   add_definitions("-DFILEDIALOG_WIN32")
-  set(SOURCES "${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog_win32.c")
 else(WIN32 OR WINDOWS OR CYGWIN)
   find_package(PkgConfig)
   if (PKG_CONFIG_FOUND)
@@ -62,12 +61,10 @@ else(WIN32 OR WINDOWS OR CYGWIN)
       include_directories(${GTK_INCLUDE_DIRS})
       add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
       add_definitions("-DFILEDIALOG_GTK")
-      set(SOURCES "${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog_gtk.c")
     endif (GTK_FOUND)
   endif(PKG_CONFIG_FOUND)
 
   if (NOT GTK_FOUND)
-    set(SOURCES "${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog_dummy.c")
     add_definitions("-DFILEDIALOG_DUMMY")
   endif(NOT GTK_FOUND)
 endif(WIN32 OR WINDOWS OR CYGWIN)
@@ -80,6 +77,7 @@ set(TTF_LIBS ${SDL2_TTF_LIBRARY})
 
 # Basic sources
 file(GLOB SOURCES ${SOURCES}
+  ${CMAKE_SOURCE_DIR}/src/filedialog/*.c
   ${CMAKE_SOURCE_DIR}/src/render/*.c
   ${CMAKE_SOURCE_DIR}/src/common/*.c
   ${CMAKE_SOURCE_DIR}/src/sprite/*.c

@@ -176,14 +176,12 @@ else
   if have_gtk then
     setup_gui_backend = function()
       defines("FILEDIALOG_GTK")
-      excludes("src/filedialog/SDLU_filedialog_dummy.c")
       linkoptions(pc_libs("gtk+-3.0"))
       buildoptions(pc_cflags("gtk+-3.0"))
     end
   else
     setup_gui_backend = function()
       defines( "FILEDIALOG_DUMMY" )
-      excludes("src/filedialog/SDLU_filedialog_gtk.c")
     end
   end
 end
