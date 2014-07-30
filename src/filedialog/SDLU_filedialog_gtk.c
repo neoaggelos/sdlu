@@ -9,6 +9,7 @@ SDLU_FileDialog(const char* title, Uint32 mode)
     gchar* file;
     GtkFileChooserAction action;
     GtkWidget *dialog;
+    int response;
 
     /* init gtk */
     gtk_init(0, NULL);
@@ -26,12 +27,16 @@ SDLU_FileDialog(const char* title, Uint32 mode)
 
     dialog = gtk_file_chooser_dialog_new(title, NULL, action, "OK", "Cancel", NULL);
 
-    gtk_dialog_run(GTK_DIALOG(dialog));
+    response = gtk_dialog_run(GTK_DIALOG(dialog));
 
-    if ((file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog))))
-    {
-        return (const char*) file;
+    if (response == GTK_RESPONSE_ACCEPT) {
+        file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+        if (file) {
+            return (const char*) file;
+        }
     }
+
+    gtk_widget_destroy(dialog);
 
     return NULL;
 }
