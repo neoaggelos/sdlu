@@ -8,61 +8,68 @@ static const char*
 WIN_OpenFileDialog(const char* title)
 {
     OPENFILENAME ofn;
-    TCHAR *buffer;
-    int i;
+    TCHAR buffer[MAX_PATH];
+    char *filename;
+    unsigned int i;
     
-    buffer = SDL_malloc(MAX_PATH * sizeof(TCHAR));
-
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.lpstrTitle = TEXT(title);
     ofn.lpstrFile = buffer;
     ofn.lpstrFile[0] = '\0';
     ofn.hwndOwner = NULL;
-    ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = TEXT("All files(*.*)\0(*.*)\0");
+    ofn.nMaxFile = MAX_PATH;
+    ofn.lpstrFilter = TEXT("All files(*.*)\0*.*\0");
     ofn.nFilterIndex = 1;
     ofn.lpstrInitialDir = NULL;
     ofn.lpstrFileTitle = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 
     if (GetOpenFileName(&ofn)) {
-        for (i = 0; i < strlen(buffer); i++) {
-            if (buffer[i] == '\\') buffer[i] = '/';
+        for (i = 0; i < SDL_strlen(ofn.lpstrFile); i++) {
+            if (ofn.lpstrFile[i] == '\\') ofn.lpstrFile[i] = '/';
         }
-        return (const char*) buffer;
+
+        filename = SDL_malloc(SDL_strlen(ofn.lpstrFile) * sizeof(char));
+        SDL_snprintf(filename, SDL_strlen(ofn.lpstrFile), "%s", ofn.lpstrFile);
+
+        return (const char*) filename;
     }
 
     return NULL;
 }
 
+
 static const char*
 WIN_SaveFileDialog(const char* title)
 {
     OPENFILENAME ofn;
-    TCHAR *buffer;
-    int i;
+    TCHAR buffer[MAX_PATH];
+    char *filename;
+    unsigned int i;
     
-    buffer = SDL_malloc(MAX_PATH * sizeof(TCHAR));
-
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.lpstrTitle = TEXT(title);
     ofn.lpstrFile = buffer;
     ofn.lpstrFile[0] = '\0';
     ofn.hwndOwner = NULL;
-    ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = TEXT("All files(*.*)\0(*.*)\0");
+    ofn.nMaxFile = MAX_PATH;
+    ofn.lpstrFilter = TEXT("All files(*.*)\0*.*\0");
     ofn.nFilterIndex = 1;
     ofn.lpstrInitialDir = NULL;
     ofn.lpstrFileTitle = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
 
     if (GetSaveFileName(&ofn)) {
-        for (i = 0; i < strlen(buffer); i++) {
-            if (buffer[i] == '\\') buffer[i] = '/';
+        for (i = 0; i < SDL_strlen(ofn.lpstrFile); i++) {
+            if (ofn.lpstrFile[i] == '\\') ofn.lpstrFile[i] = '/';
         }
-        return (const char*) buffer;
+
+        filename = SDL_malloc(SDL_strlen(ofn.lpstrFile) * sizeof(char));
+        SDL_snprintf(filename, SDL_strlen(ofn.lpstrFile), "%s", ofn.lpstrFile);
+
+        return (const char*) filename;
     }
 
     return NULL;
@@ -72,21 +79,25 @@ static const char*
 WIN_FolderFileDialog(const char* title)
 {
     BROWSEINFO bif;
-    TCHAR *buffer;
-    int i;
+    TCHAR buffer[MAX_PATH];
+    char *filename;
+    unsigned int i;
 
-    buffer = SDL_malloc(MAX_PATH * sizeof(TCHAR));
-
+    ZeroMemory(&bif, sizeof(bif));
     bif.hwndOwner = NULL;
     bif.pszDisplayName = buffer;
     bif.pszDisplayName[0] = '\0';
     bif.lpszTitle = TEXT(title);
 
     if (SHBrowseForFolder(&bif)) {
-        for (i = 0; i < strlen(buffer); i++) {
-            if (buffer[i] == '\\') buffer[i] = '/';
+        for (i = 0; i < SDL_strlen(bif.pszDisplayName); i++) {
+            if (bif.pszDisplayName[i] == '\\') bif.pszDisplayName[i] = '/';
         }
-        return (const char*) buffer;
+
+        filename = SDL_malloc(SDL_strlen(bif.pszDisplayName) * sizeof(char));
+        SDL_snprintf(filename, SDL_strlen(bif.pszDisplayName), "%s", bif.pszDisplayName);
+
+        return (const char*) filename;
     }
 
     return NULL;
