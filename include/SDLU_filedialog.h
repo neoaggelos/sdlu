@@ -49,6 +49,8 @@ extern "C" {
 /**
  *  \brief Shows a simple file chooser dialog
  *
+ *  The returned pointer should be freed with SDLU_FreeFileDialogFilename()
+ *
  *  \param title Window title
  *  \param mode One or more SDLU_FILEDIALOG_FLAGS
  *
@@ -58,6 +60,11 @@ extern DECLSPEC const char* SDLCALL SDLU_FileDialog(
         const char* title,
         Uint32 mode
 );
+
+/**
+ *  \brief Free a pointer returned by SDLU_FileDialog()
+ */
+extern DECLSPEC void SDLCALL SDLU_FreeFileDialogFilename(char* filename);
 
 #include "close_code.h"
 

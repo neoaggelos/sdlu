@@ -119,4 +119,10 @@ SDLU_FileDialog(const char* title, Uint32 mode)
     }
 }
 
+void
+SDLU_FreeFileDialogFilename(char* filename)
+{
+    if (filename) SDL_free(filename);
+}
+
 #endif /* FILEDIALOG_WIN32 */

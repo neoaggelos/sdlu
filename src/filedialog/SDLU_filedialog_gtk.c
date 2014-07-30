@@ -36,4 +36,10 @@ SDLU_FileDialog(const char* title, Uint32 mode)
     return NULL;
 }
 
+void
+SDLU_FreeFileDialogFilename(char* filename)
+{
+    if (filename) g_free(filename);
+}
+
 #endif
