@@ -2,6 +2,14 @@
 
 #define UNUSED(x) (void)(x);
 
+#if defined(FILEDIALOG_GTK)
+# include "SDLU_filedialog_gtk_c.h"
+#endif
+
+#if defined(FILEDIALOG_WIN32)
+# include "SDLU_filedialog_win32_c.h"
+#endif
+
 const char*
 SDLU_FileDialog(const char* title, Uint32 mode)
 {
