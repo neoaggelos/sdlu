@@ -4,7 +4,7 @@
 #include <gtk/gtk.h>
 
 const char*
-SDLU_FileDialog(const char* title, Uint32 mode)
+GTK_FileDialog(const char* title, Uint32 mode)
 {
     gchar* file;
     GtkFileChooserAction action;
@@ -42,7 +42,7 @@ SDLU_FileDialog(const char* title, Uint32 mode)
 }
 
 void
-SDLU_FreeFileDialogFilename(char* filename)
+GTK_FreeFileDialogFilename(char* filename)
 {
     if (filename) g_free(filename);
 }

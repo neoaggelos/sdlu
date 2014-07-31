@@ -21,6 +21,7 @@ the bitbucket download page.
 
 Main features:
 * Fully featured button API with SDL2 event queue integration
+* Cross-platform file chooser dialog
 * API to mix pure OpenGL rendering calls with the SDL Render API
 * Hardware-accelerated extensible 2D-Sprite API
 * Powerful text rendering API with truetype font support

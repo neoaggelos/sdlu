@@ -21,7 +21,7 @@ endif
 libSDLU_la_SOURCES = ${cxx_sources}             					\
 					 src/common/SDLU_common.c						\
 					 src/common/SDLU_userdata.c						\
-					 src/filedialog/SDLU_filedialog_dummy.c			\
+					 src/filedialog/SDLU_filedialog.c				\
 					 src/filedialog/SDLU_filedialog_gtk.c			\
 					 src/filedialog/SDLU_filedialog_win32.c			\
 					 src/gl/SDLU_gl.c								\

@@ -39,7 +39,6 @@ WIN_OpenFileDialog(const char* title)
     return NULL;
 }
 
-
 static const char*
 WIN_SaveFileDialog(const char* title)
 {
@@ -104,7 +103,7 @@ WIN_FolderFileDialog(const char* title)
 }
 
 const char*
-SDLU_FileDialog(const char* title, Uint32 mode)
+WIN_FileDialog(const char* title, Uint32 mode)
 {
     if (!mode) mode = SDLU_FILEDIALOG_OPEN;
 
@@ -120,7 +119,7 @@ SDLU_FileDialog(const char* title, Uint32 mode)
 }
 
 void
-SDLU_FreeFileDialogFilename(char* filename)
+WIN_FreeFileDialogFilename(char* filename)
 {
     if (filename) SDL_free(filename);
 }

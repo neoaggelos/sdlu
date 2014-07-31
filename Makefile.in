@@ -154,7 +154,7 @@ am__libSDLU_la_SOURCES_DIST = src/cxx/SDLU_CButton.cxx \
 	src/cxx/SDLU_CSprite.cxx src/cxx/SDLU_CTexture.cxx \
 	src/cxx/SDLU_CTurtle.cxx src/cxx/SDLU_CWindow.cxx \
 	src/common/SDLU_common.c src/common/SDLU_userdata.c \
-	src/filedialog/SDLU_filedialog_dummy.c \
+	src/filedialog/SDLU_filedialog.c \
 	src/filedialog/SDLU_filedialog_gtk.c \
 	src/filedialog/SDLU_filedialog_win32.c src/gl/SDLU_gl.c \
 	src/gui/SDLU_button.c src/gui/SDLU_combobox.c \
@@ -170,8 +170,7 @@ am__dirstamp = $(am__leading_dot)dirstamp
 @CXX_TRUE@	src/cxx/SDLU_CSprite.lo src/cxx/SDLU_CTexture.lo \
 @CXX_TRUE@	src/cxx/SDLU_CTurtle.lo src/cxx/SDLU_CWindow.lo
 am_libSDLU_la_OBJECTS = $(am__objects_1) src/common/SDLU_common.lo \
-	src/common/SDLU_userdata.lo \
-	src/filedialog/SDLU_filedialog_dummy.lo \
+	src/common/SDLU_userdata.lo src/filedialog/SDLU_filedialog.lo \
 	src/filedialog/SDLU_filedialog_gtk.lo \
 	src/filedialog/SDLU_filedialog_win32.lo src/gl/SDLU_gl.lo \
 	src/gui/SDLU_button.lo src/gui/SDLU_combobox.lo \
@@ -435,7 +434,7 @@ bin_SCRIPTS = sdlu-config
 libSDLU_la_SOURCES = ${cxx_sources}             					\
 					 src/common/SDLU_common.c						\
 					 src/common/SDLU_userdata.c						\
-					 src/filedialog/SDLU_filedialog_dummy.c			\
+					 src/filedialog/SDLU_filedialog.c				\
 					 src/filedialog/SDLU_filedialog_gtk.c			\
 					 src/filedialog/SDLU_filedialog_win32.c			\
 					 src/gl/SDLU_gl.c								\
@@ -602,8 +601,7 @@ src/filedialog/$(am__dirstamp):
 src/filedialog/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/filedialog/$(DEPDIR)
 	@: > src/filedialog/$(DEPDIR)/$(am__dirstamp)
-src/filedialog/SDLU_filedialog_dummy.lo:  \
-	src/filedialog/$(am__dirstamp) \
+src/filedialog/SDLU_filedialog.lo: src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
 src/filedialog/SDLU_filedialog_gtk.lo: src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
@@ -763,7 +761,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CTexture.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CTurtle.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CWindow.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_dummy.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_gtk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_win32.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/gl/$(DEPDIR)/SDLU_gl.Plo@am__quote@
