@@ -1,3 +1,5 @@
+#ifdef FILEDIALOG_COCOA
+
 #import <Cocoa/Cocoa.h>
 
 #define UNUSED(x) (void)(x);
@@ -89,3 +91,5 @@ COCOA_FreeFileDialogFilename(char* filename)
 {
     /* what should we do to free the memory??? */
 }
+
+#endif /* FILEDIALOG_COCOA */
