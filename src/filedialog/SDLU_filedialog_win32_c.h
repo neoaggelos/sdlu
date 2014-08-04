@@ -13,3 +13,5 @@ void WIN_FreeFileDialogFilename(char*);
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* SDLU_FILEDIALOG_WIN32_C_H */
