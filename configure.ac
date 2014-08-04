@@ -21,6 +21,7 @@ AM_SILENT_RULES([yes])
 # Search for required tools
 AC_PROG_CC
 AC_PROG_CXX
+AC_PROG_OBJC
 AM_PROG_AR
 
 # Initialize libtool
@@ -87,6 +88,11 @@ CheckFileDialogBackends() {
             LIBS="$LIBS -mwindows"
             CFLAGS="$CFLAGS -DFILEDIALOG_WIN32"
         ;;
+        *darwin*|*macosx*|*apple*)
+            LIBS="$LIBS -Wl,-framework,Cocoa -lobjc"
+            CFLAGS="$CFLAGS -DFILEDIALOG_COCOA -fpascal-strings"
+            filedialog_cocoa=yes
+        ;;
         *)
             AC_CHECK_GTK(have_gtk=yes, have_gtk=no)
             if test x$have_gtk = xyes; then
@@ -139,6 +145,9 @@ includedir="$includedir/SDL2"
 
 # make sure sdlu-config can be executed
 AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
+
+# add objective-c sources if needed
+AM_CONDITIONAL([FILEDIALOG_COCOA], [test x$filedialog_cocoa = xyes])
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"

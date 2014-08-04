@@ -81,6 +81,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@FILEDIALOG_COCOA_TRUE@am__append_1 = src/filedialog/SDLU_filedialog_cocoa.m
 subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
@@ -161,7 +162,8 @@ am__libSDLU_la_SOURCES_DIST = src/cxx/SDLU_CButton.cxx \
 	src/ini/SDLU_ini.c src/render/SDLU_pixels.c \
 	src/render/SDLU_render.c src/SDLU_collide.c src/SDLU_create.c \
 	src/SDLU_framerate.c src/SDLU_math.c src/sprite/SDLU_sprite.c \
-	src/text/SDLU_ttf.c src/turtle/SDLU_turtle.c
+	src/text/SDLU_ttf.c src/turtle/SDLU_turtle.c \
+	src/filedialog/SDLU_filedialog_cocoa.m
 am__dirstamp = $(am__leading_dot)dirstamp
 @CXX_TRUE@am__objects_1 = src/cxx/SDLU_CButton.lo \
 @CXX_TRUE@	src/cxx/SDLU_CComboBox.lo \
@@ -169,6 +171,7 @@ am__dirstamp = $(am__leading_dot)dirstamp
 @CXX_TRUE@	src/cxx/SDLU_CRenderer.lo src/cxx/SDLU_CRWops.lo \
 @CXX_TRUE@	src/cxx/SDLU_CSprite.lo src/cxx/SDLU_CTexture.lo \
 @CXX_TRUE@	src/cxx/SDLU_CTurtle.lo src/cxx/SDLU_CWindow.lo
+@FILEDIALOG_COCOA_TRUE@am__objects_2 = src/filedialog/SDLU_filedialog_cocoa.lo
 am_libSDLU_la_OBJECTS = $(am__objects_1) src/common/SDLU_common.lo \
 	src/common/SDLU_userdata.lo src/filedialog/SDLU_filedialog.lo \
 	src/filedialog/SDLU_filedialog_gtk.lo \
@@ -178,7 +181,7 @@ am_libSDLU_la_OBJECTS = $(am__objects_1) src/common/SDLU_common.lo \
 	src/render/SDLU_render.lo src/SDLU_collide.lo \
 	src/SDLU_create.lo src/SDLU_framerate.lo src/SDLU_math.lo \
 	src/sprite/SDLU_sprite.lo src/text/SDLU_ttf.lo \
-	src/turtle/SDLU_turtle.lo
+	src/turtle/SDLU_turtle.lo $(am__objects_2)
 libSDLU_la_OBJECTS = $(am_libSDLU_la_OBJECTS)
 SCRIPTS = $(bin_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -237,6 +240,24 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
+OBJCCOMPILE = $(OBJC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_OBJCFLAGS) $(OBJCFLAGS)
+LTOBJCCOMPILE = $(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=compile $(OBJC) $(DEFS) \
+	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
+	$(AM_OBJCFLAGS) $(OBJCFLAGS)
+AM_V_OBJC = $(am__v_OBJC_@AM_V@)
+am__v_OBJC_ = $(am__v_OBJC_@AM_DEFAULT_V@)
+am__v_OBJC_0 = @echo "  OBJC    " $@;
+am__v_OBJC_1 = 
+OBJCLD = $(OBJC)
+OBJCLINK = $(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=link $(OBJCLD) $(AM_OBJCFLAGS) $(OBJCFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+AM_V_OBJCLD = $(am__v_OBJCLD_@AM_V@)
+am__v_OBJCLD_ = $(am__v_OBJCLD_@AM_DEFAULT_V@)
+am__v_OBJCLD_0 = @echo "  OBJCLD  " $@;
+am__v_OBJCLD_1 = 
 SOURCES = $(libSDLU_la_SOURCES)
 DIST_SOURCES = $(am__libSDLU_la_SOURCES_DIST)
 am__can_run_installinfo = \
@@ -334,6 +355,9 @@ MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 NM = @NM@
 NMEDIT = @NMEDIT@
+OBJC = @OBJC@
+OBJCDEPMODE = @OBJCDEPMODE@
+OBJCFLAGS = @OBJCFLAGS@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 OTOOL = @OTOOL@
@@ -369,6 +393,7 @@ ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
+ac_ct_OBJC = @ac_ct_OBJC@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -431,26 +456,15 @@ bin_SCRIPTS = sdlu-config
 
 @CXX_FALSE@libSDLU_la_LINK = $(LINK)
 @CXX_TRUE@libSDLU_la_LINK = $(CXXLINK)
-libSDLU_la_SOURCES = ${cxx_sources}             					\
-					 src/common/SDLU_common.c						\
-					 src/common/SDLU_userdata.c						\
-					 src/filedialog/SDLU_filedialog.c				\
-					 src/filedialog/SDLU_filedialog_gtk.c			\
-					 src/filedialog/SDLU_filedialog_win32.c			\
-					 src/gl/SDLU_gl.c								\
-					 src/gui/SDLU_button.c							\
-					 src/gui/SDLU_combobox.c						\
-					 src/ini/SDLU_ini.c								\
-					 src/render/SDLU_pixels.c						\
-					 src/render/SDLU_render.c						\
-					 src/SDLU_collide.c								\
-					 src/SDLU_create.c								\
-					 src/SDLU_framerate.c							\
-					 src/SDLU_math.c								\
-					 src/sprite/SDLU_sprite.c						\
-					 src/text/SDLU_ttf.c							\
-					 src/turtle/SDLU_turtle.c
-
+libSDLU_la_SOURCES = ${cxx_sources} src/common/SDLU_common.c \
+	src/common/SDLU_userdata.c src/filedialog/SDLU_filedialog.c \
+	src/filedialog/SDLU_filedialog_gtk.c \
+	src/filedialog/SDLU_filedialog_win32.c src/gl/SDLU_gl.c \
+	src/gui/SDLU_button.c src/gui/SDLU_combobox.c \
+	src/ini/SDLU_ini.c src/render/SDLU_pixels.c \
+	src/render/SDLU_render.c src/SDLU_collide.c src/SDLU_create.c \
+	src/SDLU_framerate.c src/SDLU_math.c src/sprite/SDLU_sprite.c \
+	src/text/SDLU_ttf.c src/turtle/SDLU_turtle.c $(am__append_1)
 include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\
 				  include/SDLU_collide.h		\
@@ -485,7 +499,7 @@ EXTRA_DIST = scripts extras Android.mk ChangeLog CMakeLists.txt CONTRIBUTING \
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .cxx .lo .o .obj
+.SUFFIXES: .c .cxx .lo .m .o .obj
 am--refresh: Makefile
 	@:
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -679,6 +693,9 @@ src/turtle/$(DEPDIR)/$(am__dirstamp):
 	@: > src/turtle/$(DEPDIR)/$(am__dirstamp)
 src/turtle/SDLU_turtle.lo: src/turtle/$(am__dirstamp) \
 	src/turtle/$(DEPDIR)/$(am__dirstamp)
+src/filedialog/SDLU_filedialog_cocoa.lo:  \
+	src/filedialog/$(am__dirstamp) \
+	src/filedialog/$(DEPDIR)/$(am__dirstamp)
 
 libSDLU.la: $(libSDLU_la_OBJECTS) $(libSDLU_la_DEPENDENCIES) $(EXTRA_libSDLU_la_DEPENDENCIES) 
 	$(AM_V_GEN)$(libSDLU_la_LINK) -rpath $(libdir) $(libSDLU_la_OBJECTS) $(libSDLU_la_LIBADD) $(LIBS)
@@ -762,6 +779,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CTurtle.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/cxx/$(DEPDIR)/SDLU_CWindow.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_cocoa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_gtk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_win32.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/gl/$(DEPDIR)/SDLU_gl.Plo@am__quote@
@@ -821,6 +839,30 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
+
+.m.o:
+@am__fastdepOBJC_TRUE@	$(AM_V_OBJC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepOBJC_TRUE@	$(OBJCCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepOBJC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	$(AM_V_OBJC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	DEPDIR=$(DEPDIR) $(OBJCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepOBJC_FALSE@	$(AM_V_OBJC@am__nodep@)$(OBJCCOMPILE) -c -o $@ $<
+
+.m.obj:
+@am__fastdepOBJC_TRUE@	$(AM_V_OBJC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepOBJC_TRUE@	$(OBJCCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepOBJC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	$(AM_V_OBJC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	DEPDIR=$(DEPDIR) $(OBJCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepOBJC_FALSE@	$(AM_V_OBJC@am__nodep@)$(OBJCCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.m.lo:
+@am__fastdepOBJC_TRUE@	$(AM_V_OBJC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
+@am__fastdepOBJC_TRUE@	$(LTOBJCCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepOBJC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Plo
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	$(AM_V_OBJC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	DEPDIR=$(DEPDIR) $(OBJCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepOBJC_FALSE@	$(AM_V_OBJC@am__nodep@)$(LTOBJCCOMPILE) -c -o $@ $<
 
 mostlyclean-libtool:
 	-rm -f *.lo

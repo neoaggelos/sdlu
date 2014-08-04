@@ -38,6 +38,10 @@ libSDLU_la_SOURCES = ${cxx_sources}             					\
 					 src/text/SDLU_ttf.c							\
 					 src/turtle/SDLU_turtle.c
 
+if FILEDIALOG_COCOA
+libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_cocoa.m
+endif
+
 include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\
 				  include/SDLU_collide.h		\

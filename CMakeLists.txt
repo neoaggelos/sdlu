@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0)
 
 # Define the project
-project(SDLU C)
+project(SDLU)
 
 # Project version
 file(READ "${CMAKE_SOURCE_DIR}/include/SDLU.h" VERSION)
@@ -24,6 +24,7 @@ endif(BUILD_CXX)
 
 # Load required modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/macros.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
 
@@ -49,25 +50,7 @@ include_directories(${SDL2_TTF_INCLUDE_DIR})
 set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
 
 # Find a backend for the file dialog API
-if (WIN32 OR WINDOWS OR CYGWIN)
-  set(LIBS ${LIBS} -mwindows)
-  add_definitions("-DFILEDIALOG_WIN32")
-else(WIN32 OR WINDOWS OR CYGWIN)
-  find_package(PkgConfig)
-  if (PKG_CONFIG_FOUND)
-    pkg_check_modules(GTK gtk+-3.0)
-    if (GTK_FOUND)
-      set(LIBS ${LIBS} ${GTK_LIBRARIES})
-      include_directories(${GTK_INCLUDE_DIRS})
-      add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
-      add_definitions("-DFILEDIALOG_GTK")
-    endif (GTK_FOUND)
-  endif(PKG_CONFIG_FOUND)
-
-  if (NOT GTK_FOUND)
-    add_definitions("-DFILEDIALOG_DUMMY")
-  endif(NOT GTK_FOUND)
-endif(WIN32 OR WINDOWS OR CYGWIN)
+CheckFileDialogBackend()
 
 # These are for sdlu-config and sdlu.pc
 set(SDL_CFLAGS "-I${SDL2_INCLUDE_DIR}")

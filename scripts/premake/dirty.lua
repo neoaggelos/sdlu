@@ -171,6 +171,13 @@ if os.is "windows" then
     defines("FILEDIALOG_WIN32")
     linkoptions("-mwindows")
   end
+elseif os.is "macosx" then
+  setup_gui_backend = function()
+    defines { "FILEDIALOG_COCOA" }
+    files { "src/**.m" }
+    links { "objc", "Cocoa.framework" }
+    buildoptions { "-fpascal-strings" }
+  end
 else
   local have_gtk = pc_module_exists("gtk+-3.0")
   if have_gtk then

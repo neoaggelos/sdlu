@@ -6,7 +6,7 @@ Required:
 * SDL2      (http://libsdl.org)
 * SDL2_ttf  (http://libsdl.org/projects/SDL_ttf)
 
-Optional (Unix or Mac OS X):
+Optional (Linux only)
 * GTK+      (http://developer.gnome.org)
 
 
