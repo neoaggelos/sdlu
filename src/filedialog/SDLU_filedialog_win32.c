@@ -78,23 +78,27 @@ static const char*
 WIN_FolderFileDialog(const char* title)
 {
     BROWSEINFO bif;
-    TCHAR buffer[MAX_PATH];
+    TCHAR _buffer[MAX_PATH];
+    LPITEMIDLIST idl;
     char *filename;
     unsigned int i;
 
     ZeroMemory(&bif, sizeof(bif));
     bif.hwndOwner = NULL;
-    bif.pszDisplayName = buffer;
+    bif.pszDisplayName = _buffer;
     bif.pszDisplayName[0] = '\0';
     bif.lpszTitle = TEXT(title);
 
-    if (SHBrowseForFolder(&bif)) {
-        for (i = 0; i < SDL_strlen(bif.pszDisplayName); i++) {
-            if (bif.pszDisplayName[i] == '\\') bif.pszDisplayName[i] = '/';
+    if ((idl = SHBrowseForFolder(&bif)) != NULL) {
+        TCHAR buffer[MAX_PATH];
+        SHGetPathFromIDList(idl, buffer);
+
+        for (i = 0; i < SDL_strlen(buffer); i++) {
+            if (buffer[i] == '\\') buffer[i] = '/';
         }
 
-        filename = SDL_malloc(SDL_strlen(bif.pszDisplayName) * sizeof(char));
-        SDL_snprintf(filename, SDL_strlen(bif.pszDisplayName), "%s", bif.pszDisplayName);
+        filename = SDL_malloc(SDL_strlen(buffer) * sizeof(char));
+        SDL_snprintf(filename, SDL_strlen(buffer), "%s", buffer);
 
         return (const char*) filename;
     }
