@@ -89,7 +89,11 @@ COCOA_FileDialog(const char* title, Uint32 mode)
 void
 COCOA_FreeFileDialogFilename(char* filename)
 {
-    /* what should we do to free the memory??? */
+    /* the pointer is set like this:
+     *      filename = [ns_string UTF8String];
+     *
+     * TODO: what should we do to free this?
+     */
 }
 
 #endif /* FILEDIALOG_COCOA */
