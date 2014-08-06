@@ -176,7 +176,7 @@ elseif os.is "macosx" then
     defines { "FILEDIALOG_COCOA" }
     files { "src/**.m" }
     links { "objc", "Cocoa.framework" }
-    buildoptions { "-fpascal-strings" }
+    buildoptions { "-x objective-c -fpascal-strings" }
   end
 else
   local have_gtk = pc_module_exists("gtk+-3.0")
