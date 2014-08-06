@@ -54,12 +54,11 @@ CheckFileDialogBackend()
 
 # These are for sdlu-config and sdlu.pc
 set(SDL_CFLAGS "-I${SDL2_INCLUDE_DIR}")
-set(SDL_LIBS ${SDL2_LIBRARY})
 set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
-set(TTF_LIBS ${SDL2_TTF_LIBRARY})
 
 # Basic sources
-file(GLOB SOURCES ${SOURCES}
+file(GLOB SOURCES
+  ${EXTRA_SOURCES}
   ${CMAKE_SOURCE_DIR}/src/filedialog/*.c
   ${CMAKE_SOURCE_DIR}/src/render/*.c
   ${CMAKE_SOURCE_DIR}/src/common/*.c
@@ -123,9 +122,9 @@ endif(BUILD_FRAMEWORK)
 
 # Installation paths for sdlu-config and sdlu.pc
 set(prefix ${CMAKE_INSTALL_PREFIX})
-set(exec_prefix "\${prefix}")
-set(includedir "\${prefix}/include/SDL2")
-set(libdir "\${exec_prefix}/lib${LIB_SUFFIX}")
+set(exec_prefix "${prefix}")
+set(includedir "${prefix}/include/SDL2")
+set(libdir "${exec_prefix}/lib${LIB_SUFFIX}")
 
 # Generate config file (SDLU_config.h)
 configure_file(
@@ -144,12 +143,6 @@ configure_file(
   ${CMAKE_SOURCE_DIR}/sdlu-config.in
   ${CMAKE_BINARY_DIR}/sdlu-config
 )
-
-# Fix installation paths
-set(prefix ${CMAKE_INSTALL_PREFIX})
-set(exec_prefix "${prefix}")
-set(includedir "${prefix}/include/SDL2")
-set(libdir "${exec_prefix}/lib${LIB_SUFFIX}")
 
 # Installation files
 file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)

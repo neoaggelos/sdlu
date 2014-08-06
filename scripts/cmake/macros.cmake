@@ -24,14 +24,13 @@ macro(CheckFileDialogBackend)
 
   if ("${BACKEND}" STREQUAL "cocoa")
     add_definitions("-DFILEDIALOG_COCOA")
-    set(LIBS ${LIBS} -Wl,-framework,Cocoa)
+    set(LIBS ${LIBS} -Wl,-framework,Cocoa -lobjc)
     set(EXTRA_SOURCES "${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog_cocoa.m")
   endif()
 
   if ("${BACKEND}" STREQUAL "gtk")
     add_definitions("-DFILEDIALOG_GTK")
     set(LIBS ${GTK_LIBRARIES})
-    include_directories(${GTK_INCLUDE_DIRS})
     add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
   endif()
 
