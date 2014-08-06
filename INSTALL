@@ -6,9 +6,10 @@ Required:
 * SDL2      (http://libsdl.org)
 * SDL2_ttf  (http://libsdl.org/projects/SDL_ttf)
 
-Optional (Linux only)
-* GTK+      (http://developer.gnome.org)
-
+Optional:
+* Win32 API (Windows only  -- should be pre-installed with mingw and Visual C++)
+* GTK+      (Linux only    -- http://developer.gnome.org) 
+* Cocoa     (Mac OS X only -- should be pre-installed with Xcode)
 
 
 ================================================================================
