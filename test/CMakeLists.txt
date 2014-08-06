@@ -24,12 +24,12 @@ set(LIBS ${LIBS} ${SDL2_LIBRARY})
 # Find SDL2_ttf
 find_package(SDL2_ttf REQUIRED)
 include_directories(${SDL2_TTF_INCLUDE_DIR})
-set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
+set(LIBS ${SDL2_TTF_LIBRARY} ${LIBS})
 
 # Find SDLU
 find_package(SDLU REQUIRED)
 include_directories(${SDLU_INCLUDE_DIR})
-set(LIBS ${LIBS} ${SDLU_LIBRARY})
+set(LIBS ${SDLU_LIBRARY} ${LIBS})
 
 # Find OpenGL ES 2
 find_package(GLES2)
