@@ -1,5 +1,5 @@
 # Init
-AC_INIT([SDLU],[2.1],[neoaggelos@gmail.com])
+AC_INIT([SDLU],[2.1.1],[neoaggelos@gmail.com])
 
 # Project version
 header="$srcdir/include/SDLU.h"
@@ -29,9 +29,6 @@ LT_INIT
 
 # Basic flags
 CFLAGS="$CFLAGS -Wall -Wextra -Iinclude -I$srcdir/include -I$srcdir/src/common"
-
-# Extra flags for static linking (substituted in sdlu-config and sdlu.pc)
-EXTRA_FLAGS=""
 
 # Raspberry Pi special flags
 case "$host" in
@@ -162,7 +159,6 @@ AC_SUBST([DEFINE_SDLU_CXX])
 AC_SUBST([SDL_LIBS])
 AC_SUBST([TTF_LIBS])
 AC_SUBST([STATIC])
-AC_SUBST([EXTRA_FLAGS])
 AC_SUBST([major])
 AC_SUBST([minor])
 
