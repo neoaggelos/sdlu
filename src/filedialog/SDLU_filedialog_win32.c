@@ -30,8 +30,8 @@ WIN_OpenFileDialog(const char* title)
             if (ofn.lpstrFile[i] == '\\') ofn.lpstrFile[i] = '/';
         }
 
-        filename = SDL_malloc(SDL_strlen(ofn.lpstrFile) * sizeof(char));
-        SDL_snprintf(filename, SDL_strlen(ofn.lpstrFile), "%s", ofn.lpstrFile);
+        filename = SDL_malloc((SDL_strlen(ofn.lpstrFile) + 2) * sizeof(char));
+        SDL_snprintf(filename, SDL_strlen(ofn.lpstrFile) + 2, "%s", ofn.lpstrFile);
 
         return (const char*) filename;
     }
@@ -65,8 +65,8 @@ WIN_SaveFileDialog(const char* title)
             if (ofn.lpstrFile[i] == '\\') ofn.lpstrFile[i] = '/';
         }
 
-        filename = SDL_malloc(SDL_strlen(ofn.lpstrFile) * sizeof(char));
-        SDL_snprintf(filename, SDL_strlen(ofn.lpstrFile), "%s", ofn.lpstrFile);
+        filename = SDL_malloc((SDL_strlen(ofn.lpstrFile) + 2) * sizeof(char));
+        SDL_snprintf(filename, SDL_strlen(ofn.lpstrFile) + 2, "%s", ofn.lpstrFile);
 
         return (const char*) filename;
     }
@@ -97,8 +97,8 @@ WIN_FolderFileDialog(const char* title)
             if (buffer[i] == '\\') buffer[i] = '/';
         }
 
-        filename = SDL_malloc(SDL_strlen(buffer) * sizeof(char));
-        SDL_snprintf(filename, SDL_strlen(buffer), "%s", buffer);
+        filename = SDL_malloc((SDL_strlen(buffer) + 2) * sizeof(char));
+        SDL_snprintf(filename, SDL_strlen(buffer) + 2, "%s", buffer);
 
         return (const char*) filename;
     }
