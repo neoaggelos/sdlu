@@ -6,7 +6,7 @@
 ## XCODE_PATH
 ## This is the full path to the Xcode installation
 ##
-XCODE_PATH=/Applications/Xcode.app
+XCODE_PATH=/Applications/Xcode.app/Developer
 
 ##
 ## TARGET_OS
@@ -63,7 +63,7 @@ RANLIB	= ranlib
 
 CFLAGS   += -pipe -g -02 -no-cpp-precomp -isysroot $(SDK_PATH)
 CFLAGS   += -miphoneos-min-version=$(MIN_VERSION) -I$(SDK_PATH)/usr/include
-LIBS     += isysroot $(SDK_PATH) -L$(SDK_PATH)/usr/lib
+LIBS     += -isysroot $(SDK_PATH) -L$(SDK_PATH)/usr/lib
 LIBS     += -miphoneos-min-version=$(MIN_VERSION) --static-libgcc
 
 ################################################################################
