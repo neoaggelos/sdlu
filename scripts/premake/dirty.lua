@@ -194,7 +194,7 @@ else
 end
 
 -- Static or shared
-library_kind = (os.is "windows" or enable_static) and "StaticLib" or "SharedLib"
+library_kind = enable_static and "StaticLib" or "SharedLib"
 
 -- Prepare build dir
 local includes = os.matchfiles(srcdir .. "/include/*.h")

@@ -31,6 +31,7 @@
 #include "SDL.h"
 #include "SDLU_defs.h"
 #include "SDLU_config.h"
+#include "begin_code.h"
 
 #if defined( SDLU_CXX ) && defined( __cplusplus )
 
@@ -54,7 +55,7 @@ namespace SDLU {
     /**
      *  \brief Wrapper class for the SDL_Window structure
      */
-    class Window {
+    class DECLSPEC Window {
         private:
             /** We keep the original structure internally. **/
             SDL_Window* window;
@@ -149,7 +150,7 @@ namespace SDLU {
     /**
      *  \brief Wrapper class for the SDL_Renderer structure
      */
-    class Renderer {
+    class DECLSPEC Renderer {
         private:
             SDL_Renderer* renderer; /**< The original renderer. **/
         public:
@@ -279,7 +280,7 @@ namespace SDLU {
     /**
      *  \brief Wrapper class for the SDLU_Button structure
      */
-    class Button {
+    class DECLSPEC Button {
         private:
             /** The original button. **/
             SDLU_Button* button;
@@ -351,7 +352,7 @@ namespace SDLU {
     /**
      *  \brief Wrapper class for the SDLU_Sprite structure
      */
-    class Sprite {
+    class DECLSPEC Sprite {
         private:
             SDLU_Sprite* sprite;
 
@@ -434,7 +435,7 @@ namespace SDLU {
     /**
      *  \brief Wrapper class for the SDL_Texture structure
      */
-    class Texture {
+    class DECLSPEC Texture {
         private:
             SDL_Texture* texture;
 
@@ -499,7 +500,7 @@ namespace SDLU {
     /**
      *  \brief Wrapper for SDLU_IniHandler
      */
-    class IniHandler {
+    class DECLSPEC IniHandler {
         private:
             SDLU_IniHandler* handler;
 
@@ -539,7 +540,7 @@ namespace SDLU {
             int Save(std::string file);
     };
 
-    class RWops {
+    class DECLSPEC RWops {
         private:
             SDL_RWops* rwops;
 
@@ -563,7 +564,7 @@ namespace SDLU {
             size_t write(const void* ptr, size_t size, size_t num);
     };
 
-    class Turtle {
+    class DECLSPEC Turtle {
         private:
             SDLU_Turtle* turtle;
 
@@ -586,7 +587,7 @@ namespace SDLU {
             int SetDirection(int);
     };
 
-    class ComboBox {
+    class DECLSPEC ComboBox {
         private:
             SDLU_ComboBox* combobox;
 
@@ -617,5 +618,7 @@ namespace SDLU {
 } /* namespace SDLU */
 
 #endif /* SDLU_CXX */
+
+#include "close_code.h"
 
 #endif /* SDLU_CXX_H */
