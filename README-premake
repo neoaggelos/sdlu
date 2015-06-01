@@ -22,6 +22,7 @@ Features
 + Supports Visual Studio, CodeBlocks, XCode, GNU make
 + Very fast and lightweight
 - Assumes all depencies can be found in the default paths
+- Requires manual installation (this might feel sad for UNIX users)
 
 
 ================================================================================
