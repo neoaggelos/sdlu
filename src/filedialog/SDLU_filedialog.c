@@ -1,5 +1,6 @@
 #include "SDLU.h"
 
+#define FILEDIALOG_DUMMY
 #define UNUSED(x) (void)(x);
 
 #if defined(FILEDIALOG_GTK)

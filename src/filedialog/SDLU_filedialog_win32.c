@@ -7,25 +7,25 @@
 static const char*
 WIN_OpenFileDialog(const char* title)
 {
-    OPENFILENAME ofn;
-    TCHAR buffer[MAX_PATH];
+    OPENFILENAMEA ofn;
+    char buffer[MAX_PATH];
     char *filename;
     unsigned int i;
     
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
-    ofn.lpstrTitle = TEXT(title);
+    ofn.lpstrTitle = title;
     ofn.lpstrFile = buffer;
     ofn.lpstrFile[0] = '\0';
     ofn.hwndOwner = NULL;
     ofn.nMaxFile = MAX_PATH;
-    ofn.lpstrFilter = TEXT("All files(*.*)\0*.*\0");
+    ofn.lpstrFilter = "All files(*.*)\0*.*\0";
     ofn.nFilterIndex = 1;
     ofn.lpstrInitialDir = NULL;
     ofn.lpstrFileTitle = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 
-    if (GetOpenFileName(&ofn)) {
+    if (GetOpenFileNameA(&ofn)) {
         for (i = 0; i < SDL_strlen(ofn.lpstrFile); i++) {
             if (ofn.lpstrFile[i] == '\\') ofn.lpstrFile[i] = '/';
         }
@@ -42,25 +42,25 @@ WIN_OpenFileDialog(const char* title)
 static const char*
 WIN_SaveFileDialog(const char* title)
 {
-    OPENFILENAME ofn;
-    TCHAR buffer[MAX_PATH];
+    OPENFILENAMEA ofn;
+    char buffer[MAX_PATH];
     char *filename;
     unsigned int i;
     
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
-    ofn.lpstrTitle = TEXT(title);
+    ofn.lpstrTitle = title;
     ofn.lpstrFile = buffer;
     ofn.lpstrFile[0] = '\0';
     ofn.hwndOwner = NULL;
     ofn.nMaxFile = MAX_PATH;
-    ofn.lpstrFilter = TEXT("All files(*.*)\0*.*\0");
+    ofn.lpstrFilter = "All files(*.*)\0*.*\0";
     ofn.nFilterIndex = 1;
     ofn.lpstrInitialDir = NULL;
     ofn.lpstrFileTitle = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
 
-    if (GetSaveFileName(&ofn)) {
+    if (GetSaveFileNameA(&ofn)) {
         for (i = 0; i < SDL_strlen(ofn.lpstrFile); i++) {
             if (ofn.lpstrFile[i] == '\\') ofn.lpstrFile[i] = '/';
         }
@@ -77,8 +77,8 @@ WIN_SaveFileDialog(const char* title)
 static const char*
 WIN_FolderFileDialog(const char* title)
 {
-    BROWSEINFO bif;
-    TCHAR _buffer[MAX_PATH];
+    BROWSEINFOA bif;
+    char _buffer[MAX_PATH];
     LPITEMIDLIST idl;
     char *filename;
     unsigned int i;
@@ -87,11 +87,11 @@ WIN_FolderFileDialog(const char* title)
     bif.hwndOwner = NULL;
     bif.pszDisplayName = _buffer;
     bif.pszDisplayName[0] = '\0';
-    bif.lpszTitle = TEXT(title);
+    bif.lpszTitle = title;
 
-    if ((idl = SHBrowseForFolder(&bif)) != NULL) {
-        TCHAR buffer[MAX_PATH];
-        SHGetPathFromIDList(idl, buffer);
+    if ((idl = SHBrowseForFolderA(&bif)) != NULL) {
+        char buffer[MAX_PATH];
+        SHGetPathFromIDListA(idl, buffer);
 
         for (i = 0; i < SDL_strlen(buffer); i++) {
             if (buffer[i] == '\\') buffer[i] = '/';
