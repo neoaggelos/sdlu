@@ -33,7 +33,7 @@
 #define SDLU_BUTTON_H
 
 #include "SDLU_defs.h"
-#include "begin_code.h"
+#include "_SDLU_begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -570,7 +570,7 @@ extern DECLSPEC Uint32 SDLCALL SDLU_GetButtonLostFocusEvent(void);
 }
 #endif
 
-#include "close_code.h"
+#include "_SDLU_close_code.h"
 #endif /* SDLU_BUTTON_H */
 
 

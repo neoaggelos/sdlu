@@ -28,8 +28,8 @@
 #ifndef SDLU_TURTLE_H
 #define SDLU_TURTLE_H
 
-#include "SDL.h"
-#include "begin_code.h"
+#include "SDLU_defs.h"
+#include "_SDLU_begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -178,6 +178,6 @@ extern DECLSPEC int SDLCALL SDLU_DestroyTurtle(SDLU_Turtle* turtle);
 }
 #endif
 
-#include "close_code.h"
+#include "_SDLU_close_code.h"
 
 #endif /* SDLU_TURTLE_H */

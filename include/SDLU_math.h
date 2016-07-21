@@ -22,7 +22,7 @@
 #ifndef SDLU_MATH_H
 #define SDLU_MATH_H
 
-#include "begin_code.h"
+#include "_SDLU_begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -100,7 +100,7 @@ extern DECLSPEC void SDLCALL SDLU_DotProduct(
 }
 #endif
 
-#include "close_code.h"
+#include "_SDLU_close_code.h"
 
 #endif /* SDLU_MATH_H */
 

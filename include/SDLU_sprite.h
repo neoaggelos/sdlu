@@ -29,9 +29,8 @@
 #define SDLU_SPRITE_H
 
 #include "SDLU_defs.h"
-#include "SDL.h"
 
-#include "begin_code.h"
+#include "_SDLU_begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -496,5 +495,5 @@ extern DECLSPEC int SDLCALL SDLU_DestroySprite(SDLU_Sprite *sprite);
 }
 #endif
 
-#include "close_code.h"
+#include "_SDLU_close_code.h"
 #endif /* SDLU_SPRITE_H */

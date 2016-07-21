@@ -28,9 +28,8 @@
 #ifndef SDLU_COMBOBOX_H
 #define SDLU_COMBOBOX_H
 
-#include "SDL.h"
 #include "SDLU_defs.h"
-#include "begin_code.h"
+#include "_SDLU_begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -198,6 +197,6 @@ extern DECLSPEC int SDLCALL SDLU_DestroyComboBox(SDLU_ComboBox* combobox);
 }
 #endif
 
-#include "close_code.h"
+#include "_SDLU_close_code.h"
 
 #endif /* SDLU_COMBOBOX_H */

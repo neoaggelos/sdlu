@@ -29,8 +29,8 @@
 #ifndef SDLU_PIXELS_H
 #define SDLU_PIXELS_H
 
-#include "SDL.h"
-#include "begin_code.h"
+#include "SDLU_defs.h"
+#include "_SDLU_begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -88,6 +88,6 @@ extern DECLSPEC Uint32 SDLCALL SDLU_RenderMapRGB(
 }
 #endif
 
-#include "close_code.h"
+#include "_SDLU_close_code.h"
 
 #endif /* SDLU_PIXELS_H */
