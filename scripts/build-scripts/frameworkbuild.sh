@@ -21,7 +21,7 @@ fi
 ## Create framework
 FRAMEWORK="$wd/SDLU.framework"
 rm -rf $FRAMEWORK
-mkdir -p $FRAMEWORK && cd $FRAMEWORK
+mkdir -p $FRAMEWORK
 mkdir -p $FRAMEWORK/Versions
 mkdir -p $FRAMEWORK/Versions/A
 mkdir -p $FRAMEWORK/Versions/A/Headers

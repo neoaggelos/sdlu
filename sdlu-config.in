@@ -29,26 +29,26 @@ while test $# -gt 0; do
       fi
       ;;
     --prefix)
-      echo -n "$prefix "
+      echo "$prefix "
       ;;
     --exec-prefix=*)
       exec_prefix=$optarg
       exec_prefix_set=yes
       ;;
     --exec-prefix)
-      echo -n "$exec_prefix "
+      echo "$exec_prefix "
       ;;
     --version)
-      echo -n "$version "
+      echo "$version "
       ;;
     --cflags)
-      echo -n "-I@includedir@ @SDL_CFLAGS@ @TTF_CFLAGS@ "
+      echo "-I@includedir@ @SDL_CFLAGS@ @TTF_CFLAGS@ "
       ;;
     --libs)
-      echo -n "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
+      echo "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
       ;;
 @STATIC@    --static-libs)
-@STATIC@      echo -n "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
+@STATIC@      echo "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
 @STATIC@      ;;
     *)
       echo $usage 1>&2

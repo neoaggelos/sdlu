@@ -27,8 +27,11 @@ AC_MSG_RESULT($cxx_compiler_works)
 
 # Find SDL2
 if test x$SDL2_FRAMEWORK != x; then
+    SDL_FW_DIR=`dirname $SDL2_FRAMEWORK`
+    SDL_FW_NAME=`basename $SDL2_FRAMEWORK .framework`
+
     SDL_CFLAGS="-I$SDL2_FRAMEWORK/Headers"
-    SDL_LIBS="$SDL2_FRAMEWORK/SDL2"
+    SDL_LIBS="-F$SDL_FW_DIR -Wl,-framework,$SDL_FW_NAME"
 fi
 AM_PATH_SDL2([2.0.0], :, AC_MSG_ERROR([*** Error: Could not find SDL2]))
 CFLAGS="$CFLAGS $SDL_CFLAGS"
@@ -42,8 +45,11 @@ esac
 # Find SDL2_ttf
 AC_MSG_CHECKING(for SDL2_ttf)
 if test x$SDL2_TTF_FRAMEWORK != x; then
+    TTF_FW_DIR=`dirname $SDL2_FRAMEWORK`
+    TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
+
     TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
-    TTF_LIBS="$SDL2_TTF_FRAMEWORK/SDL2_ttf"
+    TTF_LIBS="-F$TTF_FW_DIR -Wl,-framework,$TTF_FW_NAME"
 fi
 AC_CHECK_SDL2_TTF(:, AC_MSG_ERROR([*** Error: Could not find SDL2_ttf]))
 CFLAGS="$CFLAGS $TTF_CFLAGS"
@@ -52,8 +58,11 @@ AC_MSG_RESULT($have_ttf)
 
 # Find SDLU
 if test x$SDLU_FRAMEWORK != x; then
+    SDLU_FW_DIR=`dirname $SDLU_FRAMEWORK`
+    SDLU_FW_NAME=`basename $SDLU_FRAMEWORK .framework`
+
     SDLU_CFLAGS="-I$SDLU_FRAMEWORK/Headers"
-    SDLU_LIBS="$SDLU_FRAMEWORK/SDLU"
+    SDLU_LIBS="-F$SDLU_FW_DIR -Wl,-framework,$SDLU_FW_NAME"
 fi
 AM_PATH_SDLU([2.1], :, AC_MSG_ERROR([*** Error: Could not find SDLU]))
 CFLAGS="$CFLAGS $SDLU_CFLAGS"

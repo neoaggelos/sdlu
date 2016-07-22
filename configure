@@ -16476,8 +16476,11 @@ $as_echo "$debug" >&6; }
 # Function to check for SDL2
 CheckSDL2() {
     if test x$SDL2_FRAMEWORK != x; then
+        SDL_FW_DIR=`dirname $SDL2_FRAMEWORK`
+        SDL_FW_NAME=`basename $SDL2_FRAMEWORK .framework`
+
         SDL_CFLAGS="-I$SDL2_FRAMEWORK/Headers"
-        SDL_LIBS="$SDL2_FRAMEWORK/SDL2"
+        SDL_LIBS="-F$SDL_FW_DIR -Wl,-framework,$SDL_FW_NAME"
     fi
 
 
@@ -16948,8 +16951,11 @@ CheckSDL2_ttf() {
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for SDL2_ttf" >&5
 $as_echo_n "checking for SDL2_ttf... " >&6; }
     if test x$SDL2_TTF_FRAMEWORK != x; then
+        TTF_FW_DIR=`dirname $SDL2_FRAMEWORK`
+        TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
+
         TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
-        TTF_LIBS="$SDL2_TTF_FRAMEWORK/SDL2_ttf"
+        TTF_LIBS="-F$TTF_FW_DIR -Wl,-framework,$TTF_FW_NAME"
     fi
 
 
@@ -17056,6 +17062,7 @@ CheckFileDialogBackends() {
         *darwin*|*macosx*|*apple*)
             LIBS="$LIBS -Wl,-framework,Cocoa -lobjc"
             CFLAGS="$CFLAGS -DFILEDIALOG_COCOA -fpascal-strings"
+            OBJCFLAGS="$CFLAGS"
             filedialog_cocoa=yes
         ;;
         *)
@@ -17157,6 +17164,7 @@ fi
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"
+OBJCFLAGS="$OBJCFLAGS $CXXFLAGS $CFLAGS"
 
 # substitutions for the config header
 

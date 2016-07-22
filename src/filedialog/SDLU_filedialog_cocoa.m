@@ -1,6 +1,9 @@
 #ifdef FILEDIALOG_COCOA
 
 #import <Cocoa/Cocoa.h>
+#include "SDLU.h"
+#include <wchar.h>
+#include <stdlib.h>
 
 #define UNUSED(x) (void)(x);
 
@@ -25,7 +28,7 @@ COCOA_OpenFileDialog(const char* title)
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = [[panel filename] UTF8String];
+        filename = SDL_strdup([[panel filename] UTF8String]);
     }
 
     NS_END();
@@ -44,7 +47,7 @@ COCOA_SaveFileDialog(const char* title)
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = [[panel filename] UTF8String];
+        filename = SDL_strdup([[panel filename] UTF8String]);
     }
 
     NS_END();
@@ -65,7 +68,7 @@ COCOA_FolderFileDialog(const char* title)
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = [[panel filename] UTF8String];
+        filename = SDL_strdup([[panel filename] UTF8String]);
     }
 
     NS_END();
@@ -83,17 +86,15 @@ COCOA_FileDialog(const char* title, Uint32 mode)
         return COCOA_SaveFileDialog(title);
     } else if (mode & SDLU_FILEDIALOG_OPENDIR) {
         return COCOA_FolderFileDialog(title);
+    } else {
+        return SDLU_ExitError("Unknown file dialog mode", NULL);
     }
 }
 
 void
 COCOA_FreeFileDialogFilename(char* filename)
 {
-    /* the pointer is set like this:
-     *      filename = [ns_string UTF8String];
-     *
-     * TODO: what should we do to free this?
-     */
+    if (filename) SDL_free(filename);
 }
 
 
@@ -110,7 +111,7 @@ COCOA_OpenFileDialogW(const wchar_t* title)
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = (wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding];
+        filename = wcsdup((wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
     }
 
     NS_END();
@@ -121,7 +122,7 @@ static const wchar_t*
 COCOA_SaveFileDialogW(const wchar_t* title)
 {
     NS_BEGIN();
-    const char* filename = NULL;
+    const wchar_t* filename = NULL;
     NSSavePanel* panel = [NSSavePanel savePanel];
 
     [panel setTitle : [[NSString alloc] initWithBytes:title length:SDL_wcslen(title) * sizeof(*title) encoding:NSUTF32LittleEndianStringEncoding]];
@@ -129,7 +130,7 @@ COCOA_SaveFileDialogW(const wchar_t* title)
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = (wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding];
+        filename = wcsdup((wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
     }
 
     NS_END();
@@ -140,7 +141,7 @@ static const wchar_t*
 COCOA_FolderFileDialogW(const wchar_t* title)
 {
     NS_BEGIN();
-    const char* filename = NULL;
+    const wchar_t* filename = NULL;
     NSOpenPanel * panel = [NSOpenPanel openPanel];
 
     [panel setCanChooseDirectories:YES];
@@ -150,7 +151,7 @@ COCOA_FolderFileDialogW(const wchar_t* title)
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = (wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding];
+        filename = wcsdup((wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
     }
 
     NS_END();
@@ -168,17 +169,15 @@ COCOA_FileDialogW(const wchar_t* title, Uint32 mode)
         return COCOA_SaveFileDialogW(title);
     } else if (mode & SDLU_FILEDIALOG_OPENDIR) {
         return COCOA_FolderFileDialogW(title);
+    } else {
+        return SDLU_ExitError("Unknown file dialog mode", NULL);
     }
 }
 
 void
 COCOA_FreeFileDialogFilenameW(wchar_t* filename)
 {
-    /* the pointer is set like this:
-     *      filename = [ns_string UTF8String];
-     *
-     * TODO: what should we do to free this?
-     */
+    if (filename) free(filename);
 }
 
 #endif /* FILEDIALOG_COCOA */
