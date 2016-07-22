@@ -26,6 +26,12 @@
 #include "SDLU_error.h"
 #include "utlist.h"
 
+#ifdef __GNUC__
+#define TYPESAFETY(a,b) __attribute__ ((format(printf,a,b) ))
+#else
+#define TYPESAFETY(a,b)
+#endif
+
 #include "begin_code.h"
 
 #ifdef __cplusplus
@@ -56,7 +62,8 @@ extern DECLSPEC int SDLCALL SDLU_vasprintf(
 /**
  *  return a printf formatted string as char*
  */
-extern DECLSPEC char* SDLCALL SDLU_format(const char* format, ...);
+extern DECLSPEC char* SDLCALL SDLU_format(const char* format, ...)
+  TYPESAFETY(1,2);
 
 /**
  *  get the actual rect position if renderer has scale/viewport etc
@@ -80,6 +87,8 @@ extern DECLSPEC char* SDLCALL SDLU_ReadFile(SDL_RWops*);
 #ifdef __cplusplus
 }
 #endif
+
+#undef TYPESAFETY
 
 #include "close_code.h"
 
