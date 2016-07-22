@@ -29,7 +29,7 @@
 #define SDLU_OPENGL_H
 
 #include "SDLU_config.h"
-#include "_SDLU_begin_code.h"
+#include "begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -120,6 +120,6 @@ extern DECLSPEC int SDLCALL SDLU_GL_RenderRestoreState(SDL_Renderer* renderer);
 }
 #endif
 
-#include "_SDLU_close_code.h"
+#include "close_code.h"
 
 #endif /* SDLU_OPENGL_H */

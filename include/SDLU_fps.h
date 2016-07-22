@@ -28,8 +28,8 @@
 #ifndef SDLU_FPS_H
 #define SDLU_FPS_H
 
-#include "SDLU_defs.h"
-#include "_SDLU_begin_code.h"
+#include "SDL.h"
+#include "begin_code.h"
 
 /**
  *  \brief The default framerate used by SDLU_FPS_Init()
@@ -107,6 +107,6 @@ extern DECLSPEC int SDLCALL SDLU_FPS_GetRealFramerate(void);
 }
 #endif
 
-#include "_SDLU_close_code.h"
+#include "close_code.h"
 
 #endif /* SDLU_FPS_H */

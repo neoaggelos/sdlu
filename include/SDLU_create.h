@@ -28,8 +28,8 @@
 #ifndef SDLU_CREATE_H
 #define SDLU_CREATE_H
 
-#include "SDLU_defs.h"
-#include "_SDLU_begin_code.h"
+#include "SDL.h"
+#include "begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -80,7 +80,7 @@ extern DECLSPEC SDLU_Circle SDLCALL SDLU_CreateCircle(
 }
 #endif
 
-#include "_SDLU_close_code.h"
+#include "close_code.h"
 
 #endif /* SDLU_CREATE_H */
 

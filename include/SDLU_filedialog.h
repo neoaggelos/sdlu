@@ -32,8 +32,8 @@
 extern "C" {
 #endif
 
-#include "SDLU_defs.h"
-#include "_SDLU_begin_code.h"
+#include "SDL.h"
+#include "begin_code.h"
 
 /**
  *  \name SDLU_FILEDIALOG_FLAGS
@@ -86,8 +86,7 @@ extern DECLSPEC const wchar_t* SDLCALL SDLU_FileDialogW(
 */
 extern DECLSPEC void SDLCALL SDLU_FreeFileDialogFilenameW(wchar_t* filename);
 
-
-#include "_SDLU_close_code.h"
+#include "close_code.h"
 
 #ifdef __cplusplus
 }

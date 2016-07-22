@@ -28,10 +28,11 @@
 #ifndef SDLU_RENDER_H
 #define SDLU_RENDER_H
 
+#include "SDL.h"
 #include "SDLU_defs.h"
 #include "SDLU_config.h"
 
-#include "_SDLU_begin_code.h"
+#include "begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -315,6 +316,6 @@ extern DECLSPEC int SDLCALL SDLU_RenderMultiCopy(
 }
 #endif
 
-#include "_SDLU_close_code.h"
+#include "close_code.h"
 
 #endif /* SDLU_RENDER_H */

@@ -41,10 +41,12 @@
 #ifndef SDLU_TEXT_H
 #define SDLU_TEXT_H
 
+#include "SDL.h"
 #include "SDLU_defs.h"
 #include "SDLU_config.h"
+#include "SDL_ttf.h"
 
-#include "_SDLU_begin_code.h"
+#include "begin_code.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -196,6 +198,6 @@ extern DECLSPEC TTF_Font* SDLCALL SDLU_GetTruetypeFont(void);
 
 #undef SDLU_TYPESAFETY
 
-#include "_SDLU_close_code.h"
+#include "close_code.h"
 
 #endif /* SDLU_TEXT_H */

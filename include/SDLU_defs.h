@@ -22,36 +22,14 @@
 /**
  *  \file SDLU_defs.h
  *
- *  \brief Declaration of SDLU and SDL types.
+ *  \brief Defines all SDLU structures.
  */
 
 #ifndef SDLU_DEFS_H
 #define SDLU_DEFS_H
 
-/* Forward declare SDL types so that we do not depend on including SDL.h */
-#ifndef _SDL_h
-
-typedef struct SDL_Surface SDL_Surface;
-typedef struct SDL_Texture SDL_Texture;
-typedef struct SDL_Renderer SDL_Renderer;
-typedef struct SDL_RendererInfo SDL_RendererInfo;
-typedef struct SDL_Point SDL_Point;
-typedef struct SDL_Color SDL_Color;
-typedef struct SDL_Rect SDL_Rect;
-typedef struct SDL_DisplayMode SDL_DisplayMode;
-typedef struct SDL_RWops SDL_RWops;
-typedef struct _TTF_Font TTF_Font;
-
-typedef void *SDL_GLContext;
-
-#include "_SDLU_SDL_blendmode.h"
-#include "_SDLU_SDL_scancode.h"
-
-#include "_SDLU_SDL_stdinc.h" /* this could be omitted*/
-
-#endif /* _SDL_h */
-
-#include "_SDLU_begin_code.h"
+#include "SDL.h"
+#include "begin_code.h"
 
 /**
  *  \name Alignment macros

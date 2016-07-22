@@ -28,13 +28,16 @@
 #ifndef SDLU_CXX_H
 #define SDLU_CXX_H
 
+#include "SDL.h"
 #include "SDLU_defs.h"
 #include "SDLU_config.h"
-#include "_SDLU_begin_code.h"
+#include "begin_code.h"
 
 #if defined( SDLU_CXX ) && defined( __cplusplus )
 
 #include <iostream>
+
+#include "SDL_ttf.h"
 
 /* Organise all classes into the namespace SDLU */
 namespace SDLU {
@@ -616,6 +619,6 @@ namespace SDLU {
 
 #endif /* SDLU_CXX */
 
-#include "_SDLU_close_code.h"
+#include "close_code.h"
 
 #endif /* SDLU_CXX_H */
