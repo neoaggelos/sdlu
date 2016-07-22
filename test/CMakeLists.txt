@@ -19,7 +19,7 @@ include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindGLES2.cmake")
 # Find SDL2
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
-set(LIBS ${LIBS} ${SDL2_LIBRARY})
+set(LIBS ${LIBS} ${SDL2_LIBRARY} ${SDL2MAIN_LIBRARY})
 
 # Find SDL2_ttf
 find_package(SDL2_ttf REQUIRED)

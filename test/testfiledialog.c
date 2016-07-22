@@ -42,7 +42,8 @@ int main(int argc, char** argv)
 
     filename = SDLU_FileDialog("Choose File", SDLU_FILEDIALOG_OPEN);
 
-    snprintf(msg, 511, "File Chosen:\n%s", filename);
+    SDL_snprintf(msg, 511, "File Chosen:\n%s", filename);
+    SDLU_FreeFileDialogFilename(filename);
     SDL_Delay(1000);
     SDLU_Message(msg);
 
