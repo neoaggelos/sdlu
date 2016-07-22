@@ -60,7 +60,7 @@ SDLU_FileDialogW(const wchar_t* title, Uint32 mode)
 }
 
 void
-SDLU_FreeFileDialogFilename(wchar_t* filename)
+SDLU_FreeFileDialogFilenameW(wchar_t* filename)
 {
 #if defined(FILEDIALOG_WIN32)
     WIN_FreeFileDialogFilenameW(filename);
