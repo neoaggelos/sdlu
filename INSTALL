@@ -16,13 +16,12 @@ Optional:
 Building the library
 ================================================================================
 
-See README-configure, README-cmake or README-premake on using each build system.
-Windows and Mac OS X users should prefer the CMake build system.
+Refer to README-configure and README-cmake for more information
 
-* Windows   :  CMake, premake
+* Windows   :  CMake
 * Cygwin    :  CMake, configure
-* Linux     :  CMake, premake, configure
-* Mac OS X  :  CMake, premake, configure
+* Linux     :  CMake, configure
+* Mac OS X  :  CMake, configure
 * Android   :  See README-android
 * iOS       :  See README-ios
 
@@ -36,9 +35,5 @@ To compile an application that uses the SDL utility library, you can use
 
     $ gcc program.c -o program `pkg-config --libs --cflags sdlu` [flags]
     $ gcc program.c -o program `sdlu-config --libs --cflags` [flags]
-
-If you use Mac OS X and built SDLU.framework with CMake:
-
-    $ gcc program.c -o program -framework SDLU [flags]
 
 -- Aggelos Kolaitis

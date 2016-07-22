@@ -19,7 +19,6 @@ Changes:
 - Removed SDLU_HINT_TEXT_DRAW_SCALED
 
 Build System:
-- Added premake build system
 - Official support for Mac OS X and iOS
 - Fixed sdlu-config and sdlu.pc static linking flags
 - Fixed the shared library not exporting the C++ interface classes correctly

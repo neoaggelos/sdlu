@@ -33,7 +33,6 @@ generation of the project files.
 
     $ cmake -DBUILD_CXX=ON [other_options]
     $ ./configure --enable-cxx [other_options]
-    $ premake4 --enable-cxx [other_options]
 
 For more information on building SDLU, see INSTALL.
 

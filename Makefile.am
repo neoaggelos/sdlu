@@ -72,6 +72,6 @@ aclocal_DATA = scripts/autotools/m4/sdlu.m4
 ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
 
 EXTRA_DIST = scripts extras Android.mk ChangeLog CMakeLists.txt CONTRIBUTING \
-			 COPYING Doxyfile premake4.lua README-android README-cmake \
-			 README-configure README-cxx README-git README-ios README-premake \
-			 README-raspberrypi README-windows sdlu-config.in sdlu.pc.in
+			 COPYING Doxyfile README-android README-cmake README-configure \
+			 README-cxx README-git README-ios README-raspberrypi README-windows \
+			 sdlu-config.in sdlu.pc.in
