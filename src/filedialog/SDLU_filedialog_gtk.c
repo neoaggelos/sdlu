@@ -29,10 +29,12 @@ GTK_FileDialog(const char* title, Uint32 mode)
 
     response = gtk_dialog_run(GTK_DIALOG(dialog));
 
-    if (response == GTK_RESPONSE_ACCEPT) {
+    if (response != GTK_RESPONSE_NONE) {
         file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
         if (file) {
-            return (const char*) file;
+            char* ret = SDL_strdup(file);
+            g_free(file);
+            return ret;
         }
     }
 
@@ -44,7 +46,7 @@ GTK_FileDialog(const char* title, Uint32 mode)
 void
 GTK_FreeFileDialogFilename(char* filename)
 {
-    if (filename) g_free(filename);
+    if (filename) SDL_free(filename);
 }
 
 const wchar_t*
@@ -67,7 +69,7 @@ GTK_FileDialogW(const wchar_t* title, Uint32 mode)
 void
 GTK_FreeFileDialogFilenameW(wchar_t *filename)
 {
-    if (filename) g_free(filename);
+    if (filename) SDL_free(filename);
 }
 
 #endif
