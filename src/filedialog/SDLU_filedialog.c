@@ -43,3 +43,33 @@ SDLU_FreeFileDialogFilename(char* filename)
     UNUSED(filename);
 #endif
 }
+
+const wchar_t*
+SDLU_FileDialogW(const wchar_t* title, Uint32 mode)
+{
+    /* call the appropriate native dialog */
+#if defined(FILEDIALOG_WIN32)
+    return WIN_FileDialogW(title, mode);
+#elif defined(FILEDIALOG_GTK)
+    return GTK_FileDialogW(title, mode);
+#elif defined(FILEDIALOG_COCOA)
+    return COCOA_FileDialogW(title, mode);
+#else
+    return NULL;
+#endif
+}
+
+void
+SDLU_FreeFileDialogFilename(wchar_t* filename)
+{
+#if defined(FILEDIALOG_WIN32)
+    WIN_FreeFileDialogFilenameW(filename);
+#elif defined(FILEDIALOG_GTK)
+    GTK_FreeFileDialogFilenameW(filename);
+#elif defined(FILEDIALOG_COCOA)
+    COCOA_FreeFileDialogFilenameW(filename);
+#else
+    UNUSED(filename);
+#endif
+}
+

@@ -47,4 +47,19 @@ GTK_FreeFileDialogFilename(char* filename)
     if (filename) g_free(filename);
 }
 
+void
+GTK_FileDialogW(const wchar_t* title, Uin32 mode)
+{
+    char *mb_title = SDL_malloc(SDL_wcslen(title) * sizeof(char));
+    wcstombs(mb_title, title, SDL_wcslen(title));
+
+    return GTK_FileDialog(mb_title, mode);
+}
+
+void
+GTK_FreeFileDialogFilenameW(wchar_t *filename)
+{
+    if (filename) g_free(filename);
+}
+
 #endif

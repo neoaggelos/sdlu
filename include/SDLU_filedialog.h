@@ -66,6 +66,27 @@ extern DECLSPEC const char* SDLCALL SDLU_FileDialog(
  */
 extern DECLSPEC void SDLCALL SDLU_FreeFileDialogFilename(char* filename);
 
+/**
+*  \brief Same as SDLU_FileDialog(), but using wchar_t
+*
+*  The returned pointer should be freed with SDLU_FreeFileDialogFilenameW()
+*
+*  \param title Window title
+*  \param mode One or more SDLU_FILEDIALOG_FLAGS
+*
+*  \return The file selected by the user on success, NULL otherwise
+*/
+extern DECLSPEC const wchar_t* SDLCALL SDLU_FileDialogW(
+    const wchar_t* title,
+    Uint32 mode
+);
+
+/**
+*  \brief Free a pointer returned by SDLU_FileDialogW()
+*/
+extern DECLSPEC void SDLCALL SDLU_FreeFileDialogFilenameW(wchar_t* filename);
+
+
 #include "_SDLU_close_code.h"
 
 #ifdef __cplusplus

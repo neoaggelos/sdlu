@@ -128,4 +128,133 @@ WIN_FreeFileDialogFilename(char* filename)
     if (filename) SDL_free(filename);
 }
 
+
+static const wchar_t*
+WIN_OpenFileDialogW(const wchar_t* title)
+{
+    OPENFILENAMEW ofn;
+    wchar_t buffer[MAX_PATH];
+    wchar_t *filename;
+    unsigned int i;
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.lpstrTitle = title;
+    ofn.lpstrFile = buffer;
+    ofn.lpstrFile[0] = L'\0';
+    ofn.hwndOwner = NULL;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.lpstrFilter = L"All files(*.*)\0*.*\0";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrInitialDir = NULL;
+    ofn.lpstrFileTitle = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+    if (GetOpenFileNameW(&ofn)) {
+        for (i = 0; i < SDL_wcslen(ofn.lpstrFile); i++) {
+            if (ofn.lpstrFile[i] == L'\\') ofn.lpstrFile[i] = L'/';
+        }
+
+        filename = SDL_malloc((SDL_wcslen(ofn.lpstrFile) + 2) * sizeof(wchar_t));
+        SDL_wsnprintf(filename, SDL_wcslen(ofn.lpstrFile) + 2, "%ls", ofn.lpstrFile);
+
+        return (const wchar_t*)filename;
+    }
+
+    return NULL;
+}
+
+static const wchar_t*
+WIN_SaveFileDialogW(const wchar_t* title)
+{
+    OPENFILENAMEW ofn;
+    wchar_t buffer[MAX_PATH];
+    wchar_t *filename;
+    unsigned int i;
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.lpstrTitle = title;
+    ofn.lpstrFile = buffer;
+    ofn.lpstrFile[0] = L'\0';
+    ofn.hwndOwner = NULL;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.lpstrFilter = L"All files(*.*)\0*.*\0";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrInitialDir = NULL;
+    ofn.lpstrFileTitle = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
+
+    if (GetSaveFileNameW(&ofn)) {
+        for (i = 0; i < SDL_wcslen(ofn.lpstrFile); i++) {
+            if (ofn.lpstrFile[i] == L'\\') ofn.lpstrFile[i] = L'/';
+        }
+
+        filename = SDL_malloc((SDL_wcslen(ofn.lpstrFile) + 2) * sizeof(wchar_t));
+        SDL_wsnprintf(filename, SDL_strlen(ofn.lpstrFile) + 2, "%ls", ofn.lpstrFile);
+
+        return (const wchar_t*)filename;
+    }
+
+    return NULL;
+}
+
+static const wchar_t*
+WIN_FolderFileDialogW(const wchar_t* title)
+{
+    BROWSEINFOW bif;
+    wchar_t _buffer[MAX_PATH];
+    LPITEMIDLIST idl;
+    wchar_t *filename;
+    unsigned int i;
+
+    ZeroMemory(&bif, sizeof(bif));
+    bif.hwndOwner = NULL;
+    bif.pszDisplayName = _buffer;
+    bif.pszDisplayName[0] = L'\0';
+    bif.lpszTitle = title;
+
+    if ((idl = SHBrowseForFolderW(&bif)) != NULL) {
+        wchar_t buffer[MAX_PATH];
+        SHGetPathFromIDListW(idl, buffer);
+
+        for (i = 0; i < SDL_wcslen(buffer); i++) {
+            if (buffer[i] == L'\\') buffer[i] = L'/';
+        }
+
+        filename = SDL_malloc((SDL_wcslen(buffer) + 2) * sizeof(wchar_t));
+        SDL_wsnprintf(filename, SDL_wcslen(buffer) + 2, "%ls", buffer);
+
+        return (const wchar_t*)filename;
+    }
+
+    return NULL;
+}
+
+const wchar_t*
+WIN_FileDialogW(const wchar_t* title, Uint32 mode)
+{
+    if (!mode) mode = SDLU_FILEDIALOG_OPEN;
+
+    if (mode & SDLU_FILEDIALOG_OPEN) {
+        return WIN_OpenFileDialogW(title);
+    }
+    else if (mode & SDLU_FILEDIALOG_SAVE) {
+        return WIN_SaveFileDialogW(title);
+    }
+    else if (mode & SDLU_FILEDIALOG_OPENDIR) {
+        return WIN_FolderFileDialogW(title);
+    }
+    else {
+        return NULL;
+    }
+}
+
+void
+WIN_FreeFileDialogFilenameW(wchar_t* filename)
+{
+    if (filename) SDL_free(filename);
+}
+
+
 #endif /* FILEDIALOG_WIN32 */

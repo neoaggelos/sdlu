@@ -10,6 +10,9 @@ extern "C" {
 const char* WIN_FileDialog(const char*, Uint32);
 void WIN_FreeFileDialogFilename(char*);
 
+const wchar_t* WIN_FileDialog(const wchar_t*, Uint32);
+void WIN_FreeFileDialogFilenamew(wchar_t*);
+
 #ifdef __cplusplus
 }
 #endif

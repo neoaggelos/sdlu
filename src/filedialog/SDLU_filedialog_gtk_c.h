@@ -11,6 +11,9 @@ extern "C" {
 const char* GTK_FileDialog(const char*, Uint32);
 void GTK_FreeFileDialogFilename(char*);
 
+const wchar_t* GTK_FileDialog(const wchar_t*, Uint32);
+void GTK_FreeFileDialogFilename(wchar_t*);
+
 #ifdef __cplusplus
 }
 #endif
