@@ -16,7 +16,14 @@ if test x$have_gtk = xyes; then
     GTK_LIBS=`pkg-config --libs gtk+-3.0`
     ifelse([$1], , :, [$1])
 else
-    ifelse([$2], , :, [$2])
+    PKG_CHECK_EXISTS(gtk+-2.0, have_gtk=yes)
+    if test x$have_gtk = xyes; then
+      GTK_CFLAGS=`pkg-config --cflags gtk+-2.0`
+      GTK_LIBS=`pkg-config --libs gtk+-2.0`
+      ifelse([$1], , :, [$1])
+    else
+      ifelse([$2], , :, [$2])
+    fi
 fi
 
 AC_MSG_RESULT($have_gtk)

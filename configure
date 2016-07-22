@@ -17084,7 +17084,21 @@ if test x$have_gtk = xyes; then
     GTK_LIBS=`pkg-config --libs gtk+-3.0`
     have_gtk=yes
 else
-    have_gtk=no
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-2.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  have_gtk=yes
+fi
+    if test x$have_gtk = xyes; then
+      GTK_CFLAGS=`pkg-config --cflags gtk+-2.0`
+      GTK_LIBS=`pkg-config --libs gtk+-2.0`
+      have_gtk=yes
+    else
+      have_gtk=no
+    fi
 fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_gtk" >&5
