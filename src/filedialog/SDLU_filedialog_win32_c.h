@@ -2,6 +2,7 @@
 #define SDLU_FILEDIALOG_WIN32_C_H
 
 #include "SDL.h"
+#include <wchar.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -10,8 +11,8 @@ extern "C" {
 const char* WIN_FileDialog(const char*, Uint32);
 void WIN_FreeFileDialogFilename(char*);
 
-const wchar_t* WIN_FileDialog(const wchar_t*, Uint32);
-void WIN_FreeFileDialogFilenamew(wchar_t*);
+const wchar_t* WIN_FileDialogW(const wchar_t*, Uint32);
+void WIN_FreeFileDialogFilenameW(wchar_t*);
 
 #ifdef __cplusplus
 }

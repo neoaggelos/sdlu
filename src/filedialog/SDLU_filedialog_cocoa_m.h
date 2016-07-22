@@ -2,6 +2,7 @@
 #define SDLU_FILEDIALOG_COCOA_M_H
 
 #include "SDL.h"
+#include <wchar.h>
 
 #ifdef __cplusplus
 extern "C" {
