@@ -22,6 +22,8 @@
 #include "SDLU.h"
 #include "SDLU_common.h"
 
+#define UNUSED(x) (void)(x)
+
 static Uint32 next_id = 0;
 
 struct SDLU_ComboBoxItem {
@@ -167,6 +169,7 @@ SDLU_GetComboBoxStyles(SDLU_ComboBox* combobox, SDLU_Styles* styles)
         SDLU_ExitError("invalid 'combobox'", -1);
 
     styles = combobox->styles;
+    UNUSED(styles);
 
     return 0;
 }

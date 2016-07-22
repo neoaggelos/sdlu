@@ -45,7 +45,7 @@
 
 #define SDLU_ExitError( err, ret ) {                                        \
     SDLU_Log(err);                                                          \
-    SDLU_SetError(err);                                                     \
+    SDLU_SetError("%s", err);                                               \
     return ret;                                                             \
 }
 

@@ -571,6 +571,7 @@ SDLU_GetButtonStyles(SDLU_Button* button, SDLU_Styles *styles)
         SDLU_ExitError("not a text button", -1);
 
     styles = (SDLU_Styles*) button->content;
+    UNUSED(styles);
 
     return 0;
 }
