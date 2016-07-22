@@ -22,7 +22,7 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Aggelos Kolaitis <neoaggelos@gmail.com>")
 set(CPACK_DEBIAN_PACKAGE_SECTION "Development")
 set(CPACK_DEBIAN_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION}")
 set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "${ARCH}")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-dev (>= 2.0.0)")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-dev (>= 2.0.0), libsdl2-ttf-dev")
 
 ### RPM specific settings
 set(CPACK_RPM_PACKAGE_LICENSE "zlib")
