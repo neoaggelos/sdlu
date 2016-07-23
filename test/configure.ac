@@ -5,6 +5,11 @@ AC_INIT([SDLU_tests], [2.1], [neoaggelos@gmail.com])
 AC_CONFIG_AUX_DIR([../scripts/autotools])
 AC_CONFIG_MACRO_DIR([../scripts/autotools/m4])
 
+# Figure out what system we are on
+AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
 # Output files
 AC_CONFIG_FILES([Makefile])
 
