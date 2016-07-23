@@ -60,7 +60,7 @@ set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
 # Basic sources
 file(GLOB SOURCES
   ${EXTRA_SOURCES}
-  ${CMAKE_SOURCE_DIR}/src/filedialog/*.c
+  ${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog.c
   ${CMAKE_SOURCE_DIR}/src/render/*.c
   ${CMAKE_SOURCE_DIR}/src/common/*.c
   ${CMAKE_SOURCE_DIR}/src/sprite/*.c
