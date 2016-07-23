@@ -93,6 +93,7 @@ CheckFileDialogBackends() {
         *windows* | *win32* | *mingw* | *msys*)
             LIBS="$LIBS -mwindows"
             CFLAGS="$CFLAGS -DFILEDIALOG_WIN32"
+            filedialog_win=yes
         ;;
         *darwin*|*macosx*|*apple*)
             LIBS="$LIBS -Wl,-framework,Cocoa -lobjc"
@@ -105,6 +106,7 @@ CheckFileDialogBackends() {
             if test x$have_gtk = xyes; then
                 CFLAGS="$CFLAGS $GTK_CFLAGS -DFILEDIALOG_GTK"
                 LIBS="$LIBS $GTK_LIBS"
+                filedialog_gtk=yes
             else
                 CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
             fi
@@ -153,8 +155,10 @@ includedir="$includedir/SDL2"
 # make sure sdlu-config can be executed
 AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
 
-# add objective-c sources if needed
+# add correct backend
 AM_CONDITIONAL([FILEDIALOG_COCOA], [test x$filedialog_cocoa = xyes])
+AM_CONDITIONAL([FILEDIALOG_WIN], [test x$filedialog_win = xyes])
+AM_CONDITIONAL([FILEDIALOG_GTK], [test x$filedialog_gtk = xyes])
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"

@@ -639,6 +639,10 @@ minor
 major
 STATIC
 DEFINE_SDLU_CXX
+FILEDIALOG_GTK_FALSE
+FILEDIALOG_GTK_TRUE
+FILEDIALOG_WIN_FALSE
+FILEDIALOG_WIN_TRUE
 FILEDIALOG_COCOA_FALSE
 FILEDIALOG_COCOA_TRUE
 CXX_FALSE
@@ -17058,6 +17062,7 @@ CheckFileDialogBackends() {
         *windows* | *win32* | *mingw* | *msys*)
             LIBS="$LIBS -mwindows"
             CFLAGS="$CFLAGS -DFILEDIALOG_WIN32"
+            filedialog_win=yes
         ;;
         *darwin*|*macosx*|*apple*)
             LIBS="$LIBS -Wl,-framework,Cocoa -lobjc"
@@ -17107,6 +17112,7 @@ $as_echo "$have_gtk" >&6; }
             if test x$have_gtk = xyes; then
                 CFLAGS="$CFLAGS $GTK_CFLAGS -DFILEDIALOG_GTK"
                 LIBS="$LIBS $GTK_LIBS"
+                filedialog_gtk=yes
             else
                 CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
             fi
@@ -17166,13 +17172,29 @@ includedir="$includedir/SDL2"
 ac_config_commands="$ac_config_commands sdlu_config"
 
 
-# add objective-c sources if needed
+# add correct backend
  if test x$filedialog_cocoa = xyes; then
   FILEDIALOG_COCOA_TRUE=
   FILEDIALOG_COCOA_FALSE='#'
 else
   FILEDIALOG_COCOA_TRUE='#'
   FILEDIALOG_COCOA_FALSE=
+fi
+
+ if test x$filedialog_win = xyes; then
+  FILEDIALOG_WIN_TRUE=
+  FILEDIALOG_WIN_FALSE='#'
+else
+  FILEDIALOG_WIN_TRUE='#'
+  FILEDIALOG_WIN_FALSE=
+fi
+
+ if test x$filedialog_gtk = xyes; then
+  FILEDIALOG_GTK_TRUE=
+  FILEDIALOG_GTK_FALSE='#'
+else
+  FILEDIALOG_GTK_TRUE='#'
+  FILEDIALOG_GTK_FALSE=
 fi
 
 
@@ -17378,6 +17400,14 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${FILEDIALOG_COCOA_TRUE}" && test -z "${FILEDIALOG_COCOA_FALSE}"; then
   as_fn_error $? "conditional \"FILEDIALOG_COCOA\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${FILEDIALOG_WIN_TRUE}" && test -z "${FILEDIALOG_WIN_FALSE}"; then
+  as_fn_error $? "conditional \"FILEDIALOG_WIN\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${FILEDIALOG_GTK_TRUE}" && test -z "${FILEDIALOG_GTK_FALSE}"; then
+  as_fn_error $? "conditional \"FILEDIALOG_GTK\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

@@ -22,8 +22,6 @@ libSDLU_la_SOURCES = ${cxx_sources}             					\
 					 src/common/SDLU_common.c						\
 					 src/common/SDLU_userdata.c						\
 					 src/filedialog/SDLU_filedialog.c				\
-					 src/filedialog/SDLU_filedialog_gtk.c			\
-					 src/filedialog/SDLU_filedialog_win32.c			\
 					 src/gl/SDLU_gl.c								\
 					 src/gui/SDLU_button.c							\
 					 src/gui/SDLU_combobox.c						\
@@ -40,6 +38,14 @@ libSDLU_la_SOURCES = ${cxx_sources}             					\
 
 if FILEDIALOG_COCOA
 libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_cocoa.m
+endif
+
+if FILEDIALOG_WIN
+libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_win32.c
+endif
+
+if FILEDIALOG_GTK
+libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_gtk.c
 endif
 
 include_HEADERS = include/SDLU.h				\
@@ -73,5 +79,5 @@ ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
 
 EXTRA_DIST = scripts extras Android.mk ChangeLog CMakeLists.txt CONTRIBUTING \
 			 COPYING Doxyfile README-android README-cmake README-configure \
-			 README-cxx README-git README-ios README-raspberrypi README-windows \
-			 sdlu-config.in sdlu.pc.in
+			 README-cxx README-ios README-raspberrypi README-windows sdlu-config.in \
+			 sdlu.pc.in
