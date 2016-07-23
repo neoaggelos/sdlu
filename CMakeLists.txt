@@ -1,6 +1,7 @@
 # SDLU CMakeLists.txt
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+set(CMAKE_MACOSX_RPATH 1)
 
 # Define the project
 project(SDLU)
@@ -99,6 +100,12 @@ if (BUILD_STATIC_LIBS)
   set(STATIC "")
 endif(BUILD_STATIC_LIBS)
 
+# Installation files
+file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
+file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
+file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
+file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
+
 # Framework
 if (BUILD_FRAMEWORK)
   set(INST_DIR "@executable_path/../../../Library/Frameworks")
@@ -136,12 +143,6 @@ configure_file(
   ${CMAKE_SOURCE_DIR}/sdlu-config.in
   ${CMAKE_BINARY_DIR}/sdlu-config
 )
-
-# Installation files
-file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
-file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
-file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
-file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
 
 # Installation targets
 install(TARGETS ${INSTALL_LIBS} DESTINATION ${libdir})

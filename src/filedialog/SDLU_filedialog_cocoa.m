@@ -2,76 +2,70 @@
 
 #import <Cocoa/Cocoa.h>
 #include "SDLU.h"
+#include "SDLU_common.h"
 #include <wchar.h>
 #include <stdlib.h>
 
 #define UNUSED(x) (void)(x);
 
-#define NS_BEGIN() \
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];    \
-    NSApplication *app = [NSApplication sharedApplication]; UNUSED(app);
-
-
-#define NS_END() \
-    [pool release];
-
 static const char*
 COCOA_OpenFileDialog(const char* title)
 {
-    NS_BEGIN();
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     const char* filename = NULL;
     NSOpenPanel * panel = [NSOpenPanel openPanel];
 
-    [panel setCanChooseFiles:YES];
-    [panel setAllowsMultipleSelection:NO];
-    [panel setTitle : [NSString stringWithCString: title]];
+    panel.title = [NSString stringWithUTF8String : title];
+    panel.canChooseFiles = YES;
+    panel.canChooseDirectories = NO;
+    panel.allowsMultipleSelection = NO;
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = SDL_strdup([[panel filename] UTF8String]);
+        filename = SDL_strdup([[[panel URL] path] UTF8String]);
     }
 
-    NS_END();
+    [pool release];
     return filename;
 }
 
 static const char*
 COCOA_SaveFileDialog(const char* title)
 {
-    NS_BEGIN();
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     const char* filename = NULL;
     NSSavePanel* panel = [NSSavePanel savePanel];
 
-    [panel setTitle : [NSString stringWithCString : title]];
-    [panel setPrompt : @"Filename:"];
+    panel.canCreateDirectories = YES;
+    panel.title = [NSString stringWithUTF8String : title];
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = SDL_strdup([[panel filename] UTF8String]);
+        filename = SDL_strdup([[[panel URL] path] UTF8String]);
     }
 
-    NS_END();
+    [pool release];
     return filename;
 }
 
 static const char*
 COCOA_FolderFileDialog(const char* title)
 {
-    NS_BEGIN();
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     const char* filename = NULL;
     NSOpenPanel * panel = [NSOpenPanel openPanel];
 
-    [panel setCanChooseDirectories:YES];
-    [panel setCanChooseFiles:NO];
-    [panel setAllowsMultipleSelection:NO];
-    [panel setTitle : [NSString stringWithCString: title]];
+    panel.title = [NSString stringWithUTF8String : title];
+    panel.canChooseFiles = NO;
+    panel.canChooseDirectories = YES;
+    panel.allowsMultipleSelection = NO;
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = SDL_strdup([[panel filename] UTF8String]);
+        filename = SDL_strdup([[[panel URL] path] UTF8String]);
     }
 
-    NS_END();
+    [pool release];
     return filename;
 }
 
@@ -87,7 +81,7 @@ COCOA_FileDialog(const char* title, Uint32 mode)
     } else if (mode & SDLU_FILEDIALOG_OPENDIR) {
         return COCOA_FolderFileDialog(title);
     } else {
-        return SDLU_ExitError("Unknown file dialog mode", NULL);
+        SDLU_ExitError("Unknown file dialog mode", NULL);
     }
 }
 
@@ -97,64 +91,64 @@ COCOA_FreeFileDialogFilename(char* filename)
     if (filename) SDL_free(filename);
 }
 
-
 static const wchar_t*
 COCOA_OpenFileDialogW(const wchar_t* title)
 {
-    NS_BEGIN();
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     const wchar_t* filename = NULL;
     NSOpenPanel * panel = [NSOpenPanel openPanel];
 
-    [panel setCanChooseFiles:YES];
-    [panel setAllowsMultipleSelection:NO];
-    [panel setTitle : [[NSString alloc] initWithBytes:title length:SDL_wcslen(title) * sizeof(*title) encoding:NSUTF32LittleEndianStringEncoding]];
+    panel.canChooseFiles = YES;
+    panel.canChooseDirectories = NO;
+    panel.allowsMultipleSelection = NO;
+    panel.title = [[NSString alloc] initWithBytes: title length: SDL_wcslen(title) * sizeof(wchar_t) encoding: NSUTF32LittleEndianStringEncoding];
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = wcsdup((wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
+        filename = wcsdup((wchar_t*)[[[panel URL] path] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
     }
 
-    NS_END();
+    [pool release];
     return filename;
 }
 
 static const wchar_t*
 COCOA_SaveFileDialogW(const wchar_t* title)
 {
-    NS_BEGIN();
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     const wchar_t* filename = NULL;
     NSSavePanel* panel = [NSSavePanel savePanel];
 
-    [panel setTitle : [[NSString alloc] initWithBytes:title length:SDL_wcslen(title) * sizeof(*title) encoding:NSUTF32LittleEndianStringEncoding]];
-    [panel setPrompt : @"Filename:"];
+    panel.title = [[NSString alloc] initWithBytes:title length:SDL_wcslen(title) * sizeof(wchar_t) encoding:NSUTF32LittleEndianStringEncoding];
+    panel.canCreateDirectories = YES;
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = wcsdup((wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
+        filename = wcsdup((wchar_t*)[[[panel URL] path] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
     }
 
-    NS_END();
+    [pool release];
     return filename;
 }
 
 static const wchar_t*
 COCOA_FolderFileDialogW(const wchar_t* title)
 {
-    NS_BEGIN();
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     const wchar_t* filename = NULL;
     NSOpenPanel * panel = [NSOpenPanel openPanel];
 
-    [panel setCanChooseDirectories:YES];
-    [panel setCanChooseFiles:NO];
-    [panel setAllowsMultipleSelection:NO];
-    [panel setTitle : [[NSString alloc] initWithBytes:title length:SDL_wcslen(title) * sizeof(*title) encoding:NSUTF32LittleEndianStringEncoding]];
+    panel.canChooseFiles = NO;
+    panel.canChooseDirectories = YES;
+    panel.allowsMultipleSelection = NO;
+    panel.title = [[NSString alloc] initWithBytes:title length:SDL_wcslen(title) * sizeof(*title) encoding:NSUTF32LittleEndianStringEncoding];
 
     NSInteger clicked = [panel runModal];
     if (clicked == NSFileHandlingPanelOKButton) {
-        filename = wcsdup((wchar_t*)[[panel filename] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
+        filename = wcsdup((wchar_t*)[[[panel URL] path] cStringUsingEncoding:NSUTF32LittleEndianStringEncoding]);
     }
 
-    NS_END();
+    [pool release];
     return filename;
 }
 
@@ -170,7 +164,7 @@ COCOA_FileDialogW(const wchar_t* title, Uint32 mode)
     } else if (mode & SDLU_FILEDIALOG_OPENDIR) {
         return COCOA_FolderFileDialogW(title);
     } else {
-        return SDLU_ExitError("Unknown file dialog mode", NULL);
+        SDLU_ExitError("Unknown file dialog mode", NULL);
     }
 }
 
