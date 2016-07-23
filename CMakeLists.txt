@@ -34,6 +34,12 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${CMAKE_SOURCE_DIR}/src/common")
 include_directories("${CMAKE_BINARY_DIR}")
 
+# Installation files
+file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
+file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
+file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
+file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
+
 # Debug builds
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
   add_definitions("-D_DEBUG")
@@ -59,7 +65,8 @@ set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
 
 # Basic sources
 file(GLOB SOURCES
-  ${EXTRA_SOURCES}
+	${HDRS}
+	${EXTRA_SOURCES}
   ${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog.c
   ${CMAKE_SOURCE_DIR}/src/render/*.c
   ${CMAKE_SOURCE_DIR}/src/common/*.c
@@ -99,12 +106,6 @@ if (BUILD_STATIC_LIBS)
   # these are for 'sdlu-config --static-libs'
   set(STATIC "")
 endif(BUILD_STATIC_LIBS)
-
-# Installation files
-file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
-file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
-file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
-file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
 
 # Framework
 if (BUILD_FRAMEWORK)
