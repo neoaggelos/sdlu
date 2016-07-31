@@ -36,4 +36,8 @@ To compile an application that uses the SDL utility library, you can use
     $ gcc program.c -o program `pkg-config --libs --cflags sdlu` [flags]
     $ gcc program.c -o program `sdlu-config --libs --cflags` [flags]
 
+If you built SDLU.framework under Mac OS X:
+
+    $ gcc program.c -o program -framework SDLU -I/path/to/SDL/headers
+
 -- Aggelos Kolaitis
