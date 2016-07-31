@@ -8,6 +8,9 @@
 # error("What happened")
 #endif
 
+#include <string.h>
+#include <wchar.h>
+
 static SDL_bool
 string_endsin(const char* str, const char* end)
 {
