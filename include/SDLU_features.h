@@ -27,8 +27,8 @@
  *  Given the many changes that are made in SDLU from version to version, and
  *  since it's hard to find out if a feature (e.g. a new API, a particular
  *  function) is included, this file was added as a "compromise". This file
- *  defines macros, which, when they exist, you can be sure that the existing
- *  API exists.
+ *  defines macros, and by checking if those macros are defined, you can be
+ *  sure that a certain API exists.
  */
 
 #ifndef SDLU_FEATURES_H
@@ -40,6 +40,7 @@
 #define SDLU_API_COMBOBOX           1
 #define SDLU_API_FRAMERATE          1
 #define SDLU_API_FILEDIALOG         1
+#define SDLU_API_FILESYSTEM         1
 #define SDLU_API_INIHANDLER         1
 #define SDLU_API_MATH               1
 #define SDLU_API_OPENGL             1

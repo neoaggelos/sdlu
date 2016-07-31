@@ -18,10 +18,35 @@ cxx_sources =
 libSDLU_la_LINK = $(LINK)
 endif
 
+extra_source_files= 
+if FILEDIALOG_COCOA
+extra_source_files += src/filedialog/SDLU_filedialog_cocoa.m
+endif
+
+if FILEDIALOG_WIN
+extra_source_files += src/filedialog/SDLU_filedialog_win32.c
+endif
+
+if FILEDIALOG_GTK
+extra_source_files += src/filedialog/SDLU_filedialog_gtk.c
+endif
+
+if FILESYSTEM_WIN
+extra_source_files += src/filesystem/SDLU_filesystem_win32.c
+endif
+
+if FILESYSTEM_DIRENT
+extra_source_files += src/filesystem/SDLU_filesystem_dirent.c
+endif
+
+
+
 libSDLU_la_SOURCES = ${cxx_sources}             					\
+										 ${extra_source_files}								\
 					 src/common/SDLU_common.c						\
 					 src/common/SDLU_userdata.c						\
 					 src/filedialog/SDLU_filedialog.c				\
+           src/filesystem/SDLU_filesystem.c				\
 					 src/gl/SDLU_gl.c								\
 					 src/gui/SDLU_button.c							\
 					 src/gui/SDLU_combobox.c						\
@@ -36,18 +61,6 @@ libSDLU_la_SOURCES = ${cxx_sources}             					\
 					 src/text/SDLU_ttf.c							\
 					 src/turtle/SDLU_turtle.c
 
-if FILEDIALOG_COCOA
-libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_cocoa.m
-endif
-
-if FILEDIALOG_WIN
-libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_win32.c
-endif
-
-if FILEDIALOG_GTK
-libSDLU_la_SOURCES += src/filedialog/SDLU_filedialog_gtk.c
-endif
-
 include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\
 				  include/SDLU_collide.h		\
@@ -58,6 +71,7 @@ include_HEADERS = include/SDLU.h				\
 				  include/SDLU_defs.h			\
 				  include/SDLU_features.h		\
 				  include/SDLU_filedialog.h		\
+          include/SDLU_filesystem.h \
 				  include/SDLU_fps.h			\
 				  include/SDLU_hints.h			\
 				  include/SDLU_ini.h			\

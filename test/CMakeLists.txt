@@ -47,8 +47,7 @@ endif(OPENGL_FOUND)
 add_definitions("-DDATA_DIR=\"${CMAKE_SOURCE_DIR}/data\"")
 
 # Add executables
-set(TARGETS 
-    "testbutton;testcollision;testcolorkey;testcombo;testfiledialog;testini;testmath;testmulticopy;testrender;testsprite;testtext;testturtle"
+set(TARGETS     "testbutton;testcollision;testcolorkey;testcombo;testfiledialog;testfilesystem;testini;testmath;testmulticopy;testrender;testsprite;testtext;testturtle"
 )
 add_library(common OBJECT ${CMAKE_SOURCE_DIR}/common.c)
 set(COMMON $<TARGET_OBJECTS:common>)

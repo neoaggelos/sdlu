@@ -37,6 +37,8 @@ testcollision : Collision detection between two rects
 testcolorkey  : Simple example of loading textures with(out) a color-key
 testcombo     : Simple combo box example
 testcxx       : Simple example of the SDL2 C++ interface
+testfiledialog: Showcase how to create a simple open file dialog
+testfilesystem: Simple program that lists contents of a directory
 testgl        : Loads an OpenGL texture and blits it on the screen
 testgles2     : Simple SDL2 + OpenGLES2 example
 testini       : Shows how to use the ini file handling API

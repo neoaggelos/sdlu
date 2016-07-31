@@ -25,7 +25,8 @@ endif(BUILD_CXX)
 
 # Load required modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
-include("${CMAKE_SOURCE_DIR}/scripts/cmake/macros.cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/CheckFileDialogBackend.cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/CheckFileSystemBackend.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
 
@@ -59,15 +60,20 @@ set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
 # Find a backend for the file dialog API
 CheckFileDialogBackend()
 
+# Find a backend for the file system API
+CheckFileSystemBackend()
+
 # These are for sdlu-config and sdlu.pc
 set(SDL_CFLAGS "-I${SDL2_INCLUDE_DIR}")
 set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
 
 # Basic sources
 file(GLOB SOURCES
-	${HDRS}
-	${EXTRA_SOURCES}
+  ${HDRS}
+  ${FILEDIALOG_BACKEND_SOURCES}
+  ${FILESYSTEM_BACKEND_SOURCES}
   ${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog.c
+  ${CMAKE_SOURCE_DIR}/src/filesystem/SDLU_filesystem.c
   ${CMAKE_SOURCE_DIR}/src/render/*.c
   ${CMAKE_SOURCE_DIR}/src/common/*.c
   ${CMAKE_SOURCE_DIR}/src/sprite/*.c

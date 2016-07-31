@@ -87,6 +87,20 @@ CheckSDL2_ttf() {
     AC_MSG_RESULT($have_ttf)
 }
 
+CheckFileSystemBackends() {
+    case "$host" in
+        *windows* | *win32* | *mingw* | *msys*)
+            filesystem_win=yes
+            CFLAGS="$CFLAGS -DFILESYSTEM_WIN32"
+        ;;
+        *)
+            filesystem_dirent=yes
+            CFLAGS="$CFLAGS -DFILESYSTEM_DIRENT"
+        ;;
+    esac
+        
+}
+
 # Function to check for a file dialog backend
 CheckFileDialogBackends() {
     case "$host" in
@@ -129,6 +143,7 @@ case "$host" in
         CheckSDL2
         CheckSDL2_ttf
         CheckFileDialogBackends
+        CheckFileSystemBackends
         ;;
 esac
 
@@ -155,10 +170,14 @@ includedir="$includedir/SDL2"
 # make sure sdlu-config can be executed
 AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
 
-# add correct backend
+# file dialog backend
 AM_CONDITIONAL([FILEDIALOG_COCOA], [test x$filedialog_cocoa = xyes])
 AM_CONDITIONAL([FILEDIALOG_WIN], [test x$filedialog_win = xyes])
 AM_CONDITIONAL([FILEDIALOG_GTK], [test x$filedialog_gtk = xyes])
+
+# file system backend
+AM_CONDITIONAL([FILESYSTEM_WIN], [test x$filesystem_win = xyes])
+AM_CONDITIONAL([FILESYSTEM_DIRENT], [test x$filesystem_dirent = xyes])
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"

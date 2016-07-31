@@ -10,7 +10,7 @@ wd=`dirname $0`
 wd=`cd $wd && echo $PWD`
 wd=`cd $wd/.. && echo $PWD`
 
-cd $wd      && autoreconf --force --install && rm $wd/autom4te.cache -rf
-cd $wd/test && autoreconf --force --install && rm $wd/test/autom4te.cache -rf
+cd $wd      && autoreconf --force --install && rm -rf $wd/autom4te.cache
+cd $wd/test && autoreconf --force --install && rm -rf $wd/test/autom4te.cache
 
 echo "You are now ready to run ./configure"

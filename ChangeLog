@@ -8,6 +8,7 @@ NOTE: Update to this version if you use SDL2 2.0.2 or newer.
 
 Additions:
 - Added ComboBox API
+- Added FileSystem API (browse directory contents)
 - Added SDLU_FileDialog()
 - Added SDLU_SetButtonStyles()
 - Added SDLU_SetButtonHotkey()
