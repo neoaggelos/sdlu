@@ -1,6 +1,6 @@
 /*
  * The SDL Utility library
- * Copyright (c) 2014 Aggelos Kolaitis <neoaggelos@gmail.com>
+ * Copyright (c) 2016 Aggelos Kolaitis <neoaggelos@gmail.com>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
@@ -19,6 +19,11 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+/**
+ *  \file SDLU_math.h
+ *
+ *  \brief Defines some standard math stuff (vectors, matrices)
+ */
 #ifndef SDLU_MATH_H
 #define SDLU_MATH_H
 

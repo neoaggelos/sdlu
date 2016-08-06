@@ -1,4 +1,4 @@
-# Configure paths for SuDLU
+# Configure paths for SDLU
 # Copy of sdl2.m4, modified for SDLU
 
 # serial 1

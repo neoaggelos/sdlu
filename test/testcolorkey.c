@@ -1,6 +1,6 @@
 /*
  * The SDL Utility library
- * Copyright (c) 2014 Aggelos Kolaitis <neoaggelos@gmail.com>
+ * Copyright (c) 2016 Aggelos Kolaitis <neoaggelos@gmail.com>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
