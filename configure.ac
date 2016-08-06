@@ -91,7 +91,7 @@ CheckFileSystemBackends() {
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
             filesystem_win=yes
-            CFLAGS="$CFLAGS -DFILESYSTEM_WIN32"
+            CFLAGS="$CFLAGS -DFILESYSTEM_WINDOWS"
         ;;
         *)
             filesystem_dirent=yes
@@ -106,7 +106,7 @@ CheckFileDialogBackends() {
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
             LIBS="$LIBS -mwindows"
-            CFLAGS="$CFLAGS -DFILEDIALOG_WIN32"
+            CFLAGS="$CFLAGS -DFILEDIALOG_WINDOWS"
             filedialog_win=yes
         ;;
         *darwin*|*macosx*|*apple*)

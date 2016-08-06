@@ -7,8 +7,8 @@
 # include "SDLU_filedialog_gtk_c.h"
 #endif
 
-#if defined(FILEDIALOG_WIN32)
-# include "SDLU_filedialog_win32_c.h"
+#if defined(FILEDIALOG_WINDOWS)
+# include "SDLU_filedialog_windows_c.h"
 #endif
 
 #if defined(FILEDIALOG_COCOA)
@@ -19,7 +19,7 @@ const char*
 SDLU_FileDialog(const char* title, Uint32 mode)
 {
     /* call the appropriate native dialog */
-#if defined(FILEDIALOG_WIN32)
+#if defined(FILEDIALOG_WINDOWS)
     return WIN_FileDialog(title, mode);
 #elif defined(FILEDIALOG_GTK)
     return GTK_FileDialog(title, mode);
@@ -33,7 +33,7 @@ SDLU_FileDialog(const char* title, Uint32 mode)
 void
 SDLU_FreeFileDialogFilename(char* filename)
 {
-#if defined(FILEDIALOG_WIN32)
+#if defined(FILEDIALOG_WINDOWS)
     WIN_FreeFileDialogFilename(filename);
 #elif defined(FILEDIALOG_GTK)
     GTK_FreeFileDialogFilename(filename);
@@ -48,7 +48,7 @@ const wchar_t*
 SDLU_FileDialogW(const wchar_t* title, Uint32 mode)
 {
     /* call the appropriate native dialog */
-#if defined(FILEDIALOG_WIN32)
+#if defined(FILEDIALOG_WINDOWS)
     return WIN_FileDialogW(title, mode);
 #elif defined(FILEDIALOG_GTK)
     return GTK_FileDialogW(title, mode);
@@ -62,7 +62,7 @@ SDLU_FileDialogW(const wchar_t* title, Uint32 mode)
 void
 SDLU_FreeFileDialogFilenameW(wchar_t* filename)
 {
-#if defined(FILEDIALOG_WIN32)
+#if defined(FILEDIALOG_WINDOWS)
     WIN_FreeFileDialogFilenameW(filename);
 #elif defined(FILEDIALOG_GTK)
     GTK_FreeFileDialogFilenameW(filename);

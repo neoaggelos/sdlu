@@ -1,5 +1,3 @@
-#ifdef FILEDIALOG_WIN32
-
 #include "SDLU.h"
 #include <windows.h>
 #include <shlobj.h>
@@ -243,6 +241,3 @@ WIN_FreeFileDialogFilenameW(wchar_t* filename)
 {
     if (filename) free(filename);
 }
-
-
-#endif /* FILEDIALOG_WIN32 */

@@ -1,6 +1,6 @@
 #include "SDLU.h"
 
-#if defined( FILESYSTEM_WIN32 )
+#if defined( FILESYSTEM_WINDOWS )
 # include "SDLU_filesystem_windows_c.h"
 #elif defined( FILESYSTEM_DIRENT )
 # include "SDLU_filesystem_dirent_c.h"
@@ -38,7 +38,7 @@ wstring_endsin(const wchar_t* str, const wchar_t* end)
 SDLU_Directory *
 SDLU_OpenDirectory(const char* dirname, SDL_bool ignore_dots)
 {
-#if defined( FILESYSTEM_WIN32 )
+#if defined( FILESYSTEM_WINDOWS )
     return WIN_OpenDirectory(dirname, ignore_dots);
 #elif defined( FILESYSTEM_DIRENT )
     return DIR_OpenDirectory(dirname, ignore_dots);
@@ -48,7 +48,7 @@ SDLU_OpenDirectory(const char* dirname, SDL_bool ignore_dots)
 SDLU_Directory *
 SDLU_OpenDirectoryW(const wchar_t* dirname, SDL_bool ignore_dots)
 {
-#if defined( FILESYSTEM_WIN32 )
+#if defined( FILESYSTEM_WINDOWS )
     return WIN_OpenDirectoryW(dirname, ignore_dots);
 #elif defined( FILESYSTEM_DIRENT )
     return DIR_OpenDirectoryW(dirname, ignore_dots);
@@ -58,7 +58,7 @@ SDLU_OpenDirectoryW(const wchar_t* dirname, SDL_bool ignore_dots)
 SDLU_FileInfo*
 SDLU_NextFile(SDLU_Directory *dir)
 {
-#if defined( FILESYSTEM_WIN32 )
+#if defined( FILESYSTEM_WINDOWS )
     return WIN_NextFile(dir);
 #elif defined( FILESYSTEM_DIRENT )
     return DIR_NextFile(dir);
@@ -90,7 +90,7 @@ SDLU_NextFileWithExtensionW(SDLU_Directory* dir, const wchar_t* ext)
 void
 SDLU_CloseDirectory(SDLU_Directory *dir)
 {
-#if defined( FILESYSTEM_WIN32 )
+#if defined( FILESYSTEM_WINDOWS )
     WIN_CloseDirectory(dir);
 #elif defined( FILESYSTEM_DIRENT )
     DIR_CloseDirectory(dir);

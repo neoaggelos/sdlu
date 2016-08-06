@@ -1,5 +1,5 @@
-#ifndef SDLU_FILEDIALOG_WIN32_C_H
-#define SDLU_FILEDIALOG_WIN32_C_H
+#ifndef SDLU_FILEDIALOG_WINDOWS_C_H
+#define SDLU_FILEDIALOG_WINDOWS_C_H
 
 #include "SDL.h"
 #include <wchar.h>
@@ -18,4 +18,4 @@ void WIN_FreeFileDialogFilenameW(wchar_t*);
 }
 #endif
 
-#endif /* SDLU_FILEDIALOG_WIN32_C_H */
+#endif /* SDLU_FILEDIALOG_WINDOWS_C_H */
