@@ -16,7 +16,9 @@ set(VERSION "${major}.${minor}")
 option(BUILD_CXX "Build the SDLU C++ interface" OFF)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_SHARED_LIBS "Build the shared library" ON)
-option(BUILD_FRAMEWORK "Build framework (Mac OS X)" OFF)
+if (APPLE)
+  option(BUILD_FRAMEWORK "Build framework (Mac OS X)" OFF)
+endif(APPLE)
 
 # Also find a C++ compiler if needed
 if (BUILD_CXX)
