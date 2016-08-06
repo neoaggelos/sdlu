@@ -143,7 +143,7 @@ WIN_NextFile(SDLU_Directory *dir)
     WIN32_FIND_DATAW dw;
 
     if (dir == NULL)
-        SDLU_ExitError("invalid directory", NULL);
+        SDLU_ExitError("invalid parameter 'dir'", NULL);
 
     if (dir->read_first == SDL_TRUE) {
         dir->read_first = SDL_FALSE;
