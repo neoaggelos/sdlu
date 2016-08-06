@@ -4258,14 +4258,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $cxx_compiler_works" >&5
 $as_echo "$cxx_compiler_works" >&6; }
 
-# Find SDL2
-if test x$SDL2_FRAMEWORK != x; then
-    SDL_FW_DIR=`dirname $SDL2_FRAMEWORK`
-    SDL_FW_NAME=`basename $SDL2_FRAMEWORK .framework`
-
-    SDL_CFLAGS="-I$SDL2_FRAMEWORK/Headers"
-    SDL_LIBS="-F$SDL_FW_DIR -Wl,-framework,$SDL_FW_NAME"
-fi
+# Find SDL libraries
 
 
 
@@ -4387,6 +4380,14 @@ $as_echo "no" >&6; }
 	fi
 fi
 
+
+    if test x$SDL2_FRAMEWORK != x; then
+        SDL_FW_DIR=`dirname $SDL2_FRAMEWORK`
+        SDL_FW_NAME=`basename $SDL2_FRAMEWORK .framework`
+
+        SDL_CFLAGS="-I$SDL2_FRAMEWORK/Headers"
+        SDL_LIBS="-F$SDL_FW_DIR -Wl,-framework,$SDL_FW_NAME"
+    fi
 
 # Check whether --with-sdl-prefix was given.
 if test "${with_sdl_prefix+set}" = set; then :
@@ -4727,24 +4728,19 @@ rm -f core conftest.err conftest.$ac_objext \
 
   rm -f conf.sdltest
 
-CFLAGS="$CFLAGS $SDL_CFLAGS"
-LIBS="$LIBS $SDL_LIBS"
+    CFLAGS="$CFLAGS $SDL_CFLAGS"
+    LIBS="$LIBS $SDL_LIBS"
 
-case "$host" in
-    *-*-mingw* | *-*-cygwin*) LIBS="$LIBS -lSDL2main" ;;
-    *) ;;
-esac
 
-# Find SDL2_ttf
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SDL2_ttf" >&5
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for SDL2_ttf" >&5
 $as_echo_n "checking for SDL2_ttf... " >&6; }
-if test x$SDL2_TTF_FRAMEWORK != x; then
-    TTF_FW_DIR=`dirname $SDL2_FRAMEWORK`
-    TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
+    if test x$SDL2_TTF_FRAMEWORK != x; then
+        TTF_FW_DIR=`dirname $SDL2_TTF_FRAMEWORK`
+        TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
 
-    TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
-    TTF_LIBS="-F$TTF_FW_DIR -Wl,-framework,$TTF_FW_NAME"
-fi
+        TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
+        TTF_LIBS="-F$TTF_FW_DIR -Wl,-framework,$TTF_FW_NAME"
+    fi
 
 
 # Check whether --with-sdl-ttf-pc was given.
@@ -4834,19 +4830,19 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 fi
 
 
-CFLAGS="$CFLAGS $TTF_CFLAGS"
-LIBS="$LIBS $TTF_LIBS"
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_ttf" >&5
+    CFLAGS="$CFLAGS $TTF_CFLAGS"
+    LIBS="$LIBS $TTF_LIBS"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_ttf" >&5
 $as_echo "$have_ttf" >&6; }
 
-# Find SDLU
-if test x$SDLU_FRAMEWORK != x; then
-    SDLU_FW_DIR=`dirname $SDLU_FRAMEWORK`
-    SDLU_FW_NAME=`basename $SDLU_FRAMEWORK .framework`
 
-    SDLU_CFLAGS="-I$SDLU_FRAMEWORK/Headers"
-    SDLU_LIBS="-F$SDLU_FW_DIR -Wl,-framework,$SDLU_FW_NAME"
-fi
+    if test x$SDLU_FRAMEWORK != x; then
+        SDLU_FW_DIR=`dirname $SDLU_FRAMEWORK`
+        SDLU_FW_NAME=`basename $SDLU_FRAMEWORK .framework`
+
+        SDLU_CFLAGS="-I$SDLU_FRAMEWORK/Headers"
+        SDLU_LIBS="-F$SDLU_FW_DIR -Wl,-framework,$SDLU_FW_NAME"
+    fi
 
 # Check whether --with-sdlu-prefix was given.
 if test "${with_sdlu_prefix+set}" = set; then :
@@ -5187,12 +5183,11 @@ rm -f core conftest.err conftest.$ac_objext \
 
   rm -f conf.sdlutest
 
-CFLAGS="$CFLAGS $SDLU_CFLAGS"
-LIBS="$LIBS $SDLU_LIBS"
+    CFLAGS="$CFLAGS $SDLU_CFLAGS"
+    LIBS="$LIBS $SDLU_LIBS"
+
 
 # System OpenGL libraries
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for OpenGL" >&5
-$as_echo_n "checking for OpenGL... " >&6; }
 sys_opengl=""
 case "$host" in
     *-*-mingw32*)
@@ -5210,6 +5205,8 @@ case "$host" in
 esac
 
 # Find OpenGL
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for OpenGL" >&5
+$as_echo_n "checking for OpenGL... " >&6; }
 have_opengl=no
 
 # Check whether --with-opengl was given.

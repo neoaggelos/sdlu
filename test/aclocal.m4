@@ -1462,6 +1462,7 @@ AC_SUBST([am__tar])
 AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
+m4_include([../scripts/autotools/m4/checks.m4])
 m4_include([../scripts/autotools/m4/sdl2-ttf.m4])
 m4_include([../scripts/autotools/m4/sdl2.m4])
 m4_include([../scripts/autotools/m4/sdlu.m4])

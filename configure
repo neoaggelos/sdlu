@@ -16438,15 +16438,7 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $debug" >&5
 $as_echo "$debug" >&6; }
 
-# Function to check for SDL2
-CheckSDL2() {
-    if test x$SDL2_FRAMEWORK != x; then
-        SDL_FW_DIR=`dirname $SDL2_FRAMEWORK`
-        SDL_FW_NAME=`basename $SDL2_FRAMEWORK .framework`
-
-        SDL_CFLAGS="-I$SDL2_FRAMEWORK/Headers"
-        SDL_LIBS="-F$SDL_FW_DIR -Wl,-framework,$SDL_FW_NAME"
-    fi
+# Find libraries
 
 
 
@@ -16567,6 +16559,14 @@ $as_echo "no" >&6; }
 		PKG_CONFIG=""
 	fi
 fi
+
+    if test x$SDL2_FRAMEWORK != x; then
+        SDL_FW_DIR=`dirname $SDL2_FRAMEWORK`
+        SDL_FW_NAME=`basename $SDL2_FRAMEWORK .framework`
+
+        SDL_CFLAGS="-I$SDL2_FRAMEWORK/Headers"
+        SDL_LIBS="-F$SDL_FW_DIR -Wl,-framework,$SDL_FW_NAME"
+    fi
 
 # Check whether --with-sdl-prefix was given.
 if test "${with_sdl_prefix+set}" = set; then :
@@ -16909,14 +16909,12 @@ rm -f core conftest.err conftest.$ac_objext \
 
     CFLAGS="$CFLAGS $SDL_CFLAGS"
     LIBS="$LIBS $SDL_LIBS"
-}
 
-# Function to check for SDL2_ttf
-CheckSDL2_ttf() {
+
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for SDL2_ttf" >&5
 $as_echo_n "checking for SDL2_ttf... " >&6; }
     if test x$SDL2_TTF_FRAMEWORK != x; then
-        TTF_FW_DIR=`dirname $SDL2_FRAMEWORK`
+        TTF_FW_DIR=`dirname $SDL2_TTF_FRAMEWORK`
         TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
 
         TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
@@ -17015,24 +17013,8 @@ fi
     LIBS="$LIBS $TTF_LIBS"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_ttf" >&5
 $as_echo "$have_ttf" >&6; }
-}
 
-CheckFileSystemBackends() {
-    case "$host" in
-        *windows* | *win32* | *mingw* | *msys*)
-            filesystem_win=yes
-            CFLAGS="$CFLAGS -DFILESYSTEM_WINDOWS"
-        ;;
-        *)
-            filesystem_dirent=yes
-            CFLAGS="$CFLAGS -DFILESYSTEM_DIRENT"
-        ;;
-    esac
 
-}
-
-# Function to check for a file dialog backend
-CheckFileDialogBackends() {
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
             LIBS="$LIBS -mwindows"
@@ -17093,26 +17075,19 @@ $as_echo "$have_gtk" >&6; }
             fi
         ;;
     esac
-}
 
-# Find libraries
-case "$host" in
-    custom-apple-darwin) # this is iosbuild.sh
-        CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
-        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
+
+    case "$host" in
+        *windows* | *win32* | *mingw* | *msys*)
+            filesystem_win=yes
+            CFLAGS="$CFLAGS -DFILESYSTEM_WINDOWS"
         ;;
-    arm-raspberry-linux-gnueabihf) # this is rpibuild.sh
-        LIBS="$LIBS $SDL2_PI_LIBRARY $SDL2_TTF_PI_LIBRARY"
-        CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
-        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
+        *)
+            filesystem_dirent=yes
+            CFLAGS="$CFLAGS -DFILESYSTEM_DIRENT"
         ;;
-    *)
-        CheckSDL2
-        CheckSDL2_ttf
-        CheckFileDialogBackends
-        CheckFileSystemBackends
-        ;;
-esac
+    esac
+
 
 # cxx interface
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build the cxx interface" >&5

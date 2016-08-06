@@ -57,95 +57,11 @@ if test x$debug = xyes; then
 fi
 AC_MSG_RESULT($debug)
 
-# Function to check for SDL2
-CheckSDL2() {
-    if test x$SDL2_FRAMEWORK != x; then
-        SDL_FW_DIR=`dirname $SDL2_FRAMEWORK`
-        SDL_FW_NAME=`basename $SDL2_FRAMEWORK .framework`
-
-        SDL_CFLAGS="-I$SDL2_FRAMEWORK/Headers"
-        SDL_LIBS="-F$SDL_FW_DIR -Wl,-framework,$SDL_FW_NAME"
-    fi
-    AM_PATH_SDL2(2.0.0, :, AC_MSG_ERROR([*** Error: Could not find SDL2]))
-    CFLAGS="$CFLAGS $SDL_CFLAGS"
-    LIBS="$LIBS $SDL_LIBS"
-}
-
-# Function to check for SDL2_ttf
-CheckSDL2_ttf() {
-    AC_MSG_CHECKING(for SDL2_ttf)
-    if test x$SDL2_TTF_FRAMEWORK != x; then
-        TTF_FW_DIR=`dirname $SDL2_FRAMEWORK`
-        TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
-
-        TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
-        TTF_LIBS="-F$TTF_FW_DIR -Wl,-framework,$TTF_FW_NAME"
-    fi
-    AC_CHECK_SDL2_TTF(:, AC_MSG_ERROR([*** Error: Could not find SDL2_ttf]))
-    CFLAGS="$CFLAGS $TTF_CFLAGS"
-    LIBS="$LIBS $TTF_LIBS"
-    AC_MSG_RESULT($have_ttf)
-}
-
-CheckFileSystemBackends() {
-    case "$host" in
-        *windows* | *win32* | *mingw* | *msys*)
-            filesystem_win=yes
-            CFLAGS="$CFLAGS -DFILESYSTEM_WINDOWS"
-        ;;
-        *)
-            filesystem_dirent=yes
-            CFLAGS="$CFLAGS -DFILESYSTEM_DIRENT"
-        ;;
-    esac
-        
-}
-
-# Function to check for a file dialog backend
-CheckFileDialogBackends() {
-    case "$host" in
-        *windows* | *win32* | *mingw* | *msys*)
-            LIBS="$LIBS -mwindows"
-            CFLAGS="$CFLAGS -DFILEDIALOG_WINDOWS"
-            filedialog_win=yes
-        ;;
-        *darwin*|*macosx*|*apple*)
-            LIBS="$LIBS -Wl,-framework,Cocoa -lobjc"
-            CFLAGS="$CFLAGS -DFILEDIALOG_COCOA -fpascal-strings"
-            OBJCFLAGS="$CFLAGS"
-            filedialog_cocoa=yes
-        ;;
-        *)
-            AC_CHECK_GTK(have_gtk=yes, have_gtk=no)
-            if test x$have_gtk = xyes; then
-                CFLAGS="$CFLAGS $GTK_CFLAGS -DFILEDIALOG_GTK"
-                LIBS="$LIBS $GTK_LIBS"
-                filedialog_gtk=yes
-            else
-                CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
-            fi
-        ;;
-    esac
-}
-
 # Find libraries
-case "$host" in
-    custom-apple-darwin) # this is iosbuild.sh
-        CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
-        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
-        ;;
-    arm-raspberry-linux-gnueabihf) # this is rpibuild.sh
-        LIBS="$LIBS $SDL2_PI_LIBRARY $SDL2_TTF_PI_LIBRARY"
-        CFLAGS="$CFLAGS -I$SDL2_INCLUDE_DIR -I$SDL2_TTF_INCLUDE_DIR"
-        CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
-        ;;
-    *)
-        CheckSDL2
-        CheckSDL2_ttf
-        CheckFileDialogBackends
-        CheckFileSystemBackends
-        ;;
-esac
+CheckSDL2
+CheckSDL2_ttf
+CheckFileDialogBackends
+CheckFileSystemBackends
 
 # cxx interface
 AC_MSG_CHECKING(whether to build the cxx interface)

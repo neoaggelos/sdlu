@@ -98,7 +98,7 @@ noinst_PROGRAMS = testbutton$(EXEEXT) testcollision$(EXEEXT) \
 	$(am__EXEEXT_3)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps =  \
+am__aclocal_m4_deps = $(top_srcdir)/../scripts/autotools/m4/checks.m4 \
 	$(top_srcdir)/../scripts/autotools/m4/sdl2-ttf.m4 \
 	$(top_srcdir)/../scripts/autotools/m4/sdl2.m4 \
 	$(top_srcdir)/../scripts/autotools/m4/sdlu.m4 \
