@@ -19,6 +19,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+#ifdef FILESYSTEM_WINDOWS
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <Windows.h>
 
@@ -209,3 +211,5 @@ WIN_CloseDirectory(SDLU_Directory* dir)
     SDL_free(dir->fileinfo);
     SDL_free(dir);
 }
+
+#endif /* FILESYSTEM_WINDOWS */

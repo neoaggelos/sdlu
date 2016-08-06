@@ -19,6 +19,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+#ifdef FILESYSTEM_DIRENT
+
 #include "SDLU.h"
 #include "SDLU_common.h"
 
@@ -120,3 +122,4 @@ DIR_CloseDirectory(SDLU_Directory *dir)
     }
 }
 
+#endif /* FILESYSTEM_DIRENT */

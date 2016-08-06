@@ -19,6 +19,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+#ifdef FILEDIALOG_WINDOWS
+
 #include "SDLU.h"
 #include <windows.h>
 #include <shlobj.h>
@@ -262,3 +264,5 @@ WIN_FreeFileDialogFilenameW(wchar_t* filename)
 {
     if (filename) free(filename);
 }
+
+#endif /* FILEDIALOG_WINDOWS */
