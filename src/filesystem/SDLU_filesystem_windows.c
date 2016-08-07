@@ -57,11 +57,11 @@ WIN_OpenDirectory(const char *dirname, SDL_bool ignore_dots)
     WIN32_FIND_DATAW dw;
     size_t dirlen = SDL_strlen(dirname);
 
-    SDLU_Directory *dir = SDLU_malloc(SDLU_Directory);
+    SDLU_Directory *dir = (SDLU_Directory*) SDL_malloc(sizeof(SDLU_Directory));
     if (dir == NULL)
         SDLU_ExitError("could not allocate memory", NULL);
 
-    dir->fileinfo = SDLU_malloc(SDLU_FileInfo);
+    dir->fileinfo = (SDLU_FileInfo*) SDL_malloc(sizeof(SDLU_FileInfo));
 
     dir->ignore_dots = ignore_dots;
     if (dir->fileinfo == NULL)
@@ -70,13 +70,13 @@ WIN_OpenDirectory(const char *dirname, SDL_bool ignore_dots)
     dir->fileinfo->filename = NULL;
     dir->fileinfo->filenameW = NULL;
 
-    char *fmt = SDLU_malloc2(char, dirlen + 3);
+    char *fmt = (char*) SDL_malloc(sizeof(char) * (dirlen + 3));
     strcpy(fmt, dirname);
     fmt[dirlen] = '\\';
     fmt[dirlen + 1] = '*';
     fmt[dirlen + 2] = '\0';
 
-    wchar_t *fmtW = SDLU_malloc2(wchar_t, dirlen + 3);
+    wchar_t *fmtW = (wchar_t*) SDL_malloc(sizeof(wchar_t) * (dirlen+3));
     mbstowcs(fmtW, fmt, dirlen+3);
 
     dir->handle = FindFirstFileA(fmt, &da);
@@ -86,8 +86,8 @@ WIN_OpenDirectory(const char *dirname, SDL_bool ignore_dots)
     SDL_free(fmtW);
 
     if (!dir->handle || !dir->handleW) {
-        SDLU_free(dir->fileinfo);
-        SDLU_free(dir);
+        SDL_free(dir->fileinfo);
+        SDL_free(dir);
         SDLU_ExitError("could not open directory", NULL);
     }
 
@@ -111,11 +111,11 @@ WIN_OpenDirectoryW(const wchar_t *dirname, SDL_bool ignore_dots)
     WIN32_FIND_DATAW dw;
     size_t dirlen = wcslen(dirname);
 
-    SDLU_Directory *dir = SDLU_malloc(SDLU_Directory);
+    SDLU_Directory *dir = (SDLU_Directory*) SDL_malloc(sizeof(SDLU_Directory));
     if (dir == NULL)
         SDLU_ExitError("could not allocate memory", NULL);
 
-    dir->fileinfo = SDLU_malloc(SDLU_FileInfo);
+    dir->fileinfo = (SDLU_FileInfo*) SDL_malloc(sizeof(SDLU_FileInfo));
 
     dir->ignore_dots = ignore_dots;
     if (dir->fileinfo == NULL)
@@ -124,13 +124,13 @@ WIN_OpenDirectoryW(const wchar_t *dirname, SDL_bool ignore_dots)
     dir->fileinfo->filename = NULL;
     dir->fileinfo->filenameW = NULL;
 
-    wchar_t *fmtW = SDLU_malloc2(wchar_t, dirlen + 3);
+    wchar_t *fmtW = (wchar_t*) SDL_malloc((dirlen+3)*sizeof(wchar_t));
     wcscpy(fmtW, dirname);
     fmtW[dirlen] = L'\\';
     fmtW[dirlen + 1] = L'*';
     fmtW[dirlen + 2] = L'\0';
 
-    char *fmt = SDLU_malloc2(char, dirlen + 3);
+    char *fmt = (char*) SDL_malloc(sizeof(char) * (dirlen + 3));
     wcstombs(fmt, fmtW, dirlen+3);
 
     dir->handle = FindFirstFileA(fmt, &da);
@@ -140,8 +140,8 @@ WIN_OpenDirectoryW(const wchar_t *dirname, SDL_bool ignore_dots)
     SDL_free(fmtW);
 
     if (!dir->handle || !dir->handleW) {
-        SDLU_free(dir->fileinfo);
-        SDLU_free(dir);
+        SDL_free(dir->fileinfo);
+        SDL_free(dir);
         SDLU_ExitError("could not open directory", NULL);
     }
 

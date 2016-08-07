@@ -213,7 +213,7 @@ SDLU_GenButtonGeometry(SDL_Rect rect, SDL_Point** points, int *count)
     *count = 0;
 
     if (rect.w >= 10 && rect.h >= 10) {
-        *points = SDLU_malloc2(SDL_Point, 20);
+        *points = (SDL_Point*) SDL_malloc(sizeof(SDL_Point) * 20);
         if (!points)
             SDLU_ExitError("could not allocate memory", );
 
@@ -238,7 +238,7 @@ SDLU_GenButtonGeometry(SDL_Rect rect, SDL_Point** points, int *count)
         /* number of points */
         *count = 20;
     } else {
-        *points = SDLU_malloc2(SDL_Point, 8);
+        *points = (SDL_Point*) SDL_malloc(8 * sizeof(SDL_Point));
 
         if (!points)
             SDLU_ExitError("could not allocate memory", );
@@ -344,7 +344,7 @@ SDLU_CreateGenericButton(SDL_Window* window, Uint32 flags)
             SDLU_ExitError("window doesn't have a renderer", NULL);
     }
 
-    ret = SDLU_malloc( SDLU_Button );
+    ret = (SDLU_Button*) SDL_malloc(sizeof(SDLU_Button));
     if ( ret == NULL )
         SDLU_ExitError("could not allocate memory", NULL);
 

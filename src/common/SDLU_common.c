@@ -40,7 +40,7 @@ SDLU_vasprintf(char** s, const char* format, va_list arg)
     SDL_vsnprintf(tmp, SDLU_MAXLEN-1, format, arg);
     len = SDL_strlen(tmp) + 1;
 
-    *s = SDLU_malloc2 (char, len);
+    *s = (char*) SDL_malloc(sizeof(char) * len);
 
     SDL_memcpy(*s, tmp, len);
     return len;
@@ -117,7 +117,7 @@ SDLU_ReadFile(SDL_RWops* rwops)
     char* buffer;
     Sint64 size = SDL_RWsize(rwops);
 
-    buffer = SDLU_malloc2(char, size);
+    buffer = (char*) SDL_malloc(sizeof(char) * size);
     SDL_assert(buffer);
 
     rwops->read(rwops, buffer, sizeof(char), size);
@@ -127,7 +127,7 @@ SDLU_ReadFile(SDL_RWops* rwops)
 SDLU_Styles*
 SDLU_GetDefaultStyles()
 {
-    SDLU_Styles* styles = SDLU_malloc(SDLU_Styles);
+    SDLU_Styles *styles = (SDLU_Styles*) SDL_malloc(sizeof(SDLU_Styles));
 
     if (styles == NULL)
         SDLU_ExitError("could not allocate memory", NULL);

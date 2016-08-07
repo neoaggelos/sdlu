@@ -38,18 +38,9 @@
 extern "C" {
 #endif
 
-#define SDLU_malloc2( type, n )                     \
-    ( type* ) SDL_malloc( (n) * sizeof(type) );
-
-#define SDLU_malloc( type )                         \
-    SDLU_malloc2( type, 1 );
-
-#define SDLU_free( p )                              \
-    SDL_free( p );
-
 /*
  * write to s. format is the string and arg is a va_list containing the
- * arguments. memory is allocated with malloc
+ * arguments. memory is allocated with SDL_malloc
  *
  * returns the lenght of the string
  */

@@ -51,11 +51,11 @@ DIR_GetFileType(const char *file)
 SDLU_Directory*
 DIR_OpenDirectory(const char *dirname, SDL_bool ignore_dots)
 {
-    SDLU_Directory *dir = SDLU_malloc(SDLU_Directory);
+    SDLU_Directory *dir = (SDLU_Directory*) SDL_malloc(sizeof(SDLU_Directory));
     if (dir == NULL)
         SDLU_ExitError("could not allocate memory", NULL);
 
-    dir->info = SDLU_malloc(SDLU_FileInfo);
+    dir->info = (SDLU_FileInfo*) SDL_malloc(sizeof(SDLU_FileInfo));
     if (dir->info == NULL)
         SDLU_ExitError("could not allocate memory", NULL);
 
@@ -76,7 +76,7 @@ DIR_OpenDirectoryW(const wchar_t *dirname, SDL_bool ignore_dots)
 {
     char *actual;
 
-    actual = SDLU_malloc2(char, wcslen(dirname));
+    actual = (char*) SDL_malloc(sizeof(char) * wcslen(dirname));
     wcstombs(actual, dirname, wcslen(dirname));
 
     return DIR_OpenDirectory(actual, ignore_dots);
@@ -100,7 +100,7 @@ DIR_NextFile(SDLU_Directory *dir)
 
         dir->info->filename = SDL_strdup(ent->d_name);
 
-        dir->info->filenameW = SDLU_malloc2(wchar_t, SDL_strlen(dir->info->filename));
+        dir->info->filenameW = (wchar_t*) SDL_malloc(sizeof(wchar_t) * SDL_strlen(dir->info->filename));
         mbstowcs(dir->info->filenameW, dir->info->filename, SDL_strlen(dir->info->filename));
 
         dir->info->filetype = DIR_GetFileType(ent->d_name);

@@ -58,7 +58,7 @@ SDLU_CreateSprite( SDL_Renderer *renderer, SDL_Texture *texture, int frames)
     if (frames <= 0)
         SDLU_ExitError("parameter 'frames' can't be negative", NULL);
 
-    sprite = SDLU_malloc(SDLU_Sprite);
+    sprite = (SDLU_Sprite *) SDL_malloc(sizeof(SDLU_Sprite));
     if (sprite == NULL)
         SDLU_ExitError("could not allocate memory", NULL);
 

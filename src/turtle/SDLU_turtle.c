@@ -44,7 +44,7 @@ SDLU_CreateTurtle(SDL_Renderer *renderer)
     SDLU_Turtle* turtle;
     int renderer_w, renderer_h;
 
-    turtle = SDLU_malloc(SDLU_Turtle);
+    turtle = (SDLU_Turtle *) SDL_malloc(sizeof(SDLU_Turtle));
     if (turtle == NULL)
         SDLU_ExitError("could not allocate memory", NULL);
 
@@ -201,7 +201,7 @@ int
 SDLU_DestroyTurtle(SDLU_Turtle* turtle)
 {
     LL_DELETE(turtles, turtle);
-    SDLU_free(turtle);
+    SDL_free(turtle);
 
     return 0;
 }

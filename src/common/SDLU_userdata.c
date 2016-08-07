@@ -36,7 +36,7 @@ SDLU_AddUserData(Uint32 owner_id, int origin, const char* key, void* value)
     if (value == NULL)
         return SDLU_DelUserData(owner_id, origin, key);
 
-    new_data = SDLU_malloc(SDLU_UserData);
+    new_data = (SDLU_UserData*) SDL_malloc(sizeof(SDLU_UserData));
     if (!new_data)
         SDLU_ExitError("could not allocate memory", -1);
 
@@ -75,6 +75,7 @@ SDLU_DelUserData(Uint32 owner_id, int origin, const char* key)
                 && (current->origin == origin)
                 && (SDL_strcmp(current->key, key) == 0) ) {
             LL_DELETE(data, current);
+            /* TODO memory leak? */
             return 0;
         }
     }

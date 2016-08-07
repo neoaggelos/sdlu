@@ -64,7 +64,7 @@ add_property_to_section(SDLU_IniSection **s, const char* p, const char* v)
         }
     }
 
-    property = SDLU_malloc(SDLU_IniProperty);
+    property = (SDLU_IniProperty*) SDL_malloc(sizeof(SDLU_IniProperty));
     if (!property)
         SDLU_ExitError("could not allocate memory", -1);
 
@@ -89,7 +89,7 @@ add_section_to_handler(SDLU_IniHandler** handler, const char* section)
         }
     }
 
-    s = SDLU_malloc(SDLU_IniSection);
+    s = (SDLU_IniSection*) SDL_malloc(sizeof(SDLU_IniSection));
     if (!s)
         SDLU_ExitError("could not allocate memory", -1);
 
@@ -121,7 +121,7 @@ del_property_from_section(SDLU_IniSection **s, const char* property)
     LL_FOREACH((*s)->properties, p) {
         if (SDL_strcmp(p->key, property) == 0) {
             LL_DELETE((*s)->properties, p);
-            SDLU_free(p);
+            SDL_free(p);
             (*s)->num_properties --;
             return 0;
         }
@@ -135,7 +135,7 @@ SDLU_CreateIni(void)
 {
     SDLU_IniHandler* handler = NULL;
 
-    handler = SDLU_malloc(SDLU_IniHandler);
+    handler = (SDLU_IniHandler*) SDL_malloc(sizeof(SDLU_IniHandler));
     if (!handler)
         SDLU_ExitError("could not allocate memory", NULL);
 
@@ -253,7 +253,7 @@ SDLU_DelIniSection(SDLU_IniHandler** handler, const char* _section)
 
     if (SDL_strcmp(section, "__global") != 0) {
         LL_DELETE((*handler)->sections, s);
-        SDLU_free(s);
+        SDL_free(s);
     }
 
     (*handler)->num_sections--;
@@ -273,8 +273,8 @@ SDLU_DestroyIni(SDLU_IniHandler* handler)
     }
 
     /* free memory */
-    SDLU_free(handler->sections);
-    SDLU_free(handler);
+    SDL_free(handler->sections);
+    SDL_free(handler);
 
     return result;
 }
@@ -302,15 +302,16 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
         /* char* buffers */
         char *first, *second;
 
-        first = SDLU_malloc2(char, 200);
-        second = SDLU_malloc2(char, 200);
+        /* TODO fix memory leak */
+        first = (char*) SDL_malloc(sizeof(char) * 200);
+        second = (char*) SDL_malloc(sizeof(char) * 200);
 
         /* parse line */
         if (buf[i] != ';') {
             if (SDL_sscanf(&buf[i], "%[^=\n]=%[^\n]", first, second) == 2) {
                 SDLU_SetIniProperty(&handler, current_section, first, second);
             } else if (SDL_sscanf(&buf[i], "[%[^]\n]]", first) == 1) {
-                SDLU_free(current_section);
+                SDL_free(current_section);
                 current_section = SDL_strdup(first);
             }
         }

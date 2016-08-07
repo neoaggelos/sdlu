@@ -122,7 +122,7 @@ SDLU_CreateComboBox(SDL_Window* window)
     if (window == NULL)
         SDLU_ExitError("invalid window", NULL);
 
-    combobox = SDLU_malloc(SDLU_ComboBox);
+    combobox = (SDLU_ComboBox*) SDL_malloc(sizeof(SDLU_ComboBox));
     if (combobox == NULL)
         SDLU_ExitError("could not allocate memory", NULL);
 
@@ -242,7 +242,7 @@ SDLU_AddComboBoxItem(SDLU_ComboBox** combobox, const char* item)
     if (*combobox == NULL)
         SDLU_ExitError("invalid combo box", -1);
 
-    newitem = SDLU_malloc(SDLU_ComboBoxItem);
+    newitem = (SDLU_ComboBoxItem*) SDL_malloc(sizeof(SDLU_ComboBoxItem));
     if (newitem == NULL)
         SDLU_ExitError("could not allocate memory", -1);
 

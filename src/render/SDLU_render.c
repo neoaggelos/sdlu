@@ -377,7 +377,7 @@ SDLU_RenderSetPoints(SDL_Point* points, int num_points)
 {
     int i;
     for(i = 0; i < num_points; i++) {
-        node = SDLU_malloc(SDLU_PList);
+        node = (SDLU_PList*) SDL_malloc(sizeof(SDLU_PList));
         if (node == NULL)
             SDLU_ExitError("could not allocate memory", );
 
@@ -420,7 +420,7 @@ SDLU_RenderEnd(SDL_Renderer* renderer)
         case SDLU_FILL:
 
             DL_FOREACH(head, node) n++;
-            points = SDLU_malloc2(SDL_Point, n);
+            points = (SDL_Point*) SDL_malloc(sizeof(SDL_Point) * n);
 
             if (!points)
                 SDLU_ExitError("could not allocate memory", -1);
@@ -437,7 +437,7 @@ SDLU_RenderEnd(SDL_Renderer* renderer)
             result |= SDLU_RenderFillPolygon(renderer, points, n);
 
             /* free temporary arrays */
-            SDLU_free(points);
+            SDL_free(points);
             break;
 
         default:
@@ -449,7 +449,7 @@ SDLU_RenderEnd(SDL_Renderer* renderer)
     if (head) {
         node = NULL;
         DL_FOREACH(head, node) {
-            SDLU_free(node);
+            SDL_free(node);
         }
     }
 
@@ -475,7 +475,7 @@ SDLU_RenderFillPolygon(SDL_Renderer* renderer, SDL_Point* points, int n)
     if ( !points || n < 3 || !renderer )
         return -1;
 
-    ints = SDLU_malloc2(int, n);
+    ints = (int*) SDL_malloc(sizeof(int) * n);
     if (ints == NULL)
         SDLU_ExitError("could not allocate memory", -1);
 
