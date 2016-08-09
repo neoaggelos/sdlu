@@ -287,6 +287,7 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
     SDLU_IniHandler* handler;
     char* current_section;
     int i;
+    char *first, *second;
 
     buf = SDLU_ReadFile(rwops);
     size = SDL_RWsize(rwops);
@@ -298,14 +299,10 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
     current_section = SDL_strdup("__global");
     buf[size-1] = '\0';
     i = 0;
+
+    first = (char*) SDL_malloc(sizeof(char) * 200);
+    second = (char*) SDL_malloc(sizeof(char) * 200);
     while(i < size) {
-        /* char* buffers */
-        char *first, *second;
-
-        /* TODO fix memory leak */
-        first = (char*) SDL_malloc(sizeof(char) * 200);
-        second = (char*) SDL_malloc(sizeof(char) * 200);
-
         /* parse line */
         if (buf[i] != ';') {
             if (SDL_sscanf(&buf[i], "%[^=\n]=%[^\n]", first, second) == 2) {
@@ -323,6 +320,9 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
         /* move to next char */
         i++;
     }
+
+    SDL_free(first);
+    SDL_free(second);
 
     return handler;
 }

@@ -75,7 +75,8 @@ SDLU_DelUserData(Uint32 owner_id, int origin, const char* key)
                 && (current->origin == origin)
                 && (SDL_strcmp(current->key, key) == 0) ) {
             LL_DELETE(data, current);
-            /* TODO memory leak? */
+
+            SDL_free(current);
             return 0;
         }
     }
