@@ -11,7 +11,7 @@ AC_CONFIG_AUX_DIR([scripts/autotools])
 AC_CONFIG_MACRO_DIR([scripts/autotools/m4])
 
 # Output files
-AC_CONFIG_FILES([Makefile sdlu.pc sdlu-config include/SDLU_config.h])
+AC_CONFIG_FILES([Makefile sdlu.pc sdlu-config])
 
 # Initialize automake
 AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects foreign])
@@ -20,7 +20,6 @@ AM_SILENT_RULES([yes])
 
 # Search for required tools
 AC_PROG_CC
-AC_PROG_CXX
 AC_PROG_OBJC
 AM_PROG_AR
 
@@ -62,23 +61,6 @@ CheckSDL2
 CheckSDL2_ttf
 CheckFileDialogBackends
 CheckFileSystemBackends
-
-# cxx interface
-AC_MSG_CHECKING(whether to build the cxx interface)
-build_cxx=no
-AC_ARG_ENABLE(
-    [cxx],
-    AS_HELP_STRING([--enable-cxx],[Build the cxx interface]),
-    [build_cxx=${enableval}]
-)
-
-if test x${build_cxx} = xyes; then
-    DEFINE_SDLU_CXX="#define SDLU_CXX 1"
-else
-    DEFINE_SDLU_CXX="/* #undef SDLU_CXX */"
-fi
-AM_CONDITIONAL([CXX], [test x${build_cxx} = xyes])
-AC_MSG_RESULT($build_cxx)
 
 # set the include directory
 includedir="$includedir/SDL2"

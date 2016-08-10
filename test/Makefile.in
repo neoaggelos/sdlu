@@ -94,8 +94,7 @@ noinst_PROGRAMS = testbutton$(EXEEXT) testcollision$(EXEEXT) \
 	testfiledialog$(EXEEXT) testfilesystem$(EXEEXT) \
 	testini$(EXEEXT) testmath$(EXEEXT) testmulticopy$(EXEEXT) \
 	testrender$(EXEEXT) testsprite$(EXEEXT) testtext$(EXEEXT) \
-	testturtle$(EXEEXT) $(am__EXEEXT_1) $(am__EXEEXT_2) \
-	$(am__EXEEXT_3)
+	testturtle$(EXEEXT) $(am__EXEEXT_1) $(am__EXEEXT_2)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/../scripts/autotools/m4/checks.m4 \
@@ -114,7 +113,6 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 @HAVE_OPENGLES2_TRUE@am__EXEEXT_1 = testgles2$(EXEEXT)
 @HAVE_OPENGL_TRUE@am__EXEEXT_2 = testgl$(EXEEXT) testrender2$(EXEEXT)
-@HAVE_CXX_TRUE@am__EXEEXT_3 = testcxx$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
 am_testbutton_OBJECTS = common.$(OBJEXT) testbutton.$(OBJEXT)
 testbutton_OBJECTS = $(am_testbutton_OBJECTS)
@@ -128,10 +126,6 @@ testcolorkey_LDADD = $(LDADD)
 am_testcombo_OBJECTS = common.$(OBJEXT) testcombo.$(OBJEXT)
 testcombo_OBJECTS = $(am_testcombo_OBJECTS)
 testcombo_LDADD = $(LDADD)
-am__testcxx_SOURCES_DIST = common.c testcxx.cxx
-@HAVE_CXX_TRUE@am_testcxx_OBJECTS = common.$(OBJEXT) testcxx.$(OBJEXT)
-testcxx_OBJECTS = $(am_testcxx_OBJECTS)
-testcxx_LDADD = $(LDADD)
 am_testfiledialog_OBJECTS = common.$(OBJEXT) testfiledialog.$(OBJEXT)
 testfiledialog_OBJECTS = $(am_testfiledialog_OBJECTS)
 testfiledialog_LDADD = $(LDADD)
@@ -202,36 +196,22 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
-AM_V_CXX = $(am__v_CXX_@AM_V@)
-am__v_CXX_ = $(am__v_CXX_@AM_DEFAULT_V@)
-am__v_CXX_0 = @echo "  CXX     " $@;
-am__v_CXX_1 = 
-CXXLD = $(CXX)
-CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	-o $@
-AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
-am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
-am__v_CXXLD_0 = @echo "  CXXLD   " $@;
-am__v_CXXLD_1 = 
 SOURCES = $(testbutton_SOURCES) $(testcollision_SOURCES) \
 	$(testcolorkey_SOURCES) $(testcombo_SOURCES) \
-	$(testcxx_SOURCES) $(testfiledialog_SOURCES) \
-	$(testfilesystem_SOURCES) $(testgl_SOURCES) \
-	$(testgles2_SOURCES) $(testini_SOURCES) $(testmath_SOURCES) \
-	$(testmulticopy_SOURCES) $(testrender_SOURCES) \
-	$(testrender2_SOURCES) $(testsprite_SOURCES) \
-	$(testtext_SOURCES) $(testturtle_SOURCES)
-DIST_SOURCES = $(testbutton_SOURCES) $(testcollision_SOURCES) \
-	$(testcolorkey_SOURCES) $(testcombo_SOURCES) \
-	$(am__testcxx_SOURCES_DIST) $(testfiledialog_SOURCES) \
-	$(testfilesystem_SOURCES) $(am__testgl_SOURCES_DIST) \
-	$(am__testgles2_SOURCES_DIST) $(testini_SOURCES) \
+	$(testfiledialog_SOURCES) $(testfilesystem_SOURCES) \
+	$(testgl_SOURCES) $(testgles2_SOURCES) $(testini_SOURCES) \
 	$(testmath_SOURCES) $(testmulticopy_SOURCES) \
-	$(testrender_SOURCES) $(am__testrender2_SOURCES_DIST) \
+	$(testrender_SOURCES) $(testrender2_SOURCES) \
 	$(testsprite_SOURCES) $(testtext_SOURCES) \
 	$(testturtle_SOURCES)
+DIST_SOURCES = $(testbutton_SOURCES) $(testcollision_SOURCES) \
+	$(testcolorkey_SOURCES) $(testcombo_SOURCES) \
+	$(testfiledialog_SOURCES) $(testfilesystem_SOURCES) \
+	$(am__testgl_SOURCES_DIST) $(am__testgles2_SOURCES_DIST) \
+	$(testini_SOURCES) $(testmath_SOURCES) \
+	$(testmulticopy_SOURCES) $(testrender_SOURCES) \
+	$(am__testrender2_SOURCES_DIST) $(testsprite_SOURCES) \
+	$(testtext_SOURCES) $(testturtle_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -298,9 +278,6 @@ CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPPFLAGS = @CPPFLAGS@
-CXX = @CXX@
-CXXDEPMODE = @CXXDEPMODE@
-CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
@@ -349,7 +326,6 @@ abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
-ac_ct_CXX = @ac_ct_CXX@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -401,7 +377,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 @HAVE_OPENGLES2_TRUE@GLES2_TESTS = testgles2
 @HAVE_OPENGL_TRUE@GL_TESTS = testgl testrender2
-@HAVE_CXX_TRUE@CXX_TESTS = testcxx
 AM_CFLAGS = -DDATA_DIR=\"$(abs_srcdir)/data\"
 testbutton_SOURCES = common.c testbutton.c 
 testcollision_SOURCES = common.c testcollision.c 
@@ -419,12 +394,11 @@ testturtle_SOURCES = common.c testturtle.c
 @HAVE_OPENGL_TRUE@testgl_SOURCES = common.c testgl.c
 @HAVE_OPENGL_TRUE@testrender2_SOURCES = common.c testrender2.c
 @HAVE_OPENGLES2_TRUE@testgles2_SOURCES = common.c testgles2.c
-@HAVE_CXX_TRUE@testcxx_SOURCES = common.c testcxx.cxx
 ACLOCAL_AMFLAGS = -I../scripts/autotools/m4
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .cxx .o .obj
+.SUFFIXES: .c .o .obj
 am--refresh: Makefile
 	@:
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -477,10 +451,6 @@ testcolorkey$(EXEEXT): $(testcolorkey_OBJECTS) $(testcolorkey_DEPENDENCIES) $(EX
 testcombo$(EXEEXT): $(testcombo_OBJECTS) $(testcombo_DEPENDENCIES) $(EXTRA_testcombo_DEPENDENCIES) 
 	@rm -f testcombo$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testcombo_OBJECTS) $(testcombo_LDADD) $(LIBS)
-
-testcxx$(EXEEXT): $(testcxx_OBJECTS) $(testcxx_DEPENDENCIES) $(EXTRA_testcxx_DEPENDENCIES) 
-	@rm -f testcxx$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(testcxx_OBJECTS) $(testcxx_LDADD) $(LIBS)
 
 testfiledialog$(EXEEXT): $(testfiledialog_OBJECTS) $(testfiledialog_DEPENDENCIES) $(EXTRA_testfiledialog_DEPENDENCIES) 
 	@rm -f testfiledialog$(EXEEXT)
@@ -541,7 +511,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcollision.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcolorkey.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcombo.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcxx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testfiledialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testfilesystem.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testgl.Po@am__quote@
@@ -568,20 +537,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-.cxx.o:
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
-
-.cxx.obj:
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
