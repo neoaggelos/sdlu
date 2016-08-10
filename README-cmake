@@ -91,7 +91,6 @@ that are ready for installation.
 Options
 ================================================================================
 
-- BUILD_CXX             :  Set to ON if you want to build the cxx interface.
 - BUILD_SHARED_LIBS     :  Set to ON to build the shared library.
 - BUILD_STATIC_LIBS     :  Set to ON to build the static library.
 - BUILD_FRAMEWORK       :  Set to ON to build the Mac OS X framework.

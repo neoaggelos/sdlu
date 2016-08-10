@@ -44,7 +44,6 @@ fi
 
 # Setup cross-compilation tools
 export CC="$RPI_TOOLS/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-gcc --sysroot=$RPI_SYSROOT -I$RPI_SYSROOT/opt/vc/include -I$RPI_SYSROOT/usr/include -L$RPI_SYSROOT/opt/vc/lib -L$RPI_SYSROOT/usr/lib/arm-linux-gnueabihf"
-export CXX="$RPI_TOOLS/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-g++ --sysroot=$RPI_SYSROOT -I$RPI_SYSROOT/opt/vc/include -I$RPI_SYSROOT/usr/include -L$RPI_SYSROOT/opt/vc/lib -L$RPI_SYSROOT/usr/lib/arm-linux-gnueabihf"
 
 # Configure and build
 BUILDDIR="$wd/rpi-build"

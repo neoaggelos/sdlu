@@ -67,8 +67,6 @@
 #define SDLU_SetError SDL_SetError
 #define SDLU_GetError SDL_GetError
 
-#include "SDLU_config.h"
-
 /* Basic SDLU library */
 #include "SDLU_button.h"
 #include "SDLU_collide.h"
@@ -89,7 +87,6 @@
 #include "SDLU_turtle.h"
 
 /* Optional Features */
-#include "SDLU_cxx.h"
 #include "SDLU_opengl.h"
 
 #endif /* SDLU_H */

@@ -63,7 +63,6 @@
 #define SDLU_INI_H
 
 #include "SDL.h"
-#include "SDLU_config.h"
 
 #include "begin_code.h"
 

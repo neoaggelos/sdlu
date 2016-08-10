@@ -43,7 +43,6 @@
 
 #include "SDL.h"
 #include "SDLU_defs.h"
-#include "SDLU_config.h"
 #include "SDL_ttf.h"
 
 #include "begin_code.h"

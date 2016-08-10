@@ -97,7 +97,7 @@ export LIBS="$LIBS -isysroot $sdk_path -L/$sdk_path/usr/lib
 builddir=$wd/build
 mkdir -p "$builddir" && cd "$builddir"
 
-../configure --disable-sdltest --disable-cxx --enable-debug --with-sysroot="$sdk_path" --disable-shared --enable-static --host=custom-apple-darwin
+../configure --disable-sdltest --enable-debug --with-sysroot="$sdk_path" --disable-shared --enable-static --host=custom-apple-darwin
 make -j3
 
 echo "Done. You can find the binaries in \"$wd/build\"".

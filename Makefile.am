@@ -1,23 +1,6 @@
 lib_LTLIBRARIES = libSDLU.la
 bin_SCRIPTS = sdlu-config
 
-if CXX
-cxx_sources =	src/cxx/SDLU_CButton.cxx		\
-				src/cxx/SDLU_CComboBox.cxx		\
-				src/cxx/SDLU_CIniHandler.cxx	\
-				src/cxx/SDLU_CRenderer.cxx		\
-				src/cxx/SDLU_CRWops.cxx         \
-				src/cxx/SDLU_CSprite.cxx		\
-				src/cxx/SDLU_CTexture.cxx		\
-				src/cxx/SDLU_CTurtle.cxx		\
-				src/cxx/SDLU_CWindow.cxx
-
-libSDLU_la_LINK = $(CXXLINK)
-else
-cxx_sources =
-libSDLU_la_LINK = $(LINK)
-endif
-
 extra_source_files= 
 if FILEDIALOG_COCOA
 extra_source_files += src/filedialog/SDLU_filedialog_cocoa.m
@@ -41,8 +24,7 @@ endif
 
 
 
-libSDLU_la_SOURCES = ${cxx_sources}             					\
-										 ${extra_source_files}								\
+libSDLU_la_SOURCES = ${extra_source_files}								\
 					 src/common/SDLU_common.c						\
 					 src/common/SDLU_userdata.c						\
 					 src/filedialog/SDLU_filedialog.c				\
@@ -65,9 +47,7 @@ include_HEADERS = include/SDLU.h				\
 				  include/SDLU_button.h			\
 				  include/SDLU_collide.h		\
 				  include/SDLU_combobox.h		\
-				  include/SDLU_config.h			\
 				  include/SDLU_create.h			\
-				  include/SDLU_cxx.h			\
 				  include/SDLU_defs.h			\
 				  include/SDLU_features.h		\
 				  include/SDLU_filedialog.h		\
@@ -93,5 +73,5 @@ ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
 
 EXTRA_DIST = scripts extras Android.mk ChangeLog CMakeLists.txt CONTRIBUTING \
 			 COPYING Doxyfile README-android README-cmake README-configure \
-			 README-cxx README-ios README-raspberrypi README-windows sdlu-config.in \
+			 README-ios README-raspberrypi README-windows sdlu-config.in \
 			 sdlu.pc.in

@@ -13,17 +13,11 @@ string(REGEX REPLACE ".*SDLU_VERSION_MINOR ([0-9]+).*" "\\1" minor ${VERSION})
 set(VERSION "${major}.${minor}")
 
 # Options
-option(BUILD_CXX "Build the SDLU C++ interface" OFF)
 option(BUILD_STATIC_LIBS "Build the static library" ON)
 option(BUILD_SHARED_LIBS "Build the shared library" ON)
 if (APPLE)
   option(BUILD_FRAMEWORK "Build framework (Mac OS X)" OFF)
 endif(APPLE)
-
-# Also find a C++ compiler if needed
-if (BUILD_CXX)
-  enable_language(CXX)
-endif(BUILD_CXX)
 
 # Load required modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
@@ -35,10 +29,9 @@ include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
 # Standard include directories
 include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${CMAKE_SOURCE_DIR}/src/common")
-include_directories("${CMAKE_BINARY_DIR}")
 
 # Installation files
-file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h ${SDLU_BINARY_DIR}/SDLU_config.h)
+file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h)
 file(GLOB SDLU_PC ${CMAKE_BINARY_DIR}/sdlu.pc)
 file(GLOB SDLU_CONFIG ${CMAKE_BINARY_DIR}/sdlu-config)
 file(GLOB SDLU_M4 ${CMAKE_SOURCE_DIR}/scripts/autotools/m4/sdlu.m4)
@@ -87,14 +80,6 @@ file(GLOB SOURCES
   ${CMAKE_SOURCE_DIR}/src/*.[ch]
 )
 
-# Add cxx sources if needed
-if (BUILD_CXX)
-  file(GLOB CXX_SOURCES ${CMAKE_SOURCE_DIR}/src/cxx/*.cxx)
-  set_source_files_properties(CXX_SOURCES PROPERTIES LANGUAGE CXX)
-  set(SOURCES ${SOURCES} ${CXX_SOURCES})
-  set(SDLU_CXX 1)
-endif(BUILD_CXX)
-
 # Shared library
 if (BUILD_SHARED_LIBS)
   add_library(SDLU-shared SHARED ${SOURCES} ${HDRS})
@@ -134,12 +119,6 @@ set(prefix ${CMAKE_INSTALL_PREFIX})
 set(exec_prefix "${prefix}")
 set(includedir "${prefix}/include/SDL2")
 set(libdir "${exec_prefix}/lib${LIB_SUFFIX}")
-
-# Generate config file (SDLU_config.h)
-configure_file(
-  ${CMAKE_SOURCE_DIR}/include/SDLU_config_cmake.h.in
-  ${CMAKE_BINARY_DIR}/SDLU_config.h
-)
 
 # Generate pkg-config file
 configure_file(

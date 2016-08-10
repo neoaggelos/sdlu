@@ -28,7 +28,6 @@
 #ifndef SDLU_OPENGL_H
 #define SDLU_OPENGL_H
 
-#include "SDLU_config.h"
 #include "begin_code.h"
 
 #ifdef __cplusplus

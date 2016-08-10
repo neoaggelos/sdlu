@@ -18,6 +18,7 @@ Additions:
 Changes:
 - Fixed Visual Studio compilation errors
 - Removed SDLU_HINT_TEXT_DRAW_SCALED
+- Removed C++ interface
 
 Build System:
 - Official support for Mac OS X and iOS

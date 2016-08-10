@@ -20,15 +20,6 @@ AM_SILENT_RULES([yes])
 
 # Search for required tools
 AC_PROG_CC
-AC_PROG_CXX
-
-# Check if g++ works
-AC_MSG_CHECKING(if $CXX works)
-cxx_compiler_works=no
-AC_LANG_PUSH(C++)
-AC_TRY_COMPILE([#include <iostream>],[ ], cxx_compiler_works=yes, CXX="" )
-AC_LANG_POP
-AC_MSG_RESULT($cxx_compiler_works)
 
 # Find SDL libraries
 CheckSDL2
@@ -94,13 +85,9 @@ fi
 
 AC_MSG_RESULT($have_opengles)
 
-# Also set CXXFLAGS
-CXXFLAGS="$CXXFLAGS $CFLAGS"
-
 # Conditionals
 AM_CONDITIONAL([HAVE_OPENGL], [test x$have_opengl = xyes])
 AM_CONDITIONAL([HAVE_OPENGLES2], [test x$have_opengles = xyes])
-AM_CONDITIONAL([HAVE_CXX], [test x$cxx_compiler_works = xyes])
 
 # Output files
 AC_OUTPUT

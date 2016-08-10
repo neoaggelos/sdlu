@@ -6,9 +6,6 @@ set(CMAKE_WIN32_EXECUTABLE TRUE)
 # Define the project
 project(SDLU_Tests C)
 
-# Also check for a C++ compiler
-enable_language(CXX OPTIONAL)
-
 # Load required modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../scripts/cmake")
 include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindSDL2_tests.cmake")
@@ -69,10 +66,4 @@ endif()
 if (GLES2_FOUND)
     add_executable(testgles2 "${CMAKE_SOURCE_DIR}/testgles2.c" ${COMMON})
     target_link_libraries(testgles2 ${LIBS} ${GLES2_LIBRARY})
-endif()
-
-# add testcxx
-if (CMAKE_CXX_COMPILER_WORKS)
-    add_executable(testcxx "${CMAKE_SOURCE_DIR}/testcxx.cxx" ${COMMON})
-    target_link_libraries(testcxx ${LIBS})
 endif()
