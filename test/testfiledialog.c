@@ -37,15 +37,18 @@ int SDL_main(int argc, char** argv)
 int main(int argc, char** argv)
 #endif
 {
-    const char* filename;
+    char* filename;
     char msg[512];
 
-    filename = SDLU_FileDialog("Choose File", SDLU_FILEDIALOG_OPEN);
+    /* Open dialog */
+    filename = (char*) SDLU_FileDialog("Choose File", SDLU_FILEDIALOG_OPEN);
 
+    /* Create message window */
     SDL_snprintf(msg, 511, "File Chosen:\n%s", filename);
-    SDLU_FreeFileDialogFilename(filename);
-    SDL_Delay(1000);
     SDLU_Message(msg);
+
+    /* Free up memory of filename */
+    SDLU_FreeFileDialogFilename(filename);
 
     exit(0);
 }

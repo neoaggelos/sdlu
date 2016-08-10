@@ -38,14 +38,19 @@ int SDL_main(int argc, char** argv)
 int main(int argc, char** argv)
 #endif
 {
-    SDLU_Directory *dir = SDLU_OpenDirectory(".", SDL_TRUE);
-
+    /* This holds information about files */
     SDLU_FileInfo* info;
 
+    /* Open current directory */
+    SDLU_Directory *dir = SDLU_OpenDirectory(".", SDL_TRUE);
+
+    /* SDLU_NextFile() returns NULL when we reach the end of the directory */
     printf("Contents of '.'\n------------\n");
-    while(info = SDLU_NextFile(dir)) {
+    while((info = SDLU_NextFile(dir))) {
         printf("%s\n", info->filename);
     }
 
+    /* Close directory */
+    SDLU_CloseDirectory(dir);
     exit(0);
 }
