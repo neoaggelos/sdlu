@@ -28,7 +28,7 @@ include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
 
 # Standard include directories
 include_directories("${CMAKE_SOURCE_DIR}/include")
-include_directories("${CMAKE_SOURCE_DIR}/src/common")
+include_directories("${CMAKE_SOURCE_DIR}/src")
 
 # Installation files
 file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h)
