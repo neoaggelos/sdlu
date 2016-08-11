@@ -153,15 +153,13 @@ am__libSDLU_la_SOURCES_DIST = src/filedialog/SDLU_filedialog_cocoa.m \
 	src/filedialog/SDLU_filedialog_win32.c \
 	src/filedialog/SDLU_filedialog_gtk.c \
 	src/filesystem/SDLU_filesystem_win32.c \
-	src/filesystem/SDLU_filesystem_dirent.c \
-	src/common/SDLU_common.c src/common/SDLU_userdata.c \
-	src/filedialog/SDLU_filedialog.c \
-	src/filesystem/SDLU_filesystem.c src/gl/SDLU_gl.c \
-	src/gui/SDLU_button.c src/gui/SDLU_combobox.c \
-	src/ini/SDLU_ini.c src/render/SDLU_pixels.c \
-	src/render/SDLU_render.c src/SDLU_collide.c src/SDLU_create.c \
-	src/SDLU_framerate.c src/SDLU_math.c src/sprite/SDLU_sprite.c \
-	src/text/SDLU_ttf.c src/turtle/SDLU_turtle.c
+	src/filesystem/SDLU_filesystem_dirent.c src/SDLU_common.c \
+	src/SDLU_userdata.c src/filedialog/SDLU_filedialog.c \
+	src/filesystem/SDLU_filesystem.c src/SDLU_gl.c \
+	src/SDLU_button.c src/SDLU_combobox.c src/SDLU_ini.c \
+	src/SDLU_pixels.c src/SDLU_render.c src/SDLU_collide.c \
+	src/SDLU_create.c src/SDLU_framerate.c src/SDLU_math.c \
+	src/SDLU_sprite.c src/SDLU_ttf.c src/SDLU_turtle.c
 am__dirstamp = $(am__leading_dot)dirstamp
 @FILEDIALOG_COCOA_TRUE@am__objects_1 = src/filedialog/SDLU_filedialog_cocoa.lo
 @FILEDIALOG_WIN_TRUE@am__objects_2 =  \
@@ -173,15 +171,13 @@ am__dirstamp = $(am__leading_dot)dirstamp
 @FILESYSTEM_DIRENT_TRUE@am__objects_5 = src/filesystem/SDLU_filesystem_dirent.lo
 am__objects_6 = $(am__objects_1) $(am__objects_2) $(am__objects_3) \
 	$(am__objects_4) $(am__objects_5)
-am_libSDLU_la_OBJECTS = $(am__objects_6) src/common/SDLU_common.lo \
-	src/common/SDLU_userdata.lo src/filedialog/SDLU_filedialog.lo \
-	src/filesystem/SDLU_filesystem.lo src/gl/SDLU_gl.lo \
-	src/gui/SDLU_button.lo src/gui/SDLU_combobox.lo \
-	src/ini/SDLU_ini.lo src/render/SDLU_pixels.lo \
-	src/render/SDLU_render.lo src/SDLU_collide.lo \
+am_libSDLU_la_OBJECTS = $(am__objects_6) src/SDLU_common.lo \
+	src/SDLU_userdata.lo src/filedialog/SDLU_filedialog.lo \
+	src/filesystem/SDLU_filesystem.lo src/SDLU_gl.lo \
+	src/SDLU_button.lo src/SDLU_combobox.lo src/SDLU_ini.lo \
+	src/SDLU_pixels.lo src/SDLU_render.lo src/SDLU_collide.lo \
 	src/SDLU_create.lo src/SDLU_framerate.lo src/SDLU_math.lo \
-	src/sprite/SDLU_sprite.lo src/text/SDLU_ttf.lo \
-	src/turtle/SDLU_turtle.lo
+	src/SDLU_sprite.lo src/SDLU_ttf.lo src/SDLU_turtle.lo
 libSDLU_la_OBJECTS = $(am_libSDLU_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -437,50 +433,54 @@ lib_LTLIBRARIES = libSDLU.la
 bin_SCRIPTS = sdlu-config
 extra_source_files = $(am__append_1) $(am__append_2) $(am__append_3) \
 	$(am__append_4) $(am__append_5)
-libSDLU_la_SOURCES = ${extra_source_files}								\
-					 src/common/SDLU_common.c						\
-					 src/common/SDLU_userdata.c						\
-					 src/filedialog/SDLU_filedialog.c				\
-           src/filesystem/SDLU_filesystem.c				\
-					 src/gl/SDLU_gl.c								\
-					 src/gui/SDLU_button.c							\
-					 src/gui/SDLU_combobox.c						\
-					 src/ini/SDLU_ini.c								\
-					 src/render/SDLU_pixels.c						\
-					 src/render/SDLU_render.c						\
-					 src/SDLU_collide.c								\
-					 src/SDLU_create.c								\
-					 src/SDLU_framerate.c							\
-					 src/SDLU_math.c								\
-					 src/sprite/SDLU_sprite.c						\
-					 src/text/SDLU_ttf.c							\
-					 src/turtle/SDLU_turtle.c
+libSDLU_la_SOURCES = \
+		${extra_source_files}								\
+		src/SDLU_common.c										\
+		src/SDLU_userdata.c									\
+		src/filedialog/SDLU_filedialog.c		\
+  	src/filesystem/SDLU_filesystem.c		\
+		src/SDLU_gl.c												\
+		src/SDLU_button.c										\
+		src/SDLU_combobox.c									\
+		src/SDLU_ini.c											\
+		src/SDLU_pixels.c										\
+		src/SDLU_render.c										\
+		src/SDLU_collide.c									\
+		src/SDLU_create.c										\
+		src/SDLU_framerate.c								\
+		src/SDLU_math.c											\
+		src/SDLU_sprite.c										\
+		src/SDLU_ttf.c											\
+		src/SDLU_turtle.c
 
-include_HEADERS = include/SDLU.h				\
-				  include/SDLU_button.h			\
-				  include/SDLU_collide.h		\
-				  include/SDLU_combobox.h		\
-				  include/SDLU_create.h			\
-				  include/SDLU_defs.h			\
-				  include/SDLU_features.h		\
-				  include/SDLU_filedialog.h		\
-          include/SDLU_filesystem.h \
-				  include/SDLU_fps.h			\
-				  include/SDLU_hints.h			\
-				  include/SDLU_ini.h			\
-				  include/SDLU_math.h			\
-				  include/SDLU_opengl.h			\
-				  include/SDLU_pixels.h			\
-				  include/SDLU_render.h			\
-				  include/SDLU_sprite.h			\
-				  include/SDLU_text.h			\
-				  include/SDLU_turtle.h
+include_HEADERS = \
+		include/SDLU.h						\
+		include/SDLU_button.h			\
+		include/SDLU_collide.h		\
+		include/SDLU_combobox.h		\
+		include/SDLU_create.h			\
+		include/SDLU_defs.h				\
+		include/SDLU_features.h		\
+		include/SDLU_filedialog.h	\
+    include/SDLU_filesystem.h \
+		include/SDLU_fps.h				\
+		include/SDLU_hints.h			\
+		include/SDLU_ini.h				\
+		include/SDLU_math.h				\
+		include/SDLU_opengl.h			\
+		include/SDLU_pixels.h			\
+		include/SDLU_render.h			\
+		include/SDLU_sprite.h			\
+		include/SDLU_text.h				\
+		include/SDLU_turtle.h
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = sdlu.pc
 aclocaldir = $(datarootdir)/aclocal
 aclocal_DATA = scripts/autotools/m4/sdlu.m4
 ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
+
+# this needs to be updated
 EXTRA_DIST = scripts extras Android.mk ChangeLog CMakeLists.txt CONTRIBUTING \
 			 COPYING Doxyfile README-android README-cmake README-configure \
 			 README-ios README-raspberrypi README-windows sdlu-config.in \
@@ -588,91 +588,34 @@ src/filesystem/SDLU_filesystem_win32.lo:  \
 src/filesystem/SDLU_filesystem_dirent.lo:  \
 	src/filesystem/$(am__dirstamp) \
 	src/filesystem/$(DEPDIR)/$(am__dirstamp)
-src/common/$(am__dirstamp):
-	@$(MKDIR_P) src/common
-	@: > src/common/$(am__dirstamp)
-src/common/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/common/$(DEPDIR)
-	@: > src/common/$(DEPDIR)/$(am__dirstamp)
-src/common/SDLU_common.lo: src/common/$(am__dirstamp) \
-	src/common/$(DEPDIR)/$(am__dirstamp)
-src/common/SDLU_userdata.lo: src/common/$(am__dirstamp) \
-	src/common/$(DEPDIR)/$(am__dirstamp)
-src/filedialog/SDLU_filedialog.lo: src/filedialog/$(am__dirstamp) \
-	src/filedialog/$(DEPDIR)/$(am__dirstamp)
-src/filesystem/SDLU_filesystem.lo: src/filesystem/$(am__dirstamp) \
-	src/filesystem/$(DEPDIR)/$(am__dirstamp)
-src/gl/$(am__dirstamp):
-	@$(MKDIR_P) src/gl
-	@: > src/gl/$(am__dirstamp)
-src/gl/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/gl/$(DEPDIR)
-	@: > src/gl/$(DEPDIR)/$(am__dirstamp)
-src/gl/SDLU_gl.lo: src/gl/$(am__dirstamp) \
-	src/gl/$(DEPDIR)/$(am__dirstamp)
-src/gui/$(am__dirstamp):
-	@$(MKDIR_P) src/gui
-	@: > src/gui/$(am__dirstamp)
-src/gui/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/gui/$(DEPDIR)
-	@: > src/gui/$(DEPDIR)/$(am__dirstamp)
-src/gui/SDLU_button.lo: src/gui/$(am__dirstamp) \
-	src/gui/$(DEPDIR)/$(am__dirstamp)
-src/gui/SDLU_combobox.lo: src/gui/$(am__dirstamp) \
-	src/gui/$(DEPDIR)/$(am__dirstamp)
-src/ini/$(am__dirstamp):
-	@$(MKDIR_P) src/ini
-	@: > src/ini/$(am__dirstamp)
-src/ini/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/ini/$(DEPDIR)
-	@: > src/ini/$(DEPDIR)/$(am__dirstamp)
-src/ini/SDLU_ini.lo: src/ini/$(am__dirstamp) \
-	src/ini/$(DEPDIR)/$(am__dirstamp)
-src/render/$(am__dirstamp):
-	@$(MKDIR_P) src/render
-	@: > src/render/$(am__dirstamp)
-src/render/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/render/$(DEPDIR)
-	@: > src/render/$(DEPDIR)/$(am__dirstamp)
-src/render/SDLU_pixels.lo: src/render/$(am__dirstamp) \
-	src/render/$(DEPDIR)/$(am__dirstamp)
-src/render/SDLU_render.lo: src/render/$(am__dirstamp) \
-	src/render/$(DEPDIR)/$(am__dirstamp)
 src/$(am__dirstamp):
 	@$(MKDIR_P) src
 	@: > src/$(am__dirstamp)
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_common.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_userdata.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/filedialog/SDLU_filedialog.lo: src/filedialog/$(am__dirstamp) \
+	src/filedialog/$(DEPDIR)/$(am__dirstamp)
+src/filesystem/SDLU_filesystem.lo: src/filesystem/$(am__dirstamp) \
+	src/filesystem/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_gl.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_button.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_combobox.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_ini.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_pixels.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_render.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/SDLU_collide.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/SDLU_create.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/SDLU_framerate.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/SDLU_math.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/sprite/$(am__dirstamp):
-	@$(MKDIR_P) src/sprite
-	@: > src/sprite/$(am__dirstamp)
-src/sprite/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/sprite/$(DEPDIR)
-	@: > src/sprite/$(DEPDIR)/$(am__dirstamp)
-src/sprite/SDLU_sprite.lo: src/sprite/$(am__dirstamp) \
-	src/sprite/$(DEPDIR)/$(am__dirstamp)
-src/text/$(am__dirstamp):
-	@$(MKDIR_P) src/text
-	@: > src/text/$(am__dirstamp)
-src/text/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/text/$(DEPDIR)
-	@: > src/text/$(DEPDIR)/$(am__dirstamp)
-src/text/SDLU_ttf.lo: src/text/$(am__dirstamp) \
-	src/text/$(DEPDIR)/$(am__dirstamp)
-src/turtle/$(am__dirstamp):
-	@$(MKDIR_P) src/turtle
-	@: > src/turtle/$(am__dirstamp)
-src/turtle/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/turtle/$(DEPDIR)
-	@: > src/turtle/$(DEPDIR)/$(am__dirstamp)
-src/turtle/SDLU_turtle.lo: src/turtle/$(am__dirstamp) \
-	src/turtle/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_sprite.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_ttf.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/SDLU_turtle.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
 libSDLU.la: $(libSDLU_la_OBJECTS) $(libSDLU_la_DEPENDENCIES) $(EXTRA_libSDLU_la_DEPENDENCIES) 
 	$(AM_V_OBJCLD)$(OBJCLINK) -rpath $(libdir) $(libSDLU_la_OBJECTS) $(libSDLU_la_LIBADD) $(LIBS)
@@ -716,36 +659,29 @@ mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f src/*.$(OBJEXT)
 	-rm -f src/*.lo
-	-rm -f src/common/*.$(OBJEXT)
-	-rm -f src/common/*.lo
 	-rm -f src/filedialog/*.$(OBJEXT)
 	-rm -f src/filedialog/*.lo
 	-rm -f src/filesystem/*.$(OBJEXT)
 	-rm -f src/filesystem/*.lo
-	-rm -f src/gl/*.$(OBJEXT)
-	-rm -f src/gl/*.lo
-	-rm -f src/gui/*.$(OBJEXT)
-	-rm -f src/gui/*.lo
-	-rm -f src/ini/*.$(OBJEXT)
-	-rm -f src/ini/*.lo
-	-rm -f src/render/*.$(OBJEXT)
-	-rm -f src/render/*.lo
-	-rm -f src/sprite/*.$(OBJEXT)
-	-rm -f src/sprite/*.lo
-	-rm -f src/text/*.$(OBJEXT)
-	-rm -f src/text/*.lo
-	-rm -f src/turtle/*.$(OBJEXT)
-	-rm -f src/turtle/*.lo
 
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_button.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_collide.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_combobox.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_common.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_create.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_framerate.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_gl.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_ini.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_math.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/common/$(DEPDIR)/SDLU_common.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/common/$(DEPDIR)/SDLU_userdata.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_pixels.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_render.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_sprite.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_ttf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_turtle.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_userdata.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_cocoa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_gtk.Plo@am__quote@
@@ -753,15 +689,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem_dirent.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem_win32.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/gl/$(DEPDIR)/SDLU_gl.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/gui/$(DEPDIR)/SDLU_button.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/gui/$(DEPDIR)/SDLU_combobox.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/ini/$(DEPDIR)/SDLU_ini.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/render/$(DEPDIR)/SDLU_pixels.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/render/$(DEPDIR)/SDLU_render.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/sprite/$(DEPDIR)/SDLU_sprite.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/text/$(DEPDIR)/SDLU_ttf.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/turtle/$(DEPDIR)/SDLU_turtle.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -817,16 +744,8 @@ mostlyclean-libtool:
 clean-libtool:
 	-rm -rf .libs _libs
 	-rm -rf src/.libs src/_libs
-	-rm -rf src/common/.libs src/common/_libs
 	-rm -rf src/filedialog/.libs src/filedialog/_libs
 	-rm -rf src/filesystem/.libs src/filesystem/_libs
-	-rm -rf src/gl/.libs src/gl/_libs
-	-rm -rf src/gui/.libs src/gui/_libs
-	-rm -rf src/ini/.libs src/ini/_libs
-	-rm -rf src/render/.libs src/render/_libs
-	-rm -rf src/sprite/.libs src/sprite/_libs
-	-rm -rf src/text/.libs src/text/_libs
-	-rm -rf src/turtle/.libs src/turtle/_libs
 
 distclean-libtool:
 	-rm -f libtool config.lt
@@ -1151,26 +1070,10 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/$(am__dirstamp)
-	-rm -f src/common/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/common/$(am__dirstamp)
 	-rm -f src/filedialog/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/filedialog/$(am__dirstamp)
 	-rm -f src/filesystem/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/filesystem/$(am__dirstamp)
-	-rm -f src/gl/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/gl/$(am__dirstamp)
-	-rm -f src/gui/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/gui/$(am__dirstamp)
-	-rm -f src/ini/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/ini/$(am__dirstamp)
-	-rm -f src/render/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/render/$(am__dirstamp)
-	-rm -f src/sprite/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/sprite/$(am__dirstamp)
-	-rm -f src/text/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/text/$(am__dirstamp)
-	-rm -f src/turtle/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/turtle/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -1182,7 +1085,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/common/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR) src/gl/$(DEPDIR) src/gui/$(DEPDIR) src/ini/$(DEPDIR) src/render/$(DEPDIR) src/sprite/$(DEPDIR) src/text/$(DEPDIR) src/turtle/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-libtool distclean-tags
@@ -1231,7 +1134,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/common/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR) src/gl/$(DEPDIR) src/gui/$(DEPDIR) src/ini/$(DEPDIR) src/render/$(DEPDIR) src/sprite/$(DEPDIR) src/text/$(DEPDIR) src/turtle/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

@@ -19,7 +19,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#include "SDLU_userdata.h"
+#include "SDLU_userdata_c.h"
 #include "SDLU.h"
 #include "SDLU_common.h"
 

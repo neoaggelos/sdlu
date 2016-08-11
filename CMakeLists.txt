@@ -69,14 +69,6 @@ file(GLOB SOURCES
   ${FILESYSTEM_BACKEND_SOURCES}
   ${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog.c
   ${CMAKE_SOURCE_DIR}/src/filesystem/SDLU_filesystem.c
-  ${CMAKE_SOURCE_DIR}/src/render/*.[ch]
-  ${CMAKE_SOURCE_DIR}/src/common/*.[ch]
-  ${CMAKE_SOURCE_DIR}/src/sprite/*.[ch]
-  ${CMAKE_SOURCE_DIR}/src/turtle/*.[ch]
-  ${CMAKE_SOURCE_DIR}/src/text/*.[ch]
-  ${CMAKE_SOURCE_DIR}/src/gui/*.[ch]
-  ${CMAKE_SOURCE_DIR}/src/ini/*.[ch]
-  ${CMAKE_SOURCE_DIR}/src/gl/*.[ch]
   ${CMAKE_SOURCE_DIR}/src/*.[ch]
 )
 

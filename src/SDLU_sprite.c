@@ -22,7 +22,7 @@
 
 #include "SDLU.h"
 #include "SDLU_common.h"
-#include "SDLU_userdata.h"
+#include "SDLU_userdata_c.h"
 #include <stdio.h>
 #include <stdlib.h>
 
