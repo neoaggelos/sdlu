@@ -13,14 +13,13 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/include $(LOCAL_PATH)/src/common
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_C_INCLUDES)
 
-LOCAL_SRC_FILES := $(subst $(LOCAL_PATH)/,, 				\
-					$(wildcard $(LOCAL_PATH)/src/*.c)		\
+LOCAL_SRC_FILES := $(subst $(LOCAL_PATH)/,, $(wildcard $(LOCAL_PATH)/src/*.c))
 
 # comment this for a release build
 DEBUG_FLAGS := -D_DEBUG
 
 # Compiler flags
-LOCAL_CFLAGS := $(DEBUG_FLAGS) -DFILEDIALOG_DUMMY
+LOCAL_CFLAGS := $(DEBUG_FLAGS) -DFILEDIALOG_DUMMY -DFILESYSTEM_DIRENT
 
 # Used libraries
 LOCAL_SHARED_LIBRARIES := SDL2 SDL2_ttf
