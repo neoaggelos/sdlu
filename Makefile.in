@@ -274,12 +274,11 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/sdlu-config.in \
 	$(top_srcdir)/scripts/autotools/depcomp \
 	$(top_srcdir)/scripts/autotools/install-sh \
 	$(top_srcdir)/scripts/autotools/ltmain.sh \
-	$(top_srcdir)/scripts/autotools/missing COPYING ChangeLog \
-	INSTALL README scripts/autotools/ar-lib \
-	scripts/autotools/compile scripts/autotools/config.guess \
-	scripts/autotools/config.sub scripts/autotools/depcomp \
-	scripts/autotools/install-sh scripts/autotools/ltmain.sh \
-	scripts/autotools/missing
+	$(top_srcdir)/scripts/autotools/missing ChangeLog \
+	scripts/autotools/ar-lib scripts/autotools/compile \
+	scripts/autotools/config.guess scripts/autotools/config.sub \
+	scripts/autotools/depcomp scripts/autotools/install-sh \
+	scripts/autotools/ltmain.sh scripts/autotools/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -479,12 +478,12 @@ pkgconfig_DATA = sdlu.pc
 aclocaldir = $(datarootdir)/aclocal
 aclocal_DATA = scripts/autotools/m4/sdlu.m4
 ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
-
-# this needs to be updated
-EXTRA_DIST = scripts extras Android.mk ChangeLog CMakeLists.txt CONTRIBUTING \
-			 COPYING Doxyfile README-android README-cmake README-configure \
-			 README-ios README-raspberrypi README-windows sdlu-config.in \
-			 sdlu.pc.in
+EXTRA_DIST = \
+	scripts Android.mk BUGS.txt CMakeLists.txt CONTRIBUTING.txt COPYING.txt \
+	COPYING.uthash.txt ChangeLog Doxyfile INSTALL.txt Makefile.ios \
+	README-android.txt README-cmake.txt README-configure.txt README-git.txt	\
+	README-ios.txt README-raspberrypi.txt README-windows.txt README.txt \
+	sdlu-config.in sdlu.pc.in
 
 all: all-am
 

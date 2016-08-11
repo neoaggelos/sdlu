@@ -73,8 +73,9 @@ aclocal_DATA = scripts/autotools/m4/sdlu.m4
 
 ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
 
-# this needs to be updated
-EXTRA_DIST = scripts extras Android.mk ChangeLog CMakeLists.txt CONTRIBUTING \
-			 COPYING Doxyfile README-android README-cmake README-configure \
-			 README-ios README-raspberrypi README-windows sdlu-config.in \
-			 sdlu.pc.in
+EXTRA_DIST = \
+	scripts Android.mk BUGS.txt CMakeLists.txt CONTRIBUTING.txt COPYING.txt \
+	COPYING.uthash.txt ChangeLog Doxyfile INSTALL.txt Makefile.ios \
+	README-android.txt README-cmake.txt README-configure.txt README-git.txt	\
+	README-ios.txt README-raspberrypi.txt README-windows.txt README.txt \
+	sdlu-config.in sdlu.pc.in
