@@ -7,7 +7,7 @@ Blog:       http://libsdlu.blogspot.com
 The SDL Utility Library (SDLU) is a cross-platform library that provides APIs
 to make development of SDL2 applications faster and easier.
 
-SDLU supports Windows, Linux, Mac OS X, iOS, Android and the Raspberry Pi.
+SDLU supports Windows, Linux, Mac OS X, iOS and Android.
 
 SDLU is written in C, but can be natively used in C++.
 
