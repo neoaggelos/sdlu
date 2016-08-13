@@ -36,8 +36,4 @@ macro(CheckFileDialogBackend)
     set(FILEDIALOG_BACKEND_SOURCES "${CMAKE_SOURCE_DIR}/src/filedialog/SDLU_filedialog_gtk*")
   endif()
 
-  if ("${BACKEND}" STREQUAL "dummy")
-    add_definitions("-DFILEDIALOG_DUMMY")
-  endif()
-
 endmacro()

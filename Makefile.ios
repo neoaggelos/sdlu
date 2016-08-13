@@ -71,7 +71,6 @@ LIBS     += -miphoneos-min-version=$(MIN_VERSION) --static-libgcc
 # Flags for SDLU
 CFLAGS   += -I$(SDL2_INCLUDE_DIR) -I$(SDL2_TTF_INCLUDE_DIR)
 CFLAGS   += -Isrc/common -Iinclude
-CFLAGS   += -DFILEDIALOG_DUMMY
 
 TARGET = libSDLU.a
 FRAMEWORK = SDLU.framework

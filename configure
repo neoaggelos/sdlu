@@ -12567,7 +12567,7 @@ CC=$lt_save_CC
 
 
 # Basic flags
-CFLAGS="$CFLAGS -Wall -Wextra -Iinclude -I$srcdir/include -I$srcdir/src/common"
+CFLAGS="$CFLAGS -Wall -Wextra -Iinclude -I$srcdir/include -I$srcdir/src"
 
 # Raspberry Pi special flags
 case "$host" in
@@ -13231,8 +13231,6 @@ $as_echo "$have_gtk" >&6; }
                 CFLAGS="$CFLAGS $GTK_CFLAGS -DFILEDIALOG_GTK"
                 LIBS="$LIBS $GTK_LIBS"
                 filedialog_gtk=yes
-            else
-                CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
             fi
         ;;
     esac

@@ -21,7 +21,6 @@
 
 #include "SDLU.h"
 
-#define FILEDIALOG_DUMMY
 #define UNUSED(x) (void)(x);
 
 #if defined(FILEDIALOG_GTK)
@@ -47,6 +46,8 @@ SDLU_FileDialog(const char* title, Uint32 mode)
 #elif defined(FILEDIALOG_COCOA)
     return COCOA_FileDialog(title, mode);
 #else
+    UNUSED(title);
+    UNUSED(mode);
     return NULL;
 #endif
 }
@@ -76,6 +77,8 @@ SDLU_FileDialogW(const wchar_t* title, Uint32 mode)
 #elif defined(FILEDIALOG_COCOA)
     return COCOA_FileDialogW(title, mode);
 #else
+    UNUSED(title);
+    UNUSED(mode);
     return NULL;
 #endif
 }

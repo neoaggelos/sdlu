@@ -59,8 +59,6 @@ AC_DEFUN([CheckFileDialogBackends], [
                 CFLAGS="$CFLAGS $GTK_CFLAGS -DFILEDIALOG_GTK"
                 LIBS="$LIBS $GTK_LIBS"
                 filedialog_gtk=yes
-            else
-                CFLAGS="$CFLAGS -DFILEDIALOG_DUMMY"
             fi
         ;;
     esac

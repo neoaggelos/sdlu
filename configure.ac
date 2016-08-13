@@ -27,7 +27,7 @@ AM_PROG_AR
 LT_INIT
 
 # Basic flags
-CFLAGS="$CFLAGS -Wall -Wextra -Iinclude -I$srcdir/include -I$srcdir/src/common"
+CFLAGS="$CFLAGS -Wall -Wextra -Iinclude -I$srcdir/include -I$srcdir/src"
 
 # Raspberry Pi special flags
 case "$host" in
