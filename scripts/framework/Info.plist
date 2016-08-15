@@ -13,7 +13,7 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright (c) 2013-2014 Aggelos Kolaitis</string>
+    <string>Copyright (c) 2016 Aggelos Kolaitis</string>
     <key>CFBundleGetInfoString</key>
     <string>The SDL Utility Library</string>
 </dict>

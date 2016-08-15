@@ -30,7 +30,7 @@
  *
  *
  *  The SDL Utility Library
- *  Copyright (c) 2014 Aggelos Kolaitis <neoaggelos@gmail.com>
+ *  Copyright (c) 2016 Aggelos Kolaitis <neoaggelos@gmail.com>
  *  
  *  http://sdlu.bitbucket.org
  *  
