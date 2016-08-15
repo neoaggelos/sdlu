@@ -36,7 +36,7 @@ DIR_GetFileType(const char *file)
     struct stat st;
 
     if (lstat(file, &st) == -1) {
-        return SDLU_REGULAR_FILE;
+        return SDLU_UNKNOWN_FILETYPE;
     } else if (st.st_mode & S_IFREG) {
         return SDLU_REGULAR_FILE;
     } else if (st.st_mode & S_IFDIR) {
@@ -44,7 +44,7 @@ DIR_GetFileType(const char *file)
     } else if (st.st_mode & S_IFLNK) {
         return SDLU_SYMBOLIC_LINK;
     } else {
-        return SDLU_REGULAR_FILE;
+        return SDLU_UNKNOWN_FILETYPE;
     }
 }
 

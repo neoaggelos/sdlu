@@ -38,7 +38,7 @@ WIN_GetFileType(const wchar_t* path)
     struct _stat st;
     
     if (_wstat(path, &st) == -1) {
-        return SDLU_REGULAR_FILE;
+        return SDLU_UNKNOWN_FILETYPE;
     }
     else if (st.st_mode & S_IFREG) {
         return SDLU_REGULAR_FILE;
@@ -46,7 +46,7 @@ WIN_GetFileType(const wchar_t* path)
     else if (st.st_mode & S_IFDIR) {
         return SDLU_DIRECTORY;
     } else {
-        return SDLU_REGULAR_FILE;
+        return SDLU_UNKNOWN_FILETYPE;
     }
 }
 

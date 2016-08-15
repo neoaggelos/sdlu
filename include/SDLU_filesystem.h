@@ -40,7 +40,9 @@ typedef struct SDLU_Directory SDLU_Directory;
 typedef enum {
     SDLU_REGULAR_FILE,
     SDLU_DIRECTORY,
-    SDLU_SYMBOLIC_LINK
+    SDLU_SYMBOLIC_LINK,
+
+    SDLU_UNKNOWN_FILETYPE
 } SDLU_FileType;
 
 typedef struct SDLU_FileInfo {
