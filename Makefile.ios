@@ -6,7 +6,7 @@
 ## XCODE_PATH
 ## This is the full path to the Xcode installation
 ##
-XCODE_PATH=/Applications/Xcode.app/Developer
+XCODE_PATH=/Applications/Xcode.app/Contents/Developer
 
 ##
 ## TARGET_OS
@@ -18,7 +18,7 @@ TARGET_OS=iPhoneOS
 ##
 ## ARCH
 ## This specifies which architecture to build for 
-## Available options: "armv7", "i386"
+## Available options: "armv6", "armv7", "i386"
 ##
 ARCH=armv7
 
@@ -26,25 +26,25 @@ ARCH=armv7
 ## MIN_VERSION
 ## This is the minimum version of iOS you want to target
 ##
-MIN_VERSION=5.1.1
+MIN_VERSION=3.0
 
 ##
 ## SDK_VERSION
 ## Version of the iOS SDK to use
 ##
-SDK_VERSION=7.0
+SDK_VERSION=9.3
 
 ##
 ## SDL2_INCLUDE_DIR
 ## Full path to the SDL2 headers, e.g. "/Users/neo/SDL2/include"
 ##
-SDL2_INCLUDE_DIR=/full/path/to/SDL2/headers
+SDL2_INCLUDE_DIR=/full/path/to/SDL/headers
 
 ##
 ## SDL2_TTF_INCLUDE_DIR
 ## Full path to the SDL2_ttf headers, e.g. "/Users/neo/SDL2_ttf"
 ##
-SDL2_TTF_INCLUDE_DIR=/full/path/to/SDL2_ttf/headers
+SDL2_TTF_INCLUDE_DIR=/full/path/to/SDL_ttf_headers
 
 ### DONE: You do not need to edit anything below this line
 ### Save the changes you made to this file and run with
@@ -55,46 +55,44 @@ SDL2_TTF_INCLUDE_DIR=/full/path/to/SDL2_ttf/headers
 # Flags for iOS cross-compilation
 
 DEV_PATH=$(XCODE_PATH)/Platforms/$(TARGET_OS).platform/Developer
-SDK_PATH=$(XCODE_PATH)/SDKs/$(TARGET_OS)$(SDK_VERSION).sdk
+SDK_PATH=$(DEV_PATH)/SDKs/$(TARGET_OS)$(SDK_VERSION).sdk
 
-CC  	= clang
-AR  	= ar
-RANLIB	= ranlib
+CC  	 = clang
+AR  	 = ar
+RANLIB = ranlib
 
-CFLAGS   += -pipe -g -02 -no-cpp-precomp -isysroot $(SDK_PATH)
-CFLAGS   += -miphoneos-min-version=$(MIN_VERSION) -I$(SDK_PATH)/usr/include
-LIBS     += -isysroot $(SDK_PATH) -L$(SDK_PATH)/usr/lib
-LIBS     += -miphoneos-min-version=$(MIN_VERSION) --static-libgcc
+CFLAGS += -pipe -g -O2 -no-cpp-precomp -isysroot $(SDK_PATH) -arch $(ARCH)
+CFLAGS += -miphoneos-version-min=$(MIN_VERSION) -I$(SDK_PATH)/usr/include
+LIBS   += -isysroot $(SDK_PATH) -L$(SDK_PATH)/usr/lib
+LIBS   += -miphoneos-version-min=$(MIN_VERSION) --static-libgcc
 
 ################################################################################
 
 # Flags for SDLU
-CFLAGS   += -I$(SDL2_INCLUDE_DIR) -I$(SDL2_TTF_INCLUDE_DIR)
-CFLAGS   += -Isrc/common -Iinclude
+CFLAGS += -I$(SDL2_INCLUDE_DIR) -I$(SDL2_TTF_INCLUDE_DIR)
+CFLAGS += -Isrc -Iinclude
+CFLAGS += -DFILESYSTEM_DIRENT
 
 TARGET = libSDLU.a
 FRAMEWORK = SDLU.framework
 
 HDRS = include/*.h
-SOURCES = src/common/*.c src/gl/*.c src/gui/*.c src/ini/*.c src/render/*.c src/sprite/*.c src/text/*.c src/turtle/*.c src/*.c src/filedialog/SDLU_filedialog_dummy.c
+SOURCES = src/*.c src/filedialog/SDLU_filedialog.c src/filesystem/SDLU_filesystem.c src/filesystem/SDLU_filesystem_dirent.c
 
 OBJECTS = $(shell echo $(SOURCES) | sed -e "s,\.c,\.o,g")
 
 all: $(TARGET)
 
-dist: prepare $(TARGET)
+dist: $(TARGET)
 	mkdir $(FRAMEWORK)
 	mkdir $(FRAMEWORK)/Headers
 	cp -r $(TARGET) $(FRAMEWORK)/$(TARGET)
 	cp -r $(HDRS) $(FRAMEWORK)/Headers/
 	@echo "Done. The files can be found under '$(FRAMEWORK)'"
 
-$(TARGET): prepare $(OBJECTS)
+$(TARGET): $(OBJECTS)
 	$(AR) crv $(TARGET) $(OBJECTS)
 	$(RANLIB) $(TARGET)
-
-prepare:
-	cp include/SDLU_config_iphoneos.h include/SDLU_config.h
 
 clean:
 	rm -rf $(TARGET) $(OBJECTS) include/SDLU_config.h SDLU.framework
