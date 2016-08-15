@@ -15,8 +15,8 @@ It is distributed under the terms of the zlib license (see COPYING). The zlib
 license allows static linking, as well as using independent parts of the library
 in your source code freely, as long as you don't take credit for writing it.
 
-See INSTALL for instructions on building the library. Check out the examples in
-"test" to get started. Documentation can be found in the header files, and in
+See INSTALL.txt for instructions on building the library. Check out the examples
+in "test" to get started. Documentation can be found in the header files, and in
 the bitbucket download page.
 
 Main features:
