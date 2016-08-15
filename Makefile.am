@@ -6,16 +6,16 @@ if FILEDIALOG_COCOA
 extra_source_files += src/filedialog/SDLU_filedialog_cocoa.m
 endif
 
-if FILEDIALOG_WIN
-extra_source_files += src/filedialog/SDLU_filedialog_win32.c
+if FILEDIALOG_WINDOWS
+extra_source_files += src/filedialog/SDLU_filedialog_windows.c
 endif
 
 if FILEDIALOG_GTK
 extra_source_files += src/filedialog/SDLU_filedialog_gtk.c
 endif
 
-if FILESYSTEM_WIN
-extra_source_files += src/filesystem/SDLU_filesystem_win32.c
+if FILESYSTEM_WINDOWS
+extra_source_files += src/filesystem/SDLU_filesystem_windows.c
 endif
 
 if FILESYSTEM_DIRENT
@@ -51,7 +51,6 @@ include_HEADERS = 						\
 		include/SDLU_combobox.h		\
 		include/SDLU_create.h			\
 		include/SDLU_defs.h				\
-		include/SDLU_features.h		\
 		include/SDLU_filedialog.h	\
     include/SDLU_filesystem.h \
 		include/SDLU_fps.h				\
@@ -74,8 +73,6 @@ aclocal_DATA = scripts/autotools/m4/sdlu.m4
 ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
 
 EXTRA_DIST = \
-	scripts Android.mk BUGS.txt CMakeLists.txt CONTRIBUTING.txt COPYING.txt \
-	COPYING.uthash.txt ChangeLog Doxyfile INSTALL.txt Makefile.ios \
-	README-android.txt README-cmake.txt README-configure.txt README-git.txt	\
-	README-ios.txt README-raspberrypi.txt README-windows.txt README.txt \
-	sdlu-config.in sdlu.pc.in
+	scripts Android.mk BUGS.txt ChangeLog CMakeLists.txt CONTRIBUTING.txt \
+	COPYING.txt COPYING.uthash.txt Doxyfile INSTALL.txt Makefile.ios README.txt \
+	README-git.txt sdlu-config.in sdlu.pc.in

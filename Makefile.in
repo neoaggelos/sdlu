@@ -92,9 +92,9 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @FILEDIALOG_COCOA_TRUE@am__append_1 = src/filedialog/SDLU_filedialog_cocoa.m
-@FILEDIALOG_WIN_TRUE@am__append_2 = src/filedialog/SDLU_filedialog_win32.c
+@FILEDIALOG_WINDOWS_TRUE@am__append_2 = src/filedialog/SDLU_filedialog_windows.c
 @FILEDIALOG_GTK_TRUE@am__append_3 = src/filedialog/SDLU_filedialog_gtk.c
-@FILESYSTEM_WIN_TRUE@am__append_4 = src/filesystem/SDLU_filesystem_win32.c
+@FILESYSTEM_WINDOWS_TRUE@am__append_4 = src/filesystem/SDLU_filesystem_windows.c
 @FILESYSTEM_DIRENT_TRUE@am__append_5 = src/filesystem/SDLU_filesystem_dirent.c
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -151,9 +151,9 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libSDLU_la_LIBADD =
 am__libSDLU_la_SOURCES_DIST = src/filedialog/SDLU_filedialog_cocoa.m \
-	src/filedialog/SDLU_filedialog_win32.c \
+	src/filedialog/SDLU_filedialog_windows.c \
 	src/filedialog/SDLU_filedialog_gtk.c \
-	src/filesystem/SDLU_filesystem_win32.c \
+	src/filesystem/SDLU_filesystem_windows.c \
 	src/filesystem/SDLU_filesystem_dirent.c src/SDLU_common.c \
 	src/SDLU_userdata.c src/filedialog/SDLU_filedialog.c \
 	src/filesystem/SDLU_filesystem.c src/SDLU_gl.c \
@@ -163,12 +163,10 @@ am__libSDLU_la_SOURCES_DIST = src/filedialog/SDLU_filedialog_cocoa.m \
 	src/SDLU_sprite.c src/SDLU_ttf.c src/SDLU_turtle.c
 am__dirstamp = $(am__leading_dot)dirstamp
 @FILEDIALOG_COCOA_TRUE@am__objects_1 = src/filedialog/SDLU_filedialog_cocoa.lo
-@FILEDIALOG_WIN_TRUE@am__objects_2 =  \
-@FILEDIALOG_WIN_TRUE@	src/filedialog/SDLU_filedialog_win32.lo
+@FILEDIALOG_WINDOWS_TRUE@am__objects_2 = src/filedialog/SDLU_filedialog_windows.lo
 @FILEDIALOG_GTK_TRUE@am__objects_3 =  \
 @FILEDIALOG_GTK_TRUE@	src/filedialog/SDLU_filedialog_gtk.lo
-@FILESYSTEM_WIN_TRUE@am__objects_4 =  \
-@FILESYSTEM_WIN_TRUE@	src/filesystem/SDLU_filesystem_win32.lo
+@FILESYSTEM_WINDOWS_TRUE@am__objects_4 = src/filesystem/SDLU_filesystem_windows.lo
 @FILESYSTEM_DIRENT_TRUE@am__objects_5 = src/filesystem/SDLU_filesystem_dirent.lo
 am__objects_6 = $(am__objects_1) $(am__objects_2) $(am__objects_3) \
 	$(am__objects_4) $(am__objects_5)
@@ -310,7 +308,6 @@ CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DEFINE_SDLU_CXX = @DEFINE_SDLU_CXX@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
@@ -460,7 +457,6 @@ include_HEADERS = \
 		include/SDLU_combobox.h		\
 		include/SDLU_create.h			\
 		include/SDLU_defs.h				\
-		include/SDLU_features.h		\
 		include/SDLU_filedialog.h	\
     include/SDLU_filesystem.h \
 		include/SDLU_fps.h				\
@@ -480,11 +476,9 @@ aclocaldir = $(datarootdir)/aclocal
 aclocal_DATA = scripts/autotools/m4/sdlu.m4
 ACLOCAL_AMFLAGS = -Iscripts/autotools/m4
 EXTRA_DIST = \
-	scripts Android.mk BUGS.txt CMakeLists.txt CONTRIBUTING.txt COPYING.txt \
-	COPYING.uthash.txt ChangeLog Doxyfile INSTALL.txt Makefile.ios \
-	README-android.txt README-cmake.txt README-configure.txt README-git.txt	\
-	README-ios.txt README-raspberrypi.txt README-windows.txt README.txt \
-	sdlu-config.in sdlu.pc.in
+	scripts Android.mk BUGS.txt ChangeLog CMakeLists.txt CONTRIBUTING.txt \
+	COPYING.txt COPYING.uthash.txt Doxyfile INSTALL.txt Makefile.ios README.txt \
+	README-git.txt sdlu-config.in sdlu.pc.in
 
 all: all-am
 
@@ -571,7 +565,7 @@ src/filedialog/$(DEPDIR)/$(am__dirstamp):
 src/filedialog/SDLU_filedialog_cocoa.lo:  \
 	src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
-src/filedialog/SDLU_filedialog_win32.lo:  \
+src/filedialog/SDLU_filedialog_windows.lo:  \
 	src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
 src/filedialog/SDLU_filedialog_gtk.lo: src/filedialog/$(am__dirstamp) \
@@ -582,7 +576,7 @@ src/filesystem/$(am__dirstamp):
 src/filesystem/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/filesystem/$(DEPDIR)
 	@: > src/filesystem/$(DEPDIR)/$(am__dirstamp)
-src/filesystem/SDLU_filesystem_win32.lo:  \
+src/filesystem/SDLU_filesystem_windows.lo:  \
 	src/filesystem/$(am__dirstamp) \
 	src/filesystem/$(DEPDIR)/$(am__dirstamp)
 src/filesystem/SDLU_filesystem_dirent.lo:  \
@@ -685,10 +679,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_cocoa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_gtk.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_win32.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_windows.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem_dirent.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem_win32.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem_windows.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\

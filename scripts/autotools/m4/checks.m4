@@ -30,7 +30,7 @@ AC_DEFUN([CheckSDL2_ttf], [
 AC_DEFUN([CheckFileSystemBackends], [
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
-            filesystem_win=yes
+            filesystem_windows=yes
             CFLAGS="$CFLAGS -DFILESYSTEM_WINDOWS"
         ;;
         *)
@@ -45,7 +45,7 @@ AC_DEFUN([CheckFileDialogBackends], [
         *windows* | *win32* | *mingw* | *msys*)
             LIBS="$LIBS -mwindows"
             CFLAGS="$CFLAGS -DFILEDIALOG_WINDOWS"
-            filedialog_win=yes
+            filedialog_windows=yes
         ;;
         *darwin*|*macosx*|*apple*)
             LIBS="$LIBS -Wl,-framework,Cocoa -lobjc"

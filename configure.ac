@@ -70,19 +70,16 @@ AC_CONFIG_COMMANDS([sdlu_config], [chmod a+x sdlu-config])
 
 # file dialog backend
 AM_CONDITIONAL([FILEDIALOG_COCOA], [test x$filedialog_cocoa = xyes])
-AM_CONDITIONAL([FILEDIALOG_WIN], [test x$filedialog_win = xyes])
+AM_CONDITIONAL([FILEDIALOG_WINDOWS], [test x$filedialog_windows = xyes])
 AM_CONDITIONAL([FILEDIALOG_GTK], [test x$filedialog_gtk = xyes])
 
 # file system backend
-AM_CONDITIONAL([FILESYSTEM_WIN], [test x$filesystem_win = xyes])
+AM_CONDITIONAL([FILESYSTEM_WINDOWS], [test x$filesystem_windows = xyes])
 AM_CONDITIONAL([FILESYSTEM_DIRENT], [test x$filesystem_dirent = xyes])
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"
-OBJCFLAGS="$OBJCFLAGS $CXXFLAGS $CFLAGS"
-
-# substitutions for the config header
-AC_SUBST([DEFINE_SDLU_CXX])
+OBJCFLAGS="$OBJCFLAGS $CFLAGS"
 
 # substitutions for sdlu.pc and sdlu-config
 AC_SUBST([SDL_LIBS])

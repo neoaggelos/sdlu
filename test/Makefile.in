@@ -250,7 +250,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	../scripts/autotools/config.guess \
 	../scripts/autotools/config.sub ../scripts/autotools/depcomp \
 	../scripts/autotools/install-sh ../scripts/autotools/ltmain.sh \
-	../scripts/autotools/missing README
+	../scripts/autotools/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)

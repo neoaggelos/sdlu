@@ -613,15 +613,14 @@ LIBOBJS
 minor
 major
 STATIC
-DEFINE_SDLU_CXX
 FILESYSTEM_DIRENT_FALSE
 FILESYSTEM_DIRENT_TRUE
-FILESYSTEM_WIN_FALSE
-FILESYSTEM_WIN_TRUE
+FILESYSTEM_WINDOWS_FALSE
+FILESYSTEM_WINDOWS_TRUE
 FILEDIALOG_GTK_FALSE
 FILEDIALOG_GTK_TRUE
-FILEDIALOG_WIN_FALSE
-FILEDIALOG_WIN_TRUE
+FILEDIALOG_WINDOWS_FALSE
+FILEDIALOG_WINDOWS_TRUE
 FILEDIALOG_COCOA_FALSE
 FILEDIALOG_COCOA_TRUE
 TTF_LIBS
@@ -13793,7 +13792,7 @@ printf "%s\n" "$have_ttf" >&6; }
         *windows* | *win32* | *mingw* | *msys*)
             LIBS="$LIBS -mwindows"
             CFLAGS="$CFLAGS -DFILEDIALOG_WINDOWS"
-            filedialog_win=yes
+            filedialog_windows=yes
         ;;
         *darwin*|*macosx*|*apple*)
             LIBS="$LIBS -Wl,-framework,Cocoa -lobjc"
@@ -13851,7 +13850,7 @@ printf "%s\n" "$have_gtk" >&6; }
 
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
-            filesystem_win=yes
+            filesystem_windows=yes
             CFLAGS="$CFLAGS -DFILESYSTEM_WINDOWS"
         ;;
         *)
@@ -13877,12 +13876,12 @@ else
   FILEDIALOG_COCOA_FALSE=
 fi
 
- if test x$filedialog_win = xyes; then
-  FILEDIALOG_WIN_TRUE=
-  FILEDIALOG_WIN_FALSE='#'
+ if test x$filedialog_windows = xyes; then
+  FILEDIALOG_WINDOWS_TRUE=
+  FILEDIALOG_WINDOWS_FALSE='#'
 else
-  FILEDIALOG_WIN_TRUE='#'
-  FILEDIALOG_WIN_FALSE=
+  FILEDIALOG_WINDOWS_TRUE='#'
+  FILEDIALOG_WINDOWS_FALSE=
 fi
 
  if test x$filedialog_gtk = xyes; then
@@ -13895,12 +13894,12 @@ fi
 
 
 # file system backend
- if test x$filesystem_win = xyes; then
-  FILESYSTEM_WIN_TRUE=
-  FILESYSTEM_WIN_FALSE='#'
+ if test x$filesystem_windows = xyes; then
+  FILESYSTEM_WINDOWS_TRUE=
+  FILESYSTEM_WINDOWS_FALSE='#'
 else
-  FILESYSTEM_WIN_TRUE='#'
-  FILESYSTEM_WIN_FALSE=
+  FILESYSTEM_WINDOWS_TRUE='#'
+  FILESYSTEM_WINDOWS_FALSE=
 fi
 
  if test x$filesystem_dirent = xyes; then
@@ -13914,10 +13913,7 @@ fi
 
 # also set CXXFLAGS
 CXXFLAGS="$CXXFLAGS $CFLAGS"
-OBJCFLAGS="$OBJCFLAGS $CXXFLAGS $CFLAGS"
-
-# substitutions for the config header
-
+OBJCFLAGS="$OBJCFLAGS $CFLAGS"
 
 # substitutions for sdlu.pc and sdlu-config
 
@@ -14108,16 +14104,16 @@ if test -z "${FILEDIALOG_COCOA_TRUE}" && test -z "${FILEDIALOG_COCOA_FALSE}"; th
   as_fn_error $? "conditional \"FILEDIALOG_COCOA\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${FILEDIALOG_WIN_TRUE}" && test -z "${FILEDIALOG_WIN_FALSE}"; then
-  as_fn_error $? "conditional \"FILEDIALOG_WIN\" was never defined.
+if test -z "${FILEDIALOG_WINDOWS_TRUE}" && test -z "${FILEDIALOG_WINDOWS_FALSE}"; then
+  as_fn_error $? "conditional \"FILEDIALOG_WINDOWS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${FILEDIALOG_GTK_TRUE}" && test -z "${FILEDIALOG_GTK_FALSE}"; then
   as_fn_error $? "conditional \"FILEDIALOG_GTK\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${FILESYSTEM_WIN_TRUE}" && test -z "${FILESYSTEM_WIN_FALSE}"; then
-  as_fn_error $? "conditional \"FILESYSTEM_WIN\" was never defined.
+if test -z "${FILESYSTEM_WINDOWS_TRUE}" && test -z "${FILESYSTEM_WINDOWS_FALSE}"; then
+  as_fn_error $? "conditional \"FILESYSTEM_WINDOWS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${FILESYSTEM_DIRENT_TRUE}" && test -z "${FILESYSTEM_DIRENT_FALSE}"; then
