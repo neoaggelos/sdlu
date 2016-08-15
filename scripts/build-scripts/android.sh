@@ -11,7 +11,7 @@ wd=`dirname $0`
 wd=`cd $wd && echo $PWD`
 wd=`cd $wd/../../ && echo $PWD`
 
-usage="Usage: $0 <ANDROID_PROJECT_DIR> (update)"
+usage="Usage: $0 <ANDROID_PROJECT_DIR>"
 
 if test x$1 = x; then
   echo $usage
