@@ -23,17 +23,8 @@ if [ ! -d "$1" ]; then
   exit 1
 fi
 
-sources=`find $wd/src -type f`
-headers=`find $wd/include/*.h -type f`
-
-echo "Creating new directories..."
-mkdir -p "$1/jni/SDLU/src" && rm -rf "$1/jni/SDLU/src/*"
-mkdir -p "$1/jni/SDLU/include" && rm -rf "$1/jni/SDLU/include/*"
-
-echo "Copying files..."
-for file in $sources; do cp "$file" "$1/jni/SDLU/src/"; done
-for file in $headers; do cp "$file" "$1/jni/SDLU/include/"; done
-cp $wd/Android.mk "$1/jni/SDLU/Android.mk"
+echo "Linking SDLU to jni directory"
+ln -s "$wd" "$1/jni/SDLU"
 
 if test x$2 != xupdate; then
   # add SDLU in shared libraries
