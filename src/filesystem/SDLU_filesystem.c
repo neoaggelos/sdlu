@@ -25,9 +25,9 @@
 # include "SDLU_filesystem_windows_c.h"
 #elif defined( FILESYSTEM_DIRENT )
 # include "SDLU_filesystem_dirent_c.h"
-#else
-# error("What happened")
 #endif
+
+#define UNUSED(x) (void)(x)
 
 #include <string.h>
 #include <wchar.h>
@@ -63,6 +63,8 @@ SDLU_OpenDirectory(const char* dirname, SDL_bool ignore_dots)
     return WIN_OpenDirectory(dirname, ignore_dots);
 #elif defined( FILESYSTEM_DIRENT )
     return DIR_OpenDirectory(dirname, ignore_dots);
+#else
+    return NULL;
 #endif
 }
 
@@ -73,6 +75,8 @@ SDLU_OpenDirectoryW(const wchar_t* dirname, SDL_bool ignore_dots)
     return WIN_OpenDirectoryW(dirname, ignore_dots);
 #elif defined( FILESYSTEM_DIRENT )
     return DIR_OpenDirectoryW(dirname, ignore_dots);
+#else
+    return NULL;
 #endif
 }
 
@@ -83,6 +87,8 @@ SDLU_NextFile(SDLU_Directory *dir)
     return WIN_NextFile(dir);
 #elif defined( FILESYSTEM_DIRENT )
     return DIR_NextFile(dir);
+#else
+    return NULL;
 #endif
 }
 
@@ -115,5 +121,7 @@ SDLU_CloseDirectory(SDLU_Directory *dir)
     WIN_CloseDirectory(dir);
 #elif defined( FILESYSTEM_DIRENT )
     DIR_CloseDirectory(dir);
+#else
+    UNUSED(dir);
 #endif
 }
