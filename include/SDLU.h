@@ -73,7 +73,6 @@
 #include "SDLU_combobox.h"
 #include "SDLU_create.h"
 #include "SDLU_defs.h"
-#include "SDLU_features.h"
 #include "SDLU_filedialog.h"
 #include "SDLU_filesystem.h"
 #include "SDLU_fps.h"
