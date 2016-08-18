@@ -1,104 +1,80 @@
-## iosbuild.sh: Build the iOS port
+## ios.sh: Build a fat binary for the iOS port
 
 die() {
-    echo "*** Error: $@"
-    exit 1
+  echo $@
+  exit 0
 }
-
-if [ "x$SDL2_INCLUDE_DIR" == "x" ]; then
-    die "\$SDL2_INCLUDE_DIR is not set, see README-ios"
-fi
-
-if [ "x$SDL2_TTF_INCLUDE_DIR" == "x" ]; then
-    die "\$SDL2_TTF_INCLUDE_DIR is not set, see README-ios"
-fi
 
 wd=`dirname $0`
 wd=`cd $wd && echo $PWD`
 wd=`cd $wd/../.. && echo $PWD`
 
-usage="Usage: ./scripts/build-scripts/iosbuild.sh [--architecture=arm|armv6|armv7|i386] [--sdk-version=major.minor] [--iphoneos-min-version=major.minor] [--xcode-path=PATH] [--sdl-prefix=PATH]
+usage="Usage: $0 --sdldir=path --arch=[armv6|armv7|i386|all] (--xcode-path=path --sdkver=major.minor --minver=major.minor)"
 
-Available options:
---architecture: Choose the architecture to build [armv6, armv7, i386]
---sdk-version: Choose the version of the iOS SDK to use.
---iphoneos-min-version: The minimum iOS version that your application requires.
---xcode-path: Directory where Xcode is installed
-"
-
-iphoneos_min_version="3.0"
-sdk_path=""
-architecture="armv7"
+minver="3.0"
+arch="all"
+sdkver=`xcodebuild -showsdks | grep iphoneos | sed "s|.*iphoneos||"`
 xcode_path=`xcode-select --print-path`
-dev_path=""
-sdk_version=`xcodebuild -showsdks | grep iphoneos | sed "s|*iphoneos||"`
+sdldir="$SDL2_IOS_HEADERS_PATH"
+
+build_armv6=no
+build_armv7=no
+build_i386=no
 
 while test x$1 != x; do
-    case "$1" in
-        -*=*) optarg=`echo $1 | sed "s,[-_a-zA-Z0-9]*=,,"` ;;
-        *) optarg= ;;
-    esac
+  case "$1" in
+    -*=*) optarg=`echo $1 | sed "s,[-_a-zA-Z0-9]*=,,"` ;;
+    *) optarg= ;;
+  esac
 
-    case "$1" in
-        --sdk-version=*)
-            sdk_version=$optarg
-            ;;
-        --iphoneos-min-version=*)
-            iphoneos_min_version=$optarg
-            ;;
-        --architecture=*)
-            architecture=$optarg
-            ;;
-        --xcode-path=*)
-            xcode_path=$optarg
-            ;;
-        --help|--usage)
-            echo "$usage"
-            exit 0
-            ;;
-        *)
-            echo "*** Error: Unknown option '$1'"
-            echo "$usage"
-            exit 1
-            ;;
-    esac
+  case "$1" in
+    --sdldir=*) sdldir=$optarg ;;
+    --sdkver=*) sdkver=$optarg ;;
+    --minver=*) minver=$optarg ;;
+    --xcode-path=*) xcode_path=$optarg ;;
+    --arch=*) arch=$optarg ;;
+    --help|--usage) die "$usage" ;;
+    *) die "*** Error: Unknown option '$1'" ;;
+  esac
+
+  shift
 done
 
-case $architecture in
-    armv6)
-        CFLAGS="$CFLAGS -arch armv6"
-        target="iPhoneOS"
-        ;;
-    armv7)
-        CFLAGS="$CFLAGS -arch armv7"
-        target="iPhoneOS"
-        ;;
-    i386)
-        CFLAGS="$CFLAGS -arch i386"
-        target="iPhoneSimulator"
-        ;;
-    *)
-        echo "*** Error: architecture '$architecture' is not supported"
-        exit 1
-        ;;
+case "$arch" in
+  all) build_armv6=yes; build_armv7=yes; build_i386=yes ;;
+  armv6) build_armv6=yes ;;
+  armv7) build_armv7=yes ;;
+  i386) build_i386=yes ;;
+  *) die "Unkown architecture '$arch'" ;;
 esac
 
-dev_path="$xcode_path/Platforms/$target.platform/Developer"
-sdk_path="$dev_path/SDKs/$target$sdk_version.sdk"
-
-export CC="$dev_path/usr/bin/llvm-gcc-4.2"
-export CXX="$dev_path/usr/bin/llvm-g++-4.2"
-export AR="$dev_path/usr/bin/ar"
-
-export CFLAGS="$CFLAGS -pipe -g -02 -no-cpp-precomp -isysroot $sdk_path -miphoneos-min-version=$iphoneos_min_version -I/$sdk_path/usr/include"
-export LIBS="$LIBS -isysroot $sdk_path -L/$sdk_path/usr/lib
--miphoneos-min-version=$iphoneos_min_version --static-libgcc"
+if [ ! -f "$sdldir/SDL.h" ]; then
+  die "Warning: SDL.h not found"
+fi
 
 builddir=$wd/build
-mkdir -p "$builddir" && cd "$builddir"
+mkdir -p "$builddir"
 
-../configure --disable-sdltest --enable-debug --with-sysroot="$sdk_path" --disable-shared --enable-static --host=custom-apple-darwin
-make -j3
+if test x$build_armv6 = xyes; then
+  echo "Building armv6"
+  make -f $wd/Makefile.ios SDK_VERSION=$sdkver MIN_VERSION=$minver ARCH=armv6 TARGET_OS=iPhoneOS XCODE_PATH=$xcode_path SDL2_INCLUDE_DIR=$sdldir SDL2_TTF_INCLUDE_DIR=. TARGET=$builddir/armv6.a > /dev/null
+  make -f $wd/Makefile.ios clean > /dev/null
+fi
 
-echo "Done. You can find the binaries in \"$wd/build\"".
+if test x$build_armv7 = xyes; then
+  echo "Building armv7"
+  make -f $wd/Makefile.ios SDK_VERSION=$sdkver MIN_VERSION=$minver ARCH=armv7 TARGET_OS=iPhoneOS XCODE_PATH=$xcode_path SDL2_INCLUDE_DIR=$sdldir SDL2_TTF_INCLUDE_DIR=. TARGET=$builddir/armv7.a > /dev/null
+  make -f $wd/Makefile.ios clean > /dev/null
+fi
+
+if test x$build_i386 = xyes; then
+  echo "Building i386"
+  make -f $wd/Makefile.ios SDK_VERSION=$sdkver MIN_VERSION=$minver ARCH=i386 TARGET_OS=iPhoneSimulator XCODE_PATH=$xcode_path SDL2_INCLUDE_DIR=$sdldir SDL2_TTF_INCLUDE_DIR=. TARGET=$builddir/i386.a > /dev/null
+  make -f $wd/Makefile.ios clean > /dev/null
+fi
+
+lipo -create -o $wd/libSDLU.a $builddir/*.a
+rm -rf $builddir
+
+echo "Done. Created binary is $wd/libSDLU.a"
 

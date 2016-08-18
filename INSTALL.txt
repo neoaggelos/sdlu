@@ -85,5 +85,12 @@ your system. Then just open a terminal and type:
   $ make -f Makefile.ios
   $ make -f Makefile.ios dist        <-- this bundles SDLU in a framework
 
+Alternatively, to create a fat binary for all architectures, use ios.sh:
+
+  $ cd (PATH TO SDLU SOURCES)
+  $ ./scripts/build-scripts/ios.sh --sdldir=/path/to/SDL_h
+
+Run 'ios.sh --help' for a list of available options.
+
 
 -- Aggelos Kolaitis
