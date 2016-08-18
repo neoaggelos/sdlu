@@ -43,7 +43,6 @@
 
 #include "SDL.h"
 #include "SDLU_defs.h"
-#include "SDL_ttf.h"
 
 #include "begin_code.h"
 
@@ -167,11 +166,11 @@ extern DECLSPEC Uint32 SDLCALL SDLU_GetFontSize(void);
 /**
  *  \brief Set a custom truetype font to be used by the engine
  *
- *  \param font The font to use, NULL to reset to the default font
+ *  \param font The font to use (TTF_Font*), NULL to reset to the default font
  *
  *  \return 0 on success, -1 on error
  */
-extern DECLSPEC int SDLCALL SDLU_SetTruetypeFont(TTF_Font* font);
+extern DECLSPEC int SDLCALL SDLU_SetTruetypeFont(void* font);
 
 /**
  *  \brief Set a custom truetype font to be used by the engine
@@ -189,7 +188,7 @@ extern DECLSPEC int SDLCALL SDLU_SetTruetypeFontFile(
 /**
  *  \brief Get the current truetype font
  */
-extern DECLSPEC TTF_Font* SDLCALL SDLU_GetTruetypeFont(void);
+extern DECLSPEC void* SDLCALL SDLU_GetTruetypeFont(void);
 
 #ifdef __cplusplus
 }

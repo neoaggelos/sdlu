@@ -319,14 +319,14 @@ SDLU_SetFontSize( Uint32 size )
 }
 
 int
-SDLU_SetTruetypeFont(TTF_Font* font)
+SDLU_SetTruetypeFont(void* font)
 {
     /** reset font **/
     if (font == NULL) {
         SDLU_Log("resetting font");
         custom_font = NULL;
     } else {
-        custom_font = font;
+        custom_font = (TTF_Font*)font;
     }
 
     return 0;
@@ -350,11 +350,11 @@ SDLU_SetTruetypeFontFile(const char* font, int size)
     return 0;
 }
 
-TTF_Font*
+void*
 SDLU_GetTruetypeFont()
 {
     if (custom_font) {
-        return custom_font;
+        return (void*)custom_font;
     } else {
         return NULL;
     }
