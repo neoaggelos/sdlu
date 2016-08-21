@@ -613,6 +613,9 @@ LIBOBJS
 minor
 major
 STATIC
+TTF_LIBS
+MACOSX_SYSTEM_FALSE
+MACOSX_SYSTEM_TRUE
 FILESYSTEM_DIRENT_FALSE
 FILESYSTEM_DIRENT_TRUE
 FILESYSTEM_WINDOWS_FALSE
@@ -623,8 +626,6 @@ FILEDIALOG_WINDOWS_FALSE
 FILEDIALOG_WINDOWS_TRUE
 FILEDIALOG_COCOA_FALSE
 FILEDIALOG_COCOA_TRUE
-TTF_LIBS
-TTF_CFLAGS
 SDL2_CONFIG
 SDL_LIBS
 SDL_CFLAGS
@@ -771,7 +772,6 @@ enable_debug
 with_sdl_prefix
 with_sdl_exec_prefix
 enable_sdltest
-with_sdl_ttf_pc
 '
       ac_precious_vars='build_alias
 host_alias
@@ -788,9 +788,7 @@ PKG_CONFIG
 PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
 SDL_CFLAGS
-SDL_LIBS
-TTF_CFLAGS
-TTF_LIBS'
+SDL_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1450,7 +1448,6 @@ Optional Packages:
                           compiler's sysroot if not specified).
   --with-sdl-prefix=PFX   Prefix where SDL is installed (optional)
   --with-sdl-exec-prefix=PFX Exec prefix where SDL is installed (optional)
-  --with-sdl-ttf-pc=FILE  Path to SDL2_ttf.pc
 
 Some influential environment variables:
   CC          C compiler command
@@ -1471,8 +1468,6 @@ Some influential environment variables:
               path overriding pkg-config's built-in search path
   SDL_CFLAGS  C compiler flags for SDL, overriding pkg-config
   SDL_LIBS    linker flags for SDL, overriding pkg-config
-  TTF_CFLAGS  C compiler flags for SDL2_ttf, overriding pkg-config
-  TTF_LIBS    linker flags for SDL2_ttf, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -13154,11 +13149,12 @@ CC=$lt_save_CC
 
 
 # Basic flags
-CFLAGS="$CFLAGS -Wall -Wextra -Iinclude -I$srcdir/include -I$srcdir/src"
+CFLAGS="$CFLAGS -Wall -Wextra"
 
-# Raspberry Pi special flags
+# System specific
 case "$host" in
     arm-raspberry-linux-gnueabihf) CFLAGS="$CFLAGS -Wno-psabi" ;;
+    *macosx* | *apple* | *darwin*) macosx_system="yes" ;;
     *) ;;
 esac
 
@@ -13680,113 +13676,7 @@ rm -f core conftest.err conftest.$ac_objext \
     CFLAGS="$CFLAGS $SDL_CFLAGS"
     LIBS="$LIBS $SDL_LIBS"
 
-
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDL2_ttf" >&5
-printf %s "checking for SDL2_ttf... " >&6; }
-    if test x$SDL2_TTF_FRAMEWORK != x; then
-        TTF_FW_DIR=`dirname $SDL2_TTF_FRAMEWORK`
-        TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
-
-        TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
-        TTF_LIBS="-F$TTF_FW_DIR -Wl,-framework,$TTF_FW_NAME"
-    fi
-
-
-# Check whether --with-sdl-ttf-pc was given.
-if test ${with_sdl_ttf_pc+y}
-then :
-  withval=$with_sdl_ttf_pc; sdl2_ttf_pc="$withval"
-else
-  sdl2_ttf_pc=SDL2_ttf
-
-fi
-
-
-
-
-
-have_ttf=no
-if test "x$TTF_CFLAGS$TTF_LIBS" = x; then
-    if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\$sdl2_ttf_pc\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "$sdl2_ttf_pc") 2>&5
-  ac_status=$?
-  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  have_ttf=yes
-fi
-
-    if test x$have_ttf = xyes; then
-        TTF_CFLAGS=`pkg-config --cflags $sdl2_ttf_pc`
-        TTF_LIBS=`pkg-config --libs $sdl2_ttf_pc`
-        :
-    else
-        ac_save_LIBS="$LIBS"
-        LIBS="$LIBS -lSDL2_ttf"
-        cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include "SDL_ttf.h"
-int
-main (void)
-{
-TTF_Init()
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"
-then :
-  have_ttf=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-        LIBS="$ac_save_LIBS"
-        if test x$have_ttf = xyes; then
-            TTF_LIBS="-lSDL2_ttf"
-            TTF_CFLAGS=""
-            :
-        fi
-
-        if test x$have_ttf = xno; then
-            as_fn_error $? "*** Error: Could not find SDL2_ttf" "$LINENO" 5
-        fi
-    fi
-else
-            ac_save_CFLAGS="$CFLAGS"
-    ac_save_LIBS="$LIBS"
-    CFLAGS="$CFLAGS $TTF_CFLAGS"
-    LIBS="$LIBS $TTF_LIBS"
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include "SDL_ttf.h"
-int
-main (void)
-{
-TTF_Init()
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"
-then :
-  have_ttf=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-    CFLAGS="$ac_save_CFLAGS"
-    LIBS="$ac_save_LIBS"
-
-    if test x$have_ttf = xyes; then
-        :
-    else
-        as_fn_error $? "*** Error: Could not find SDL2_ttf" "$LINENO" 5
-    fi
-fi
-
-
-    CFLAGS="$CFLAGS $TTF_CFLAGS"
-    LIBS="$LIBS $TTF_LIBS"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $have_ttf" >&5
-printf "%s\n" "$have_ttf" >&6; }
-
+# CheckSDL2_ttf
 
     case "$host" in
         *windows* | *win32* | *mingw* | *msys*)
@@ -13911,8 +13801,17 @@ else
 fi
 
 
-# also set CXXFLAGS
-CXXFLAGS="$CXXFLAGS $CFLAGS"
+# mac os x system
+ if test x$macosx_system = xyes; then
+  MACOSX_SYSTEM_TRUE=
+  MACOSX_SYSTEM_FALSE='#'
+else
+  MACOSX_SYSTEM_TRUE='#'
+  MACOSX_SYSTEM_FALSE=
+fi
+
+
+# also set Objective C flags
 OBJCFLAGS="$OBJCFLAGS $CFLAGS"
 
 # substitutions for sdlu.pc and sdlu-config
@@ -14118,6 +14017,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${FILESYSTEM_DIRENT_TRUE}" && test -z "${FILESYSTEM_DIRENT_FALSE}"; then
   as_fn_error $? "conditional \"FILESYSTEM_DIRENT\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${MACOSX_SYSTEM_TRUE}" && test -z "${MACOSX_SYSTEM_FALSE}"; then
+  as_fn_error $? "conditional \"MACOSX_SYSTEM\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

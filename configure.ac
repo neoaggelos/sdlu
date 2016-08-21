@@ -27,11 +27,12 @@ AM_PROG_AR
 LT_INIT
 
 # Basic flags
-CFLAGS="$CFLAGS -Wall -Wextra -Iinclude -I$srcdir/include -I$srcdir/src"
+CFLAGS="$CFLAGS -Wall -Wextra"
 
-# Raspberry Pi special flags
+# System specific
 case "$host" in
     arm-raspberry-linux-gnueabihf) CFLAGS="$CFLAGS -Wno-psabi" ;;
+    *macosx* | *apple* | *darwin*) macosx_system="yes" ;;
     *) ;;
 esac
 
@@ -58,7 +59,7 @@ AC_MSG_RESULT($debug)
 
 # Find libraries
 CheckSDL2
-CheckSDL2_ttf
+# CheckSDL2_ttf
 CheckFileDialogBackends
 CheckFileSystemBackends
 
@@ -77,8 +78,10 @@ AM_CONDITIONAL([FILEDIALOG_GTK], [test x$filedialog_gtk = xyes])
 AM_CONDITIONAL([FILESYSTEM_WINDOWS], [test x$filesystem_windows = xyes])
 AM_CONDITIONAL([FILESYSTEM_DIRENT], [test x$filesystem_dirent = xyes])
 
-# also set CXXFLAGS
-CXXFLAGS="$CXXFLAGS $CFLAGS"
+# mac os x system
+AM_CONDITIONAL([MACOSX_SYSTEM], [test x$macosx_system = xyes])
+
+# also set Objective C flags
 OBJCFLAGS="$OBJCFLAGS $CFLAGS"
 
 # substitutions for sdlu.pc and sdlu-config

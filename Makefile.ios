@@ -40,12 +40,6 @@ SDK_VERSION=9.3
 ##
 SDL2_INCLUDE_DIR=/full/path/to/SDL/headers
 
-##
-## SDL2_TTF_INCLUDE_DIR
-## Full path to the SDL2_ttf headers, e.g. "/Users/neo/SDL2_ttf"
-##
-SDL2_TTF_INCLUDE_DIR=/full/path/to/SDL_ttf_headers
-
 ### DONE: You do not need to edit anything below this line
 ### Save the changes you made to this file and run with
 ###  $ make -f Makefile.ios
@@ -69,15 +63,18 @@ LIBS   += -miphoneos-version-min=$(MIN_VERSION) --static-libgcc
 ################################################################################
 
 # Flags for SDLU
-CFLAGS += -I$(SDL2_INCLUDE_DIR) -I$(SDL2_TTF_INCLUDE_DIR)
+CFLAGS += -I$(SDL2_INCLUDE_DIR)
 CFLAGS += -Isrc -Iinclude
 CFLAGS += -DFILESYSTEM_DIRENT
+CFLAGS += -DFT2_BUILD_LIBRARY -Iexternal/freetype2/include -Iexternal/sdl_ttf
 
 TARGET = libSDLU.a
 FRAMEWORK = SDLU.framework
 
 HDRS = include/*.h
-SOURCES = src/*.c src/filedialog/SDLU_filedialog.c src/filesystem/SDLU_filesystem.c src/filesystem/SDLU_filesystem_dirent.c
+SOURCES = src/*.c src/filedialog/SDLU_filedialog.c src/filesystem/SDLU_filesystem.c src/filesystem/SDLU_filesystem_dirent.c \
+external/sdl_ttf/SDL_ttf.c \
+external/freetype2/autofit.c external/freetype2/ftbase.c external/freetype2/ftbbox.c external/freetype2/ftbdf.c external/freetype2/ftbitmap.c external/freetype2/ftcid.c external/freetype2/ftdebug.c external/freetype2/ftfstype.c external/freetype2/ftgasp.c external/freetype2/ftglyph.c external/freetype2/ftgxval.c external/freetype2/ftinit.c external/freetype2/ftlcdfil.c external/freetype2/ftmm.c external/freetype2/ftotval.c external/freetype2/ftpatent.c external/freetype2/ftpfr.c external/freetype2/ftstroke.c external/freetype2/ftsynth.c external/freetype2/ftsystem.c external/freetype2/fttype1.c external/freetype2/ftwinfnt.c external/freetype2/ftxf86.c external/freetype2/bdf.c external/freetype2/ftbzip2.c external/freetype2/ftcache.c external/freetype2/cff.c external/freetype2/type1cid.c external/freetype2/ftgzip.c external/freetype2/ftlzw.c external/freetype2/pcf.c external/freetype2/pfr.c external/freetype2/psaux.c external/freetype2/pshinter.c external/freetype2/psmodule.c external/freetype2/raster.c external/freetype2/sfnt.c external/freetype2/smooth.c external/freetype2/apinames.c external/freetype2/truetype.c external/freetype2/type1.c external/freetype2/type42.c external/freetype2/winfnt.c
 
 OBJECTS = $(shell echo $(SOURCES) | sed -e "s,\.c,\.o,g")
 
@@ -95,4 +92,4 @@ $(TARGET): $(OBJECTS)
 	$(RANLIB) $(TARGET)
 
 clean:
-	rm -rf $(TARGET) $(OBJECTS) include/SDLU_config.h SDLU.framework
+	rm -rf $(TARGET) $(OBJECTS) SDLU.framework

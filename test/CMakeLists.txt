@@ -10,7 +10,6 @@ project(SDLU_Tests C)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../scripts/cmake")
 include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindSDL2_tests.cmake")
 include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindSDLU.cmake")
-include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindSDL2_ttf.cmake")
 include("${CMAKE_SOURCE_DIR}/../scripts/cmake/FindGLES2.cmake")
 
 # Find SDL2
@@ -18,27 +17,22 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 set(LIBS ${LIBS} ${SDL2_LIBRARY} ${SDL2MAIN_LIBRARY})
 
-# Find SDL2_ttf
-find_package(SDL2_ttf REQUIRED)
-include_directories(${SDL2_TTF_INCLUDE_DIR})
-set(LIBS ${SDL2_TTF_LIBRARY} ${LIBS})
-
 # Find SDLU
 find_package(SDLU REQUIRED)
 include_directories(${SDLU_INCLUDE_DIR})
 set(LIBS ${SDLU_LIBRARY} ${LIBS})
-
-# Find OpenGL ES 2
-find_package(GLES2)
-if (GLES2_FOUND)
-    include_directories(${GLES2_INCLUDE_DIR})
-endif(GLES2_FOUND)
 
 # Find OpenGL
 find_package(OpenGL)
 if (OPENGL_FOUND)
     include_directories(${OPENGL_INCLUDE_DIR})
 endif(OPENGL_FOUND)
+
+# Find OpenGL ES 2
+find_package(GLES2)
+if (GLES2_FOUND)
+    include_directories(${GLES2_INCLUDE_DIR})
+endif(GLES2_FOUND)
 
 # Make sure executables can find the data directory
 add_definitions("-DDATA_DIR=\"${CMAKE_SOURCE_DIR}/data\"")

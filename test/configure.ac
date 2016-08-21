@@ -23,7 +23,6 @@ AC_PROG_CC
 
 # Find SDL libraries
 CheckSDL2
-CheckSDL2_ttf
 CheckSDLU
 
 # System OpenGL libraries

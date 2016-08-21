@@ -106,7 +106,6 @@ am__aclocal_m4_deps = $(top_srcdir)/scripts/autotools/m4/checks.m4 \
 	$(top_srcdir)/scripts/autotools/m4/ltversion.m4 \
 	$(top_srcdir)/scripts/autotools/m4/lt~obsolete.m4 \
 	$(top_srcdir)/scripts/autotools/m4/pkg.m4 \
-	$(top_srcdir)/scripts/autotools/m4/sdl2-ttf.m4 \
 	$(top_srcdir)/scripts/autotools/m4/sdl2.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -148,8 +147,8 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(aclocaldir)" "$(DESTDIR)$(pkgconfigdir)" \
 	"$(DESTDIR)$(includedir)"
-LTLIBRARIES = $(lib_LTLIBRARIES)
-libSDLU_la_LIBADD =
+LTLIBRARIES = $(lib_LTLIBRARIES) $(noinst_LTLIBRARIES)
+libSDLU_la_DEPENDENCIES = libsdlttf.la
 am__libSDLU_la_SOURCES_DIST = src/filedialog/SDLU_filedialog_cocoa.m \
 	src/filedialog/SDLU_filedialog_windows.c \
 	src/filedialog/SDLU_filedialog_gtk.c \
@@ -162,26 +161,112 @@ am__libSDLU_la_SOURCES_DIST = src/filedialog/SDLU_filedialog_cocoa.m \
 	src/SDLU_create.c src/SDLU_framerate.c src/SDLU_math.c \
 	src/SDLU_sprite.c src/SDLU_ttf.c src/SDLU_turtle.c
 am__dirstamp = $(am__leading_dot)dirstamp
-@FILEDIALOG_COCOA_TRUE@am__objects_1 = src/filedialog/SDLU_filedialog_cocoa.lo
-@FILEDIALOG_WINDOWS_TRUE@am__objects_2 = src/filedialog/SDLU_filedialog_windows.lo
-@FILEDIALOG_GTK_TRUE@am__objects_3 =  \
-@FILEDIALOG_GTK_TRUE@	src/filedialog/SDLU_filedialog_gtk.lo
-@FILESYSTEM_WINDOWS_TRUE@am__objects_4 = src/filesystem/SDLU_filesystem_windows.lo
-@FILESYSTEM_DIRENT_TRUE@am__objects_5 = src/filesystem/SDLU_filesystem_dirent.lo
+@FILEDIALOG_COCOA_TRUE@am__objects_1 = src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo
+@FILEDIALOG_WINDOWS_TRUE@am__objects_2 = src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo
+@FILEDIALOG_GTK_TRUE@am__objects_3 = src/filedialog/libSDLU_la-SDLU_filedialog_gtk.lo
+@FILESYSTEM_WINDOWS_TRUE@am__objects_4 = src/filesystem/libSDLU_la-SDLU_filesystem_windows.lo
+@FILESYSTEM_DIRENT_TRUE@am__objects_5 = src/filesystem/libSDLU_la-SDLU_filesystem_dirent.lo
 am__objects_6 = $(am__objects_1) $(am__objects_2) $(am__objects_3) \
 	$(am__objects_4) $(am__objects_5)
-am_libSDLU_la_OBJECTS = $(am__objects_6) src/SDLU_common.lo \
-	src/SDLU_userdata.lo src/filedialog/SDLU_filedialog.lo \
-	src/filesystem/SDLU_filesystem.lo src/SDLU_gl.lo \
-	src/SDLU_button.lo src/SDLU_combobox.lo src/SDLU_ini.lo \
-	src/SDLU_pixels.lo src/SDLU_render.lo src/SDLU_collide.lo \
-	src/SDLU_create.lo src/SDLU_framerate.lo src/SDLU_math.lo \
-	src/SDLU_sprite.lo src/SDLU_ttf.lo src/SDLU_turtle.lo
+am_libSDLU_la_OBJECTS = $(am__objects_6) src/libSDLU_la-SDLU_common.lo \
+	src/libSDLU_la-SDLU_userdata.lo \
+	src/filedialog/libSDLU_la-SDLU_filedialog.lo \
+	src/filesystem/libSDLU_la-SDLU_filesystem.lo \
+	src/libSDLU_la-SDLU_gl.lo src/libSDLU_la-SDLU_button.lo \
+	src/libSDLU_la-SDLU_combobox.lo src/libSDLU_la-SDLU_ini.lo \
+	src/libSDLU_la-SDLU_pixels.lo src/libSDLU_la-SDLU_render.lo \
+	src/libSDLU_la-SDLU_collide.lo src/libSDLU_la-SDLU_create.lo \
+	src/libSDLU_la-SDLU_framerate.lo src/libSDLU_la-SDLU_math.lo \
+	src/libSDLU_la-SDLU_sprite.lo src/libSDLU_la-SDLU_ttf.lo \
+	src/libSDLU_la-SDLU_turtle.lo
 libSDLU_la_OBJECTS = $(am_libSDLU_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+libSDLU_la_LINK = $(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(OBJCLD) $(libSDLU_la_OBJCFLAGS) \
+	$(OBJCFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+libft_la_LIBADD =
+am__libft_la_SOURCES_DIST = external/freetype2/ftmac.c \
+	external/freetype2/autofit.c external/freetype2/ftbase.c \
+	external/freetype2/ftbbox.c external/freetype2/ftbdf.c \
+	external/freetype2/ftbitmap.c external/freetype2/ftcid.c \
+	external/freetype2/ftdebug.c external/freetype2/ftfstype.c \
+	external/freetype2/ftgasp.c external/freetype2/ftglyph.c \
+	external/freetype2/ftgxval.c external/freetype2/ftinit.c \
+	external/freetype2/ftlcdfil.c external/freetype2/ftmm.c \
+	external/freetype2/ftotval.c external/freetype2/ftpatent.c \
+	external/freetype2/ftpfr.c external/freetype2/ftstroke.c \
+	external/freetype2/ftsynth.c external/freetype2/ftsystem.c \
+	external/freetype2/fttype1.c external/freetype2/ftwinfnt.c \
+	external/freetype2/ftxf86.c external/freetype2/bdf.c \
+	external/freetype2/ftbzip2.c external/freetype2/ftcache.c \
+	external/freetype2/cff.c external/freetype2/type1cid.c \
+	external/freetype2/ftgzip.c external/freetype2/ftlzw.c \
+	external/freetype2/pcf.c external/freetype2/pfr.c \
+	external/freetype2/psaux.c external/freetype2/pshinter.c \
+	external/freetype2/psmodule.c external/freetype2/raster.c \
+	external/freetype2/sfnt.c external/freetype2/smooth.c \
+	external/freetype2/apinames.c external/freetype2/truetype.c \
+	external/freetype2/type1.c external/freetype2/type42.c \
+	external/freetype2/winfnt.c
+@MACOSX_SYSTEM_TRUE@am__objects_7 =  \
+@MACOSX_SYSTEM_TRUE@	external/freetype2/libft_la-ftmac.lo
+am_libft_la_OBJECTS = $(am__objects_7) \
+	external/freetype2/libft_la-autofit.lo \
+	external/freetype2/libft_la-ftbase.lo \
+	external/freetype2/libft_la-ftbbox.lo \
+	external/freetype2/libft_la-ftbdf.lo \
+	external/freetype2/libft_la-ftbitmap.lo \
+	external/freetype2/libft_la-ftcid.lo \
+	external/freetype2/libft_la-ftdebug.lo \
+	external/freetype2/libft_la-ftfstype.lo \
+	external/freetype2/libft_la-ftgasp.lo \
+	external/freetype2/libft_la-ftglyph.lo \
+	external/freetype2/libft_la-ftgxval.lo \
+	external/freetype2/libft_la-ftinit.lo \
+	external/freetype2/libft_la-ftlcdfil.lo \
+	external/freetype2/libft_la-ftmm.lo \
+	external/freetype2/libft_la-ftotval.lo \
+	external/freetype2/libft_la-ftpatent.lo \
+	external/freetype2/libft_la-ftpfr.lo \
+	external/freetype2/libft_la-ftstroke.lo \
+	external/freetype2/libft_la-ftsynth.lo \
+	external/freetype2/libft_la-ftsystem.lo \
+	external/freetype2/libft_la-fttype1.lo \
+	external/freetype2/libft_la-ftwinfnt.lo \
+	external/freetype2/libft_la-ftxf86.lo \
+	external/freetype2/libft_la-bdf.lo \
+	external/freetype2/libft_la-ftbzip2.lo \
+	external/freetype2/libft_la-ftcache.lo \
+	external/freetype2/libft_la-cff.lo \
+	external/freetype2/libft_la-type1cid.lo \
+	external/freetype2/libft_la-ftgzip.lo \
+	external/freetype2/libft_la-ftlzw.lo \
+	external/freetype2/libft_la-pcf.lo \
+	external/freetype2/libft_la-pfr.lo \
+	external/freetype2/libft_la-psaux.lo \
+	external/freetype2/libft_la-pshinter.lo \
+	external/freetype2/libft_la-psmodule.lo \
+	external/freetype2/libft_la-raster.lo \
+	external/freetype2/libft_la-sfnt.lo \
+	external/freetype2/libft_la-smooth.lo \
+	external/freetype2/libft_la-apinames.lo \
+	external/freetype2/libft_la-truetype.lo \
+	external/freetype2/libft_la-type1.lo \
+	external/freetype2/libft_la-type42.lo \
+	external/freetype2/libft_la-winfnt.lo
+libft_la_OBJECTS = $(am_libft_la_OBJECTS)
+libft_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libft_la_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+libsdlttf_la_DEPENDENCIES = libft.la
+am_libsdlttf_la_OBJECTS = external/sdl_ttf/libsdlttf_la-SDL_ttf.lo
+libsdlttf_la_OBJECTS = $(am_libsdlttf_la_OBJECTS)
+libsdlttf_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libsdlttf_la_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SCRIPTS = $(bin_SCRIPTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -235,8 +320,10 @@ AM_V_OBJCLD = $(am__v_OBJCLD_@AM_V@)
 am__v_OBJCLD_ = $(am__v_OBJCLD_@AM_DEFAULT_V@)
 am__v_OBJCLD_0 = @echo "  OBJCLD  " $@;
 am__v_OBJCLD_1 = 
-SOURCES = $(libSDLU_la_SOURCES)
-DIST_SOURCES = $(am__libSDLU_la_SOURCES_DIST)
+SOURCES = $(libSDLU_la_SOURCES) $(libft_la_SOURCES) \
+	$(libsdlttf_la_SOURCES)
+DIST_SOURCES = $(am__libSDLU_la_SOURCES_DIST) \
+	$(am__libft_la_SOURCES_DIST) $(libsdlttf_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -367,7 +454,6 @@ SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STATIC = @STATIC@
 STRIP = @STRIP@
-TTF_CFLAGS = @TTF_CFLAGS@
 TTF_LIBS = @TTF_LIBS@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
@@ -426,10 +512,14 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+noinst_LTLIBRARIES = libft.la libsdlttf.la
 lib_LTLIBRARIES = libSDLU.la
 bin_SCRIPTS = sdlu-config
 extra_source_files = $(am__append_1) $(am__append_2) $(am__append_3) \
 	$(am__append_4) $(am__append_5)
+libSDLU_la_LIBADD = libsdlttf.la
+libSDLU_la_CFLAGS = -I$(srcdir)/external/sdl_ttf -I$(srcdir)/src -I$(srcdir)/include
+libSDLU_la_OBJCFLAGS = $(libSDLU_la_CFLAGS)
 libSDLU_la_SOURCES = \
 		${extra_source_files}								\
 		src/SDLU_common.c										\
@@ -470,6 +560,61 @@ include_HEADERS = \
 		include/SDLU_text.h				\
 		include/SDLU_turtle.h
 
+
+# SDL2_ttf
+libsdlttf_la_SOURCES = external/sdl_ttf/SDL_ttf.c
+libsdlttf_la_LIBADD = libft.la
+libsdlttf_la_CFLAGS = -I$(srcdir)/external/freetype2/include -DFT2_BUILD_LIBRARY
+
+# freetype
+@MACOSX_SYSTEM_TRUE@ftmac_c = external/freetype2/ftmac.c
+libft_la_SOURCES = \
+		$(ftmac_c)										\
+		external/freetype2/autofit.c	\
+		external/freetype2/ftbase.c		\
+		external/freetype2/ftbbox.c		\
+		external/freetype2/ftbdf.c		\
+		external/freetype2/ftbitmap.c	\
+		external/freetype2/ftcid.c		\
+		external/freetype2/ftdebug.c	\
+		external/freetype2/ftfstype.c	\
+		external/freetype2/ftgasp.c		\
+		external/freetype2/ftglyph.c	\
+		external/freetype2/ftgxval.c	\
+		external/freetype2/ftinit.c		\
+		external/freetype2/ftlcdfil.c	\
+		external/freetype2/ftmm.c			\
+		external/freetype2/ftotval.c	\
+		external/freetype2/ftpatent.c	\
+		external/freetype2/ftpfr.c		\
+		external/freetype2/ftstroke.c	\
+		external/freetype2/ftsynth.c	\
+		external/freetype2/ftsystem.c	\
+		external/freetype2/fttype1.c	\
+		external/freetype2/ftwinfnt.c	\
+		external/freetype2/ftxf86.c		\
+		external/freetype2/bdf.c			\
+		external/freetype2/ftbzip2.c	\
+		external/freetype2/ftcache.c	\
+		external/freetype2/cff.c			\
+		external/freetype2/type1cid.c	\
+		external/freetype2/ftgzip.c		\
+		external/freetype2/ftlzw.c		\
+		external/freetype2/pcf.c			\
+		external/freetype2/pfr.c			\
+		external/freetype2/psaux.c		\
+		external/freetype2/pshinter.c	\
+		external/freetype2/psmodule.c	\
+		external/freetype2/raster.c		\
+		external/freetype2/sfnt.c			\
+		external/freetype2/smooth.c		\
+		external/freetype2/apinames.c	\
+		external/freetype2/truetype.c	\
+		external/freetype2/type1.c		\
+		external/freetype2/type42.c		\
+		external/freetype2/winfnt.c
+
+libft_la_CFLAGS = -I$(srcdir)/external/freetype2/include -DFT2_BUILD_LIBRARY
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = sdlu.pc
 aclocaldir = $(datarootdir)/aclocal
@@ -556,19 +701,31 @@ clean-libLTLIBRARIES:
 	  echo rm -f $${locs}; \
 	  rm -f $${locs}; \
 	}
+
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
 src/filedialog/$(am__dirstamp):
 	@$(MKDIR_P) src/filedialog
 	@: > src/filedialog/$(am__dirstamp)
 src/filedialog/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/filedialog/$(DEPDIR)
 	@: > src/filedialog/$(DEPDIR)/$(am__dirstamp)
-src/filedialog/SDLU_filedialog_cocoa.lo:  \
+src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo:  \
 	src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
-src/filedialog/SDLU_filedialog_windows.lo:  \
+src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo:  \
 	src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
-src/filedialog/SDLU_filedialog_gtk.lo: src/filedialog/$(am__dirstamp) \
+src/filedialog/libSDLU_la-SDLU_filedialog_gtk.lo:  \
+	src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
 src/filesystem/$(am__dirstamp):
 	@$(MKDIR_P) src/filesystem
@@ -576,10 +733,10 @@ src/filesystem/$(am__dirstamp):
 src/filesystem/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/filesystem/$(DEPDIR)
 	@: > src/filesystem/$(DEPDIR)/$(am__dirstamp)
-src/filesystem/SDLU_filesystem_windows.lo:  \
+src/filesystem/libSDLU_la-SDLU_filesystem_windows.lo:  \
 	src/filesystem/$(am__dirstamp) \
 	src/filesystem/$(DEPDIR)/$(am__dirstamp)
-src/filesystem/SDLU_filesystem_dirent.lo:  \
+src/filesystem/libSDLU_la-SDLU_filesystem_dirent.lo:  \
 	src/filesystem/$(am__dirstamp) \
 	src/filesystem/$(DEPDIR)/$(am__dirstamp)
 src/$(am__dirstamp):
@@ -588,31 +745,198 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_common.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_userdata.lo: src/$(am__dirstamp) \
+src/libSDLU_la-SDLU_common.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/filedialog/SDLU_filedialog.lo: src/filedialog/$(am__dirstamp) \
+src/libSDLU_la-SDLU_userdata.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/filedialog/libSDLU_la-SDLU_filedialog.lo:  \
+	src/filedialog/$(am__dirstamp) \
 	src/filedialog/$(DEPDIR)/$(am__dirstamp)
-src/filesystem/SDLU_filesystem.lo: src/filesystem/$(am__dirstamp) \
+src/filesystem/libSDLU_la-SDLU_filesystem.lo:  \
+	src/filesystem/$(am__dirstamp) \
 	src/filesystem/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_gl.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_button.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_combobox.lo: src/$(am__dirstamp) \
+src/libSDLU_la-SDLU_gl.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_ini.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_pixels.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_render.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_collide.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_create.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_framerate.lo: src/$(am__dirstamp) \
+src/libSDLU_la-SDLU_button.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_math.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_sprite.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_ttf.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/SDLU_turtle.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_combobox.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_ini.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_pixels.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_render.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_collide.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_create.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_framerate.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_math.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_sprite.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_ttf.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libSDLU_la-SDLU_turtle.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 
 libSDLU.la: $(libSDLU_la_OBJECTS) $(libSDLU_la_DEPENDENCIES) $(EXTRA_libSDLU_la_DEPENDENCIES) 
-	$(AM_V_OBJCLD)$(OBJCLINK) -rpath $(libdir) $(libSDLU_la_OBJECTS) $(libSDLU_la_LIBADD) $(LIBS)
+	$(AM_V_OBJCLD)$(libSDLU_la_LINK) -rpath $(libdir) $(libSDLU_la_OBJECTS) $(libSDLU_la_LIBADD) $(LIBS)
+external/freetype2/$(am__dirstamp):
+	@$(MKDIR_P) external/freetype2
+	@: > external/freetype2/$(am__dirstamp)
+external/freetype2/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) external/freetype2/$(DEPDIR)
+	@: > external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftmac.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-autofit.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftbase.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftbbox.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftbdf.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftbitmap.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftcid.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftdebug.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftfstype.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftgasp.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftglyph.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftgxval.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftinit.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftlcdfil.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftmm.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftotval.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftpatent.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftpfr.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftstroke.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftsynth.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftsystem.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-fttype1.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftwinfnt.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftxf86.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-bdf.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftbzip2.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftcache.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-cff.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-type1cid.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftgzip.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-ftlzw.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-pcf.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-pfr.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-psaux.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-pshinter.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-psmodule.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-raster.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-sfnt.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-smooth.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-apinames.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-truetype.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-type1.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-type42.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+external/freetype2/libft_la-winfnt.lo:  \
+	external/freetype2/$(am__dirstamp) \
+	external/freetype2/$(DEPDIR)/$(am__dirstamp)
+
+libft.la: $(libft_la_OBJECTS) $(libft_la_DEPENDENCIES) $(EXTRA_libft_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(libft_la_LINK)  $(libft_la_OBJECTS) $(libft_la_LIBADD) $(LIBS)
+external/sdl_ttf/$(am__dirstamp):
+	@$(MKDIR_P) external/sdl_ttf
+	@: > external/sdl_ttf/$(am__dirstamp)
+external/sdl_ttf/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) external/sdl_ttf/$(DEPDIR)
+	@: > external/sdl_ttf/$(DEPDIR)/$(am__dirstamp)
+external/sdl_ttf/libsdlttf_la-SDL_ttf.lo:  \
+	external/sdl_ttf/$(am__dirstamp) \
+	external/sdl_ttf/$(DEPDIR)/$(am__dirstamp)
+
+libsdlttf.la: $(libsdlttf_la_OBJECTS) $(libsdlttf_la_DEPENDENCIES) $(EXTRA_libsdlttf_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(libsdlttf_la_LINK)  $(libsdlttf_la_OBJECTS) $(libsdlttf_la_LIBADD) $(LIBS)
 install-binSCRIPTS: $(bin_SCRIPTS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_SCRIPTS)'; test -n "$(bindir)" || list=; \
@@ -651,6 +975,10 @@ uninstall-binSCRIPTS:
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f external/freetype2/*.$(OBJEXT)
+	-rm -f external/freetype2/*.lo
+	-rm -f external/sdl_ttf/*.$(OBJEXT)
+	-rm -f external/sdl_ttf/*.lo
 	-rm -f src/*.$(OBJEXT)
 	-rm -f src/*.lo
 	-rm -f src/filedialog/*.$(OBJEXT)
@@ -661,28 +989,73 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_button.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_collide.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_combobox.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_common.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_create.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_framerate.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_gl.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_ini.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_math.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_pixels.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_render.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_sprite.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_ttf.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_turtle.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/SDLU_userdata.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_cocoa.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_gtk.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/SDLU_filedialog_windows.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem_dirent.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/SDLU_filesystem_windows.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-apinames.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-autofit.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-bdf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-cff.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftbase.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftbbox.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftbdf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftbitmap.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftbzip2.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftcache.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftcid.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftdebug.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftfstype.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftgasp.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftglyph.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftgxval.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftgzip.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftinit.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftlcdfil.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftlzw.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftmac.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftmm.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftotval.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftpatent.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftpfr.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftstroke.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftsynth.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftsystem.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-fttype1.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftwinfnt.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-ftxf86.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-pcf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-pfr.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-psaux.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-pshinter.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-psmodule.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-raster.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-sfnt.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-smooth.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-truetype.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-type1.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-type1cid.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-type42.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-winfnt.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@external/sdl_ttf/$(DEPDIR)/libsdlttf_la-SDL_ttf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_button.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_collide.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_combobox.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_common.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_create.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_framerate.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_gl.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_ini.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_math.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_pixels.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_render.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_ttf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_userdata.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_cocoa.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_gtk.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_windows.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_dirent.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_windows.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -708,6 +1081,468 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
+src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo: src/filedialog/SDLU_filedialog_windows.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo -MD -MP -MF src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_windows.Tpo -c -o src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo `test -f 'src/filedialog/SDLU_filedialog_windows.c' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog_windows.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_windows.Tpo src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_windows.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/filedialog/SDLU_filedialog_windows.c' object='src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo `test -f 'src/filedialog/SDLU_filedialog_windows.c' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog_windows.c
+
+src/filedialog/libSDLU_la-SDLU_filedialog_gtk.lo: src/filedialog/SDLU_filedialog_gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/filedialog/libSDLU_la-SDLU_filedialog_gtk.lo -MD -MP -MF src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_gtk.Tpo -c -o src/filedialog/libSDLU_la-SDLU_filedialog_gtk.lo `test -f 'src/filedialog/SDLU_filedialog_gtk.c' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog_gtk.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_gtk.Tpo src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_gtk.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/filedialog/SDLU_filedialog_gtk.c' object='src/filedialog/libSDLU_la-SDLU_filedialog_gtk.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/filedialog/libSDLU_la-SDLU_filedialog_gtk.lo `test -f 'src/filedialog/SDLU_filedialog_gtk.c' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog_gtk.c
+
+src/filesystem/libSDLU_la-SDLU_filesystem_windows.lo: src/filesystem/SDLU_filesystem_windows.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/filesystem/libSDLU_la-SDLU_filesystem_windows.lo -MD -MP -MF src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_windows.Tpo -c -o src/filesystem/libSDLU_la-SDLU_filesystem_windows.lo `test -f 'src/filesystem/SDLU_filesystem_windows.c' || echo '$(srcdir)/'`src/filesystem/SDLU_filesystem_windows.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_windows.Tpo src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_windows.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/filesystem/SDLU_filesystem_windows.c' object='src/filesystem/libSDLU_la-SDLU_filesystem_windows.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/filesystem/libSDLU_la-SDLU_filesystem_windows.lo `test -f 'src/filesystem/SDLU_filesystem_windows.c' || echo '$(srcdir)/'`src/filesystem/SDLU_filesystem_windows.c
+
+src/filesystem/libSDLU_la-SDLU_filesystem_dirent.lo: src/filesystem/SDLU_filesystem_dirent.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/filesystem/libSDLU_la-SDLU_filesystem_dirent.lo -MD -MP -MF src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_dirent.Tpo -c -o src/filesystem/libSDLU_la-SDLU_filesystem_dirent.lo `test -f 'src/filesystem/SDLU_filesystem_dirent.c' || echo '$(srcdir)/'`src/filesystem/SDLU_filesystem_dirent.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_dirent.Tpo src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem_dirent.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/filesystem/SDLU_filesystem_dirent.c' object='src/filesystem/libSDLU_la-SDLU_filesystem_dirent.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/filesystem/libSDLU_la-SDLU_filesystem_dirent.lo `test -f 'src/filesystem/SDLU_filesystem_dirent.c' || echo '$(srcdir)/'`src/filesystem/SDLU_filesystem_dirent.c
+
+src/libSDLU_la-SDLU_common.lo: src/SDLU_common.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_common.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_common.Tpo -c -o src/libSDLU_la-SDLU_common.lo `test -f 'src/SDLU_common.c' || echo '$(srcdir)/'`src/SDLU_common.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_common.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_common.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_common.c' object='src/libSDLU_la-SDLU_common.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_common.lo `test -f 'src/SDLU_common.c' || echo '$(srcdir)/'`src/SDLU_common.c
+
+src/libSDLU_la-SDLU_userdata.lo: src/SDLU_userdata.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_userdata.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_userdata.Tpo -c -o src/libSDLU_la-SDLU_userdata.lo `test -f 'src/SDLU_userdata.c' || echo '$(srcdir)/'`src/SDLU_userdata.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_userdata.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_userdata.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_userdata.c' object='src/libSDLU_la-SDLU_userdata.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_userdata.lo `test -f 'src/SDLU_userdata.c' || echo '$(srcdir)/'`src/SDLU_userdata.c
+
+src/filedialog/libSDLU_la-SDLU_filedialog.lo: src/filedialog/SDLU_filedialog.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/filedialog/libSDLU_la-SDLU_filedialog.lo -MD -MP -MF src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog.Tpo -c -o src/filedialog/libSDLU_la-SDLU_filedialog.lo `test -f 'src/filedialog/SDLU_filedialog.c' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog.Tpo src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/filedialog/SDLU_filedialog.c' object='src/filedialog/libSDLU_la-SDLU_filedialog.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/filedialog/libSDLU_la-SDLU_filedialog.lo `test -f 'src/filedialog/SDLU_filedialog.c' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog.c
+
+src/filesystem/libSDLU_la-SDLU_filesystem.lo: src/filesystem/SDLU_filesystem.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/filesystem/libSDLU_la-SDLU_filesystem.lo -MD -MP -MF src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem.Tpo -c -o src/filesystem/libSDLU_la-SDLU_filesystem.lo `test -f 'src/filesystem/SDLU_filesystem.c' || echo '$(srcdir)/'`src/filesystem/SDLU_filesystem.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem.Tpo src/filesystem/$(DEPDIR)/libSDLU_la-SDLU_filesystem.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/filesystem/SDLU_filesystem.c' object='src/filesystem/libSDLU_la-SDLU_filesystem.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/filesystem/libSDLU_la-SDLU_filesystem.lo `test -f 'src/filesystem/SDLU_filesystem.c' || echo '$(srcdir)/'`src/filesystem/SDLU_filesystem.c
+
+src/libSDLU_la-SDLU_gl.lo: src/SDLU_gl.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_gl.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_gl.Tpo -c -o src/libSDLU_la-SDLU_gl.lo `test -f 'src/SDLU_gl.c' || echo '$(srcdir)/'`src/SDLU_gl.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_gl.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_gl.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_gl.c' object='src/libSDLU_la-SDLU_gl.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_gl.lo `test -f 'src/SDLU_gl.c' || echo '$(srcdir)/'`src/SDLU_gl.c
+
+src/libSDLU_la-SDLU_button.lo: src/SDLU_button.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_button.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_button.Tpo -c -o src/libSDLU_la-SDLU_button.lo `test -f 'src/SDLU_button.c' || echo '$(srcdir)/'`src/SDLU_button.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_button.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_button.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_button.c' object='src/libSDLU_la-SDLU_button.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_button.lo `test -f 'src/SDLU_button.c' || echo '$(srcdir)/'`src/SDLU_button.c
+
+src/libSDLU_la-SDLU_combobox.lo: src/SDLU_combobox.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_combobox.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_combobox.Tpo -c -o src/libSDLU_la-SDLU_combobox.lo `test -f 'src/SDLU_combobox.c' || echo '$(srcdir)/'`src/SDLU_combobox.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_combobox.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_combobox.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_combobox.c' object='src/libSDLU_la-SDLU_combobox.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_combobox.lo `test -f 'src/SDLU_combobox.c' || echo '$(srcdir)/'`src/SDLU_combobox.c
+
+src/libSDLU_la-SDLU_ini.lo: src/SDLU_ini.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_ini.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_ini.Tpo -c -o src/libSDLU_la-SDLU_ini.lo `test -f 'src/SDLU_ini.c' || echo '$(srcdir)/'`src/SDLU_ini.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_ini.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_ini.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_ini.c' object='src/libSDLU_la-SDLU_ini.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_ini.lo `test -f 'src/SDLU_ini.c' || echo '$(srcdir)/'`src/SDLU_ini.c
+
+src/libSDLU_la-SDLU_pixels.lo: src/SDLU_pixels.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_pixels.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_pixels.Tpo -c -o src/libSDLU_la-SDLU_pixels.lo `test -f 'src/SDLU_pixels.c' || echo '$(srcdir)/'`src/SDLU_pixels.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_pixels.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_pixels.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_pixels.c' object='src/libSDLU_la-SDLU_pixels.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_pixels.lo `test -f 'src/SDLU_pixels.c' || echo '$(srcdir)/'`src/SDLU_pixels.c
+
+src/libSDLU_la-SDLU_render.lo: src/SDLU_render.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_render.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_render.Tpo -c -o src/libSDLU_la-SDLU_render.lo `test -f 'src/SDLU_render.c' || echo '$(srcdir)/'`src/SDLU_render.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_render.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_render.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_render.c' object='src/libSDLU_la-SDLU_render.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_render.lo `test -f 'src/SDLU_render.c' || echo '$(srcdir)/'`src/SDLU_render.c
+
+src/libSDLU_la-SDLU_collide.lo: src/SDLU_collide.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_collide.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_collide.Tpo -c -o src/libSDLU_la-SDLU_collide.lo `test -f 'src/SDLU_collide.c' || echo '$(srcdir)/'`src/SDLU_collide.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_collide.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_collide.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_collide.c' object='src/libSDLU_la-SDLU_collide.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_collide.lo `test -f 'src/SDLU_collide.c' || echo '$(srcdir)/'`src/SDLU_collide.c
+
+src/libSDLU_la-SDLU_create.lo: src/SDLU_create.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_create.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_create.Tpo -c -o src/libSDLU_la-SDLU_create.lo `test -f 'src/SDLU_create.c' || echo '$(srcdir)/'`src/SDLU_create.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_create.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_create.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_create.c' object='src/libSDLU_la-SDLU_create.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_create.lo `test -f 'src/SDLU_create.c' || echo '$(srcdir)/'`src/SDLU_create.c
+
+src/libSDLU_la-SDLU_framerate.lo: src/SDLU_framerate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_framerate.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_framerate.Tpo -c -o src/libSDLU_la-SDLU_framerate.lo `test -f 'src/SDLU_framerate.c' || echo '$(srcdir)/'`src/SDLU_framerate.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_framerate.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_framerate.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_framerate.c' object='src/libSDLU_la-SDLU_framerate.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_framerate.lo `test -f 'src/SDLU_framerate.c' || echo '$(srcdir)/'`src/SDLU_framerate.c
+
+src/libSDLU_la-SDLU_math.lo: src/SDLU_math.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_math.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_math.Tpo -c -o src/libSDLU_la-SDLU_math.lo `test -f 'src/SDLU_math.c' || echo '$(srcdir)/'`src/SDLU_math.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_math.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_math.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_math.c' object='src/libSDLU_la-SDLU_math.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_math.lo `test -f 'src/SDLU_math.c' || echo '$(srcdir)/'`src/SDLU_math.c
+
+src/libSDLU_la-SDLU_sprite.lo: src/SDLU_sprite.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_sprite.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Tpo -c -o src/libSDLU_la-SDLU_sprite.lo `test -f 'src/SDLU_sprite.c' || echo '$(srcdir)/'`src/SDLU_sprite.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_sprite.c' object='src/libSDLU_la-SDLU_sprite.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_sprite.lo `test -f 'src/SDLU_sprite.c' || echo '$(srcdir)/'`src/SDLU_sprite.c
+
+src/libSDLU_la-SDLU_ttf.lo: src/SDLU_ttf.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_ttf.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_ttf.Tpo -c -o src/libSDLU_la-SDLU_ttf.lo `test -f 'src/SDLU_ttf.c' || echo '$(srcdir)/'`src/SDLU_ttf.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_ttf.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_ttf.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_ttf.c' object='src/libSDLU_la-SDLU_ttf.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_ttf.lo `test -f 'src/SDLU_ttf.c' || echo '$(srcdir)/'`src/SDLU_ttf.c
+
+src/libSDLU_la-SDLU_turtle.lo: src/SDLU_turtle.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_turtle.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Tpo -c -o src/libSDLU_la-SDLU_turtle.lo `test -f 'src/SDLU_turtle.c' || echo '$(srcdir)/'`src/SDLU_turtle.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_turtle.c' object='src/libSDLU_la-SDLU_turtle.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_turtle.lo `test -f 'src/SDLU_turtle.c' || echo '$(srcdir)/'`src/SDLU_turtle.c
+
+external/freetype2/libft_la-ftmac.lo: external/freetype2/ftmac.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftmac.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftmac.Tpo -c -o external/freetype2/libft_la-ftmac.lo `test -f 'external/freetype2/ftmac.c' || echo '$(srcdir)/'`external/freetype2/ftmac.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftmac.Tpo external/freetype2/$(DEPDIR)/libft_la-ftmac.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftmac.c' object='external/freetype2/libft_la-ftmac.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftmac.lo `test -f 'external/freetype2/ftmac.c' || echo '$(srcdir)/'`external/freetype2/ftmac.c
+
+external/freetype2/libft_la-autofit.lo: external/freetype2/autofit.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-autofit.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-autofit.Tpo -c -o external/freetype2/libft_la-autofit.lo `test -f 'external/freetype2/autofit.c' || echo '$(srcdir)/'`external/freetype2/autofit.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-autofit.Tpo external/freetype2/$(DEPDIR)/libft_la-autofit.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/autofit.c' object='external/freetype2/libft_la-autofit.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-autofit.lo `test -f 'external/freetype2/autofit.c' || echo '$(srcdir)/'`external/freetype2/autofit.c
+
+external/freetype2/libft_la-ftbase.lo: external/freetype2/ftbase.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftbase.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftbase.Tpo -c -o external/freetype2/libft_la-ftbase.lo `test -f 'external/freetype2/ftbase.c' || echo '$(srcdir)/'`external/freetype2/ftbase.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftbase.Tpo external/freetype2/$(DEPDIR)/libft_la-ftbase.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftbase.c' object='external/freetype2/libft_la-ftbase.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftbase.lo `test -f 'external/freetype2/ftbase.c' || echo '$(srcdir)/'`external/freetype2/ftbase.c
+
+external/freetype2/libft_la-ftbbox.lo: external/freetype2/ftbbox.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftbbox.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftbbox.Tpo -c -o external/freetype2/libft_la-ftbbox.lo `test -f 'external/freetype2/ftbbox.c' || echo '$(srcdir)/'`external/freetype2/ftbbox.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftbbox.Tpo external/freetype2/$(DEPDIR)/libft_la-ftbbox.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftbbox.c' object='external/freetype2/libft_la-ftbbox.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftbbox.lo `test -f 'external/freetype2/ftbbox.c' || echo '$(srcdir)/'`external/freetype2/ftbbox.c
+
+external/freetype2/libft_la-ftbdf.lo: external/freetype2/ftbdf.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftbdf.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftbdf.Tpo -c -o external/freetype2/libft_la-ftbdf.lo `test -f 'external/freetype2/ftbdf.c' || echo '$(srcdir)/'`external/freetype2/ftbdf.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftbdf.Tpo external/freetype2/$(DEPDIR)/libft_la-ftbdf.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftbdf.c' object='external/freetype2/libft_la-ftbdf.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftbdf.lo `test -f 'external/freetype2/ftbdf.c' || echo '$(srcdir)/'`external/freetype2/ftbdf.c
+
+external/freetype2/libft_la-ftbitmap.lo: external/freetype2/ftbitmap.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftbitmap.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftbitmap.Tpo -c -o external/freetype2/libft_la-ftbitmap.lo `test -f 'external/freetype2/ftbitmap.c' || echo '$(srcdir)/'`external/freetype2/ftbitmap.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftbitmap.Tpo external/freetype2/$(DEPDIR)/libft_la-ftbitmap.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftbitmap.c' object='external/freetype2/libft_la-ftbitmap.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftbitmap.lo `test -f 'external/freetype2/ftbitmap.c' || echo '$(srcdir)/'`external/freetype2/ftbitmap.c
+
+external/freetype2/libft_la-ftcid.lo: external/freetype2/ftcid.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftcid.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftcid.Tpo -c -o external/freetype2/libft_la-ftcid.lo `test -f 'external/freetype2/ftcid.c' || echo '$(srcdir)/'`external/freetype2/ftcid.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftcid.Tpo external/freetype2/$(DEPDIR)/libft_la-ftcid.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftcid.c' object='external/freetype2/libft_la-ftcid.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftcid.lo `test -f 'external/freetype2/ftcid.c' || echo '$(srcdir)/'`external/freetype2/ftcid.c
+
+external/freetype2/libft_la-ftdebug.lo: external/freetype2/ftdebug.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftdebug.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftdebug.Tpo -c -o external/freetype2/libft_la-ftdebug.lo `test -f 'external/freetype2/ftdebug.c' || echo '$(srcdir)/'`external/freetype2/ftdebug.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftdebug.Tpo external/freetype2/$(DEPDIR)/libft_la-ftdebug.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftdebug.c' object='external/freetype2/libft_la-ftdebug.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftdebug.lo `test -f 'external/freetype2/ftdebug.c' || echo '$(srcdir)/'`external/freetype2/ftdebug.c
+
+external/freetype2/libft_la-ftfstype.lo: external/freetype2/ftfstype.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftfstype.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftfstype.Tpo -c -o external/freetype2/libft_la-ftfstype.lo `test -f 'external/freetype2/ftfstype.c' || echo '$(srcdir)/'`external/freetype2/ftfstype.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftfstype.Tpo external/freetype2/$(DEPDIR)/libft_la-ftfstype.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftfstype.c' object='external/freetype2/libft_la-ftfstype.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftfstype.lo `test -f 'external/freetype2/ftfstype.c' || echo '$(srcdir)/'`external/freetype2/ftfstype.c
+
+external/freetype2/libft_la-ftgasp.lo: external/freetype2/ftgasp.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftgasp.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftgasp.Tpo -c -o external/freetype2/libft_la-ftgasp.lo `test -f 'external/freetype2/ftgasp.c' || echo '$(srcdir)/'`external/freetype2/ftgasp.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftgasp.Tpo external/freetype2/$(DEPDIR)/libft_la-ftgasp.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftgasp.c' object='external/freetype2/libft_la-ftgasp.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftgasp.lo `test -f 'external/freetype2/ftgasp.c' || echo '$(srcdir)/'`external/freetype2/ftgasp.c
+
+external/freetype2/libft_la-ftglyph.lo: external/freetype2/ftglyph.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftglyph.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftglyph.Tpo -c -o external/freetype2/libft_la-ftglyph.lo `test -f 'external/freetype2/ftglyph.c' || echo '$(srcdir)/'`external/freetype2/ftglyph.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftglyph.Tpo external/freetype2/$(DEPDIR)/libft_la-ftglyph.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftglyph.c' object='external/freetype2/libft_la-ftglyph.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftglyph.lo `test -f 'external/freetype2/ftglyph.c' || echo '$(srcdir)/'`external/freetype2/ftglyph.c
+
+external/freetype2/libft_la-ftgxval.lo: external/freetype2/ftgxval.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftgxval.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftgxval.Tpo -c -o external/freetype2/libft_la-ftgxval.lo `test -f 'external/freetype2/ftgxval.c' || echo '$(srcdir)/'`external/freetype2/ftgxval.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftgxval.Tpo external/freetype2/$(DEPDIR)/libft_la-ftgxval.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftgxval.c' object='external/freetype2/libft_la-ftgxval.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftgxval.lo `test -f 'external/freetype2/ftgxval.c' || echo '$(srcdir)/'`external/freetype2/ftgxval.c
+
+external/freetype2/libft_la-ftinit.lo: external/freetype2/ftinit.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftinit.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftinit.Tpo -c -o external/freetype2/libft_la-ftinit.lo `test -f 'external/freetype2/ftinit.c' || echo '$(srcdir)/'`external/freetype2/ftinit.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftinit.Tpo external/freetype2/$(DEPDIR)/libft_la-ftinit.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftinit.c' object='external/freetype2/libft_la-ftinit.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftinit.lo `test -f 'external/freetype2/ftinit.c' || echo '$(srcdir)/'`external/freetype2/ftinit.c
+
+external/freetype2/libft_la-ftlcdfil.lo: external/freetype2/ftlcdfil.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftlcdfil.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftlcdfil.Tpo -c -o external/freetype2/libft_la-ftlcdfil.lo `test -f 'external/freetype2/ftlcdfil.c' || echo '$(srcdir)/'`external/freetype2/ftlcdfil.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftlcdfil.Tpo external/freetype2/$(DEPDIR)/libft_la-ftlcdfil.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftlcdfil.c' object='external/freetype2/libft_la-ftlcdfil.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftlcdfil.lo `test -f 'external/freetype2/ftlcdfil.c' || echo '$(srcdir)/'`external/freetype2/ftlcdfil.c
+
+external/freetype2/libft_la-ftmm.lo: external/freetype2/ftmm.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftmm.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftmm.Tpo -c -o external/freetype2/libft_la-ftmm.lo `test -f 'external/freetype2/ftmm.c' || echo '$(srcdir)/'`external/freetype2/ftmm.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftmm.Tpo external/freetype2/$(DEPDIR)/libft_la-ftmm.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftmm.c' object='external/freetype2/libft_la-ftmm.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftmm.lo `test -f 'external/freetype2/ftmm.c' || echo '$(srcdir)/'`external/freetype2/ftmm.c
+
+external/freetype2/libft_la-ftotval.lo: external/freetype2/ftotval.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftotval.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftotval.Tpo -c -o external/freetype2/libft_la-ftotval.lo `test -f 'external/freetype2/ftotval.c' || echo '$(srcdir)/'`external/freetype2/ftotval.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftotval.Tpo external/freetype2/$(DEPDIR)/libft_la-ftotval.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftotval.c' object='external/freetype2/libft_la-ftotval.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftotval.lo `test -f 'external/freetype2/ftotval.c' || echo '$(srcdir)/'`external/freetype2/ftotval.c
+
+external/freetype2/libft_la-ftpatent.lo: external/freetype2/ftpatent.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftpatent.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftpatent.Tpo -c -o external/freetype2/libft_la-ftpatent.lo `test -f 'external/freetype2/ftpatent.c' || echo '$(srcdir)/'`external/freetype2/ftpatent.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftpatent.Tpo external/freetype2/$(DEPDIR)/libft_la-ftpatent.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftpatent.c' object='external/freetype2/libft_la-ftpatent.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftpatent.lo `test -f 'external/freetype2/ftpatent.c' || echo '$(srcdir)/'`external/freetype2/ftpatent.c
+
+external/freetype2/libft_la-ftpfr.lo: external/freetype2/ftpfr.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftpfr.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftpfr.Tpo -c -o external/freetype2/libft_la-ftpfr.lo `test -f 'external/freetype2/ftpfr.c' || echo '$(srcdir)/'`external/freetype2/ftpfr.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftpfr.Tpo external/freetype2/$(DEPDIR)/libft_la-ftpfr.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftpfr.c' object='external/freetype2/libft_la-ftpfr.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftpfr.lo `test -f 'external/freetype2/ftpfr.c' || echo '$(srcdir)/'`external/freetype2/ftpfr.c
+
+external/freetype2/libft_la-ftstroke.lo: external/freetype2/ftstroke.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftstroke.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftstroke.Tpo -c -o external/freetype2/libft_la-ftstroke.lo `test -f 'external/freetype2/ftstroke.c' || echo '$(srcdir)/'`external/freetype2/ftstroke.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftstroke.Tpo external/freetype2/$(DEPDIR)/libft_la-ftstroke.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftstroke.c' object='external/freetype2/libft_la-ftstroke.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftstroke.lo `test -f 'external/freetype2/ftstroke.c' || echo '$(srcdir)/'`external/freetype2/ftstroke.c
+
+external/freetype2/libft_la-ftsynth.lo: external/freetype2/ftsynth.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftsynth.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftsynth.Tpo -c -o external/freetype2/libft_la-ftsynth.lo `test -f 'external/freetype2/ftsynth.c' || echo '$(srcdir)/'`external/freetype2/ftsynth.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftsynth.Tpo external/freetype2/$(DEPDIR)/libft_la-ftsynth.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftsynth.c' object='external/freetype2/libft_la-ftsynth.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftsynth.lo `test -f 'external/freetype2/ftsynth.c' || echo '$(srcdir)/'`external/freetype2/ftsynth.c
+
+external/freetype2/libft_la-ftsystem.lo: external/freetype2/ftsystem.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftsystem.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftsystem.Tpo -c -o external/freetype2/libft_la-ftsystem.lo `test -f 'external/freetype2/ftsystem.c' || echo '$(srcdir)/'`external/freetype2/ftsystem.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftsystem.Tpo external/freetype2/$(DEPDIR)/libft_la-ftsystem.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftsystem.c' object='external/freetype2/libft_la-ftsystem.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftsystem.lo `test -f 'external/freetype2/ftsystem.c' || echo '$(srcdir)/'`external/freetype2/ftsystem.c
+
+external/freetype2/libft_la-fttype1.lo: external/freetype2/fttype1.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-fttype1.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-fttype1.Tpo -c -o external/freetype2/libft_la-fttype1.lo `test -f 'external/freetype2/fttype1.c' || echo '$(srcdir)/'`external/freetype2/fttype1.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-fttype1.Tpo external/freetype2/$(DEPDIR)/libft_la-fttype1.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/fttype1.c' object='external/freetype2/libft_la-fttype1.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-fttype1.lo `test -f 'external/freetype2/fttype1.c' || echo '$(srcdir)/'`external/freetype2/fttype1.c
+
+external/freetype2/libft_la-ftwinfnt.lo: external/freetype2/ftwinfnt.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftwinfnt.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftwinfnt.Tpo -c -o external/freetype2/libft_la-ftwinfnt.lo `test -f 'external/freetype2/ftwinfnt.c' || echo '$(srcdir)/'`external/freetype2/ftwinfnt.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftwinfnt.Tpo external/freetype2/$(DEPDIR)/libft_la-ftwinfnt.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftwinfnt.c' object='external/freetype2/libft_la-ftwinfnt.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftwinfnt.lo `test -f 'external/freetype2/ftwinfnt.c' || echo '$(srcdir)/'`external/freetype2/ftwinfnt.c
+
+external/freetype2/libft_la-ftxf86.lo: external/freetype2/ftxf86.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftxf86.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftxf86.Tpo -c -o external/freetype2/libft_la-ftxf86.lo `test -f 'external/freetype2/ftxf86.c' || echo '$(srcdir)/'`external/freetype2/ftxf86.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftxf86.Tpo external/freetype2/$(DEPDIR)/libft_la-ftxf86.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftxf86.c' object='external/freetype2/libft_la-ftxf86.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftxf86.lo `test -f 'external/freetype2/ftxf86.c' || echo '$(srcdir)/'`external/freetype2/ftxf86.c
+
+external/freetype2/libft_la-bdf.lo: external/freetype2/bdf.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-bdf.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-bdf.Tpo -c -o external/freetype2/libft_la-bdf.lo `test -f 'external/freetype2/bdf.c' || echo '$(srcdir)/'`external/freetype2/bdf.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-bdf.Tpo external/freetype2/$(DEPDIR)/libft_la-bdf.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/bdf.c' object='external/freetype2/libft_la-bdf.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-bdf.lo `test -f 'external/freetype2/bdf.c' || echo '$(srcdir)/'`external/freetype2/bdf.c
+
+external/freetype2/libft_la-ftbzip2.lo: external/freetype2/ftbzip2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftbzip2.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftbzip2.Tpo -c -o external/freetype2/libft_la-ftbzip2.lo `test -f 'external/freetype2/ftbzip2.c' || echo '$(srcdir)/'`external/freetype2/ftbzip2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftbzip2.Tpo external/freetype2/$(DEPDIR)/libft_la-ftbzip2.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftbzip2.c' object='external/freetype2/libft_la-ftbzip2.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftbzip2.lo `test -f 'external/freetype2/ftbzip2.c' || echo '$(srcdir)/'`external/freetype2/ftbzip2.c
+
+external/freetype2/libft_la-ftcache.lo: external/freetype2/ftcache.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftcache.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftcache.Tpo -c -o external/freetype2/libft_la-ftcache.lo `test -f 'external/freetype2/ftcache.c' || echo '$(srcdir)/'`external/freetype2/ftcache.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftcache.Tpo external/freetype2/$(DEPDIR)/libft_la-ftcache.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftcache.c' object='external/freetype2/libft_la-ftcache.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftcache.lo `test -f 'external/freetype2/ftcache.c' || echo '$(srcdir)/'`external/freetype2/ftcache.c
+
+external/freetype2/libft_la-cff.lo: external/freetype2/cff.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-cff.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-cff.Tpo -c -o external/freetype2/libft_la-cff.lo `test -f 'external/freetype2/cff.c' || echo '$(srcdir)/'`external/freetype2/cff.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-cff.Tpo external/freetype2/$(DEPDIR)/libft_la-cff.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/cff.c' object='external/freetype2/libft_la-cff.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-cff.lo `test -f 'external/freetype2/cff.c' || echo '$(srcdir)/'`external/freetype2/cff.c
+
+external/freetype2/libft_la-type1cid.lo: external/freetype2/type1cid.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-type1cid.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-type1cid.Tpo -c -o external/freetype2/libft_la-type1cid.lo `test -f 'external/freetype2/type1cid.c' || echo '$(srcdir)/'`external/freetype2/type1cid.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-type1cid.Tpo external/freetype2/$(DEPDIR)/libft_la-type1cid.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/type1cid.c' object='external/freetype2/libft_la-type1cid.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-type1cid.lo `test -f 'external/freetype2/type1cid.c' || echo '$(srcdir)/'`external/freetype2/type1cid.c
+
+external/freetype2/libft_la-ftgzip.lo: external/freetype2/ftgzip.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftgzip.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftgzip.Tpo -c -o external/freetype2/libft_la-ftgzip.lo `test -f 'external/freetype2/ftgzip.c' || echo '$(srcdir)/'`external/freetype2/ftgzip.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftgzip.Tpo external/freetype2/$(DEPDIR)/libft_la-ftgzip.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftgzip.c' object='external/freetype2/libft_la-ftgzip.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftgzip.lo `test -f 'external/freetype2/ftgzip.c' || echo '$(srcdir)/'`external/freetype2/ftgzip.c
+
+external/freetype2/libft_la-ftlzw.lo: external/freetype2/ftlzw.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftlzw.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftlzw.Tpo -c -o external/freetype2/libft_la-ftlzw.lo `test -f 'external/freetype2/ftlzw.c' || echo '$(srcdir)/'`external/freetype2/ftlzw.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-ftlzw.Tpo external/freetype2/$(DEPDIR)/libft_la-ftlzw.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/ftlzw.c' object='external/freetype2/libft_la-ftlzw.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-ftlzw.lo `test -f 'external/freetype2/ftlzw.c' || echo '$(srcdir)/'`external/freetype2/ftlzw.c
+
+external/freetype2/libft_la-pcf.lo: external/freetype2/pcf.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-pcf.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-pcf.Tpo -c -o external/freetype2/libft_la-pcf.lo `test -f 'external/freetype2/pcf.c' || echo '$(srcdir)/'`external/freetype2/pcf.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-pcf.Tpo external/freetype2/$(DEPDIR)/libft_la-pcf.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/pcf.c' object='external/freetype2/libft_la-pcf.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-pcf.lo `test -f 'external/freetype2/pcf.c' || echo '$(srcdir)/'`external/freetype2/pcf.c
+
+external/freetype2/libft_la-pfr.lo: external/freetype2/pfr.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-pfr.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-pfr.Tpo -c -o external/freetype2/libft_la-pfr.lo `test -f 'external/freetype2/pfr.c' || echo '$(srcdir)/'`external/freetype2/pfr.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-pfr.Tpo external/freetype2/$(DEPDIR)/libft_la-pfr.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/pfr.c' object='external/freetype2/libft_la-pfr.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-pfr.lo `test -f 'external/freetype2/pfr.c' || echo '$(srcdir)/'`external/freetype2/pfr.c
+
+external/freetype2/libft_la-psaux.lo: external/freetype2/psaux.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-psaux.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-psaux.Tpo -c -o external/freetype2/libft_la-psaux.lo `test -f 'external/freetype2/psaux.c' || echo '$(srcdir)/'`external/freetype2/psaux.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-psaux.Tpo external/freetype2/$(DEPDIR)/libft_la-psaux.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/psaux.c' object='external/freetype2/libft_la-psaux.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-psaux.lo `test -f 'external/freetype2/psaux.c' || echo '$(srcdir)/'`external/freetype2/psaux.c
+
+external/freetype2/libft_la-pshinter.lo: external/freetype2/pshinter.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-pshinter.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-pshinter.Tpo -c -o external/freetype2/libft_la-pshinter.lo `test -f 'external/freetype2/pshinter.c' || echo '$(srcdir)/'`external/freetype2/pshinter.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-pshinter.Tpo external/freetype2/$(DEPDIR)/libft_la-pshinter.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/pshinter.c' object='external/freetype2/libft_la-pshinter.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-pshinter.lo `test -f 'external/freetype2/pshinter.c' || echo '$(srcdir)/'`external/freetype2/pshinter.c
+
+external/freetype2/libft_la-psmodule.lo: external/freetype2/psmodule.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-psmodule.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-psmodule.Tpo -c -o external/freetype2/libft_la-psmodule.lo `test -f 'external/freetype2/psmodule.c' || echo '$(srcdir)/'`external/freetype2/psmodule.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-psmodule.Tpo external/freetype2/$(DEPDIR)/libft_la-psmodule.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/psmodule.c' object='external/freetype2/libft_la-psmodule.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-psmodule.lo `test -f 'external/freetype2/psmodule.c' || echo '$(srcdir)/'`external/freetype2/psmodule.c
+
+external/freetype2/libft_la-raster.lo: external/freetype2/raster.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-raster.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-raster.Tpo -c -o external/freetype2/libft_la-raster.lo `test -f 'external/freetype2/raster.c' || echo '$(srcdir)/'`external/freetype2/raster.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-raster.Tpo external/freetype2/$(DEPDIR)/libft_la-raster.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/raster.c' object='external/freetype2/libft_la-raster.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-raster.lo `test -f 'external/freetype2/raster.c' || echo '$(srcdir)/'`external/freetype2/raster.c
+
+external/freetype2/libft_la-sfnt.lo: external/freetype2/sfnt.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-sfnt.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-sfnt.Tpo -c -o external/freetype2/libft_la-sfnt.lo `test -f 'external/freetype2/sfnt.c' || echo '$(srcdir)/'`external/freetype2/sfnt.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-sfnt.Tpo external/freetype2/$(DEPDIR)/libft_la-sfnt.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/sfnt.c' object='external/freetype2/libft_la-sfnt.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-sfnt.lo `test -f 'external/freetype2/sfnt.c' || echo '$(srcdir)/'`external/freetype2/sfnt.c
+
+external/freetype2/libft_la-smooth.lo: external/freetype2/smooth.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-smooth.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-smooth.Tpo -c -o external/freetype2/libft_la-smooth.lo `test -f 'external/freetype2/smooth.c' || echo '$(srcdir)/'`external/freetype2/smooth.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-smooth.Tpo external/freetype2/$(DEPDIR)/libft_la-smooth.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/smooth.c' object='external/freetype2/libft_la-smooth.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-smooth.lo `test -f 'external/freetype2/smooth.c' || echo '$(srcdir)/'`external/freetype2/smooth.c
+
+external/freetype2/libft_la-apinames.lo: external/freetype2/apinames.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-apinames.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-apinames.Tpo -c -o external/freetype2/libft_la-apinames.lo `test -f 'external/freetype2/apinames.c' || echo '$(srcdir)/'`external/freetype2/apinames.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-apinames.Tpo external/freetype2/$(DEPDIR)/libft_la-apinames.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/apinames.c' object='external/freetype2/libft_la-apinames.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-apinames.lo `test -f 'external/freetype2/apinames.c' || echo '$(srcdir)/'`external/freetype2/apinames.c
+
+external/freetype2/libft_la-truetype.lo: external/freetype2/truetype.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-truetype.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-truetype.Tpo -c -o external/freetype2/libft_la-truetype.lo `test -f 'external/freetype2/truetype.c' || echo '$(srcdir)/'`external/freetype2/truetype.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-truetype.Tpo external/freetype2/$(DEPDIR)/libft_la-truetype.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/truetype.c' object='external/freetype2/libft_la-truetype.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-truetype.lo `test -f 'external/freetype2/truetype.c' || echo '$(srcdir)/'`external/freetype2/truetype.c
+
+external/freetype2/libft_la-type1.lo: external/freetype2/type1.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-type1.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-type1.Tpo -c -o external/freetype2/libft_la-type1.lo `test -f 'external/freetype2/type1.c' || echo '$(srcdir)/'`external/freetype2/type1.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-type1.Tpo external/freetype2/$(DEPDIR)/libft_la-type1.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/type1.c' object='external/freetype2/libft_la-type1.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-type1.lo `test -f 'external/freetype2/type1.c' || echo '$(srcdir)/'`external/freetype2/type1.c
+
+external/freetype2/libft_la-type42.lo: external/freetype2/type42.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-type42.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-type42.Tpo -c -o external/freetype2/libft_la-type42.lo `test -f 'external/freetype2/type42.c' || echo '$(srcdir)/'`external/freetype2/type42.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-type42.Tpo external/freetype2/$(DEPDIR)/libft_la-type42.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/type42.c' object='external/freetype2/libft_la-type42.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-type42.lo `test -f 'external/freetype2/type42.c' || echo '$(srcdir)/'`external/freetype2/type42.c
+
+external/freetype2/libft_la-winfnt.lo: external/freetype2/winfnt.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-winfnt.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-winfnt.Tpo -c -o external/freetype2/libft_la-winfnt.lo `test -f 'external/freetype2/winfnt.c' || echo '$(srcdir)/'`external/freetype2/winfnt.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/freetype2/$(DEPDIR)/libft_la-winfnt.Tpo external/freetype2/$(DEPDIR)/libft_la-winfnt.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/freetype2/winfnt.c' object='external/freetype2/libft_la-winfnt.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -c -o external/freetype2/libft_la-winfnt.lo `test -f 'external/freetype2/winfnt.c' || echo '$(srcdir)/'`external/freetype2/winfnt.c
+
+external/sdl_ttf/libsdlttf_la-SDL_ttf.lo: external/sdl_ttf/SDL_ttf.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsdlttf_la_CFLAGS) $(CFLAGS) -MT external/sdl_ttf/libsdlttf_la-SDL_ttf.lo -MD -MP -MF external/sdl_ttf/$(DEPDIR)/libsdlttf_la-SDL_ttf.Tpo -c -o external/sdl_ttf/libsdlttf_la-SDL_ttf.lo `test -f 'external/sdl_ttf/SDL_ttf.c' || echo '$(srcdir)/'`external/sdl_ttf/SDL_ttf.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) external/sdl_ttf/$(DEPDIR)/libsdlttf_la-SDL_ttf.Tpo external/sdl_ttf/$(DEPDIR)/libsdlttf_la-SDL_ttf.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='external/sdl_ttf/SDL_ttf.c' object='external/sdl_ttf/libsdlttf_la-SDL_ttf.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsdlttf_la_CFLAGS) $(CFLAGS) -c -o external/sdl_ttf/libsdlttf_la-SDL_ttf.lo `test -f 'external/sdl_ttf/SDL_ttf.c' || echo '$(srcdir)/'`external/sdl_ttf/SDL_ttf.c
+
 .m.o:
 @am__fastdepOBJC_TRUE@	$(AM_V_OBJC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
 @am__fastdepOBJC_TRUE@	$(OBJCCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
@@ -732,11 +1567,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepOBJC_FALSE@	DEPDIR=$(DEPDIR) $(OBJCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepOBJC_FALSE@	$(AM_V_OBJC@am__nodep@)$(LTOBJCCOMPILE) -c -o $@ $<
 
+src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo: src/filedialog/SDLU_filedialog_cocoa.m
+@am__fastdepOBJC_TRUE@	$(AM_V_OBJC)$(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(OBJC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_OBJCFLAGS) $(OBJCFLAGS) -MT src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo -MD -MP -MF src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_cocoa.Tpo -c -o src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo `test -f 'src/filedialog/SDLU_filedialog_cocoa.m' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog_cocoa.m
+@am__fastdepOBJC_TRUE@	$(AM_V_at)$(am__mv) src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_cocoa.Tpo src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_cocoa.Plo
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	$(AM_V_OBJC)source='src/filedialog/SDLU_filedialog_cocoa.m' object='src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepOBJC_FALSE@	DEPDIR=$(DEPDIR) $(OBJCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepOBJC_FALSE@	$(AM_V_OBJC@am__nodep@)$(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(OBJC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_OBJCFLAGS) $(OBJCFLAGS) -c -o src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo `test -f 'src/filedialog/SDLU_filedialog_cocoa.m' || echo '$(srcdir)/'`src/filedialog/SDLU_filedialog_cocoa.m
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
+	-rm -rf external/freetype2/.libs external/freetype2/_libs
+	-rm -rf external/sdl_ttf/.libs external/sdl_ttf/_libs
 	-rm -rf src/.libs src/_libs
 	-rm -rf src/filedialog/.libs src/filedialog/_libs
 	-rm -rf src/filesystem/.libs src/filesystem/_libs
@@ -1062,6 +1906,10 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f external/freetype2/$(DEPDIR)/$(am__dirstamp)
+	-rm -f external/freetype2/$(am__dirstamp)
+	-rm -f external/sdl_ttf/$(DEPDIR)/$(am__dirstamp)
+	-rm -f external/sdl_ttf/$(am__dirstamp)
 	-rm -f src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/$(am__dirstamp)
 	-rm -f src/filedialog/$(DEPDIR)/$(am__dirstamp)
@@ -1075,11 +1923,11 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
-	mostlyclean-am
+	clean-noinstLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR)
+	-rm -rf external/freetype2/$(DEPDIR) external/sdl_ttf/$(DEPDIR) src/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-libtool distclean-tags
@@ -1128,7 +1976,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR)
+	-rm -rf external/freetype2/$(DEPDIR) external/sdl_ttf/$(DEPDIR) src/$(DEPDIR) src/filedialog/$(DEPDIR) src/filesystem/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -1153,18 +2001,19 @@ uninstall-am: uninstall-aclocalDATA uninstall-binSCRIPTS \
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--refresh check check-am clean \
 	clean-cscope clean-generic clean-libLTLIBRARIES clean-libtool \
-	cscope cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
-	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
-	distcheck distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-tags distcleancheck distdir \
-	distuninstallcheck dvi dvi-am html html-am info info-am \
-	install install-aclocalDATA install-am install-binSCRIPTS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-includeHEADERS install-info install-info-am \
-	install-libLTLIBRARIES install-man install-pdf install-pdf-am \
-	install-pkgconfigDATA install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
+	clean-noinstLTLIBRARIES cscope cscopelist-am ctags ctags-am \
+	dist dist-all dist-bzip2 dist-gzip dist-lzip dist-shar \
+	dist-tarZ dist-xz dist-zip distcheck distclean \
+	distclean-compile distclean-generic distclean-libtool \
+	distclean-tags distcleancheck distdir distuninstallcheck dvi \
+	dvi-am html html-am info info-am install install-aclocalDATA \
+	install-am install-binSCRIPTS install-data install-data-am \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-includeHEADERS \
+	install-info install-info-am install-libLTLIBRARIES \
+	install-man install-pdf install-pdf-am install-pkgconfigDATA \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags tags-am uninstall uninstall-aclocalDATA uninstall-am \

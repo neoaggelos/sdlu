@@ -23,7 +23,7 @@ Changes:
 Build System:
 - Official support for Mac OS X and iOS
 - Fixed sdlu-config and sdlu.pc static linking flags
-- Fixed the shared library not exporting the C++ interface classes correctly
+- Also build SDL2_ttf
 
 
 ================================================================================

@@ -3,7 +3,6 @@ Requirements
 ================================================================================
 
 * SDL2      (http://libsdl.org)
-* SDL2_ttf  (http://libsdl.org/projects/SDL_ttf)
 
 System Specific:
 ----------------
@@ -16,15 +15,14 @@ Building the library with configure (Linux, Mac OS X, Cygwin)
 ================================================================================
 
 The typical './configure; make; make install' should be enough to build and
-install SDLU, assuming that SDL2 and SDL2_ttf are properly installed in your
-system. To update the configure scripts, just run './scripts/bootstrap'.
+install SDLU, assuming that SDL2 is properly installed in your system.
+To update the configure scripts, just run './scripts/bootstrap'.
 
-For Mac OS X users, configure fails to locate the SDL2 and SDL2_ttf frameworks
-by default. You can tell configure to use the frameworks by manually setting
-the variables SDL2_FRAMEWORK and SDL2_TTF_FRAMEWORK.
+For Mac OS X users, configure fails to locate the SDL2 framework by default.
+You can tell configure to use the frameworks by manually setting the variable
+SDL2_FRAMEWORK.
 
   $ export SDL2_FRAMEWORK=/System/Library/SDL2.framework
-  $ export SDL2_TTF_FRAMEWORK=/System/Library/SDL2_ttf.framework
   $ ./configure; make; make install
 
 To compile an application that uses the SDL utility library, you can use
@@ -56,16 +54,15 @@ Using CPack, you can also generate .deb and .rpm packages.
 Building for Android
 ================================================================================
 
-To build SDLU for Android, you will need the SDL2 and SDL2_ttf source code, as
-well as a good understanding of how the SDL2 Android port works.
+To build SDLU for Android, you will need the SDL2 source code, as well as a good
+understanding of how the SDL2 Android port works.
 
 * Create a new android-project as explained in SDL2/README-android.txt (if you
   already have one, this step is not necessary).
-* Move or symlink the SDL2_ttf directory into "jni/SDL_ttf"
 * Move or symlink the SDLU directory into "jni/SDLU"
-* Edit "jni/src/Android.mk" and add SDLU and SDL2_ttf to LOCAL_SHARED_LIBRARIES
-* Edit "SDLActivity.java" and add SDLU and SDL2_ttf in the list of libraries
-  returned by the getLibraries() function (line 71).
+* Edit "jni/src/Android.mk" and add SDLU to LOCAL_SHARED_LIBRARIES
+* Edit "SDLActivity.java" and add SDLU in the list of libraries returned by the
+  getLibraries() function (line 71).
 * Run ndk-build
 
 For Linux and Mac OS X, you can use android.sh, which does all of the above:
@@ -77,9 +74,9 @@ For Linux and Mac OS X, you can use android.sh, which does all of the above:
 Building for iOS
 ================================================================================
 
-To build for iOS, you will need the SDL2 and SDL2_ttf header files. Open
-'Makefile.ios' with your favourite editor and edit its settings to match
-your system. Then just open a terminal and type:
+To build for iOS, you will need the SDL2 header files. Open 'Makefile.ios' with
+your favourite editor and edit its settings to match your system. Then just open
+a terminal and type:
 
   $ cd (PATH TO SDLU SOURCES)
   $ make -f Makefile.ios
@@ -88,7 +85,7 @@ your system. Then just open a terminal and type:
 Alternatively, to create a fat binary for all architectures, use ios.sh:
 
   $ cd (PATH TO SDLU SOURCES)
-  $ ./scripts/build-scripts/ios.sh --sdldir=/path/to/SDL_h
+  $ ./scripts/build-scripts/ios.sh --sdldir=/path/to/SDL_headers
 
 Run 'ios.sh --help' for a list of available options.
 

@@ -580,8 +580,6 @@ HAVE_OPENGL_TRUE
 SDLU_CONFIG
 SDLU_LIBS
 SDLU_CFLAGS
-TTF_LIBS
-TTF_CFLAGS
 SDL2_CONFIG
 SDL_LIBS
 SDL_CFLAGS
@@ -695,7 +693,6 @@ enable_dependency_tracking
 with_sdl_prefix
 with_sdl_exec_prefix
 enable_sdltest
-with_sdl_ttf_pc
 with_sdlu_prefix
 with_sdlu_exec_prefix
 enable_sdlutest
@@ -715,8 +712,6 @@ PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
 SDL_CFLAGS
 SDL_LIBS
-TTF_CFLAGS
-TTF_LIBS
 SDLU_CFLAGS
 SDLU_LIBS'
 
@@ -1366,7 +1361,6 @@ Optional Packages:
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-sdl-prefix=PFX   Prefix where SDL is installed (optional)
   --with-sdl-exec-prefix=PFX Exec prefix where SDL is installed (optional)
-  --with-sdl-ttf-pc=FILE  Path to SDL2_ttf.pc
   --with-sdlu-prefix=PFX   Prefix where SDLU is installed (optional)
   --with-sdlu-exec-prefix=PFX Exec prefix where SDLU is installed (optional)
   --with-opengl           Choose OpenGL library
@@ -1387,8 +1381,6 @@ Some influential environment variables:
               path overriding pkg-config's built-in search path
   SDL_CFLAGS  C compiler flags for SDL, overriding pkg-config
   SDL_LIBS    linker flags for SDL, overriding pkg-config
-  TTF_CFLAGS  C compiler flags for SDL2_ttf, overriding pkg-config
-  TTF_LIBS    linker flags for SDL2_ttf, overriding pkg-config
   SDLU_CFLAGS C compiler flags for SDLU, overriding pkg-config
   SDLU_LIBS   linker flags for SDLU, overriding pkg-config
 
@@ -4900,113 +4892,6 @@ rm -f core conftest.err conftest.$ac_objext \
 
     CFLAGS="$CFLAGS $SDL_CFLAGS"
     LIBS="$LIBS $SDL_LIBS"
-
-
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDL2_ttf" >&5
-printf %s "checking for SDL2_ttf... " >&6; }
-    if test x$SDL2_TTF_FRAMEWORK != x; then
-        TTF_FW_DIR=`dirname $SDL2_TTF_FRAMEWORK`
-        TTF_FW_NAME=`basename $SDL2_TTF_FRAMEWORK .framework`
-
-        TTF_CFLAGS="-I$SDL2_TTF_FRAMEWORK/Headers"
-        TTF_LIBS="-F$TTF_FW_DIR -Wl,-framework,$TTF_FW_NAME"
-    fi
-
-
-# Check whether --with-sdl-ttf-pc was given.
-if test ${with_sdl_ttf_pc+y}
-then :
-  withval=$with_sdl_ttf_pc; sdl2_ttf_pc="$withval"
-else
-  sdl2_ttf_pc=SDL2_ttf
-
-fi
-
-
-
-
-
-have_ttf=no
-if test "x$TTF_CFLAGS$TTF_LIBS" = x; then
-    if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\$sdl2_ttf_pc\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "$sdl2_ttf_pc") 2>&5
-  ac_status=$?
-  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  have_ttf=yes
-fi
-
-    if test x$have_ttf = xyes; then
-        TTF_CFLAGS=`pkg-config --cflags $sdl2_ttf_pc`
-        TTF_LIBS=`pkg-config --libs $sdl2_ttf_pc`
-        :
-    else
-        ac_save_LIBS="$LIBS"
-        LIBS="$LIBS -lSDL2_ttf"
-        cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include "SDL_ttf.h"
-int
-main (void)
-{
-TTF_Init()
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"
-then :
-  have_ttf=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-        LIBS="$ac_save_LIBS"
-        if test x$have_ttf = xyes; then
-            TTF_LIBS="-lSDL2_ttf"
-            TTF_CFLAGS=""
-            :
-        fi
-
-        if test x$have_ttf = xno; then
-            as_fn_error $? "*** Error: Could not find SDL2_ttf" "$LINENO" 5
-        fi
-    fi
-else
-            ac_save_CFLAGS="$CFLAGS"
-    ac_save_LIBS="$LIBS"
-    CFLAGS="$CFLAGS $TTF_CFLAGS"
-    LIBS="$LIBS $TTF_LIBS"
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include "SDL_ttf.h"
-int
-main (void)
-{
-TTF_Init()
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"
-then :
-  have_ttf=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-    CFLAGS="$ac_save_CFLAGS"
-    LIBS="$ac_save_LIBS"
-
-    if test x$have_ttf = xyes; then
-        :
-    else
-        as_fn_error $? "*** Error: Could not find SDL2_ttf" "$LINENO" 5
-    fi
-fi
-
-
-    CFLAGS="$CFLAGS $TTF_CFLAGS"
-    LIBS="$LIBS $TTF_LIBS"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $have_ttf" >&5
-printf "%s\n" "$have_ttf" >&6; }
 
 
     if test x$SDLU_FRAMEWORK != x; then

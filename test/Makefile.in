@@ -99,7 +99,6 @@ subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/../scripts/autotools/m4/checks.m4 \
 	$(top_srcdir)/../scripts/autotools/m4/pkg.m4 \
-	$(top_srcdir)/../scripts/autotools/m4/sdl2-ttf.m4 \
 	$(top_srcdir)/../scripts/autotools/m4/sdl2.m4 \
 	$(top_srcdir)/../scripts/autotools/m4/sdlu.m4 \
 	$(top_srcdir)/configure.ac
@@ -319,8 +318,6 @@ SDL_LIBS = @SDL_LIBS@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-TTF_CFLAGS = @TTF_CFLAGS@
-TTF_LIBS = @TTF_LIBS@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@

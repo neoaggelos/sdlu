@@ -31,13 +31,7 @@ if test x$2 != xupdate; then
   update_file "$1/jni/src/Android.mk" 'LOCAL_SHARED_LIBRARIES :=' 'LOCAL_SHARED_LIBRARIES := SDLU'
 
   # load SDLU and SDL2_ttf at runtime
-  update_file "$1/src/org/libsdl/app/SDLActivity.java" '\"SDL2_ttf\"' '\"SDL2_ttf\"\, \"SDLU\"'
-  update_file "$1/src/org/libsdl/app/SDLActivity.java" '// \"SDL2_ttf\"' '\"SDL2_ttf\"'
-fi
-
-x=`find $1/jni | grep SDL2_ttf`
-if test "x$x" = x; then
-  echo "Warning: Required depency SDL2_ttf wasn't found in $1/jni"
+  update_file "$1/src/org/libsdl/app/SDLActivity.java" '\"SDL2\"\,' '\"SDL2\"\, \"SDLU\"\,'
 fi
 
 echo "Done."

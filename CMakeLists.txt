@@ -24,11 +24,12 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/CheckFileDialogBackend.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/CheckFileSystemBackend.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
-include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/SDL_ttf.cmake")
 
 # Standard include directories
 include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${CMAKE_SOURCE_DIR}/src")
+include_directories("${CMAKE_SOURCE_DIR}/external/sdl_ttf")
 
 # Installation files
 file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h)
@@ -47,11 +48,6 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 set(LIBS ${LIBS} ${SDL2_LIBRARY})
 
-# Find SDL2_ttf
-find_package(SDL2_ttf REQUIRED)
-include_directories(${SDL2_TTF_INCLUDE_DIR})
-set(LIBS ${LIBS} ${SDL2_TTF_LIBRARY})
-
 # Find a backend for the file dialog API
 CheckFileDialogBackend()
 
@@ -60,7 +56,6 @@ CheckFileSystemBackend()
 
 # These are for sdlu-config and sdlu.pc
 set(SDL_CFLAGS "-I${SDL2_INCLUDE_DIR}")
-set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
 
 # Basic sources
 file(GLOB SOURCES
@@ -71,6 +66,13 @@ file(GLOB SOURCES
   ${CMAKE_SOURCE_DIR}/src/filesystem/SDLU_filesystem.c
   ${CMAKE_SOURCE_DIR}/src/*.[ch]
 )
+
+# Build our own SDL_ttf
+add_library(sdlttf STATIC ${SDLTTF_SOURCES})
+set(LIBS ${LIBS} sdlttf)
+target_compile_definitions(sdlttf PRIVATE "-DFT2_BUILD_LIBRARY")
+target_include_directories(sdlttf PRIVATE "${CMAKE_SOURCE_DIR}/external/freetype2/include")
+target_link_libraries(sdlttf ${SDL_LIBS})
 
 # Shared library
 if (BUILD_SHARED_LIBS)

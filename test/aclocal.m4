@@ -1188,6 +1188,5 @@ AC_SUBST([am__untar])
 
 m4_include([../scripts/autotools/m4/checks.m4])
 m4_include([../scripts/autotools/m4/pkg.m4])
-m4_include([../scripts/autotools/m4/sdl2-ttf.m4])
 m4_include([../scripts/autotools/m4/sdl2.m4])
 m4_include([../scripts/autotools/m4/sdlu.m4])
