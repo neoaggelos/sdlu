@@ -35,6 +35,8 @@ Building the tests for Android
 
 * Add the files [testname.c, common.c, common.h] in "<PROJECT>/jni/src/". 
 
+* Copy all files from "data/" in "<PROJECT>/assets/" (create folder if needed).
+
 * Edit "<PROJECT>/jni/src/Android.mk" and replace YourSourceHere.c with
   testname.c and common.c
 
