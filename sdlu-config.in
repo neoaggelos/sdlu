@@ -42,7 +42,7 @@ while test $# -gt 0; do
       echo "$version "
       ;;
     --cflags)
-      echo "-I@includedir@ @SDL_CFLAGS@ @TTF_CFLAGS@ "
+      echo "-I@includedir@ @SDL_CFLAGS@ "
       ;;
     --libs)
       echo "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
