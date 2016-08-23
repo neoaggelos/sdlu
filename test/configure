@@ -580,12 +580,14 @@ HAVE_OPENGL_TRUE
 SDLU_CONFIG
 SDLU_LIBS
 SDLU_CFLAGS
+SDLU_FRAMEWORK
 SDL2_CONFIG
 SDL_LIBS
 SDL_CFLAGS
 PKG_CONFIG_LIBDIR
 PKG_CONFIG_PATH
 PKG_CONFIG
+SDL2_FRAMEWORK
 am__fastdepCC_FALSE
 am__fastdepCC_TRUE
 CCDEPMODE
@@ -693,9 +695,11 @@ enable_dependency_tracking
 with_sdl_prefix
 with_sdl_exec_prefix
 enable_sdltest
+enable_sdlframework
 with_sdlu_prefix
 with_sdlu_exec_prefix
 enable_sdlutest
+enable_sdluframework
 with_opengl
 with_opengles2
 '
@@ -707,11 +711,13 @@ CFLAGS
 LDFLAGS
 LIBS
 CPPFLAGS
+SDL2_FRAMEWORK
 PKG_CONFIG
 PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
 SDL_CFLAGS
 SDL_LIBS
+SDLU_FRAMEWORK
 SDLU_CFLAGS
 SDLU_LIBS'
 
@@ -1354,7 +1360,9 @@ Optional Features:
   --disable-dependency-tracking
                           speeds up one-time build
   --disable-sdltest       Do not try to compile and run a test SDL program
+  --disable-sdlframework Do not search for SDL2.framework
   --disable-sdlutest       Do not try to compile and run a test SDLU program
+  --disable-sdluframework Do not search for SDLU.framework
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -1374,6 +1382,8 @@ Some influential environment variables:
   LIBS        libraries to pass to the linker, e.g. -l<library>
   CPPFLAGS    (Objective) C/C++ preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
+  SDL2_FRAMEWORK
+              Path to SDL2.framework
   PKG_CONFIG  path to pkg-config utility
   PKG_CONFIG_PATH
               directories to add to pkg-config's search path
@@ -1381,6 +1391,8 @@ Some influential environment variables:
               path overriding pkg-config's built-in search path
   SDL_CFLAGS  C compiler flags for SDL, overriding pkg-config
   SDL_LIBS    linker flags for SDL, overriding pkg-config
+  SDLU_FRAMEWORK
+              Path to SDLU.framework
   SDLU_CFLAGS C compiler flags for SDLU, overriding pkg-config
   SDLU_LIBS   linker flags for SDLU, overriding pkg-config
 
@@ -4565,6 +4577,16 @@ else
   enable_sdltest=yes
 fi
 
+# Check whether --enable-sdlframework was given.
+if test ${enable_sdlframework+y}
+then :
+  enableval=$enable_sdlframework;
+else
+  search_sdl_framework=yes
+fi
+
+
+
 
   min_sdl_version=2.0.0
 
@@ -4645,13 +4667,13 @@ fi
     if test x$sdl_exec_prefix != x ; then
       sdl_config_args="$sdl_config_args --exec-prefix=$sdl_exec_prefix"
       if test x${SDL2_CONFIG+set} != xset ; then
-        SDL2_CONFIG="$sdl_exec_prefix/bin/sdl2-config --prefix=$sdl_exec_prefix"
+        SDL2_CONFIG=$sdl_exec_prefix/bin/sdl2-config
       fi
     fi
     if test x$sdl_prefix != x ; then
       sdl_config_args="$sdl_config_args --prefix=$sdl_prefix"
       if test x${SDL2_CONFIG+set} != xset ; then
-        SDL2_CONFIG="$sdl_prefix/bin/sdl2-config --prefix=$sdl_prefix"
+        SDL2_CONFIG=$sdl_prefix/bin/sdl2-config
       fi
     fi
   fi
@@ -4711,15 +4733,31 @@ fi
 
 
     PATH="$as_save_PATH"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDL - version >= $min_sdl_version" >&5
-printf %s "checking for SDL - version >= $min_sdl_version... " >&6; }
     no_sdl=""
 
-    if test "$SDL2_CONFIG" = "no" ; then
-      no_sdl=yes
-    else
-      SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
-      SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
+    if test "$SDL2_CONFIG" = "no" -a "x$search_sdl_framework" = "xyes"; then
+      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDL2.framework" >&5
+printf %s "checking for SDL2.framework... " >&6; }
+      if test "x$SDL2_FRAMEWORK" != x; then
+        sdl_framework=$SDL2_FRAMEWORK
+      else
+        sdl_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDL2.framework -type d 2> /dev/null`
+      fi
+
+      if test -d $sdl_framework; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $sdl_framework" >&5
+printf "%s\n" "$sdl_framework" >&6; }
+        sdl_framework_dir=`dirname $sdl_framework`
+        SDL_CFLAGS="-F$sdl_framework_dir -Wl,-framework,SDL2 -I$sdl_framework/include"
+        SDL_LIBS="-F$sdl_framework_dir -Wl,-framework,SDL2"
+      else
+        no_sdl=yes
+      fi
+    fi
+
+    if test "$SDL2_CONFIG" != "no"; then
+      test "x$SDL_CFLAGS" = x && SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
+      test "x$SDL_LIBS" = x && SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
 
       sdl_major_version=`$SDL2_CONFIG $sdl_config_args --version | \
              sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/'`
@@ -4813,14 +4851,8 @@ fi
         CFLAGS="$ac_save_CFLAGS"
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
+
       fi
-    fi
-    if test "x$no_sdl" = x ; then
-      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
-    else
-      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
     fi
   fi
   if test "x$no_sdl" = x ; then
@@ -4927,6 +4959,16 @@ else
   enable_sdlutest=yes
 fi
 
+# Check whether --enable-sdluframework was given.
+if test ${enable_sdluframework+y}
+then :
+  enableval=$enable_sdluframework;
+else
+  search_sdlu_framework=yes
+fi
+
+
+
 
   min_sdlu_version=2.1
 
@@ -4940,12 +4982,12 @@ if test -n "$SDLU_CFLAGS"; then
     pkg_cv_SDLU_CFLAGS="$SDLU_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sdlu >= \$min_sdl_version\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "sdlu >= $min_sdl_version") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sdlu >= \$min_sdlu_version\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "sdlu >= $min_sdlu_version") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_SDLU_CFLAGS=`$PKG_CONFIG --cflags "sdlu >= $min_sdl_version" 2>/dev/null`
+  pkg_cv_SDLU_CFLAGS=`$PKG_CONFIG --cflags "sdlu >= $min_sdlu_version" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -4957,12 +4999,12 @@ if test -n "$SDLU_LIBS"; then
     pkg_cv_SDLU_LIBS="$SDLU_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sdlu >= \$min_sdl_version\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "sdlu >= $min_sdl_version") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sdlu >= \$min_sdlu_version\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "sdlu >= $min_sdlu_version") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_SDLU_LIBS=`$PKG_CONFIG --libs "sdlu >= $min_sdl_version" 2>/dev/null`
+  pkg_cv_SDLU_LIBS=`$PKG_CONFIG --libs "sdlu >= $min_sdlu_version" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -4983,9 +5025,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        SDLU_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "sdlu >= $min_sdl_version" 2>&1`
+	        SDLU_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "sdlu >= $min_sdlu_version" 2>&1`
         else
-	        SDLU_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "sdlu >= $min_sdl_version" 2>&1`
+	        SDLU_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "sdlu >= $min_sdlu_version" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$SDLU_PKG_ERRORS" >&5
@@ -5073,15 +5115,31 @@ fi
 
 
     PATH="$as_save_PATH"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDLU - version >= $min_sdlu_version" >&5
-printf %s "checking for SDLU - version >= $min_sdlu_version... " >&6; }
     no_sdlu=""
 
-    if test "$SDLU_CONFIG" = "no" ; then
-      no_sdlu=yes
-    else
-      SDLU_CFLAGS=`$SDLU_CONFIG $sdlu_config_args --cflags`
-      SDLU_LIBS=`$SDLU_CONFIG $sdlu_config_args --libs`
+    if test "$SDLU_CONFIG" = "no" -a "x$search_sdlu_framework" = "xyes"; then
+      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDLU.framework" >&5
+printf %s "checking for SDLU.framework... " >&6; }
+      if test "x$SDLU_FRAMEWORK" != x; then
+        sdlu_framework=$SDLU_FRAMEWORK
+      else
+        sdlu_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDLU.framework -type d 2> /dev/null`
+      fi
+
+      if test -d $sdlu_framework; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $sdlu_framework" >&5
+printf "%s\n" "$sdlu_framework" >&6; }
+        sdlu_framework_dir=`dirname $sdlu_framework`
+        SDLU_CFLAGS="-F$sdlu_framework_dir -Wl,-framework,SDLU -I$sdlu_framework/include"
+        SDLU_LIBS="-F$sdlu_framework_dir -Wl,-framework,SDLU"
+      else
+        no_sdlu=yes
+      fi
+    fi
+
+    if test "$SDLU_CONFIG" != "no"; then
+      test "x$SDLU_CFLAGS" = x && SDLU_CFLAGS=`$SDLU_CONFIG $sdlu_config_args --cflags`
+      test "x$SDLU_LIBS" = x && SDLU_LIBS=`$SDLU_CONFIG $sdlu_config_args --libs`
 
       sdlu_major_version=`$SDLU_CONFIG $sdlu_config_args --version | \
              sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/'`
@@ -5175,14 +5233,8 @@ fi
         CFLAGS="$ac_save_CFLAGS"
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
+
       fi
-    fi
-    if test "x$no_sdlu" = x ; then
-      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
-    else
-      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
     fi
   fi
   if test "x$no_sdlu" = x ; then

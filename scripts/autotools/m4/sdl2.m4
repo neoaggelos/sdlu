@@ -4,6 +4,11 @@
 # stolen back from Frank Belew
 # stolen from Manish Singh
 # Shamelessly stolen from Owen Taylor
+#
+# Shamelessly stolen from SDL2 source code
+#
+# Changelog:
+# * also look for SDL2.framework under Mac OS X
 
 # serial 1
 
@@ -20,6 +25,10 @@ AC_ARG_WITH(sdl-exec-prefix,[  --with-sdl-exec-prefix=PFX Exec prefix where SDL 
             sdl_exec_prefix="$withval", sdl_exec_prefix="")
 AC_ARG_ENABLE(sdltest, [  --disable-sdltest       Do not try to compile and run a test SDL program],
 		    , enable_sdltest=yes)
+AC_ARG_ENABLE(sdlframework, [  --disable-sdlframework Do not search for SDL2.framework],
+        , search_sdl_framework=yes)
+
+AC_ARG_VAR(SDL2_FRAMEWORK, [Path to SDL2.framework])
 
   min_sdl_version=ifelse([$1], ,2.0.0,$1)
 
@@ -32,13 +41,13 @@ AC_ARG_ENABLE(sdltest, [  --disable-sdltest       Do not try to compile and run 
     if test x$sdl_exec_prefix != x ; then
       sdl_config_args="$sdl_config_args --exec-prefix=$sdl_exec_prefix"
       if test x${SDL2_CONFIG+set} != xset ; then
-        SDL2_CONFIG="$sdl_exec_prefix/bin/sdl2-config --prefix=$sdl_exec_prefix"
+        SDL2_CONFIG=$sdl_exec_prefix/bin/sdl2-config
       fi
     fi
     if test x$sdl_prefix != x ; then
       sdl_config_args="$sdl_config_args --prefix=$sdl_prefix"
       if test x${SDL2_CONFIG+set} != xset ; then
-        SDL2_CONFIG="$sdl_prefix/bin/sdl2-config --prefix=$sdl_prefix"
+        SDL2_CONFIG=$sdl_prefix/bin/sdl2-config
       fi
     fi
   fi
@@ -53,14 +62,30 @@ AC_ARG_ENABLE(sdltest, [  --disable-sdltest       Do not try to compile and run 
     fi
     AC_PATH_PROG(SDL2_CONFIG, sdl2-config, no, [$PATH])
     PATH="$as_save_PATH"
-    AC_MSG_CHECKING(for SDL - version >= $min_sdl_version)
     no_sdl=""
 
-    if test "$SDL2_CONFIG" = "no" ; then
-      no_sdl=yes
-    else
-      SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
-      SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
+    if test "$SDL2_CONFIG" = "no" -a "x$search_sdl_framework" = "xyes"; then
+      AC_MSG_CHECKING(for SDL2.framework)
+      if test "x$SDL2_FRAMEWORK" != x; then
+        sdl_framework=$SDL2_FRAMEWORK
+      else
+dnl todo what if more than one SDL2.framework found?
+        sdl_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDL2.framework -type d 2> /dev/null`
+      fi
+
+      if test -d $sdl_framework; then
+        AC_MSG_RESULT($sdl_framework)
+        sdl_framework_dir=`dirname $sdl_framework`
+        SDL_CFLAGS="-F$sdl_framework_dir -Wl,-framework,SDL2 -I$sdl_framework/include"
+        SDL_LIBS="-F$sdl_framework_dir -Wl,-framework,SDL2"
+      else
+        no_sdl=yes
+      fi
+    fi
+
+    if test "$SDL2_CONFIG" != "no"; then
+      test "x$SDL_CFLAGS" = x && SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
+      test "x$SDL_LIBS" = x && SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
 
       sdl_major_version=`$SDL2_CONFIG $sdl_config_args --version | \
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
@@ -141,12 +166,8 @@ int main (int argc, char *argv[])
         CFLAGS="$ac_save_CFLAGS"
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
+
       fi
-    fi
-    if test "x$no_sdl" = x ; then
-      AC_MSG_RESULT(yes)
-    else
-      AC_MSG_RESULT(no)
     fi
   fi
   if test "x$no_sdl" = x ; then

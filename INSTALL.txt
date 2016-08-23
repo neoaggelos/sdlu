@@ -18,11 +18,10 @@ The typical './configure; make; make install' should be enough to build and
 install SDLU, assuming that SDL2 is properly installed in your system.
 To update the configure scripts, just run './scripts/bootstrap'.
 
-For Mac OS X users, configure fails to locate the SDL2 framework by default.
-You can tell configure to use the frameworks by manually setting the variable
-SDL2_FRAMEWORK.
+For Mac OS X users, if configure fails to locate SDL2.framework, use the
+environment variable SDL2_FRAMEWORK:
 
-  $ export SDL2_FRAMEWORK=/System/Library/SDL2.framework
+  $ export SDL2_FRAMEWORK=/path/to/SDL2.framework
   $ ./configure; make; make install
 
 To compile an application that uses the SDL utility library, you can use

@@ -1,5 +1,6 @@
 # Configure paths for SDLU
-# Copy of sdl2.m4, modified for SDLU
+#
+# Copy of sdl2.m4, changed for SDLU
 
 # serial 1
 
@@ -16,11 +17,15 @@ AC_ARG_WITH(sdlu-exec-prefix,[  --with-sdlu-exec-prefix=PFX Exec prefix where SD
             sdlu_exec_prefix="$withval", sdlu_exec_prefix="")
 AC_ARG_ENABLE(sdlutest, [  --disable-sdlutest       Do not try to compile and run a test SDLU program],
 		    , enable_sdlutest=yes)
+AC_ARG_ENABLE(sdluframework, [  --disable-sdluframework Do not search for SDLU.framework],
+        , search_sdlu_framework=yes)
+
+AC_ARG_VAR(SDLU_FRAMEWORK, [Path to SDLU.framework])
 
   min_sdlu_version=ifelse([$1], ,2.0.0,$1)
 
   if test "x$sdlu_prefix$sdlu_exec_prefix" = x ; then
-    PKG_CHECK_MODULES([SDLU], [sdlu >= $min_sdl_version],
+    PKG_CHECK_MODULES([SDLU], [sdlu >= $min_sdlu_version],
            [sdlu_pc=yes],
            [sdlu_pc=no])
   else
@@ -49,14 +54,30 @@ AC_ARG_ENABLE(sdlutest, [  --disable-sdlutest       Do not try to compile and ru
     fi
     AC_PATH_PROG(SDLU_CONFIG, sdlu-config, no, [$PATH])
     PATH="$as_save_PATH"
-    AC_MSG_CHECKING(for SDLU - version >= $min_sdlu_version)
     no_sdlu=""
 
-    if test "$SDLU_CONFIG" = "no" ; then
-      no_sdlu=yes
-    else
-      SDLU_CFLAGS=`$SDLU_CONFIG $sdlu_config_args --cflags`
-      SDLU_LIBS=`$SDLU_CONFIG $sdlu_config_args --libs`
+    if test "$SDLU_CONFIG" = "no" -a "x$search_sdlu_framework" = "xyes"; then
+      AC_MSG_CHECKING(for SDLU.framework)
+      if test "x$SDLU_FRAMEWORK" != x; then
+        sdlu_framework=$SDLU_FRAMEWORK
+      else
+dnl todo what if more than one SDLU.framework found?
+        sdlu_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDLU.framework -type d 2> /dev/null`
+      fi
+
+      if test -d $sdlu_framework; then
+        AC_MSG_RESULT($sdlu_framework)
+        sdlu_framework_dir=`dirname $sdlu_framework`
+        SDLU_CFLAGS="-F$sdlu_framework_dir -Wl,-framework,SDLU -I$sdlu_framework/include"
+        SDLU_LIBS="-F$sdlu_framework_dir -Wl,-framework,SDLU"
+      else
+        no_sdlu=yes
+      fi
+    fi
+
+    if test "$SDLU_CONFIG" != "no"; then
+      test "x$SDLU_CFLAGS" = x && SDLU_CFLAGS=`$SDLU_CONFIG $sdlu_config_args --cflags`
+      test "x$SDLU_LIBS" = x && SDLU_LIBS=`$SDLU_CONFIG $sdlu_config_args --libs`
 
       sdlu_major_version=`$SDLU_CONFIG $sdlu_config_args --version | \
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
@@ -73,7 +94,7 @@ AC_ARG_ENABLE(sdlutest, [  --disable-sdlutest       Do not try to compile and ru
         LIBS="$LIBS $SDLU_LIBS"
 dnl
 dnl Now check if the installed SDLU is sufficiently new. (Also sanity
-dnl checks the results of sdlu-config to some extent)
+dnl checks the results of sdlu-config to some extent
 dnl
       rm -f conf.sdlutest
       AC_TRY_RUN([
@@ -137,12 +158,8 @@ int main (int argc, char *argv[])
         CFLAGS="$ac_save_CFLAGS"
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
+
       fi
-    fi
-    if test "x$no_sdlu" = x ; then
-      AC_MSG_RESULT(yes)
-    else
-      AC_MSG_RESULT(no)
     fi
   fi
   if test "x$no_sdlu" = x ; then

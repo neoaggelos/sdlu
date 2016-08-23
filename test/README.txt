@@ -7,11 +7,10 @@ Assuming the tests are in ~/sdlu/test:
     $ cd ~/sdlu/test
     $ ./configure; make
 
-For configure to be able to find the SDLU framework under Mac OS X:
+If configure cannot find the SDLU framework under Mac OS X:
 (assuming the framework is in /Library/Frameworks)
 
-    $ cd ~/sdlu/test
-    $ export SDLU_FRAMEWORK=/Library/Frameworks/SDLU.framework
+    $ export SDLU_FRAMEWORK=/path/to/SDLU.framework
     $ ./configure; make
 
 ================================================================================

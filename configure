@@ -632,6 +632,7 @@ SDL_CFLAGS
 PKG_CONFIG_LIBDIR
 PKG_CONFIG_PATH
 PKG_CONFIG
+SDL2_FRAMEWORK
 LT_SYS_LIBRARY_PATH
 OTOOL64
 OTOOL
@@ -772,6 +773,7 @@ enable_debug
 with_sdl_prefix
 with_sdl_exec_prefix
 enable_sdltest
+enable_sdlframework
 '
       ac_precious_vars='build_alias
 host_alias
@@ -784,6 +786,7 @@ CPPFLAGS
 OBJC
 OBJCFLAGS
 LT_SYS_LIBRARY_PATH
+SDL2_FRAMEWORK
 PKG_CONFIG
 PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
@@ -1434,6 +1437,7 @@ Optional Features:
   --disable-libtool-lock  avoid locking (might break parallel builds)
   --enable-debug          Build library with debug info
   --disable-sdltest       Do not try to compile and run a test SDL program
+  --disable-sdlframework Do not search for SDL2.framework
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -1461,6 +1465,8 @@ Some influential environment variables:
   OBJCFLAGS   Objective C compiler flags
   LT_SYS_LIBRARY_PATH
               User-defined run-time library search path.
+  SDL2_FRAMEWORK
+              Path to SDL2.framework
   PKG_CONFIG  path to pkg-config utility
   PKG_CONFIG_PATH
               directories to add to pkg-config's search path
@@ -13348,6 +13354,16 @@ else
   enable_sdltest=yes
 fi
 
+# Check whether --enable-sdlframework was given.
+if test ${enable_sdlframework+y}
+then :
+  enableval=$enable_sdlframework;
+else
+  search_sdl_framework=yes
+fi
+
+
+
 
   min_sdl_version=2.0.0
 
@@ -13428,13 +13444,13 @@ fi
     if test x$sdl_exec_prefix != x ; then
       sdl_config_args="$sdl_config_args --exec-prefix=$sdl_exec_prefix"
       if test x${SDL2_CONFIG+set} != xset ; then
-        SDL2_CONFIG="$sdl_exec_prefix/bin/sdl2-config --prefix=$sdl_exec_prefix"
+        SDL2_CONFIG=$sdl_exec_prefix/bin/sdl2-config
       fi
     fi
     if test x$sdl_prefix != x ; then
       sdl_config_args="$sdl_config_args --prefix=$sdl_prefix"
       if test x${SDL2_CONFIG+set} != xset ; then
-        SDL2_CONFIG="$sdl_prefix/bin/sdl2-config --prefix=$sdl_prefix"
+        SDL2_CONFIG=$sdl_prefix/bin/sdl2-config
       fi
     fi
   fi
@@ -13494,15 +13510,31 @@ fi
 
 
     PATH="$as_save_PATH"
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDL - version >= $min_sdl_version" >&5
-printf %s "checking for SDL - version >= $min_sdl_version... " >&6; }
     no_sdl=""
 
-    if test "$SDL2_CONFIG" = "no" ; then
-      no_sdl=yes
-    else
-      SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
-      SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
+    if test "$SDL2_CONFIG" = "no" -a "x$search_sdl_framework" = "xyes"; then
+      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDL2.framework" >&5
+printf %s "checking for SDL2.framework... " >&6; }
+      if test "x$SDL2_FRAMEWORK" != x; then
+        sdl_framework=$SDL2_FRAMEWORK
+      else
+        sdl_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDL2.framework -type d 2> /dev/null`
+      fi
+
+      if test -d $sdl_framework; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $sdl_framework" >&5
+printf "%s\n" "$sdl_framework" >&6; }
+        sdl_framework_dir=`dirname $sdl_framework`
+        SDL_CFLAGS="-F$sdl_framework_dir -Wl,-framework,SDL2 -I$sdl_framework/include"
+        SDL_LIBS="-F$sdl_framework_dir -Wl,-framework,SDL2"
+      else
+        no_sdl=yes
+      fi
+    fi
+
+    if test "$SDL2_CONFIG" != "no"; then
+      test "x$SDL_CFLAGS" = x && SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
+      test "x$SDL_LIBS" = x && SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
 
       sdl_major_version=`$SDL2_CONFIG $sdl_config_args --version | \
              sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/'`
@@ -13596,14 +13628,8 @@ fi
         CFLAGS="$ac_save_CFLAGS"
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
+
       fi
-    fi
-    if test "x$no_sdl" = x ; then
-      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
-    else
-      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
     fi
   fi
   if test "x$no_sdl" = x ; then
