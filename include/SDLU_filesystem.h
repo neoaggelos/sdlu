@@ -60,20 +60,6 @@ extern DECLSPEC SDLU_FileInfo * SDLCALL SDLU_NextFileWithExtension(SDLU_Director
 extern DECLSPEC SDLU_FileInfo * SDLCALL SDLU_NextFileWithExtensionW(SDLU_Directory *dir, const wchar_t* ext);
 extern DECLSPEC void SDLCALL SDLU_CloseDirectory(SDLU_Directory *dir);
 
-
-extern DECLSPEC void SDLCALL SDLU_CreateDirectory(const char *path);
-extern DECLSPEC void SDLCALL SDLU_CreateDirectoryW(const wchar_t *path);
-
-extern DECLSPEC void SDLCALL SDLU_DeleteDirectory(const char* path);
-extern DECLSPEC void SDLCALL SDLU_DeleteDirectoryW(const wchar_t *path);
-
-extern DECLSPEC void SDLCALL SDLU_CopyFile(const char* src, const char *dst);
-extern DECLSPEC void SDLCALL SDLU_CopyFileW(const wchar_t* src, const wchar_t *dst);
-
-extern DECLSPEC void SDLCALL SDLU_DeleteFile(const char *file);
-extern DECLSPEC void SDLCALL SDLU_DeleteFileW(const wchar_t *file);
-
-
 #include "close_code.h"
 
 #ifdef __cplusplus
