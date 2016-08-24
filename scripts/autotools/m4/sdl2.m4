@@ -69,8 +69,11 @@ AC_ARG_VAR(SDL2_FRAMEWORK, [Path to SDL2.framework])
       if test "x$SDL2_FRAMEWORK" != x; then
         sdl_framework=$SDL2_FRAMEWORK
       else
-dnl todo what if more than one SDL2.framework found?
-        sdl_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDL2.framework -type d 2> /dev/null`
+        for d in / ~/ /System/; do
+          if test -d "$dLibrary/Frameworks/SDL2.framework"; then
+            sdl_framework="$dLibrary/Frameworks/SDL2.framework"
+          fi
+        done
       fi
 
       if test -d $sdl_framework; then
@@ -84,8 +87,11 @@ dnl todo what if more than one SDL2.framework found?
     fi
 
     if test "$SDL2_CONFIG" != "no"; then
-      test "x$SDL_CFLAGS" = x && SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
-      test "x$SDL_LIBS" = x && SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
+      if test "x$sdl_pc" = "xno"; then
+        AC_MSG_CHECKING(for SDL - version >= $min_sdl_version)
+        SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
+        SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
+      fi
 
       sdl_major_version=`$SDL2_CONFIG $sdl_config_args --version | \
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
@@ -167,6 +173,13 @@ int main (int argc, char *argv[])
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
 
+      fi
+      if test "x$sdl_pc" = "xno"; then
+        if test "x$no_sdl" = "xyes"; then
+          AC_MSG_RESULT(no)
+        else
+          AC_MSG_RESULT(yes)
+        fi
       fi
     fi
   fi

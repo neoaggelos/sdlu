@@ -61,8 +61,11 @@ AC_ARG_VAR(SDLU_FRAMEWORK, [Path to SDLU.framework])
       if test "x$SDLU_FRAMEWORK" != x; then
         sdlu_framework=$SDLU_FRAMEWORK
       else
-dnl todo what if more than one SDLU.framework found?
-        sdlu_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDLU.framework -type d 2> /dev/null`
+        for d in / /System/ ~/ ; do
+          if test -d "$dLibrary/Frameworks/SDLU.framework"; then
+            sdlu_framework="$dLibrary/Frameworks/SDLU.framework"
+          fi
+        done
       fi
 
       if test -d $sdlu_framework; then
@@ -76,8 +79,11 @@ dnl todo what if more than one SDLU.framework found?
     fi
 
     if test "$SDLU_CONFIG" != "no"; then
-      test "x$SDLU_CFLAGS" = x && SDLU_CFLAGS=`$SDLU_CONFIG $sdlu_config_args --cflags`
-      test "x$SDLU_LIBS" = x && SDLU_LIBS=`$SDLU_CONFIG $sdlu_config_args --libs`
+      if test "x$sdlu_pc" = "xno"; then
+        AC_MSG_CHECKING(for SDLU - version >= $min_sdlu_version)
+        SDLU_CFLAGS=`$SDLU_CONFIG $sdlu_config_args --cflags`
+        SDLU_LIBS=`$SDLU_CONFIG $sdlu_config_args --libs`
+      fi
 
       sdlu_major_version=`$SDLU_CONFIG $sdlu_config_args --version | \
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
@@ -159,6 +165,13 @@ int main (int argc, char *argv[])
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
 
+      fi
+      if test "x$sdlu_pc" = "xno"; then
+        if test "x$no_sdlu" = "xyes"; then
+          AC_MSG_RESULT(no)
+        else
+          AC_MSG_RESULT(yes)
+        fi
       fi
     fi
   fi

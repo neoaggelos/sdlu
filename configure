@@ -13518,7 +13518,11 @@ printf %s "checking for SDL2.framework... " >&6; }
       if test "x$SDL2_FRAMEWORK" != x; then
         sdl_framework=$SDL2_FRAMEWORK
       else
-        sdl_framework=`find /Library/Frameworks $HOME/Library/Frameworks /System/Library/Frameworks -name SDL2.framework -type d 2> /dev/null`
+        for d in / ~/ /System/; do
+          if test -d "$dLibrary/Frameworks/SDL2.framework"; then
+            sdl_framework="$dLibrary/Frameworks/SDL2.framework"
+          fi
+        done
       fi
 
       if test -d $sdl_framework; then
@@ -13533,8 +13537,12 @@ printf "%s\n" "$sdl_framework" >&6; }
     fi
 
     if test "$SDL2_CONFIG" != "no"; then
-      test "x$SDL_CFLAGS" = x && SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
-      test "x$SDL_LIBS" = x && SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
+      if test "x$sdl_pc" = "xno"; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for SDL - version >= $min_sdl_version" >&5
+printf %s "checking for SDL - version >= $min_sdl_version... " >&6; }
+        SDL_CFLAGS=`$SDL2_CONFIG $sdl_config_args --cflags`
+        SDL_LIBS=`$SDL2_CONFIG $sdl_config_args --libs`
+      fi
 
       sdl_major_version=`$SDL2_CONFIG $sdl_config_args --version | \
              sed 's/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/'`
@@ -13629,6 +13637,15 @@ fi
         CXXFLAGS="$ac_save_CXXFLAGS"
         LIBS="$ac_save_LIBS"
 
+      fi
+      if test "x$sdl_pc" = "xno"; then
+        if test "x$no_sdl" = "xyes"; then
+          { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        else
+          { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+        fi
       fi
     fi
   fi
