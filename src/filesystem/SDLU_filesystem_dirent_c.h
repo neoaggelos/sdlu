@@ -38,4 +38,7 @@ SDLU_Directory *DIR_OpenDirectoryW(const wchar_t* dirname, SDL_bool ignore_dots)
 SDLU_FileInfo *DIR_NextFile(SDLU_Directory *dir);
 void DIR_CloseDirectory(SDLU_Directory *dir);
 
+int DIR_CreateDirectory(const char* dirname, Uint32 mode);
+int DIR_CreateDirectoryW(const wchar_t *dirname, Uint32 mode);
+
 #endif /* SDLU_FILESYSTEM_DIRENT_C_H */

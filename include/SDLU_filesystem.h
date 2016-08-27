@@ -60,6 +60,10 @@ extern DECLSPEC SDLU_FileInfo * SDLCALL SDLU_NextFileWithExtension(SDLU_Director
 extern DECLSPEC SDLU_FileInfo * SDLCALL SDLU_NextFileWithExtensionW(SDLU_Directory *dir, const wchar_t* ext);
 extern DECLSPEC void SDLCALL SDLU_CloseDirectory(SDLU_Directory *dir);
 
+
+extern DECLSPEC int SDLCALL SDLU_CreateDirectory(const char* dirname, Uint32 mode);
+extern DECLSPEC int SDLCALL SDLU_CreateDirectoryW(const wchar_t* dirname, Uint32 mode);
+
 #include "close_code.h"
 
 #ifdef __cplusplus

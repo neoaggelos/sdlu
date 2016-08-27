@@ -125,3 +125,29 @@ SDLU_CloseDirectory(SDLU_Directory *dir)
     UNUSED(dir);
 #endif
 }
+
+int
+SDLU_CreateDirectory(const char *dirname, Uint32 mode)
+{
+#if defined( FILESYSTEM_WINDOWS )
+    WIN_CreateDirectory(dirname, mode);
+#elif defined( FILESYSTEM_DIRENT )
+    DIR_CreateDirectory(dirname, mode);
+#else
+    UNUSED(dirname);
+    UNUSED(mode);
+#endif
+}
+
+int
+SDLU_CreateDirectoryW(const wchar_t *dirname, Uint32 mode)
+{
+#if defined( FILESYSTEM_WINDOWS )
+    WIN_CreateDirectoryW(dirname, mode);
+#elif defined( FILESYSTEM_DIRENT )
+    DIR_CreateDirectoryW(dirname, mode);
+#else
+    UNUSED(dirname);
+    UNUSED(mode);
+#endif
+}

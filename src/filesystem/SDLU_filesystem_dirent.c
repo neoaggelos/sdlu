@@ -122,4 +122,25 @@ DIR_CloseDirectory(SDLU_Directory *dir)
     }
 }
 
+int
+DIR_CreateDirectory(const char* dirname, Uint32 mode)
+{
+    UNUSED(mode);
+
+    return mkdir(dirname, 0775) != -1;
+}
+
+int
+DIR_CreateDirectoryW(const wchar_t *dirname, Uint32 mode)
+{
+    int result;
+    char *tmp = (char*)SDL_malloc(sizeof(char) * wcslen(dirname));
+    wcstombs(tmp, dirname, wcslen(dirname));
+
+    result = DIR_CreateDirectory(tmp, mode);
+    SDL_free(tmp);
+
+    return result;
+}
+
 #endif /* FILESYSTEM_DIRENT */
