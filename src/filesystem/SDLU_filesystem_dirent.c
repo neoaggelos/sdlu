@@ -30,6 +30,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#define UNUSED(x) (void)(x)
+
 static SDLU_FileType
 DIR_GetFileType(const char *file)
 {
