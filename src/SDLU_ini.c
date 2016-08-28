@@ -282,6 +282,9 @@ SDLU_DestroyIni(SDLU_IniHandler* handler)
     return result;
 }
 
+#define SDL_strncpy(target, source, n) \
+	SDL_snprintf(target, n, "%s", source)
+
 SDLU_IniHandler*
 SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
 {
@@ -304,28 +307,103 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
 
     current_section = SDL_strdup("__global");
     buf[size-1] = '\0';
-    i = 0;
 
     first = (char*) SDL_malloc(sizeof(char) * 200);
     second = (char*) SDL_malloc(sizeof(char) * 200);
-    while(i < size) {
-        /* parse line */
-        if (buf[i] != ';') {
-            if (SDL_sscanf(&buf[i], "%[^=\n]=%[^\n]", first, second) == 2) {
-                SDLU_SetIniProperty(&handler, current_section, first, second);
-            } else if (SDL_sscanf(&buf[i], "[%[^]\n]]", first) == 1) {
-                SDL_free(current_section);
-                current_section = SDL_strdup(first);
-            }
-        }
 
-        /* continue to next line */
-        while( buf[i] != '\n' && buf[i] != '\0' && i < size )
-            i++;
+	SDL_memset(first, '\0', 200);
+	SDL_memset(second, '\0', 200);
 
-        /* move to next char */
-        i++;
-    }
+	int firstlen = 0;
+	int secondlen = 0;
+
+	enum {
+		Begin,
+		ReadingPairName,
+		ReadingPairValue,
+		ReadingSectionName,
+		Reset
+	} mode = Begin;
+
+	i = 0;
+	do {
+    	if (buf[i] == ';' && mode != ReadingPairValue) {
+			mode = Reset;
+			continue;
+		}
+		if (mode == Begin) {
+			firstlen = 0;
+			secondlen = 0;
+			if (buf[i] == '[') {
+				mode = ReadingSectionName;
+			}
+			else if (buf[i] != '=' && buf[i] != ' ' && buf[i] != '\n') {
+				mode = ReadingPairName;
+				first[firstlen++] = buf[i];
+			}
+		}
+		else if (mode == ReadingPairName) {
+			/* TODO: What if firstlen == 200 ?? */
+			if (buf[i] == '\n') {
+				mode = Reset;
+			}
+			else if (buf[i] == '=') {
+				mode = ReadingPairValue;
+			}
+			else {
+				first[firstlen++] = buf[i];
+			}
+		}
+		else if (mode == ReadingPairValue) {
+			/* TODO: what if secondlen == 200 ?? */
+			if (buf[i] == '\n' || buf[i] == ';') {
+				char *value, *property;
+				mode = Begin;
+				property = (char*)SDL_malloc(firstlen);
+				SDL_strncpy(property, first, firstlen);
+				if (secondlen == 0) {
+					SDLU_SetIniProperty(&handler, current_section, property, "");
+				}
+				else {
+					value = (char*)SDL_malloc(secondlen);
+					SDL_strncpy(value, second, secondlen);
+
+					SDLU_SetIniProperty(&handler, current_section, property, value);
+					SDL_free(value);
+
+				}
+				firstlen = 0;
+				secondlen = 0;
+				SDL_free(property);
+			
+				mode = buf[i] == '\n' ? Begin : Reset;
+			}
+			else {
+				second[secondlen++] = buf[i];
+			}
+			continue;
+		}
+		else if (mode == ReadingSectionName) {
+			if (buf[i] == '\n') {
+				mode = Begin;
+			}
+			else if (buf[i] == ']') {
+				SDL_free(current_section);
+				current_section = (char*)SDL_malloc(firstlen);
+				SDL_strncpy(current_section, first, firstlen);
+				mode = Reset;
+			}
+			else {
+				first[firstlen++] = buf[i];
+			}
+		}
+		else if (mode == Reset) {
+			if (buf[i] == '\n') mode = Begin;
+		}
+
+		/* next character */
+		i++;
+	} while (i < size);
 
     SDL_free(first);
     SDL_free(second);
