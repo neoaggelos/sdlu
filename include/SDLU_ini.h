@@ -79,8 +79,8 @@ typedef struct SDLU_IniSection SDLU_IniSection;
  *  \brief A single ini property
  */
 struct SDLU_IniProperty {
-    const char* key;
-    const char* value;
+    char* key;
+    char* value;
 
     struct SDLU_IniProperty* next;
 };

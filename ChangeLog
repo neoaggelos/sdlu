@@ -17,6 +17,7 @@ Additions:
 
 Changes:
 - Fixed Visual Studio compilation errors
+- Fixed SDLU_IniHandler bugs
 - Removed SDLU_HINT_TEXT_DRAW_SCALED
 - Removed C++ interface
 

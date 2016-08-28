@@ -32,7 +32,7 @@ get_property_from_section(SDLU_IniSection *s, const char* p)
     SDLU_IniProperty *property;
     LL_FOREACH(s->properties, property) {
         if (SDL_strcmp(property->key, p) == 0) {
-            return property->value;
+            return property->value; /* TODO: strdup needed? */
         }
     }
 
@@ -59,7 +59,8 @@ add_property_to_section(SDLU_IniSection **s, const char* p, const char* v)
     /* check if the property already exists */
     LL_FOREACH((*s)->properties, temp) {
         if (SDL_strcmp(temp->key, p) == 0) {
-            temp->value = v;
+            SDL_free(temp->value);
+            temp->value = SDL_strdup(v);
             return 0;
         }
     }
@@ -68,8 +69,8 @@ add_property_to_section(SDLU_IniSection **s, const char* p, const char* v)
     if (!property)
         SDLU_ExitError("could not allocate memory", -1);
 
-    property->key = p;
-    property->value = v;
+    property->key = SDL_strdup(p);
+    property->value = SDL_strdup(v);
 
     LL_APPEND((*s)->properties, property);
     (*s)->num_properties++;
@@ -93,7 +94,7 @@ add_section_to_handler(SDLU_IniHandler** handler, const char* section)
     if (!s)
         SDLU_ExitError("could not allocate memory", -1);
 
-    s->name = section;
+    s->name = SDL_strdup(section);
     s->num_properties = 0;
     s->properties = NULL;
     LL_APPEND((*handler)->sections, s);
@@ -121,6 +122,8 @@ del_property_from_section(SDLU_IniSection **s, const char* property)
     LL_FOREACH((*s)->properties, p) {
         if (SDL_strcmp(p->key, property) == 0) {
             LL_DELETE((*s)->properties, p);
+            SDL_free(p->key);
+            SDL_free(p->value);
             SDL_free(p);
             (*s)->num_properties --;
             return 0;
