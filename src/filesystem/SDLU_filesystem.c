@@ -130,12 +130,13 @@ int
 SDLU_CreateDirectory(const char *dirname, Uint32 mode)
 {
 #if defined( FILESYSTEM_WINDOWS )
-    WIN_CreateDirectory(dirname, mode);
+    return WIN_CreateDirectory(dirname, mode);
 #elif defined( FILESYSTEM_DIRENT )
-    DIR_CreateDirectory(dirname, mode);
+    return DIR_CreateDirectory(dirname, mode);
 #else
     UNUSED(dirname);
     UNUSED(mode);
+    SDLU_ExitError("not supported", -1);
 #endif
 }
 
@@ -143,11 +144,12 @@ int
 SDLU_CreateDirectoryW(const wchar_t *dirname, Uint32 mode)
 {
 #if defined( FILESYSTEM_WINDOWS )
-    WIN_CreateDirectoryW(dirname, mode);
+    return WIN_CreateDirectoryW(dirname, mode);
 #elif defined( FILESYSTEM_DIRENT )
-    DIR_CreateDirectoryW(dirname, mode);
+    return DIR_CreateDirectoryW(dirname, mode);
 #else
     UNUSED(dirname);
     UNUSED(mode);
+    SDLU_ExitError("not supported", -1);
 #endif
 }

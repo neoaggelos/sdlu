@@ -215,13 +215,13 @@ WIN_CloseDirectory(SDLU_Directory* dir)
 int
 WIN_CreateDirectory(const char* dirname, Uint32 mode)
 {
-    return CreateDirectoryA(dirname, NULL) != FALSE;
+    return CreateDirectoryA(dirname, NULL) != FALSE ? 0 : -1;
 }
 
 int
 WIN_CreateDirectoryW(const wchar_t* dirname, Uint32 mode)
 {
-    return CreateDirectoryW(dirname, NULL) != FALSE;
+    return CreateDirectoryW(dirname, NULL) != FALSE ? 0 : -1;
 }
 
 #endif /* FILESYSTEM_WINDOWS */

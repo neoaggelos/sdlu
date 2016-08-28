@@ -127,7 +127,7 @@ DIR_CreateDirectory(const char* dirname, Uint32 mode)
 {
     UNUSED(mode);
 
-    return mkdir(dirname, 0775) != -1;
+    return mkdir(dirname, 0775);
 }
 
 int
