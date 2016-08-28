@@ -289,6 +289,9 @@ SDLU_LoadIniRW(SDL_RWops* rwops, int freesrc)
     int i;
     char *first, *second;
 
+    if (rwops == NULL)
+        SDLU_ExitError("invalid parameter 'rwops'", NULL);
+
     buf = SDLU_ReadFile(rwops);
     size = SDL_RWsize(rwops);
     if (freesrc) rwops->close(rwops);
