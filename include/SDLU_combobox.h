@@ -37,6 +37,22 @@ extern "C" {
 #endif
 
 /**
+ *  \brief Event that is pushed when the choice of a combobox changes
+ *
+ *  \code
+ *  //Example 
+ *  if (event.type == SDLU_COMBOBOX_TEXTCHANGED) {
+ *    if (event.user.code == my_combobox->id) {
+ *      printf("New choice: %s\n", my_combobox->current
+ *    }
+ *  }
+ *  \endcode
+ */
+#define SDLU_COMBOBOX_TEXTCHANGED SDLU_GetComboBoxEventID()
+
+extern DECLSPEC Uint32 SDLCALL SDLU_GetComboBoxEventID();
+
+/**
  *  \brief The ComboBox structure
  */
 typedef struct {

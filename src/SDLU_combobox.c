@@ -27,6 +27,8 @@
 
 static Uint32 next_id = 0;
 
+static Uint32 combobox_event_id = 0;
+
 struct SDLU_ComboBoxItem {
     const char* text;
     SDL_Texture* texture;
@@ -37,6 +39,23 @@ typedef struct SDLU_ComboBoxItem SDLU_ComboBoxItem;
 
 /* check if:   a <= b <= c */
 #define lequal(a,b,c) ((a<=b) && (b<=c))
+
+static void
+SDLU_PushComboboxEvent(SDLU_ComboBox* combobox)
+{
+    SDL_Event event;
+    if (combobox_event_id == 0 || combobox_event_id == (Uint32) -1) {
+        SDLU_Log("events not registered");
+        return;
+    }
+
+    event.type = combobox_event_id;
+    event.user.code = combobox->id;
+    event.user.windowID = SDL_GetWindowID(combobox->window);
+    event.user.timestamp = SDL_GetTicks();
+
+    SDL_PushEvent(&event);
+}
 
 static SDLU_ComboBoxItem*
 get_item_by_index(SDLU_ComboBoxItem* head, int index)
@@ -92,7 +111,7 @@ ComboBoxEventWatch(void *_this, SDL_Event* event)
         if (combobox->open) {
             if (lequal(R.x, event->button.x, R.x + R.w)) {
                 int index = ((event->button.y - R.y) / R.h) + 1;
-                if (lequal(1, index, combobox->num_items + 1)) {
+                if (event->button.y >= R.y && lequal(1, index, combobox->num_items + 1)) {
                     SDLU_ComboBoxItem* newitem;
                     newitem = get_item_by_index(combobox->data, index);
                     combobox->current = newitem->text;
@@ -101,6 +120,7 @@ ComboBoxEventWatch(void *_this, SDL_Event* event)
                     if (combobox->callback) {
                         combobox->callback(combobox, combobox->arg);
                     }
+                    SDLU_PushComboboxEvent(combobox);
                 }
             }
             combobox->open = 0;
@@ -145,6 +165,13 @@ SDLU_CreateComboBox(SDL_Window* window)
     combobox->current_item = NULL;
 
     SDL_AddEventWatch(ComboBoxEventWatch, combobox);
+
+    if (combobox_event_id == 0) {
+        combobox_event_id = SDL_RegisterEvents(1);
+        if (combobox_event_id == (Uint32) -1) {
+            SDLU_Log("could not register combobox event");
+        }
+    }
 
     return combobox;
 }
@@ -371,4 +398,10 @@ SDLU_DestroyComboBox(SDLU_ComboBox* combobox)
     }
 
     return 0;
+}
+
+Uint32
+SDLU_GetComboBoxEventID()
+{
+    return combobox_event_id;
 }
