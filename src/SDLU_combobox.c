@@ -125,7 +125,7 @@ ComboBoxEventWatch(void *_this, SDL_Event* event)
             }
             combobox->open = 0;
         } else {
-            if (lequal(R.y, event->button.y, R.y + R.h)) {
+            if (lequal(R.y, event->button.y, R.y + R.h) && lequal(R.x, event->button.x, R.x + R.w)) {
                 combobox->open = 1;
             }
         }
