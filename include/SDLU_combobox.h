@@ -174,6 +174,14 @@ extern DECLSPEC int SDLCALL SDLU_DelComboBoxItem(
 extern DECLSPEC int SDLCALL SDLU_RenderComboBox(SDLU_ComboBox* combobox);
 
 /**
+ *	\brief Change the active item of a combo box
+ *
+ *  \return 0 on success, -1 on error
+ */
+extern DECLSPEC int SDLCALL SDLU_SetComboBoxActiveItem(SDLU_ComboBox* combobox, int new_index);
+
+
+/**
  *  \brief Set combo box callback
  *
  *  The callback function takes two 'void*' arguments, see the docs for

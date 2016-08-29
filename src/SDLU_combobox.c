@@ -336,6 +336,25 @@ SDLU_DelComboBoxItem(SDLU_ComboBox** combobox, const char* item)
 }
 
 int
+SDLU_SetComboBoxActiveItem(SDLU_ComboBox* combobox, int new_index)
+{
+	if (combobox == NULL)
+		SDLU_ExitError("invalid combo box", -1);
+
+	if (!lequal(1, new_index, combobox->num_items))
+		SDLU_ExitError("new index out of range", -1);
+
+	SDLU_ComboBoxItem *item = combobox->data;
+	while (--new_index) item = item->next;
+
+	combobox->current_item = item;
+	combobox->current = item->text;
+	combobox->current_index = new_index;
+
+	return 0;
+}
+
+int
 SDLU_RenderComboBox(SDLU_ComboBox* combobox)
 {
     SDL_Renderer* renderer;
