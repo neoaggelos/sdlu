@@ -113,6 +113,9 @@ set(prefix ${CMAKE_INSTALL_PREFIX})
 set(exec_prefix "${prefix}")
 set(includedir "${prefix}/include/SDL2")
 set(libdir "${exec_prefix}/lib${LIB_SUFFIX}")
+if (WIN32)
+  set(includedir "${prefix}/include")
+endif(WIN32)
 
 # Generate pkg-config file
 configure_file(
