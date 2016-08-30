@@ -78,6 +78,8 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
             err = "could not open TTF font";
             goto handle_error;
         }
+
+        TTF_SetFontHinting(font, TTF_HINTING_LIGHT);
     }
 
     SDLU_vasprintf(&text, format, arg);
