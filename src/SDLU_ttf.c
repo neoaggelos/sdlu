@@ -326,7 +326,10 @@ SDLU_SetTruetypeFont(void* font)
     /** reset font **/
     if (font == NULL) {
         SDLU_Log("resetting font");
-        custom_font = NULL;
+        if (custom_font) {
+            TTF_CloseFont(custom_font);
+            custom_font = NULL;
+        }
     } else {
         custom_font = (TTF_Font*)font;
     }
@@ -339,15 +342,19 @@ SDLU_SetTruetypeFontFile(const char* font, int size)
 {
     if (font == NULL) {
         SDLU_Log("resetting font");
-        custom_font = NULL;
+        if (custom_font) {
+            TTF_CloseFont(custom_font);
+            custom_font = NULL;
+        }
     } else {
-        if (TTF_Init() == -1) {
+        if (TTF_WasInit() || (TTF_Init() != -1)) {
             custom_font = TTF_OpenFont(font, size);
+            if (custom_font)
+                TTF_SetFontHinting(custom_font, TTF_HINTING_LIGHT);
         } else {
             /* the error message is set */
             return -1;
         }
-        TTF_Quit();
     }
     return 0;
 }

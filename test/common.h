@@ -59,4 +59,4 @@ extern char* GetImagePath(const char* fname);
 #define TILE_BMP GetImagePath("tile.bmp")
 #define HELP_BMP GetImagePath("help.bmp")
 #define GUY_BMP GetImagePath("guy.bmp")
-#define FONT_TTF GetImagePath("font.ttf")
+#define FONT_TTC GetImagePath("font.ttc")

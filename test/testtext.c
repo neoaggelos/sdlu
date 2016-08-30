@@ -92,7 +92,7 @@ int main(int argc, char** argv)
         SDLU_RenderText( renderer, 0, 0, "Red colored text" );
 
         /** custom font **/
-        SDLU_SetTruetypeFontFile(FONT_TTF, 20);
+        SDLU_SetTruetypeFontFile(FONT_TTC, 20);
         SDLU_RenderText( renderer, 250, 250, "Custom font");
         SDLU_SetTruetypeFont(NULL);     /** reset **/
 
