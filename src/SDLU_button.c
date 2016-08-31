@@ -90,7 +90,11 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
 
     if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.scancode == button->hotkey) {
-            button->callback[SDLU_PRESS_CALLBACK](button, button->arg[SDLU_PRESS_CALLBACK]);
+			if (button->callback[SDLU_PRESS_CALLBACK]) {
+				button->callback[SDLU_PRESS_CALLBACK](button, button->arg[SDLU_PRESS_CALLBACK]);
+			}
+
+			SDLU_PushButtonEvent(SDLU_BUTTON_PRESS, button);
         }
     }
 
