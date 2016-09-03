@@ -178,7 +178,14 @@ extern DECLSPEC int SDLCALL SDLU_RenderComboBox(SDLU_ComboBox* combobox);
  *
  *  \return 0 on success, -1 on error
  */
-extern DECLSPEC int SDLCALL SDLU_SetComboBoxActiveItem(SDLU_ComboBox* combobox, int new_index);
+extern DECLSPEC int SDLCALL SDLU_SetComboBoxActiveIndex(SDLU_ComboBox* combobox, int new_index);
+
+/**
+ *	\brief Change the active item of a combo box
+ *
+ *  \return 0 on success, -1 on error
+ */
+extern DECLSPEC int SDLCALL SDLU_SetComboBoxActiveItem(SDLU_ComboBox *combobox, const char* item);
 
 
 /**

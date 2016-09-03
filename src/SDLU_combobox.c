@@ -336,7 +336,7 @@ SDLU_DelComboBoxItem(SDLU_ComboBox** combobox, const char* item)
 }
 
 int
-SDLU_SetComboBoxActiveItem(SDLU_ComboBox* combobox, int new_index)
+SDLU_SetComboBoxActiveIndex(SDLU_ComboBox* combobox, int new_index)
 {
 	if (combobox == NULL)
 		SDLU_ExitError("invalid combo box", -1);
@@ -352,6 +352,33 @@ SDLU_SetComboBoxActiveItem(SDLU_ComboBox* combobox, int new_index)
 	combobox->current_index = new_index;
 
 	return 0;
+}
+
+int
+SDLU_SetComboBoxActiveItem(SDLU_ComboBox* combobox, const char* item)
+{
+  int index;
+  int found = 0;
+
+  if (combobox == NULL)
+    SDLU_ExitError("invalid combo box", -1);
+
+  SDLU_ComboBoxItem *curitem = combobox->data;
+  index = 0;
+
+  while(curitem && !found) {
+    index++;
+    found = !SDL_strcmp(item, curitem->text);
+
+    if (!found)
+      curitem = curitem->next;
+  }
+
+  if (found) {
+    return SDLU_SetComboBoxActiveIndex(combobox, index);
+  }
+
+  return -1;
 }
 
 int
