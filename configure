@@ -13155,7 +13155,7 @@ CC=$lt_save_CC
 
 
 # Basic flags
-CFLAGS="$CFLAGS -Wall -Wextra"
+CFLAGS="$CFLAGS -Wall -Wextra -fvisibility=hidden"
 
 # System specific
 case "$host" in
@@ -13791,6 +13791,38 @@ printf "%s\n" "$have_gtk" >&6; }
             CFLAGS="$CFLAGS -DFILESYSTEM_DIRENT"
         ;;
     esac
+
+
+# Check -fvisibility=hidden
+
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for -fvisibility=hidden" >&5
+printf %s "checking for -fvisibility=hidden... " >&6; }
+	ac_save_CFLAGS="$CFLAGS"
+	CFLAGS="$CFLAGS -fvisibility=hidden"
+	have_visibility=no
+	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main (void)
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  have_visibility=yes
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+	CFLAGS="$ac_save_CFLAGS"
+	if test "x$have_visibility" = xyes; then
+		CFLAGS="$CFLAGS -fvisibility=hidden"
+	fi
+
+	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $have_visibility" >&5
+printf "%s\n" "$have_visibility" >&6; }
 
 
 # set the include directory

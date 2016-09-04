@@ -27,7 +27,7 @@ AM_PROG_AR
 LT_INIT
 
 # Basic flags
-CFLAGS="$CFLAGS -Wall -Wextra"
+CFLAGS="$CFLAGS -Wall -Wextra -fvisibility=hidden"
 
 # System specific
 case "$host" in
@@ -62,6 +62,9 @@ CheckSDL2
 # CheckSDL2_ttf
 CheckFileDialogBackends
 CheckFileSystemBackends
+
+# Check -fvisibility=hidden
+CheckVisibilityHidden
 
 # set the include directory
 includedir="$includedir/SDL2"

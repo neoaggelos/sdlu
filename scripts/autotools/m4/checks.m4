@@ -76,3 +76,18 @@ AC_DEFUN([CheckSDLU], [
     CFLAGS="$CFLAGS $SDLU_CFLAGS"
     LIBS="$LIBS $SDLU_LIBS"
 ])
+
+AC_DEFUN([CheckVisibilityHidden], [
+	AC_MSG_CHECKING(for -fvisibility=hidden)
+	ac_save_CFLAGS="$CFLAGS"
+	CFLAGS="$CFLAGS -fvisibility=hidden"
+	have_visibility=no
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([],[])], have_visibility=yes,)
+	CFLAGS="$ac_save_CFLAGS"
+	if test "x$have_visibility" = xyes; then
+		CFLAGS="$CFLAGS -fvisibility=hidden"
+	fi
+
+	AC_MSG_RESULT($have_visibility)
+])
+		
