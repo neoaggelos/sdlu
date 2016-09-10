@@ -50,6 +50,8 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
 
     int w, h;
     int text_w, text_h;
+	SDL_Rect viewport;
+	float sx, sy;
 
     if (renderer == NULL)
         SDLU_ExitError("invalid parameter 'renderer'", -1);
@@ -87,20 +89,25 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
         err = "could not generate text";
         goto handle_error;
     }
-
-    result |= SDL_GetRendererOutputSize(renderer, &w, &h);
-    result |= TTF_SizeUTF8(font, text, &text_w, &text_h);
+		
+	SDL_RenderGetViewport(renderer, &viewport);
+	SDL_RenderGetLogicalSize(renderer, &w, &h);
+	SDL_RenderGetScale(renderer, &sx, &sy);
+	if (w == 0 && h == 0)
+		result |= SDL_GetRendererOutputSize(renderer, &w, &h);
+    
+	result |= TTF_SizeUTF8(font, text, &text_w, &text_h);
 
     switch(x) {
-        case SDLU_ALIGN_LEFT:     x = 0;                  break;
-        case SDLU_ALIGN_CENTER:   x = (w - text_w)/2;     break;
-        case SDLU_ALIGN_RIGHT:    x = w - text_w;         break;
+        case SDLU_ALIGN_LEFT:     x = -viewport.x;									break;
+		case SDLU_ALIGN_CENTER:   x = (int)(-viewport.x + (w - text_w*sx) / (2 * sx));	break;
+        case SDLU_ALIGN_RIGHT:    x = (int)(-viewport.x + (w - text_w*sx) / sx);		break;
     }
 
     switch(y) {
-        case SDLU_ALIGN_TOP:      y = 0;                  break;
-        case SDLU_ALIGN_CENTER:   y = (h - text_h) / 2;   break;
-        case SDLU_ALIGN_BOTTOM:   y = h - text_h;         break;
+        case SDLU_ALIGN_TOP:      y = -viewport.y;									break;
+		case SDLU_ALIGN_CENTER:   y = (int)(-viewport.y + (h - text_h) / (2 * sy));	break;
+		case SDLU_ALIGN_BOTTOM:   y = (int)(-viewport.y + (h - text_h) / sy);		break;
     }
 
     surface = TTF_RenderUTF8_Blended( font, text, SDLU_CreateRGB(255,255,255));
