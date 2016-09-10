@@ -68,15 +68,13 @@ file(GLOB SOURCES
 )
 
 # Build our own SDL_ttf
-add_library(sdlttf STATIC ${SDLTTF_SOURCES})
-set(LIBS ${LIBS} sdlttf)
+add_library(sdlttf OBJECT ${SDLTTF_SOURCES})
 target_compile_definitions(sdlttf PRIVATE "-DFT2_BUILD_LIBRARY")
 target_include_directories(sdlttf PRIVATE "${CMAKE_SOURCE_DIR}/external/freetype2/include")
-target_link_libraries(sdlttf ${SDL_LIBS})
 
 # Shared library
 if (BUILD_SHARED_LIBS)
-  add_library(SDLU-shared SHARED ${SOURCES} ${HDRS})
+  add_library(SDLU-shared SHARED ${SOURCES} ${HDRS} $<TARGET_OBJECTS:sdlttf>)
   target_link_libraries(SDLU-shared ${LIBS})
   set_target_properties(SDLU-shared PROPERTIES OUTPUT_NAME "SDLU")
   set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-shared)
@@ -85,7 +83,7 @@ endif(BUILD_SHARED_LIBS)
 # Static library
 set(STATIC "#")
 if (BUILD_STATIC_LIBS)
-  add_library(SDLU-static STATIC ${SOURCES} ${HDRS})
+  add_library(SDLU-static STATIC ${SOURCES} ${HDRS} $<TARGET_OBJECTS:sdlttf>)
   target_link_libraries(SDLU-static ${LIBS})
   set_target_properties(SDLU-static PROPERTIES OUTPUT_NAME "SDLU")
   set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
