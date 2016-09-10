@@ -111,7 +111,7 @@ ComboBoxEventWatch(void *_this, SDL_Event* event)
         if (combobox->open) {
             if (lequal(R.x, event->button.x, R.x + R.w)) {
                 int index = ((event->button.y - R.y) / R.h) + 1;
-                if (event->button.y >= R.y && lequal(1, index, combobox->num_items + 1)) {
+                if (event->button.y >= R.y && lequal(1, index, combobox->num_items)) {
                     SDLU_ComboBoxItem* newitem;
                     newitem = get_item_by_index(combobox->data, index);
                     combobox->current = newitem->text;
