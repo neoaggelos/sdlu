@@ -39,18 +39,14 @@ libSDLU_la_SOURCES = 										\
 		src/SDLU_ini.c											\
 		src/SDLU_pixels.c										\
 		src/SDLU_render.c										\
-		src/SDLU_collide.c									\
 		src/SDLU_create.c										\
 		src/SDLU_framerate.c								\
-		src/SDLU_math.c											\
 		src/SDLU_sprite.c										\
-		src/SDLU_ttf.c											\
-		src/SDLU_turtle.c
+		src/SDLU_ttf.c
 
 include_HEADERS = 						\
 		include/SDLU.h						\
 		include/SDLU_button.h			\
-		include/SDLU_collide.h		\
 		include/SDLU_combobox.h		\
 		include/SDLU_create.h			\
 		include/SDLU_defs.h				\
@@ -59,13 +55,11 @@ include_HEADERS = 						\
 		include/SDLU_fps.h				\
 		include/SDLU_hints.h			\
 		include/SDLU_ini.h				\
-		include/SDLU_math.h				\
 		include/SDLU_opengl.h			\
 		include/SDLU_pixels.h			\
 		include/SDLU_render.h			\
 		include/SDLU_sprite.h			\
-		include/SDLU_text.h				\
-		include/SDLU_turtle.h
+		include/SDLU_text.h
 
 # SDL2_ttf
 libsdlttf_la_SOURCES = external/sdl_ttf/SDL_ttf.c

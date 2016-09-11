@@ -136,7 +136,7 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
         mouse_rect.y = event.button.y ;
         mouse_rect.w = mouse_rect.h = 1;
 
-        if ( SDLU_CollideRects(button_rect, mouse_rect ) ) {
+        if ( SDL_HasIntersection(&button_rect, &mouse_rect ) ) {
             if (button->state != SDLU_PRESSED) {
                 if (button->callback[SDLU_PRESS_CALLBACK]) {
                     button->callback[SDLU_PRESS_CALLBACK](button, button->arg[SDLU_PRESS_CALLBACK]);
@@ -160,7 +160,7 @@ SDLU_CheckButtonEvents( SDLU_Button* button, SDL_Event event )
         mouse_rect.y = event.motion.y ;
         mouse_rect.w = mouse_rect.h = 1;
 
-        if (SDLU_CollideRects(button_rect, mouse_rect)) {
+        if (SDL_HasIntersection(&button_rect, &mouse_rect)) {
             if (button->state != SDLU_HOVERED) {
                 if (hover & SDLU_HOVER_CURSOR) {
                     old_cursor = SDL_GetCursor();

@@ -157,9 +157,8 @@ am__libSDLU_la_SOURCES_DIST = src/filedialog/SDLU_filedialog_cocoa.m \
 	src/SDLU_userdata.c src/filedialog/SDLU_filedialog.c \
 	src/filesystem/SDLU_filesystem.c src/SDLU_gl.c \
 	src/SDLU_button.c src/SDLU_combobox.c src/SDLU_ini.c \
-	src/SDLU_pixels.c src/SDLU_render.c src/SDLU_collide.c \
-	src/SDLU_create.c src/SDLU_framerate.c src/SDLU_math.c \
-	src/SDLU_sprite.c src/SDLU_ttf.c src/SDLU_turtle.c
+	src/SDLU_pixels.c src/SDLU_render.c src/SDLU_create.c \
+	src/SDLU_framerate.c src/SDLU_sprite.c src/SDLU_ttf.c
 am__dirstamp = $(am__leading_dot)dirstamp
 @FILEDIALOG_COCOA_TRUE@am__objects_1 = src/filedialog/libSDLU_la-SDLU_filedialog_cocoa.lo
 @FILEDIALOG_WINDOWS_TRUE@am__objects_2 = src/filedialog/libSDLU_la-SDLU_filedialog_windows.lo
@@ -175,10 +174,8 @@ am_libSDLU_la_OBJECTS = $(am__objects_6) src/libSDLU_la-SDLU_common.lo \
 	src/libSDLU_la-SDLU_gl.lo src/libSDLU_la-SDLU_button.lo \
 	src/libSDLU_la-SDLU_combobox.lo src/libSDLU_la-SDLU_ini.lo \
 	src/libSDLU_la-SDLU_pixels.lo src/libSDLU_la-SDLU_render.lo \
-	src/libSDLU_la-SDLU_collide.lo src/libSDLU_la-SDLU_create.lo \
-	src/libSDLU_la-SDLU_framerate.lo src/libSDLU_la-SDLU_math.lo \
-	src/libSDLU_la-SDLU_sprite.lo src/libSDLU_la-SDLU_ttf.lo \
-	src/libSDLU_la-SDLU_turtle.lo
+	src/libSDLU_la-SDLU_create.lo src/libSDLU_la-SDLU_framerate.lo \
+	src/libSDLU_la-SDLU_sprite.lo src/libSDLU_la-SDLU_ttf.lo
 libSDLU_la_OBJECTS = $(am_libSDLU_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -360,7 +357,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/sdlu-config.in \
 	$(top_srcdir)/scripts/autotools/depcomp \
 	$(top_srcdir)/scripts/autotools/install-sh \
 	$(top_srcdir)/scripts/autotools/ltmain.sh \
-	$(top_srcdir)/scripts/autotools/missing ChangeLog \
+	$(top_srcdir)/scripts/autotools/missing \
 	scripts/autotools/ar-lib scripts/autotools/compile \
 	scripts/autotools/config.guess scripts/autotools/config.sub \
 	scripts/autotools/depcomp scripts/autotools/install-sh \
@@ -533,18 +530,14 @@ libSDLU_la_SOURCES = \
 		src/SDLU_ini.c											\
 		src/SDLU_pixels.c										\
 		src/SDLU_render.c										\
-		src/SDLU_collide.c									\
 		src/SDLU_create.c										\
 		src/SDLU_framerate.c								\
-		src/SDLU_math.c											\
 		src/SDLU_sprite.c										\
-		src/SDLU_ttf.c											\
-		src/SDLU_turtle.c
+		src/SDLU_ttf.c
 
 include_HEADERS = \
 		include/SDLU.h						\
 		include/SDLU_button.h			\
-		include/SDLU_collide.h		\
 		include/SDLU_combobox.h		\
 		include/SDLU_create.h			\
 		include/SDLU_defs.h				\
@@ -553,13 +546,11 @@ include_HEADERS = \
 		include/SDLU_fps.h				\
 		include/SDLU_hints.h			\
 		include/SDLU_ini.h				\
-		include/SDLU_math.h				\
 		include/SDLU_opengl.h			\
 		include/SDLU_pixels.h			\
 		include/SDLU_render.h			\
 		include/SDLU_sprite.h			\
-		include/SDLU_text.h				\
-		include/SDLU_turtle.h
+		include/SDLU_text.h
 
 
 # SDL2_ttf
@@ -768,19 +759,13 @@ src/libSDLU_la-SDLU_pixels.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libSDLU_la-SDLU_render.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libSDLU_la-SDLU_collide.lo: src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libSDLU_la-SDLU_create.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libSDLU_la-SDLU_framerate.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libSDLU_la-SDLU_math.lo: src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libSDLU_la-SDLU_sprite.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libSDLU_la-SDLU_ttf.lo: src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
-src/libSDLU_la-SDLU_turtle.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 
 libSDLU.la: $(libSDLU_la_OBJECTS) $(libSDLU_la_DEPENDENCIES) $(EXTRA_libSDLU_la_DEPENDENCIES) 
@@ -1036,19 +1021,16 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@external/freetype2/$(DEPDIR)/libft_la-winfnt.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@external/sdl_ttf/$(DEPDIR)/libsdlttf_la-SDL_ttf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_button.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_collide.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_combobox.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_common.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_create.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_framerate.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_gl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_ini.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_math.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_pixels.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_render.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_ttf.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_userdata.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/filedialog/$(DEPDIR)/libSDLU_la-SDLU_filedialog_cocoa.Plo@am__quote@
@@ -1180,13 +1162,6 @@ src/libSDLU_la-SDLU_render.lo: src/SDLU_render.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_render.lo `test -f 'src/SDLU_render.c' || echo '$(srcdir)/'`src/SDLU_render.c
 
-src/libSDLU_la-SDLU_collide.lo: src/SDLU_collide.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_collide.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_collide.Tpo -c -o src/libSDLU_la-SDLU_collide.lo `test -f 'src/SDLU_collide.c' || echo '$(srcdir)/'`src/SDLU_collide.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_collide.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_collide.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_collide.c' object='src/libSDLU_la-SDLU_collide.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_collide.lo `test -f 'src/SDLU_collide.c' || echo '$(srcdir)/'`src/SDLU_collide.c
-
 src/libSDLU_la-SDLU_create.lo: src/SDLU_create.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_create.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_create.Tpo -c -o src/libSDLU_la-SDLU_create.lo `test -f 'src/SDLU_create.c' || echo '$(srcdir)/'`src/SDLU_create.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_create.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_create.Plo
@@ -1201,13 +1176,6 @@ src/libSDLU_la-SDLU_framerate.lo: src/SDLU_framerate.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_framerate.lo `test -f 'src/SDLU_framerate.c' || echo '$(srcdir)/'`src/SDLU_framerate.c
 
-src/libSDLU_la-SDLU_math.lo: src/SDLU_math.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_math.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_math.Tpo -c -o src/libSDLU_la-SDLU_math.lo `test -f 'src/SDLU_math.c' || echo '$(srcdir)/'`src/SDLU_math.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_math.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_math.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_math.c' object='src/libSDLU_la-SDLU_math.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_math.lo `test -f 'src/SDLU_math.c' || echo '$(srcdir)/'`src/SDLU_math.c
-
 src/libSDLU_la-SDLU_sprite.lo: src/SDLU_sprite.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_sprite.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Tpo -c -o src/libSDLU_la-SDLU_sprite.lo `test -f 'src/SDLU_sprite.c' || echo '$(srcdir)/'`src/SDLU_sprite.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Plo
@@ -1221,13 +1189,6 @@ src/libSDLU_la-SDLU_ttf.lo: src/SDLU_ttf.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_ttf.c' object='src/libSDLU_la-SDLU_ttf.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_ttf.lo `test -f 'src/SDLU_ttf.c' || echo '$(srcdir)/'`src/SDLU_ttf.c
-
-src/libSDLU_la-SDLU_turtle.lo: src/SDLU_turtle.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_turtle.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Tpo -c -o src/libSDLU_la-SDLU_turtle.lo `test -f 'src/SDLU_turtle.c' || echo '$(srcdir)/'`src/SDLU_turtle.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_turtle.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_turtle.c' object='src/libSDLU_la-SDLU_turtle.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_turtle.lo `test -f 'src/SDLU_turtle.c' || echo '$(srcdir)/'`src/SDLU_turtle.c
 
 external/freetype2/libft_la-ftmac.lo: external/freetype2/ftmac.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libft_la_CFLAGS) $(CFLAGS) -MT external/freetype2/libft_la-ftmac.lo -MD -MP -MF external/freetype2/$(DEPDIR)/libft_la-ftmac.Tpo -c -o external/freetype2/libft_la-ftmac.lo `test -f 'external/freetype2/ftmac.c' || echo '$(srcdir)/'`external/freetype2/ftmac.c

@@ -272,45 +272,6 @@ extern DECLSPEC int SDLCALL SDLU_RenderDrawPolygon(
         int n
 );
 
-/**
- *  \brief Render a texture n times, each time adjusting dest according to
- *  format.
- *
- *  As for the 'format' argument, the only restriction is that when you alter
- *  one of 'x,y,w,h' the +-[amount_of_change], must have no spaces in between.
- *  'x+10' is understood, 'y+ 20' or 'x - 1' are not.
- *
- *  When you give more than one of 'x,y,w,h', between each of them you can have
- *  anything you want, see the example below.
- *
- *  Example:
- *
- *  \code
- *  // Copy 'texture' 5 times on renderer. The original destination is 'dst'
- *  // Each time, the destination rect is moved 10 pixels down (x+10) and
- *  // 40 pixels up (y-40).
- *  SDLU_RenderMultiCopy( renderer, texture, src, dst, 5, "x+10, y-40" );
- *  \endcode
- *
- *  \param renderer The renderer to draw
- *  \param texture Texture to copy
- *  \param src The source rect
- *  \param dest The original destination rect
- *  \param n Loops n times
- *  \param format How the dest rect should change every time
- *
- *  \return 0 on success, -1 on error
- *
- */
-extern DECLSPEC int SDLCALL SDLU_RenderMultiCopy(
-        SDL_Renderer* renderer,
-        SDL_Texture* texture,
-        SDL_Rect *src,
-        SDL_Rect *dest,
-        int n,
-        const char* format
-);
-
 #ifdef __cplusplus
 }
 #endif

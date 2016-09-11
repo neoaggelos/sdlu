@@ -69,7 +69,6 @@
 
 /* Basic SDLU library */
 #include "SDLU_button.h"
-#include "SDLU_collide.h"
 #include "SDLU_combobox.h"
 #include "SDLU_create.h"
 #include "SDLU_defs.h"
@@ -78,12 +77,10 @@
 #include "SDLU_fps.h"
 #include "SDLU_hints.h"
 #include "SDLU_ini.h"
-#include "SDLU_math.h"
 #include "SDLU_pixels.h"
 #include "SDLU_render.h"
 #include "SDLU_sprite.h"
 #include "SDLU_text.h"
-#include "SDLU_turtle.h"
 
 /* Optional Features */
 #include "SDLU_opengl.h"
