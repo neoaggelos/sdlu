@@ -52,6 +52,17 @@ extern "C" {
 
 /**
  *  \name Button Event IDs
+ *
+ *  \brief Pushed when a button event is received
+ *
+ *  \code
+ *  //Example 
+ *  if (event.type == SDLU_BUTTON_PRESS)
+ *    if (event.user.code == my_button->id) {
+ *      // do something
+ *    }
+ *  }
+ *  \endcode
  */
 /*@{*/
 #define SDLU_BUTTON_HOVER SDLU_GetButtonHoverEvent()
