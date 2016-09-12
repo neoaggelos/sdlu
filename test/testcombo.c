@@ -43,6 +43,12 @@ callback(void* _this, void* unused)
     choice = this->current;
 }
 
+void
+ah(void *_this, void *unused)
+{
+	printf("opened\n");
+}
+
 #ifdef SDL_MAIN_WANTED
 int SDL_main(int argc, char** argv)
 #else
@@ -69,7 +75,8 @@ int main(int argc, char** argv)
     SDL_CHECK(combobox);
 
     /** initialize combobox **/
-    SDLU_SetComboBoxCallback(combobox, callback, NULL);
+    SDLU_SetComboBoxCallback(combobox, SDLU_CHANGED_CALLBACK, callback, NULL);
+	SDLU_SetComboBoxCallback(combobox, SDLU_OPENED_CALLBACK, ah, NULL);
     SDLU_SetComboBoxGeometry(combobox, 85, 30, 150, 35);
 
     SDLU_AddComboBoxItem(&combobox, "Greece");

@@ -37,20 +37,26 @@ extern "C" {
 #endif
 
 /**
- *  \brief Event that is pushed when the choice of a combobox changes
+ *  \brief Combo box events
  *
  *  \code
  *  //Example 
- *  if (event.type == SDLU_COMBOBOX_TEXTCHANGED) {
+ *  if (event.type == SDLU_COMBOBOX_CHANGED) {
  *    if (event.user.code == my_combobox->id) {
  *      printf("New choice: %s\n", my_combobox->current
  *    }
  *  }
  *  \endcode
  */
-#define SDLU_COMBOBOX_TEXTCHANGED SDLU_GetComboBoxEventID()
+#define SDLU_COMBOBOX_CHANGED SDLU_GetComboBoxEventID()
+#define SDLU_COMBOBOX_OPENED (SDLU_GetComboBoxEventID()+1)
 
+/* dont use this directly */
 extern DECLSPEC Uint32 SDLCALL SDLU_GetComboBoxEventID();
+
+/* callback type macros */
+#define SDLU_OPENED_CALLBACK 0x00
+#define SDLU_CHANGED_CALLBACK 0x01
 
 /**
  *  \brief The ComboBox structure
@@ -68,8 +74,8 @@ typedef struct {
     int num_items;          /**< counter of items **/
     void *data;             /**< combo box items data **/
 
-    SDLU_Callback callback; /**< callback function **/
-    void* arg;              /**< callback argument **/
+    SDLU_Callback callback[2]; /**< callback function **/
+    void* arg[2];              /**< callback argument **/
 
     int current_index;      /**< index to the current item **/
     const char* current;    /**< current item **/
@@ -209,6 +215,7 @@ extern DECLSPEC int SDLCALL SDLU_SetComboBoxActiveItem(SDLU_ComboBox *combobox, 
  *  \endcode
  *
  *  \param combobox Combo box to set the callback for
+ *  \param type SDLU_OPENED_CALLBACK or SDLU_CHANGED_CALLBACK
  *  \param callback The new callback function
  *  \param arg Optional argument that is passed to the callback function
  *
@@ -216,6 +223,7 @@ extern DECLSPEC int SDLCALL SDLU_SetComboBoxActiveItem(SDLU_ComboBox *combobox, 
  */
 extern DECLSPEC int SDLCALL SDLU_SetComboBoxCallback(
         SDLU_ComboBox* combobox,
+		int type,
         SDLU_Callback callback,
         void *arg
 );

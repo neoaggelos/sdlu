@@ -41,7 +41,7 @@ typedef struct SDLU_ComboBoxItem SDLU_ComboBoxItem;
 #define lequal(a,b,c) ((a<=b) && (b<=c))
 
 static void
-SDLU_PushComboboxEvent(SDLU_ComboBox* combobox)
+SDLU_PushComboboxEvent(int type, SDLU_ComboBox* combobox)
 {
     SDL_Event event;
     if (combobox_event_id == 0 || combobox_event_id == (Uint32) -1) {
@@ -49,7 +49,7 @@ SDLU_PushComboboxEvent(SDLU_ComboBox* combobox)
         return;
     }
 
-    event.type = combobox_event_id;
+    event.type = type;
     event.user.code = combobox->id;
     event.user.windowID = SDL_GetWindowID(combobox->window);
     event.user.timestamp = SDL_GetTicks();
@@ -117,16 +117,20 @@ ComboBoxEventWatch(void *_this, SDL_Event* event)
                     combobox->current = newitem->text;
                     combobox->current_index = index;
                     combobox->current_item = newitem;
-                    if (combobox->callback) {
-                        combobox->callback(combobox, combobox->arg);
+                    if (combobox->callback[SDLU_CHANGED_CALLBACK]) {
+                        combobox->callback[SDLU_CHANGED_CALLBACK](combobox, combobox->arg[SDLU_CHANGED_CALLBACK]);
                     }
-                    SDLU_PushComboboxEvent(combobox);
+                    SDLU_PushComboboxEvent(SDLU_COMBOBOX_CHANGED, combobox);
                 }
             }
             combobox->open = 0;
         } else {
             if (lequal(R.y, event->button.y, R.y + R.h) && lequal(R.x, event->button.x, R.x + R.w)) {
+				if (combobox->callback[SDLU_OPENED_CALLBACK]) {
+					combobox->callback[SDLU_OPENED_CALLBACK](combobox, combobox->arg[0]);
+				}
                 combobox->open = 1;
+				SDLU_PushComboboxEvent(SDLU_COMBOBOX_OPENED, combobox);
             }
         }
     }
@@ -157,8 +161,10 @@ SDLU_CreateComboBox(SDL_Window* window)
     combobox->num_items = 0;
     combobox->data = NULL;
 
-    combobox->callback = NULL;
-    combobox->arg = NULL;
+    combobox->callback[0] = NULL;
+    combobox->arg[0] = NULL;
+    combobox->callback[1] = NULL;
+    combobox->arg[1] = NULL;
 
     combobox->current = "";
     combobox->current_index = 0;
@@ -420,13 +426,16 @@ SDLU_RenderComboBox(SDLU_ComboBox* combobox)
 }
 
 int
-SDLU_SetComboBoxCallback(SDLU_ComboBox* combobox, SDLU_Callback callback, void* arg)
+SDLU_SetComboBoxCallback(SDLU_ComboBox* combobox, int type, SDLU_Callback callback, void* arg)
 {
     if (combobox == NULL)
         SDLU_ExitError("invalid combo box", -1);
 
-    combobox->callback = callback;
-    combobox->arg = arg;
+	if (type < 0 || type >= 2)
+		SDLU_ExitError("unsupported callback type", -1);
+
+    combobox->callback[type] = callback;
+    combobox->arg[type] = arg;
 
     return 0;
 }
