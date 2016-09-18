@@ -26,6 +26,7 @@
 
 static Uint32 font_size = SDLU_TEXT_SIZE_MEDIUM;
 static TTF_Font* font = NULL;
+static SDL_RWops *file = NULL;
 static TTF_Font* custom_font = NULL;
 
 #include "SDLU_common.h"
@@ -66,11 +67,13 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
 
     /** create font if needed **/
     if (!font && !custom_font) {
-        file = SDL_RWFromMem( (void*) font_data, font_len );
-        if (file == NULL) {
-            err = "could not load TTF font";
-            goto handle_error;
-        }
+		if (!file) {
+			file = SDL_RWFromMem( (void*) font_data, font_len );
+			if (file == NULL) {
+				err = "could not load TTF font";
+				goto handle_error;
+			}
+		}
 
         font = TTF_OpenFontRW( file, 0, font_size );
         if (font == NULL) {
@@ -79,7 +82,7 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
         }
 
         TTF_SetFontHinting(font, TTF_HINTING_LIGHT);
-    }
+	}
 
     SDLU_vasprintf(&text, format, arg);
     if (text == NULL) {
@@ -132,7 +135,6 @@ SDLU_RenderTextVa(SDL_Renderer* renderer, int x, int y, const char* format, va_l
 
     handle_error:
         /* cleanup */
-        if (file) SDL_RWclose( file );
         if (surface) SDL_FreeSurface( surface );
         if (texture) SDL_DestroyTexture( texture );
         if (text) SDL_free( text );
@@ -148,7 +150,6 @@ SDLU_RenderTextToSurfaceVa(SDL_Surface* surface, int x, int y, SDL_Color text_co
 {
     int result = 0;
     SDL_Surface* text_surf = NULL;
-    SDL_RWops *file = NULL;
     SDL_Rect dstrect;
     char* text = NULL;
     char* err = NULL;
@@ -169,11 +170,13 @@ SDLU_RenderTextToSurfaceVa(SDL_Surface* surface, int x, int y, SDL_Color text_co
 
 	/* create font if needed */
     if (!font && !custom_font) {
-        file = SDL_RWFromMem( (void*) font_data, font_len );
-        if (file == NULL) {
-            err = "could not load TTF font";
-            goto handle_error;
-        }
+		if (!file) {
+			file = SDL_RWFromMem( (void*) font_data, font_len );
+			if (file == NULL) {
+				err = "could not load TTF font";
+				goto handle_error;
+			}
+		}
 
         font = TTF_OpenFontRW( file, 0, font_size );
         if (font == NULL) {
@@ -221,7 +224,6 @@ SDLU_RenderTextToSurfaceVa(SDL_Surface* surface, int x, int y, SDL_Color text_co
     result |= SDL_BlitSurface(text_surf, NULL, surface, &dstrect);
 
     handle_error:
-        if (file) SDL_RWclose( file );
         if (text_surf) SDL_FreeSurface( text_surf );
         if (text) SDL_free( text );
 
@@ -261,7 +263,6 @@ SDLU_RenderTextToSurface(SDL_Surface* surface, int x, int y, SDL_Color text_colo
 void
 SDLU_GetTextOutputSize(const char* text, int *w, int *h)
 {
-    SDL_RWops* file = NULL;
     int text_w = 0, text_h = 0;
     char* err = NULL;
 
@@ -273,11 +274,13 @@ SDLU_GetTextOutputSize(const char* text, int *w, int *h)
 
     /** create font if needed **/
     if (!font && !custom_font) {
-        file = SDL_RWFromMem( (void*)font_data, font_len );
-        if (file == NULL) {
-            err = "could not load TTF font";
-            goto handle_error;
-        }
+		if (!file) {
+			file = SDL_RWFromMem( (void*)font_data, font_len );
+			if (file == NULL) {
+				err = "could not load TTF font";
+				goto handle_error;
+			}
+		}
 
         font = TTF_OpenFontRW( file, 0, font_size );
         if (font == NULL) {
@@ -292,8 +295,6 @@ SDLU_GetTextOutputSize(const char* text, int *w, int *h)
     if (h) *h = text_h;
 
     handle_error:
-        if (file) SDL_RWclose( file );
-
         /* this is useful only for debug builds */
         if (err)
             SDLU_ExitError(err, );
@@ -357,6 +358,10 @@ SDLU_GetTruetypeFont()
 void
 SDLU_CleanupFonts()
 {
+	if (file) {
+		SDL_RWclose(file);
+	}
+
 	if (font) {
 		TTF_CloseFont(font);
 		font = NULL;
