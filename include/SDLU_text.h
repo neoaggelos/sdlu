@@ -150,6 +150,8 @@ extern DECLSPEC void SDLCALL SDLU_GetTextOutputSize(
 /**
  *  \brief Set the font size for SDLU_RenderText()
  *
+ *  This setting does not apply to custom fonts
+ *
  *  \sa SDLU_RenderText()
  *  \sa SDLU_GetFontSize()
  */
@@ -189,6 +191,13 @@ extern DECLSPEC int SDLCALL SDLU_SetTruetypeFontFile(
  *  \brief Get the current truetype font
  */
 extern DECLSPEC void* SDLCALL SDLU_GetTruetypeFont(void);
+
+/**
+ *  \brief Cleanup internal font memory.
+ *
+ *  This should normally be called when your program is freeing resources
+ */
+extern DECLSPEC void SDLCALL SDLU_CleanupFonts(void);
 
 #ifdef __cplusplus
 }
