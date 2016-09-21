@@ -11,5 +11,5 @@ Version: @major@.@minor@
 Requires:
 Conflicts:
 Libs: -L@libdir@ -Wl,-rpath,@libdir@ -lSDLU
-Libs.private: -L@libdir@ -lSDLU
-Cflags: -I@includedir@ @SDL_CFLAGS@
+Libs.private: -L@libdir@ -lSDLU @SDL_LIBS@ @TTF_LIBS@
+Cflags: -I@includedir@ @SDL_CFLAGS@ @TTF_CFLAGS@

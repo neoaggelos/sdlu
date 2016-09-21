@@ -59,7 +59,7 @@ AC_MSG_RESULT($debug)
 
 # Find libraries
 CheckSDL2
-# CheckSDL2_ttf
+CheckSDL2_ttf
 CheckFileDialogBackends
 CheckFileSystemBackends
 
@@ -89,7 +89,9 @@ OBJCFLAGS="$OBJCFLAGS $CFLAGS"
 
 # substitutions for sdlu.pc and sdlu-config
 AC_SUBST([SDL_LIBS])
+AC_SUBST([SDL_CFLAGS])
 AC_SUBST([TTF_LIBS])
+AC_SUBST([TTF_CFLAGS])
 AC_SUBST([STATIC])
 AC_SUBST([major])
 AC_SUBST([minor])

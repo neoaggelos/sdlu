@@ -42,13 +42,13 @@ while test $# -gt 0; do
       echo "$version "
       ;;
     --cflags)
-      echo "-I@includedir@ @SDL_CFLAGS@ "
+      echo "-I@includedir@ @SDL_CFLAGS@ @TTF_CFLAGS@ "
       ;;
     --libs)
       echo "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
       ;;
 @STATIC@    --static-libs)
-@STATIC@      echo "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU "
+@STATIC@      echo "-L@libdir@ -Wl,-rpath,@libdir@ -lSDLU @SDL_LIBS@ @TTF_LIBS@"
 @STATIC@      ;;
     *)
       echo $usage 1>&2

@@ -24,12 +24,11 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/scripts/cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/CheckFileDialogBackend.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/CheckFileSystemBackend.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
-include("${CMAKE_SOURCE_DIR}/scripts/cmake/SDL_ttf.cmake")
+include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
 
 # Standard include directories
 include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${CMAKE_SOURCE_DIR}/src")
-include_directories("${CMAKE_SOURCE_DIR}/external/sdl_ttf")
 
 # Installation files
 file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h)
@@ -45,8 +44,9 @@ endif(${CMAKE_BUILD_TYPE} MATCHES "Debug")
 
 # Find SDL2
 find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIR})
-set(LIBS ${LIBS} ${SDL2_LIBRARY})
+find_package(SDL2_ttf REQUIRED)
+include_directories(${SDL2_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
+set(LIBS ${LIBS} ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARY})
 
 # Find a backend for the file dialog API
 CheckFileDialogBackend()
@@ -56,8 +56,11 @@ CheckFileSystemBackend()
 
 # These are for sdlu-config and sdlu.pc
 set(SDL_CFLAGS "-I${SDL2_INCLUDE_DIR}")
+set(TTF_CFLAGS "-I${SDL2_TTF_INCLUDE_DIR}")
+set(SDL_LIBS "${SDL2_LIBRARY}")
+set(TTF_LIBS "${SDL2_TTF_LIBRARY}")
 
-# Basic sources
+# sources
 file(GLOB SOURCES
   ${HDRS}
   ${FILEDIALOG_BACKEND_SOURCES}
@@ -67,14 +70,9 @@ file(GLOB SOURCES
   ${CMAKE_SOURCE_DIR}/src/*.[ch]
 )
 
-# Build our own SDL_ttf
-add_library(sdlttf OBJECT ${SDLTTF_SOURCES})
-target_compile_definitions(sdlttf PRIVATE "-DFT2_BUILD_LIBRARY")
-target_include_directories(sdlttf PRIVATE "${CMAKE_SOURCE_DIR}/external/freetype2/include")
-
 # Shared library
 if (BUILD_SHARED_LIBS)
-  add_library(SDLU-shared SHARED ${SOURCES} ${HDRS} $<TARGET_OBJECTS:sdlttf>)
+  add_library(SDLU-shared SHARED ${SOURCES} ${HDRS})
   target_link_libraries(SDLU-shared ${LIBS})
   set_target_properties(SDLU-shared PROPERTIES OUTPUT_NAME "SDLU")
   set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-shared)
@@ -83,7 +81,7 @@ endif(BUILD_SHARED_LIBS)
 # Static library
 set(STATIC "#")
 if (BUILD_STATIC_LIBS)
-  add_library(SDLU-static STATIC ${SOURCES} ${HDRS} $<TARGET_OBJECTS:sdlttf>)
+  add_library(SDLU-static STATIC ${SOURCES} ${HDRS})
   target_link_libraries(SDLU-static ${LIBS})
   set_target_properties(SDLU-static PROPERTIES OUTPUT_NAME "SDLU")
   set(INSTALL_LIBS ${INSTALL_LIBS} SDLU-static)
