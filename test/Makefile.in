@@ -89,12 +89,11 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-noinst_PROGRAMS = testbutton$(EXEEXT) testcollision$(EXEEXT) \
-	testcolorkey$(EXEEXT) testcombo$(EXEEXT) \
-	testfiledialog$(EXEEXT) testfilesystem$(EXEEXT) \
-	testini$(EXEEXT) testmath$(EXEEXT) testmulticopy$(EXEEXT) \
+noinst_PROGRAMS = testbutton$(EXEEXT) testcolorkey$(EXEEXT) \
+	testcombo$(EXEEXT) testfiledialog$(EXEEXT) \
+	testfilesystem$(EXEEXT) testfont$(EXEEXT) testini$(EXEEXT) \
 	testrender$(EXEEXT) testsprite$(EXEEXT) testtext$(EXEEXT) \
-	testturtle$(EXEEXT) $(am__EXEEXT_1) $(am__EXEEXT_2)
+	$(am__EXEEXT_1) $(am__EXEEXT_2)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/../scripts/autotools/m4/checks.m4 \
@@ -117,9 +116,6 @@ PROGRAMS = $(noinst_PROGRAMS)
 am_testbutton_OBJECTS = common.$(OBJEXT) testbutton.$(OBJEXT)
 testbutton_OBJECTS = $(am_testbutton_OBJECTS)
 testbutton_LDADD = $(LDADD)
-am_testcollision_OBJECTS = common.$(OBJEXT) testcollision.$(OBJEXT)
-testcollision_OBJECTS = $(am_testcollision_OBJECTS)
-testcollision_LDADD = $(LDADD)
 am_testcolorkey_OBJECTS = common.$(OBJEXT) testcolorkey.$(OBJEXT)
 testcolorkey_OBJECTS = $(am_testcolorkey_OBJECTS)
 testcolorkey_LDADD = $(LDADD)
@@ -132,6 +128,9 @@ testfiledialog_LDADD = $(LDADD)
 am_testfilesystem_OBJECTS = common.$(OBJEXT) testfilesystem.$(OBJEXT)
 testfilesystem_OBJECTS = $(am_testfilesystem_OBJECTS)
 testfilesystem_LDADD = $(LDADD)
+am_testfont_OBJECTS = common.$(OBJEXT) testfont.$(OBJEXT)
+testfont_OBJECTS = $(am_testfont_OBJECTS)
+testfont_LDADD = $(LDADD)
 am__testgl_SOURCES_DIST = common.c testgl.c
 @HAVE_OPENGL_TRUE@am_testgl_OBJECTS = common.$(OBJEXT) \
 @HAVE_OPENGL_TRUE@	testgl.$(OBJEXT)
@@ -145,12 +144,6 @@ testgles2_LDADD = $(LDADD)
 am_testini_OBJECTS = common.$(OBJEXT) testini.$(OBJEXT)
 testini_OBJECTS = $(am_testini_OBJECTS)
 testini_LDADD = $(LDADD)
-am_testmath_OBJECTS = common.$(OBJEXT) testmath.$(OBJEXT)
-testmath_OBJECTS = $(am_testmath_OBJECTS)
-testmath_LDADD = $(LDADD)
-am_testmulticopy_OBJECTS = common.$(OBJEXT) testmulticopy.$(OBJEXT)
-testmulticopy_OBJECTS = $(am_testmulticopy_OBJECTS)
-testmulticopy_LDADD = $(LDADD)
 am_testrender_OBJECTS = common.$(OBJEXT) testrender.$(OBJEXT)
 testrender_OBJECTS = $(am_testrender_OBJECTS)
 testrender_LDADD = $(LDADD)
@@ -165,9 +158,6 @@ testsprite_LDADD = $(LDADD)
 am_testtext_OBJECTS = common.$(OBJEXT) testtext.$(OBJEXT)
 testtext_OBJECTS = $(am_testtext_OBJECTS)
 testtext_LDADD = $(LDADD)
-am_testturtle_OBJECTS = common.$(OBJEXT) testturtle.$(OBJEXT)
-testturtle_OBJECTS = $(am_testturtle_OBJECTS)
-testturtle_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -196,22 +186,19 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(testbutton_SOURCES) $(testcollision_SOURCES) \
-	$(testcolorkey_SOURCES) $(testcombo_SOURCES) \
-	$(testfiledialog_SOURCES) $(testfilesystem_SOURCES) \
+SOURCES = $(testbutton_SOURCES) $(testcolorkey_SOURCES) \
+	$(testcombo_SOURCES) $(testfiledialog_SOURCES) \
+	$(testfilesystem_SOURCES) $(testfont_SOURCES) \
 	$(testgl_SOURCES) $(testgles2_SOURCES) $(testini_SOURCES) \
-	$(testmath_SOURCES) $(testmulticopy_SOURCES) \
 	$(testrender_SOURCES) $(testrender2_SOURCES) \
-	$(testsprite_SOURCES) $(testtext_SOURCES) \
-	$(testturtle_SOURCES)
-DIST_SOURCES = $(testbutton_SOURCES) $(testcollision_SOURCES) \
-	$(testcolorkey_SOURCES) $(testcombo_SOURCES) \
-	$(testfiledialog_SOURCES) $(testfilesystem_SOURCES) \
+	$(testsprite_SOURCES) $(testtext_SOURCES)
+DIST_SOURCES = $(testbutton_SOURCES) $(testcolorkey_SOURCES) \
+	$(testcombo_SOURCES) $(testfiledialog_SOURCES) \
+	$(testfilesystem_SOURCES) $(testfont_SOURCES) \
 	$(am__testgl_SOURCES_DIST) $(am__testgles2_SOURCES_DIST) \
-	$(testini_SOURCES) $(testmath_SOURCES) \
-	$(testmulticopy_SOURCES) $(testrender_SOURCES) \
+	$(testini_SOURCES) $(testrender_SOURCES) \
 	$(am__testrender2_SOURCES_DIST) $(testsprite_SOURCES) \
-	$(testtext_SOURCES) $(testturtle_SOURCES)
+	$(testtext_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -380,18 +367,15 @@ top_srcdir = @top_srcdir@
 @HAVE_OPENGL_TRUE@GL_TESTS = testgl testrender2
 AM_CFLAGS = -DDATA_DIR=\"$(abs_srcdir)/data\"
 testbutton_SOURCES = common.c testbutton.c 
-testcollision_SOURCES = common.c testcollision.c 
 testcolorkey_SOURCES = common.c testcolorkey.c
 testcombo_SOURCES = common.c testcombo.c
 testfiledialog_SOURCES = common.c testfiledialog.c
 testfilesystem_SOURCES = common.c testfilesystem.c
+testfont_SOURCES = common.c testfont.c
 testini_SOURCES = common.c testini.c
-testmath_SOURCES = common.c testmath.c
-testmulticopy_SOURCES = common.c testmulticopy.c
 testrender_SOURCES = common.c testrender.c
 testsprite_SOURCES = common.c testsprite.c
 testtext_SOURCES = common.c testtext.c
-testturtle_SOURCES = common.c testturtle.c
 @HAVE_OPENGL_TRUE@testgl_SOURCES = common.c testgl.c
 @HAVE_OPENGL_TRUE@testrender2_SOURCES = common.c testrender2.c
 @HAVE_OPENGLES2_TRUE@testgles2_SOURCES = common.c testgles2.c
@@ -441,10 +425,6 @@ testbutton$(EXEEXT): $(testbutton_OBJECTS) $(testbutton_DEPENDENCIES) $(EXTRA_te
 	@rm -f testbutton$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testbutton_OBJECTS) $(testbutton_LDADD) $(LIBS)
 
-testcollision$(EXEEXT): $(testcollision_OBJECTS) $(testcollision_DEPENDENCIES) $(EXTRA_testcollision_DEPENDENCIES) 
-	@rm -f testcollision$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(testcollision_OBJECTS) $(testcollision_LDADD) $(LIBS)
-
 testcolorkey$(EXEEXT): $(testcolorkey_OBJECTS) $(testcolorkey_DEPENDENCIES) $(EXTRA_testcolorkey_DEPENDENCIES) 
 	@rm -f testcolorkey$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testcolorkey_OBJECTS) $(testcolorkey_LDADD) $(LIBS)
@@ -461,6 +441,10 @@ testfilesystem$(EXEEXT): $(testfilesystem_OBJECTS) $(testfilesystem_DEPENDENCIES
 	@rm -f testfilesystem$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testfilesystem_OBJECTS) $(testfilesystem_LDADD) $(LIBS)
 
+testfont$(EXEEXT): $(testfont_OBJECTS) $(testfont_DEPENDENCIES) $(EXTRA_testfont_DEPENDENCIES) 
+	@rm -f testfont$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(testfont_OBJECTS) $(testfont_LDADD) $(LIBS)
+
 testgl$(EXEEXT): $(testgl_OBJECTS) $(testgl_DEPENDENCIES) $(EXTRA_testgl_DEPENDENCIES) 
 	@rm -f testgl$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testgl_OBJECTS) $(testgl_LDADD) $(LIBS)
@@ -472,14 +456,6 @@ testgles2$(EXEEXT): $(testgles2_OBJECTS) $(testgles2_DEPENDENCIES) $(EXTRA_testg
 testini$(EXEEXT): $(testini_OBJECTS) $(testini_DEPENDENCIES) $(EXTRA_testini_DEPENDENCIES) 
 	@rm -f testini$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testini_OBJECTS) $(testini_LDADD) $(LIBS)
-
-testmath$(EXEEXT): $(testmath_OBJECTS) $(testmath_DEPENDENCIES) $(EXTRA_testmath_DEPENDENCIES) 
-	@rm -f testmath$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(testmath_OBJECTS) $(testmath_LDADD) $(LIBS)
-
-testmulticopy$(EXEEXT): $(testmulticopy_OBJECTS) $(testmulticopy_DEPENDENCIES) $(EXTRA_testmulticopy_DEPENDENCIES) 
-	@rm -f testmulticopy$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(testmulticopy_OBJECTS) $(testmulticopy_LDADD) $(LIBS)
 
 testrender$(EXEEXT): $(testrender_OBJECTS) $(testrender_DEPENDENCIES) $(EXTRA_testrender_DEPENDENCIES) 
 	@rm -f testrender$(EXEEXT)
@@ -497,10 +473,6 @@ testtext$(EXEEXT): $(testtext_OBJECTS) $(testtext_DEPENDENCIES) $(EXTRA_testtext
 	@rm -f testtext$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(testtext_OBJECTS) $(testtext_LDADD) $(LIBS)
 
-testturtle$(EXEEXT): $(testturtle_OBJECTS) $(testturtle_DEPENDENCIES) $(EXTRA_testturtle_DEPENDENCIES) 
-	@rm -f testturtle$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(testturtle_OBJECTS) $(testturtle_LDADD) $(LIBS)
-
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -509,21 +481,18 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/common.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testbutton.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcollision.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcolorkey.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testcombo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testfiledialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testfilesystem.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testfont.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testgl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testgles2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testini.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testmath.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testmulticopy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testrender.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testrender2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsprite.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testtext.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testturtle.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

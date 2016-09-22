@@ -61,19 +61,16 @@ Description of the tests
 ================================================================================
 
 testbutton    : Simple example with buttons
-testcollision : Collision detection between two rects
 testcolorkey  : Simple example of loading textures with(out) a color-key
 testcombo     : Simple combo box example
 testfiledialog: Showcase how to create a simple open file dialog
 testfilesystem: Simple program that lists contents of a directory
+testfont      : Tests the text rendering API
 testgl        : Loads an OpenGL texture and blits it on the screen
 testgles2     : Simple SDL2 + OpenGLES2 example
 testini       : Shows how to use the ini file handling API
-testmath      : Simple vector addition with SDLU math API
-testmulticopy : Creates a tile-map from a single tile (uses RenderMultiCopy)
 testrender    : Draws a circle and a filled polygon
 testrender2   : Mixing pure OpenGL with the SDL2 Render API
 testsprite    : Simple SDLU sprites example
-testtext      : Shows off the text rendering API
-testturtle    : Draws a rectangle using the turtle drawing API
+testtext      : Tests the old deprecated text rendering API
 
