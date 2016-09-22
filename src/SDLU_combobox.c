@@ -231,9 +231,10 @@ static SDL_Texture* CreateItemTexture(SDLU_ComboBox* combobox, const char* t)
 {
     SDL_Renderer* renderer = SDL_GetRenderer(combobox->window);
     SDL_Rect R = combobox->rect;
+    SDL_Rect destRect;
     SDL_Surface* surface;
+    SDL_Surface* text_surf;
     SDL_Texture* texture;
-    Uint32 font_size;
     int text_w, text_h;
     int x, y;
     SDL_Rect rect = SDLU_CreateRect(1, 1, R.w-2, R.h-2);
@@ -251,15 +252,14 @@ static SDL_Texture* CreateItemTexture(SDLU_ComboBox* combobox, const char* t)
     SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, UNPACK(combobox->styles->box_color)));
     SDL_FillRect(surface, &rect, SDL_MapRGBA(surface->format, UNPACK(combobox->styles->fill_color)));
 
-    font_size = SDLU_GetFontSize();
-    SDLU_SetFontSize(combobox->styles->font_size);
-    SDLU_GetTextOutputSize(t, &text_w, &text_h);
+    SDLU_GetUTF8Size(combobox->styles->font, t, &text_w, &text_h);
 
     x = (R.w - text_w) / 2;
     y = (R.h - text_h) / 2;
 
-    SDLU_RenderTextToSurface(surface, x, y, combobox->styles->text_color, "%s", t);
-    SDLU_SetFontSize(font_size);
+    text_surf = SDLU_RenderUTF8Surface(combobox->styles->font, t);
+    destRect = SDLU_CreateRect(x, y, text_surf->w, text_surf->h);
+    SDL_BlitSurface(text_surf, NULL, surface, &destRect);
 
     texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
@@ -446,6 +446,8 @@ SDLU_DestroyComboBox(SDLU_ComboBox* combobox)
     SDLU_ComboBoxItem* items, *item;
 
     if (combobox == NULL) return 0;
+
+    SDLU_CloseFont(combobox->styles->font);
 
     items = combobox->data;
     LL_FOREACH(items, item) {

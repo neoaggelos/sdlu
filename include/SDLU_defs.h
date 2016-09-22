@@ -29,6 +29,7 @@
 #define SDLU_DEFS_H
 
 #include "SDL.h"
+#include "SDLU_font.h"
 #include "begin_code.h"
 
 /**
@@ -102,7 +103,7 @@ typedef void (SDLCALL * SDLU_Callback) (void* _this, void* userdata);
  */
 typedef struct {
     const char*     title;          /**< label                  **/
-    Uint32          font_size;      /**< font size of the text  **/
+    SDLU_Font*      font;           /**< font                   **/
     SDL_Color       text_color;     /**< text color             **/
     SDL_Color       fill_color;     /**< fill color             **/
     SDL_Color       box_color;      /**< box color              **/

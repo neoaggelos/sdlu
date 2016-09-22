@@ -46,6 +46,7 @@ SDLU_LoadFont_RW(SDL_RWops *rw, int freerw, int size, int hinting)
 {
     TTF_Font *font;
     
+    SDLU_StartFonts();
     if (rw == NULL) {
         rw = SDL_RWFromMem((void*)font_data, font_len);
         if (rw == NULL)
@@ -73,6 +74,8 @@ SDLU_RenderUTF8Ex(SDL_Renderer *renderer, void* font, const char* str,
     SDL_Rect dest;
     SDL_Color fg;
 
+    SDLU_StartFonts();
+
     if (font == NULL)
         SDLU_ExitError("invalid parameter 'font'", -1);
 
@@ -98,9 +101,12 @@ SDLU_RenderUTF8Ex(SDL_Renderer *renderer, void* font, const char* str,
 
     /* render surface */
     SDL_GetRenderDrawColor(renderer, &fg.r, &fg.g, &fg.b, &fg.a);
-    surf = TTF_RenderUTF8_Blended(font, str, fg);
+    surf = TTF_RenderUTF8_Blended(font, str, SDLU_CreateRGB(0xff, 0xff, 0xff));
     if (surf == NULL)
         SDLU_ExitError("could not render text on surface", -1);
+
+    SDL_SetSurfaceColorMod(surf, fg.r, fg.g, fg.b);
+    SDL_SetSurfaceAlphaMod(surf, fg.a);
 
     /* render on screen */
     texture = SDL_CreateTextureFromSurface(renderer, surf);
@@ -121,6 +127,7 @@ SDLU_GetUTF8Size(SDLU_Font* font, const char* string, int *w, int *h)
     if (font == NULL)
         SDLU_ExitError("invalid parameter 'font'", );
 
+    SDLU_StartFonts();
     TTF_SizeUTF8(font, string, w, h);
 }
 
@@ -129,6 +136,8 @@ SDLU_RenderUTF8Surface(SDLU_Font* font, const char* string)
 {
     if (font == NULL)
         SDLU_ExitError("invalid parameter 'font'", NULL);
+
+    SDLU_StartFonts();
 
     return TTF_RenderUTF8_Blended(font, string, SDLU_CreateRGB(0xff, 0xff, 0xff));
 }

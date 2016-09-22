@@ -133,7 +133,7 @@ SDLU_GetDefaultStyles()
         SDLU_ExitError("could not allocate memory", NULL);
 
     styles->title = "text";
-    styles->font_size = SDLU_TEXT_SIZE_MEDIUM;
+    styles->font = SDLU_LoadFont(NULL, 20, 1);
     styles->text_color = SDLU_CreateRGBA( 255, 255, 255, 255 );
     styles->fill_color = SDLU_CreateRGBA( 100, 100, 100, 255 );
     styles->box_color  = SDLU_CreateRGBA( 255, 255, 255, 255 );

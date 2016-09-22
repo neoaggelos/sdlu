@@ -403,12 +403,7 @@ SDLU_CreateTextButton(SDLU_Button* ret, const char* text)
 {
     SDLU_Styles* styles;
 
-    SDLU_GetTextOutputSize(
-            ((text) ? text : "Button"), &(ret->rect.w), &(ret->rect.h)
-    );
-
-    ret->rect.w         += 25;
-    ret->rect.h         += 20;
+    text = text ? text : "Button";
 
     styles = SDLU_GetDefaultStyles();
     if (styles == NULL) {
@@ -417,8 +412,13 @@ SDLU_CreateTextButton(SDLU_Button* ret, const char* text)
         SDLU_ExitError("could not allocate memory", NULL);
     }
 
-    styles->title = ((text) ? text : "Button");
-    ret->content      = (void*)styles;
+    SDLU_GetUTF8Size(styles->font, text, &ret->rect.w, &ret->rect.h);
+
+    ret->rect.w         += 25;
+    ret->rect.h         += 20;
+
+    styles->title = text;
+    ret->content  = (void*)styles;
 
     return ret;
 }
@@ -757,9 +757,8 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
             result |= SDL_RenderCopy(renderer, image, NULL, &(button->rect));
         }
     } else {
-        int text_w, text_h, x_offset, y_offset;
+        int text_w, text_h;
         Uint8 r, g, b, a;
-        Uint32 font_size;
         SDL_BlendMode blendmode;
         SDL_Color fill, text;
         SDLU_Styles* styles = (SDLU_Styles*) button->content;
@@ -769,10 +768,8 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
         /* backup original properties */
         result |= SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
         result |= SDL_GetRenderDrawBlendMode( renderer, &blendmode );
-        font_size = SDLU_GetFontSize();
 
         /* set button properties as the current ones */
-        SDLU_SetFontSize(styles->font_size);
         result |= SDL_SetRenderDrawBlendMode(renderer, styles->blendmode );
 
         /* calculate fill color */
@@ -821,14 +818,10 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
             }
         }
 
-        /* calculate position of the text */
-        SDLU_GetTextOutputSize( styles->title, &text_w, &text_h );
-        x_offset = button->rect.x + (button->rect.w - text_w) / 2;
-        y_offset = button->rect.y + (button->rect.h - text_h) / 2;
-
         /* when hovered kick the text a little lower */
+        SDL_Rect textRect = button->rect;
         if ((hover & SDLU_HOVER_BG) && button->state == SDLU_HOVERED) {
-            y_offset += 1;
+            textRect.y += 2;
         }
 
         /* draw the button text */
@@ -837,21 +830,24 @@ SDLU_RenderButton_BuiltIn( SDLU_Button* button )
         } else {
             result |= SDL_SetRenderDrawColor(renderer, UNPACK(text));
         }
-        result |= SDLU_RenderText(renderer, x_offset, y_offset, "%s", styles->title);
+
+        result |= SDLU_RenderUTF8Ex(renderer, styles->font, styles->title, textRect, Center, Center);
 
         /* for SDLU_HOVER_UL, we underline the text */
+        SDLU_GetUTF8Size(styles->font, styles->title, &text_w, &text_h);
         if ((hover & SDLU_HOVER_UL) && button->state == SDLU_HOVERED) {
             result |= SDL_RenderDrawLine(
                     renderer,
-                    x_offset              , y_offset + text_h + 2,
-                    x_offset + text_w + 1 , y_offset + text_h + 2
+                    textRect.x + (textRect.w - text_w) / 2 - 1,
+                    textRect.y + text_h + (textRect.h - text_h) / 2,
+                    textRect.x + (textRect.w - text_w) / 2 + text_w + 1,
+                    textRect.y + text_h + (textRect.h - text_h) / 2
             );
         }
 
         /* restore original properties */
         result |= SDL_SetRenderDrawColor(renderer, r,g,b,a);
         result |= SDL_SetRenderDrawBlendMode(renderer, blendmode);
-        SDLU_SetFontSize(font_size);
     }
     return result;
 }
@@ -861,6 +857,11 @@ SDLU_DestroyButton( SDLU_Button* button )
 {
     if (button == NULL)
         SDLU_ExitError("invalid parameter 'button'", -1);
+
+    /* close font if needed */
+    if (button->flags & SDLU_BUTTON_TEXT) {
+        SDLU_CloseFont(((SDLU_Styles*)button->content)->font);
+    }
 
     /** remove from internal button list **/
     if (buttons) LL_DELETE(buttons, button);
