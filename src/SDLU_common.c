@@ -134,6 +134,7 @@ SDLU_GetDefaultStyles()
 
     styles->title = "text";
     styles->font = SDLU_LoadFont(NULL, 20, 1);
+	styles->freefont = SDL_TRUE;
     styles->text_color = SDLU_CreateRGBA( 255, 255, 255, 255 );
     styles->fill_color = SDLU_CreateRGBA( 100, 100, 100, 255 );
     styles->box_color  = SDLU_CreateRGBA( 255, 255, 255, 255 );

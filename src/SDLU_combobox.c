@@ -447,7 +447,8 @@ SDLU_DestroyComboBox(SDLU_ComboBox* combobox)
 
     if (combobox == NULL) return 0;
 
-    SDLU_CloseFont(combobox->styles->font);
+	if (combobox->styles->freefont)
+		SDLU_CloseFont(combobox->styles->font);
 
     items = combobox->data;
     LL_FOREACH(items, item) {

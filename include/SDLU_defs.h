@@ -104,6 +104,7 @@ typedef void (SDLCALL * SDLU_Callback) (void* _this, void* userdata);
 typedef struct {
     const char*     title;          /**< label                  **/
     SDLU_Font*      font;           /**< font                   **/
+	SDL_bool		freefont;		/**< whether font should be closed automatically **/
     SDL_Color       text_color;     /**< text color             **/
     SDL_Color       fill_color;     /**< fill color             **/
     SDL_Color       box_color;      /**< box color              **/

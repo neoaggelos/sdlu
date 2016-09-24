@@ -859,7 +859,7 @@ SDLU_DestroyButton( SDLU_Button* button )
         SDLU_ExitError("invalid parameter 'button'", -1);
 
     /* close font if needed */
-    if (button->flags & SDLU_BUTTON_TEXT) {
+    if (button->flags & SDLU_BUTTON_TEXT && ((SDLU_Styles*)button->content)->freefont) {
         SDLU_CloseFont(((SDLU_Styles*)button->content)->font);
     }
 
