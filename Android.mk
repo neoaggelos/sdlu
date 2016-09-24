@@ -3,13 +3,13 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 # uncomment this if you build SDL2_ttf anyway
-# SDL2_TTF := SDL2_ttf
+#SDL2_TTF := SDL2_ttf
 
 # uncomment this if you build freetype2 anyway
-# FREETYPE2 := freetype2
+#FREETYPE2 := freetype2
 
 # uncomment this for a debug build
-# DEBUG_FLAGS := -D_DEBUG
+#DEBUG_FLAGS := -D_DEBUG
 
 LOCAL_MODULE := SDLU
 
@@ -28,6 +28,7 @@ LOCAL_SRC_FILES := \
 	src/SDLU_common.c \
 	src/SDLU_create.c \
 	src/SDLU_framerate.c \
+	src/SDLU_font.c \
 	src/SDLU_gl.c \
 	src/SDLU_ini.c \
 	src/SDLU_pixels.c \
@@ -40,7 +41,7 @@ LOCAL_SRC_FILES := \
 	src/filesystem/SDLU_filesystem_dirent.c \
 	
 # we have to build our own SDL2_ttf
-ifneq ($(SDL2_TTF),)
+ifeq ($(SDL2_TTF),)
 LOCAL_SRC_FILES +=	\
 	external/sdl_ttf/SDL_ttf.c \
 
@@ -50,7 +51,7 @@ LOCAL_SHARED_LIBRARIES += $(SDL2_TTF)
 endif
 
 # we have to build our own freetype2
-ifneq ($(SDL2_TTF)$(FREETYPE2),)
+ifeq ($(SDL2_TTF)$(FREETYPE2),)
 
 LOCAL_SRC_FILES += \
 	external/freetype2/autofit.c	\
