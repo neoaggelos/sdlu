@@ -2,13 +2,14 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-#uncomment this if you build SDL2_ttf anyway (change path if it's not in jni/SDL2_ttf)
-SDL2_TTF_PATH := ../SDL2_ttf
+# uncomment this if you build SDL2_ttf anyway
+# SDL2_TTF := SDL2_ttf
 
-#uncomment this if you build freetype2 anyway (change path if it's not in jni/freetype2)
-#FREETYPE2_PATH := ../freetype2
+# uncomment this if you build freetype2 anyway
+# FREETYPE2 := freetype2
 
-MODULES_USED := 
+# uncomment this for a debug build
+# DEBUG_FLAGS := -D_DEBUG
 
 LOCAL_MODULE := SDLU
 
@@ -16,13 +17,9 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/include $(LOCAL_PATH)/src
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
 
-# uncomment this for a debug build
-# DEBUG_FLAGS := -D_DEBUG
-
 # Compiler flags
 LOCAL_CFLAGS := $(DEBUG_FLAGS) -DFILESYSTEM_DIRENT -DFILEDIALOG_DUMMY
 
-# Used libraries
 LOCAL_SHARED_LIBRARIES := SDL2
 
 LOCAL_SRC_FILES := \
@@ -43,17 +40,17 @@ LOCAL_SRC_FILES := \
 	src/filesystem/SDLU_filesystem_dirent.c \
 	
 # we have to build our own SDL2_ttf
-ifeq ($(SDL2_TTF_PATH),)
+ifneq ($(SDL2_TTF),)
 LOCAL_SRC_FILES +=	\
 	external/sdl_ttf/SDL_ttf.c \
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/external/sdl_ttf
 else
-LOCAL_SHARED_LIBRARIES += SDL2_ttf
+LOCAL_SHARED_LIBRARIES += $(SDL2_TTF)
 endif
 
 # we have to build our own freetype2
-ifeq ($(SDL2_TTF_PATH)$(FREETYPE2_PATH),)
+ifneq ($(SDL2_TTF)$(FREETYPE2),)
 
 LOCAL_SRC_FILES += \
 	external/freetype2/autofit.c	\
@@ -104,7 +101,7 @@ LOCAL_CFLAGS += -DFT2_BUILD_LIBRARY
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/external/freetype2/include
 else
-MODULES_USED += freetype2
+LOCAL_SHARED_LIBRARIES += $(FREETYPE2)
 endif
 
 

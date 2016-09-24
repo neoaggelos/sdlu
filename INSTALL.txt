@@ -63,7 +63,7 @@ understanding of how the SDL2 Android port works.
 * Edit "SDLActivity.java" and add SDLU in the list of libraries returned by the
   getLibraries() function (line 71).
 * Optionally, if you are building SDL2_ttf for your project anyway, edit
-  'SDLU/Android.mk' to uncomment the SDL2_TTF_PATH line
+  'SDLU/Android.mk' to uncomment the SDL2_TTF line
 * Run ndk-build
 
 For Linux and Mac OS X, you can use android.sh, which does all of the above:
