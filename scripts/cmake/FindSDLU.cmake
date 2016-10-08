@@ -4,8 +4,8 @@
 # SDLU_FOUND, if false, do not link to SDLU
 # SDLU_INCLUDE_DIR, where to find SDLU.h
 #
-# $SDLU_DIR is an environment variable that would correspond to the:
-#   # ./configure --prefix=$SDLU_DIR
+# $SDLUDIR is an environment variable that would correspond to the:
+#   # ./configure --prefix=$SDLUDIR
 # used when building the library
 #
 # -- Aggelos Kolaitis
@@ -23,15 +23,14 @@ set(SDLU_SEARCH_PATHS
 
 find_path(
     SDLU_INCLUDE_DIR SDLU.h
-    HINTS $ENV{SDLU_DIR}
+    HINTS $ENV{SDLUDIR} $ENV{SDL2DIR}
     PATH_SUFFIXES include/SDLU include/SDL2 include
     PATHS ${SDLU_SEARCH_PATHS}
 )
 
 find_library(SDLU_LIBRARY
     NAMES SDLU
-    HINTS
-    $ENV{SDLU_DIR}
+    HINTS $ENV{SDLUDIR} $ENV{SDL2DIR}
     PATH_SUFFIXES lib64 lib
     PATHS ${SDLU_SEARCH_PATHS}
     DOC "SDLU library path"
