@@ -26,9 +26,10 @@ include("${CMAKE_SOURCE_DIR}/scripts/cmake/CheckFileSystemBackend.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2.cmake")
 include("${CMAKE_SOURCE_DIR}/scripts/cmake/FindSDL2_ttf.cmake")
 
-# Standard include directories
+# Standard include directories and defines
 include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${CMAKE_SOURCE_DIR}/src")
+add_definitions("-DBUILD_SDLU")
 
 # Installation files
 file(GLOB HDRS ${SDLU_SOURCE_DIR}/include/*.h)

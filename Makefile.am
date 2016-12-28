@@ -22,7 +22,7 @@ if FILESYSTEM_DIRENT
 extra_source_files += src/filesystem/SDLU_filesystem_dirent.c
 endif
 
-libSDLU_la_CFLAGS = -I$(srcdir)/src -I$(srcdir)/include
+libSDLU_la_CFLAGS = -I$(srcdir)/src -I$(srcdir)/include -DBUILD_SDLU
 libSDLU_la_OBJCFLAGS = $(libSDLU_la_CFLAGS)
 
 libSDLU_la_SOURCES = 										\

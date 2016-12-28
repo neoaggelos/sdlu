@@ -50,6 +50,13 @@
 extern "C" {
 #endif
 
+/* Do not give deprecated warnings when building the library */
+#ifndef BUILD_SDLU
+# define SDLU_DEPRECATED SDL_DEPRECATED
+#else
+# define SDLU_DEPRECATED
+#endif
+
 /**
  * \name Text size macros
  */
@@ -82,7 +89,7 @@ extern DECLSPEC int SDLCALL SDLU_RenderText(
         SDL_Renderer* renderer,
         int x, int y,
         const char* format, ...
-) SDLU_TYPESAFETY(4,5) SDL_DEPRECATED;
+) SDLU_TYPESAFETY(4,5) SDLU_DEPRECATED;
 
 /**
  *  \brief Similar to SDLU_RenderText(), but pass arguments as a va_list
@@ -97,7 +104,7 @@ extern DECLSPEC int SDLCALL SDLU_RenderTextVa(
         int x, int y,
         const char* format,
         va_list arg
-) SDLU_TYPESAFETY(4,0) SDL_DEPRECATED;
+) SDLU_TYPESAFETY(4,0) SDLU_DEPRECATED;
 
 /**
  *  \brief Similar to SDLU_RenderText(), but write on a surface
@@ -117,7 +124,7 @@ extern DECLSPEC int SDLCALL SDLU_RenderTextToSurface(
         int x, int y,
         SDL_Color text_color,
         const char* format, ...
-) SDLU_TYPESAFETY(5,6) SDL_DEPRECATED;
+) SDLU_TYPESAFETY(5,6) SDLU_DEPRECATED;
 
 /**
  *  \brief Similar to SDLU_RenderTextToSurface(), but pass args as a va_list
@@ -133,7 +140,7 @@ extern DECLSPEC int SDLCALL SDLU_RenderTextToSurfaceVa(
         SDL_Color text_color,
         const char* format,
         va_list arg
-) SDLU_TYPESAFETY(5,0) SDL_DEPRECATED;
+) SDLU_TYPESAFETY(5,0) SDLU_DEPRECATED;
 
 /**
  *  \brief Get the output size of text (in pixels)
@@ -145,7 +152,7 @@ extern DECLSPEC int SDLCALL SDLU_RenderTextToSurfaceVa(
 extern DECLSPEC void SDLCALL SDLU_GetTextOutputSize(
         const char* text,
         int *w, int *h
-) SDL_DEPRECATED;
+) SDLU_DEPRECATED;
 
 /**
  *  \brief Set the font size for SDLU_RenderText()
@@ -153,7 +160,7 @@ extern DECLSPEC void SDLCALL SDLU_GetTextOutputSize(
  *  \sa SDLU_RenderText()
  *  \sa SDLU_GetFontSize()
  */
-extern DECLSPEC void SDLCALL SDLU_SetFontSize(Uint32 size) SDL_DEPRECATED;
+extern DECLSPEC void SDLCALL SDLU_SetFontSize(Uint32 size) SDLU_DEPRECATED;
 
 /**
  *  \brief Get the current font size
@@ -161,7 +168,7 @@ extern DECLSPEC void SDLCALL SDLU_SetFontSize(Uint32 size) SDL_DEPRECATED;
  *  \sa SDLU_SetFontSize()
  *  \sa SDLU_GetTextWidthHeight()
  */
-extern DECLSPEC Uint32 SDLCALL SDLU_GetFontSize(void) SDL_DEPRECATED;
+extern DECLSPEC Uint32 SDLCALL SDLU_GetFontSize(void) SDLU_DEPRECATED;
 
 /**
  *  \brief Set a custom truetype font to be used by the engine
@@ -170,7 +177,7 @@ extern DECLSPEC Uint32 SDLCALL SDLU_GetFontSize(void) SDL_DEPRECATED;
  *
  *  \return 0 on success, -1 on error
  */
-extern DECLSPEC int SDLCALL SDLU_SetTruetypeFont(void* font) SDL_DEPRECATED;
+extern DECLSPEC int SDLCALL SDLU_SetTruetypeFont(void* font) SDLU_DEPRECATED;
 
 /**
  *  \brief Set a custom truetype font to be used by the engine
@@ -183,12 +190,12 @@ extern DECLSPEC int SDLCALL SDLU_SetTruetypeFont(void* font) SDL_DEPRECATED;
 extern DECLSPEC int SDLCALL SDLU_SetTruetypeFontFile(
         const char* font,
         int size
-) SDL_DEPRECATED;
+) SDLU_DEPRECATED;
 
 /**
  *  \brief Get the current truetype font
  */
-extern DECLSPEC void* SDLCALL SDLU_GetTruetypeFont(void) SDL_DEPRECATED;
+extern DECLSPEC void* SDLCALL SDLU_GetTruetypeFont(void) SDLU_DEPRECATED;
 
 #ifdef __cplusplus
 }

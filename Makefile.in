@@ -436,7 +436,7 @@ lib_LTLIBRARIES = libSDLU.la
 bin_SCRIPTS = sdlu-config
 extra_source_files = $(am__append_1) $(am__append_2) $(am__append_3) \
 	$(am__append_4) $(am__append_5)
-libSDLU_la_CFLAGS = -I$(srcdir)/src -I$(srcdir)/include
+libSDLU_la_CFLAGS = -I$(srcdir)/src -I$(srcdir)/include -DBUILD_SDLU
 libSDLU_la_OBJCFLAGS = $(libSDLU_la_CFLAGS)
 libSDLU_la_SOURCES = \
 		${extra_source_files}								\
