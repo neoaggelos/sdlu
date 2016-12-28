@@ -156,7 +156,7 @@ am__libSDLU_la_SOURCES_DIST = src/filedialog/SDLU_filedialog_cocoa.m \
 	src/filesystem/SDLU_filesystem_windows.c \
 	src/filesystem/SDLU_filesystem_dirent.c src/SDLU_common.c \
 	src/SDLU_userdata.c src/filedialog/SDLU_filedialog.c \
-	src/filesystem/SDLU_filesystem.c src/SDLU_gl.c \
+	src/filesystem/SDLU_filesystem.c src/SDLU_opengl.c \
 	src/SDLU_button.c src/SDLU_combobox.c src/SDLU_ini.c \
 	src/SDLU_pixels.c src/SDLU_render.c src/SDLU_create.c \
 	src/SDLU_framerate.c src/SDLU_font.c src/SDLU_sprite.c \
@@ -173,7 +173,7 @@ am_libSDLU_la_OBJECTS = $(am__objects_6) src/libSDLU_la-SDLU_common.lo \
 	src/libSDLU_la-SDLU_userdata.lo \
 	src/filedialog/libSDLU_la-SDLU_filedialog.lo \
 	src/filesystem/libSDLU_la-SDLU_filesystem.lo \
-	src/libSDLU_la-SDLU_gl.lo src/libSDLU_la-SDLU_button.lo \
+	src/libSDLU_la-SDLU_opengl.lo src/libSDLU_la-SDLU_button.lo \
 	src/libSDLU_la-SDLU_combobox.lo src/libSDLU_la-SDLU_ini.lo \
 	src/libSDLU_la-SDLU_pixels.lo src/libSDLU_la-SDLU_render.lo \
 	src/libSDLU_la-SDLU_create.lo src/libSDLU_la-SDLU_framerate.lo \
@@ -443,8 +443,8 @@ libSDLU_la_SOURCES = \
 		src/SDLU_common.c										\
 		src/SDLU_userdata.c									\
 		src/filedialog/SDLU_filedialog.c		\
-  		src/filesystem/SDLU_filesystem.c		\
-		src/SDLU_gl.c												\
+		src/filesystem/SDLU_filesystem.c		\
+		src/SDLU_opengl.c										\
 		src/SDLU_button.c										\
 		src/SDLU_combobox.c									\
 		src/SDLU_ini.c											\
@@ -463,7 +463,7 @@ include_HEADERS = \
 		include/SDLU_create.h			\
 		include/SDLU_defs.h				\
 		include/SDLU_filedialog.h		\
-    	include/SDLU_filesystem.h 		\
+		include/SDLU_filesystem.h 		\
 		include/SDLU_fps.h				\
 		include/SDLU_font.h				\
 		include/SDLU_hints.h			\
@@ -603,7 +603,7 @@ src/filedialog/libSDLU_la-SDLU_filedialog.lo:  \
 src/filesystem/libSDLU_la-SDLU_filesystem.lo:  \
 	src/filesystem/$(am__dirstamp) \
 	src/filesystem/$(DEPDIR)/$(am__dirstamp)
-src/libSDLU_la-SDLU_gl.lo: src/$(am__dirstamp) \
+src/libSDLU_la-SDLU_opengl.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libSDLU_la-SDLU_button.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -682,8 +682,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_create.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_font.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_framerate.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_gl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_ini.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_opengl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_pixels.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_render.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libSDLU_la-SDLU_sprite.Plo@am__quote@
@@ -777,12 +777,12 @@ src/filesystem/libSDLU_la-SDLU_filesystem.lo: src/filesystem/SDLU_filesystem.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/filesystem/libSDLU_la-SDLU_filesystem.lo `test -f 'src/filesystem/SDLU_filesystem.c' || echo '$(srcdir)/'`src/filesystem/SDLU_filesystem.c
 
-src/libSDLU_la-SDLU_gl.lo: src/SDLU_gl.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_gl.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_gl.Tpo -c -o src/libSDLU_la-SDLU_gl.lo `test -f 'src/SDLU_gl.c' || echo '$(srcdir)/'`src/SDLU_gl.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_gl.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_gl.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_gl.c' object='src/libSDLU_la-SDLU_gl.lo' libtool=yes @AMDEPBACKSLASH@
+src/libSDLU_la-SDLU_opengl.lo: src/SDLU_opengl.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_opengl.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_opengl.Tpo -c -o src/libSDLU_la-SDLU_opengl.lo `test -f 'src/SDLU_opengl.c' || echo '$(srcdir)/'`src/SDLU_opengl.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libSDLU_la-SDLU_opengl.Tpo src/$(DEPDIR)/libSDLU_la-SDLU_opengl.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/SDLU_opengl.c' object='src/libSDLU_la-SDLU_opengl.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_gl.lo `test -f 'src/SDLU_gl.c' || echo '$(srcdir)/'`src/SDLU_gl.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -c -o src/libSDLU_la-SDLU_opengl.lo `test -f 'src/SDLU_opengl.c' || echo '$(srcdir)/'`src/SDLU_opengl.c
 
 src/libSDLU_la-SDLU_button.lo: src/SDLU_button.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libSDLU_la_CFLAGS) $(CFLAGS) -MT src/libSDLU_la-SDLU_button.lo -MD -MP -MF src/$(DEPDIR)/libSDLU_la-SDLU_button.Tpo -c -o src/libSDLU_la-SDLU_button.lo `test -f 'src/SDLU_button.c' || echo '$(srcdir)/'`src/SDLU_button.c

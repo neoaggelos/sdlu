@@ -30,8 +30,8 @@ libSDLU_la_SOURCES = 										\
 		src/SDLU_common.c										\
 		src/SDLU_userdata.c									\
 		src/filedialog/SDLU_filedialog.c		\
-  		src/filesystem/SDLU_filesystem.c		\
-		src/SDLU_gl.c												\
+		src/filesystem/SDLU_filesystem.c		\
+		src/SDLU_opengl.c										\
 		src/SDLU_button.c										\
 		src/SDLU_combobox.c									\
 		src/SDLU_ini.c											\
@@ -50,7 +50,7 @@ include_HEADERS = 						\
 		include/SDLU_create.h			\
 		include/SDLU_defs.h				\
 		include/SDLU_filedialog.h		\
-    	include/SDLU_filesystem.h 		\
+		include/SDLU_filesystem.h 		\
 		include/SDLU_fps.h				\
 		include/SDLU_font.h				\
 		include/SDLU_hints.h			\

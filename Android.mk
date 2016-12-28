@@ -29,7 +29,7 @@ LOCAL_SRC_FILES := \
 	src/SDLU_create.c \
 	src/SDLU_framerate.c \
 	src/SDLU_font.c \
-	src/SDLU_gl.c \
+	src/SDLU_opengl.c \
 	src/SDLU_ini.c \
 	src/SDLU_pixels.c \
 	src/SDLU_render.c \

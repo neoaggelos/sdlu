@@ -19,12 +19,11 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-
 #include "SDLU.h"
 #include "SDLU_common.h"
 #include <stdio.h>
 
-#include "gl_defs.h"
+#include "SDLU_opengl_c.h"
 
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wpointer-sign"
