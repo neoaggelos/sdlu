@@ -32,7 +32,7 @@
  *  The SDL Utility Library
  *  Copyright (c) 2016 Aggelos Kolaitis <neoaggelos@gmail.com>
  *  
- *  http://sdlu.bitbucket.org
+ *  http://sdlu.bitbucket.io
  *  
  *  The SDL Utility Library (SDLU) is a cross-platform development library that
  *  provides APIs to make development of SDL2 applications faster and easier.
